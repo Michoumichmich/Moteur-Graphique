@@ -7,7 +7,7 @@ set(COMPILE_OPTIONS PRIVATE -v -flto=full -Wall -Wextra)
 
 find_package(MPI REQUIRED) #make it REQUIRED, if you want
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
-add_executable(demo src/business_card_demo.cpp)
+add_executable(demo business_card_demo.cpp)
 target_link_libraries(demo ${MPI_CXX_LIBRARIES})
 
 

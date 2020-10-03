@@ -5,13 +5,8 @@
 
 #define X_SIZE 512
 #define Y_SIZE 512
-#define STOCH_SAMPLING 32  // Min 1,
+#define STOCH_SAMPLING 64  // Min 1,
 #define ROOT 0
-
-
-//The set of sphere positions describing the world.
-//Those integers are in fact bit vectors.
-const int World[] = {247570, 280596, 280600, 249748, 18578, 18577, 231184, 16, 16};
 
 /*
 
@@ -34,11 +29,11 @@ double Rand() {
 
 //Define a vector class with constructor and operator: 'vector'
 struct vector {
-    double x{}, y{}, z{};  // Vector has three float attributes.
-    vector operator+(vector r) const { return {x + r.x, y + r.y, z + r.z}; } //Vector add
-    vector operator*(double r) const { return {x * r, y * r, z * r}; }       //Vector scaling
-    double operator%(vector r) const { return x * r.x + y * r.y + z * r.z; }    //vectorector dot product
-    vector() = default;                                  //Empty constructor
+    double x{}, y{}, z{};                                                               // Vector has three float attributes.
+    vector operator+(vector r) const { return {x + r.x, y + r.y, z + r.z}; }  //Vector add
+    vector operator*(double r) const { return {x * r, y * r, z * r}; }        //Vector scaling
+    double operator%(vector r) const { return x * r.x + y * r.y + z * r.z; }            //vectorector dot product
+    vector() = default;                                                                 //Empty constructor
     vector operator^(vector r) const {
         return {y * r.z - z * r.y, z * r.x - x * r.z, x * r.y - y * r.x};
     } //Cross-product
@@ -50,13 +45,17 @@ struct vector {
     vector operator!() { return *this * (1 / sqrt(*this % *this)); } // Used later for normalizing
 };
 
-
 const vector camera_dir = !vector(-6, -16, 0);    // Camera direction
 const vector camera_up = !(vector(0, 0, 1) ^ camera_dir) * .002; // Camera up vector...Seem Z is pointing up :/ WTF !
-const vector camera_right =
-        !(camera_dir ^ camera_up) * .002;       // The right vector, obtained via traditional cross-product
-const vector eye_offset =
-        (camera_up + camera_right) * -256 + camera_dir;       // WTF ? See https://news.ycombinator.com/item?id=6425965.
+const vector camera_right = !(camera_dir ^ camera_up) * .002;       // The right vector, obtained via traditional cross-product
+const vector eye_offset = (camera_up + camera_right) * -256 + camera_dir;       // WTF ? See https://news.ycombinator.com/item?id=6425965.
+
+
+
+
+//The set of sphere positions describing the world.
+//Those integers are in fact bit vectors.
+const int World[] = {247570, 280596, 280600, 249748, 18578, 18577, 231184, 16, 16};
 
 //The intersection test for line [o,v].
 // Return 2 if a hit was found (and also return distance t and bouncing ray n).
@@ -84,10 +83,8 @@ int T(vector o, vector d, double &t, vector &n) {
                 if (q > 0)  //Does the ray hit the sphere ?
                 {
                     double s = -b - sqrt(q); //It does, compute the distance camera-sphere
-                    if (s < t && s > .01) {
-// So far this is the minimum distance, save it. And also
-// compute the bouncing ray vector into 'n'
-                        t = s;
+                    if (s < t && s > .01) { // So far this is the minimum distance, save it. And also
+                        t = s; // compute the bouncing ray vector into 'n'
                         n = !(p + d * t);
                         m = 2;
                     }
@@ -137,7 +134,7 @@ vector sample_color(vector o, vector d) {
 vector compute_pixel(int x, int y) {
     vector tmp, color, origin, direction;
     //Reuse the vector class to store not XYZ but a RGB pixel color
-    vector p(13, 13, 13);     // Default pixel color is almost pitch black
+    vector out_color(13, 13, 13);     // Default pixel color is almost pitch black
     //Cast 64 rays per pixel (For blur (stochastic sampling) and soft-shadows.
     const double stoch_coeff = 224. / STOCH_SAMPLING;
     for (int r = STOCH_SAMPLING; r--;) {
@@ -150,63 +147,58 @@ vector compute_pixel(int x, int y) {
         direction = !(tmp * -1 + (camera_up * (Rand() + x) + camera_right * (y + Rand()) + eye_offset) *
                                  16); // for stochastic sampling
         color = sample_color(origin, direction);
-        p = color * stoch_coeff + p; // +p for color accumulation
+        out_color = color * stoch_coeff + out_color; // +p for color accumulation
     }
-    return p;
+    return out_color;
 }
 
 
-void print_line(int *line) {
+void print_line(char *line) {
     for (int i = 0; i < X_SIZE; i++) {
-        printf("%c%c%c", (char) line[3 * i + 0], (char) line[3 * i + 1], (char) line[3 * i + 2]);
+        printf("%c%c%c", line[3 * i + 0], line[3 * i + 1], line[3 * i + 2]);
     }
 }
 
-void compute_line(int y, int *buff_line) {
-
+void compute_line(int y, char *buff_line) {
     vector p;
     for (int x = 0; x < X_SIZE; x++) {   //For each pixel in a line
         p = compute_pixel(X_SIZE - x, y); //L'inversion c'est juste pour le format ppm
-        buff_line[3 * x + 0] = (int) p.x;
-        buff_line[3 * x + 1] = (int) p.y;
-        buff_line[3 * x + 2] = (int) p.z;
+        buff_line[3 * x + 0] = (char) p.x;
+        buff_line[3 * x + 1] = (char) p.y;
+        buff_line[3 * x + 2] = (char) p.z;
     }
 }
 
 
-// The main function. It generates a PPM image to stdout.
-// Usage of the program is hence: ./card > erk.ppm
+/**
+ * The main function. It generates a PPM image to stdout.
+ * @return  Usage of the program is hence: ./card > erk.ppm
+ */
 int main() {
-
-    // The '!' are for normalizing each vectors with ! operator.
-
-    /**
-     * Début MPI
-     */
     int rank, world_size;
     MPI_Init(nullptr, nullptr);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
+    if (rank == Y_SIZE) { // par la peine d'afficher le message pour les rangs supérieurs
+        fprintf(stderr, "Plus de processus MPI lancés que nécessaire\n");
+    }
+
+    char *all_lines;
     const int line_size = X_SIZE * 3;
     const int proc_data_size = ((Y_SIZE / world_size) + (Y_SIZE % world_size)) * line_size;
-    int *all_lines;
+    all_lines = (rank == ROOT) ? (char *) calloc(sizeof(char), proc_data_size * world_size) : nullptr;
 
 
-    if (rank == ROOT) {
-        all_lines = (int *) calloc(sizeof(int), proc_data_size * world_size);
-    } else {
-        all_lines = nullptr;
-    }
-
-    int *local_lines = (int *) calloc(sizeof(int),
-                                      proc_data_size); // Chaque processus calcule les lignes y % world_size == rank
+    char *proc_lines = (char *) calloc(sizeof(char), proc_data_size); // Chaque processus calcule les lignes y % world_size == rank
     for (int y = 0; (y * world_size) + rank < Y_SIZE; y++) { //For each column
-        compute_line((y * world_size) + rank, local_lines + line_size * y);
+        compute_line((y * world_size) + rank, proc_lines + line_size * y);
     }
 
-    MPI_Gather(local_lines, proc_data_size, MPI_INT, all_lines, proc_data_size, MPI_INT, ROOT, MPI_COMM_WORLD);
-    free(local_lines);
+    MPI_Gather(proc_lines, proc_data_size, MPI_CHAR, all_lines, proc_data_size, MPI_CHAR, ROOT, MPI_COMM_WORLD);
+
+    MPI_Finalize();
+    free(proc_lines);
 
     if (rank == ROOT) {
         printf("P6 %d %d 255 ", X_SIZE, Y_SIZE); // The PPM Header is issued
@@ -218,7 +210,6 @@ int main() {
         }
         free(all_lines);
     }
-    MPI_Finalize();
     fflush(stdout);
     return 0;
 }
