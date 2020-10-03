@@ -5,7 +5,7 @@
 
 #define X_SIZE 512
 #define Y_SIZE 512
-#define STOCH_SAMPLING 64  // Min 1,
+#define STOCH_SAMPLING 64 // Min 1,
 #define ROOT 0
 
 /*
@@ -178,41 +178,55 @@ void compute_line(int y, char *buff_line) {
  * @return  Usage of the program is hence: ./card > erk.ppm
  */
 int main() {
+    // MPI Stuff
     int rank, world_size;
     MPI_Init(nullptr, nullptr);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-
     if (rank == Y_SIZE) { // par la peine d'afficher le message pour les rangs supérieurs
         fprintf(stderr, "Plus de processus MPI lancés que nécessaire\n");
     }
 
-    char *all_lines;
+    // on calcule les tailles des buffers avec les données de MPI_COMM_WORLD
     const int line_size = X_SIZE * 3;
-    const int proc_data_size = ((Y_SIZE / world_size) + (Y_SIZE % world_size)) * line_size;
-    all_lines = (rank == ROOT) ? (char *) calloc(sizeof(char), proc_data_size * world_size) : nullptr;
+    const int start = Y_SIZE / world_size * rank;
+    const int count = Y_SIZE / world_size + (rank == world_size - 1 ? Y_SIZE % world_size : 0);
 
-
-    char *proc_lines = (char *) calloc(sizeof(char), proc_data_size); // Chaque processus calcule les lignes y % world_size == rank
-    for (int y = 0; (y * world_size) + rank < Y_SIZE; y++) { //For each column
-        compute_line((y * world_size) + rank, proc_lines + line_size * y);
+    char *thread_data = (char *) calloc(sizeof(char), line_size * count);
+    for (int y = 0; y < count; y++) { // Chaque processus calcule les lignes y % world_size == rank
+        compute_line(start + y, thread_data + line_size * y);
     }
 
-    MPI_Gather(proc_lines, proc_data_size, MPI_CHAR, all_lines, proc_data_size, MPI_CHAR, ROOT, MPI_COMM_WORLD);
-
-    MPI_Finalize();
-    free(proc_lines);
-
-    if (rank == ROOT) {
+    /**
+     * Chaque processus MPI va envoyer son exemplaire de thread_data qui contient toutes les lignes entrlacées
+     * Elles seront récupérées par le ROOT et iront dans all_data
+     */
+    if (rank != ROOT) {
+        char *all_data = nullptr;
+        int *receive_sizes_array = nullptr;
+        int *displacements = nullptr;
+        MPI_Gatherv(thread_data, line_size * count, MPI_CHAR, all_data, receive_sizes_array, displacements, MPI_CHAR, ROOT, MPI_COMM_WORLD);
+    } else {
+        char *all_data = (char *) calloc(sizeof(char), Y_SIZE * line_size);
+        int *receive_count = (int *) calloc(sizeof(int), world_size);
+        int *displacements = (int *) calloc(sizeof(int), world_size);
+        int def_count = count * line_size;
+        for (int i = 0; i < world_size; i++) {
+            receive_count[i] = def_count;
+            displacements[i] = def_count * i;
+        }
+        receive_count[world_size - 1] = (Y_SIZE % world_size + count) * line_size;
+        MPI_Gatherv(thread_data, line_size * count, MPI_CHAR, all_data, receive_count, displacements, MPI_CHAR, ROOT, MPI_COMM_WORLD);
         printf("P6 %d %d 255 ", X_SIZE, Y_SIZE); // The PPM Header is issued
         for (int y = Y_SIZE; y--;) {
-            int proc_computed_line = y % world_size;
-            int line_number_in_proc = y / world_size;
-            int offset = proc_data_size * proc_computed_line + line_number_in_proc * line_size;
-            print_line(all_lines + offset);
+            print_line(all_data + y * line_size);
         }
-        free(all_lines);
+        fflush(stdout);
+        free(all_data);
+        free(displacements);
+        free(thread_data);
+        free(receive_count);
     }
-    fflush(stdout);
+    MPI_Finalize();
     return 0;
 }
