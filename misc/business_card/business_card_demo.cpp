@@ -23,7 +23,7 @@
 */
 
 // Random generator, return a float within range [0-1]
-double Rand() {
+double d_rand() {
     return (double) rand() / RAND_MAX;
 }
 
@@ -32,17 +32,15 @@ struct vector {
     double x{}, y{}, z{};                                                               // Vector has three float attributes.
     vector operator+(vector r) const { return {x + r.x, y + r.y, z + r.z}; }  //Vector add
     vector operator*(double r) const { return {x * r, y * r, z * r}; }        //Vector scaling
-    double operator%(vector r) const { return x * r.x + y * r.y + z * r.z; }            //vectorector dot product
-    vector() = default;                                                                 //Empty constructor
-    vector operator^(vector r) const {
-        return {y * r.z - z * r.y, z * r.x - x * r.z, x * r.y - y * r.x};
-    } //Cross-product
-    vector(double a, double b, double c) {
-        x = a;
-        y = b;
-        z = c;
-    }            //Constructor
     vector operator!() { return *this * (1 / sqrt(*this % *this)); } // Used later for normalizing
+    vector operator^(vector r) const { return {y * r.z - z * r.y, z * r.x - x * r.z, x * r.y - y * r.x}; } //Cross-product
+    double operator%(vector r) const { return x * r.x + y * r.y + z * r.z; }            //vectorector dot product
+    vector(double x, double y, double z) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+    }            //Constructor
+    vector() = default;                                                                 //Empty constructor
 };
 
 const vector camera_dir = !vector(-6, -16, 0);    // Camera direction
@@ -55,76 +53,83 @@ const vector eye_offset = (camera_up + camera_right) * -256 + camera_dir;       
 
 //The set of sphere positions describing the world.
 //Those integers are in fact bit vectors.
-const int World[] = {247570, 280596, 280600, 249748, 18578, 18577, 231184, 16, 16};
+const unsigned world[] = {247570u, 280596u, 280600u, 249748u, 18578u, 18577u, 231184u, 16u, 16u};
 
-//The intersection test for line [o,v].
-// Return 2 if a hit was found (and also return distance t and bouncing ray n).
-// Return 0 if no hit was found but ray goes upward
-// Return 1 if no hit was found but ray goes downward
-int T(vector o, vector d, double &t, vector &n) {
-    t = 1e9;
-    int m = 0;
-    double p = -o.z / d.z;
-    if (.01 < p) {
-        t = p;
-        n = vector(0, 0, 1);
-        m = 1;
+/**
+ * Looks for intersections in the world.
+ * @param origin
+ * @param direction
+ * @param distance if hit, is updated to the parametric value to compute the distance of intersection
+ * @param bounce_normal_vector if hit, is updated to the half-vector where the ray bounce
+ * @return  2 if a hit was found (and also return distance t and bouncing ray n).
+ *          0 if no hit was found but ray goes upward
+ *          1 if no hit was found but ray goes downward
+ */
+int ray_tracer(vector origin, vector direction, double &distance, vector &bounce_normal_vector) {
+    distance = 1e9;
+    int result = 0;
+    double d = -origin.z / direction.z;
+    if (.01 < d) {
+        distance = d;
+        bounce_normal_vector = vector(0, 0, 1);
+        result = 1;
     }
 
 //The world is encoded in G, with 9 lines and 19 columns
-    for (int k = 19; k--;) {  //For each columns of objects
-        for (int j = 9; j--;) {   //For each line on that columns
-            if (World[j] & 1 << k) { //For this line j, is there a sphere at column i ?
+    for (int i = 0; i < 19; i++) {  //For each columns of objects
+        for (int j = 0; j < 9; j++) {   //For each line on that columns
+            if (world[j] & 1u << i) { //For this line j, is there a sphere at column i ?
                 // There is a sphere but does the ray hits it ?
-                vector p = o + vector(-k, 0, -j - 4);
-                double b = p % d;
+                vector p = origin + vector(-i, 0, -j - 4);
+                double b = p % direction;
                 double c = p % p - 1;
                 double q = b * b - c;
-                if (q > 0)  //Does the ray hit the sphere ?
-                {
+                if (q > 0) {  //Does the ray hit the sphere ?
                     double s = -b - sqrt(q); //It does, compute the distance camera-sphere
-                    if (s < t && s > .01) { // So far this is the minimum distance, save it. And also
-                        t = s; // compute the bouncing ray vector into 'n'
-                        n = !(p + d * t);
-                        m = 2;
+                    if (s < distance && s > .01) { // So far this is the minimum distance, save it. And also
+                        distance = s; // compute the bouncing ray vector into 'n'
+                        bounce_normal_vector = !(p + direction * distance);
+                        result = 2;
                     }
                 }
             }
         }
     }
-    return m;
+    return result;
 }
 
-// (sample_color)ample the world and return the pixel color for
-// a ray passing by point o (Origin) and d (Direction)
-vector sample_color(vector o, vector d) {
+/**
+ * Returns a vector containing the pixel's color
+ * @param origin
+ * @param direction
+ * @return a vector
+ */
+vector sample_color(vector origin, vector direction) {
     double t;
     vector n;
 
-    //Search for an intersection ray Vs World.
-    int m = T(o, d, t, n);
+    int m = ray_tracer(origin, direction, t, n);  //Search for an intersection ray Vs world.
 
     if (m == 0) { // m==0 ; No sphere found and the ray goes upward: Generate a sky color
-        return vector(.7, .6, 1) * pow(1 - d.z, 4);
+        return vector(.7, .6, 1) * pow(1 - direction.z, 4);
     }
 
     //A sphere was maybe hit.
-    vector h = o + d * t,                    // h = intersection coordinate
-    l = !(vector(9 + Rand(), 9 + Rand(), 16) + h * -1),  // 'l' = direction to light (random delta for shadows).
-    r = d + n * (n % d * -2);               // r = The half-vector
+    vector h = origin + direction * t,                    // h = intersection coordinate
+    l = !(vector(9 + d_rand(), 9 + d_rand(), 16) + h * -1),  // 'l' = direction to light (random delta for shadows).
+    r = direction + n * (n % direction * -2);               // r = The half-vector
 
     double b = l % n; //Calculated the lambertian factor
 
-    if (b < 0 || T(h, l, t, n)) { //Calculate illumination factor (lambertian coefficient > 0 or in shadow)?
+    if (b < 0 || ray_tracer(h, l, t, n)) { //Calculate illumination factor (lambertian coefficient > 0 or in shadow)?
         b = 0;
     }
 
-    // Calculate the color 'p' with diffuse and specular component
-    double p = pow(l % r * (b > 0), 99);
+    double p = pow(l % r * (b > 0), 99);  // Calculate the color 'p' with diffuse and specular component
 
     if (m == 1) {
         h = h * .2; //No sphere was hit and the ray was going downward: Generate a floor color
-        return ((int) (ceil(h.x) + ceil(h.y)) & 1 ? vector(3, 1, 1) : vector(3, 3, 3)) * (b * .2 + .1);
+        return ((unsigned) (ceil(h.x) + ceil(h.y)) & 1u ? vector(3, 1, 1) : vector(3, 3, 3)) * (b * .2 + .1);
     } else { //m == 2 A sphere was hit. Cast an ray bouncing from the sphere surface.
         return vector(p, p, p) + sample_color(h, r) * .5; //Attenuate color by 50% since it is bouncing (* .5)
     }
@@ -137,21 +142,19 @@ vector compute_pixel(int x, int y) {
     vector out_color(13, 13, 13);     // Default pixel color is almost pitch black
     //Cast 64 rays per pixel (For blur (stochastic sampling) and soft-shadows.
     const double stoch_coeff = 224. / STOCH_SAMPLING;
-    for (int r = STOCH_SAMPLING; r--;) {
+    for (int i = 0; i < STOCH_SAMPLING; i++) {
         // The delta to apply to the origin of the view (For Depth of View blur).
-        tmp = camera_up * (Rand() - .5) * 99 + camera_right * (Rand() - .5) * 99; // A little bit of delta
+        tmp = camera_up * (d_rand() - .5) * 99 + camera_right * (d_rand() - .5) * 99; // A little bit of delta
         // Set the camera focal point vector(17,16,8) and Cast the ray
         // Accumulate the color returned in the p variable
 
         origin = vector(17, 16, 8) + tmp; //Ray Origin
-        direction = !(tmp * -1 + (camera_up * (Rand() + x) + camera_right * (y + Rand()) + eye_offset) *
-                                 16); // for stochastic sampling
+        direction = !(tmp * -1 + (camera_up * (d_rand() + x) + camera_right * (y + d_rand()) + eye_offset) * 16); // for stochastic sampling
         color = sample_color(origin, direction);
         out_color = color * stoch_coeff + out_color; // +p for color accumulation
     }
     return out_color;
 }
-
 
 void print_line(char *line) {
     for (int i = 0; i < X_SIZE; i++) {

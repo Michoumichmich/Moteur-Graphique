@@ -3,7 +3,7 @@ project(3D_Renderer CXX)
 set (CMAKE_CXX_STANDARD 11)
 
 
-set(COMPILE_OPTIONS PRIVATE -v -flto=full -Wall -Wextra)
+set(COMPILE_OPTIONS PRIVATE -v -flto=full -Wall -Wextra -O3)
 
 find_package(MPI REQUIRED) #make it REQUIRED, if you want
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})

@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 /cmake-build-debug/
+/misc/business_card/test.ppm
+/misc/business_card/card
+misc/business_card/cmake-build-debug/

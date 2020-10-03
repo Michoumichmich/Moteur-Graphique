@@ -1,6 +1,6 @@
 .PHONY:
 exec:
-	mpic++ -o card business_card_demo.cpp
+	mpic++ -o card business_card_demo.cpp -flto=full -O3
 
 run: exec
 	mpirun -np $(shell nproc) -oversubscribe ./card > test.ppm
