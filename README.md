@@ -10,7 +10,7 @@
 | GAGLIANO | Vivien | ** |
 | MALLARDEAU | Lilian | ** |
 | MIGDAL | Michel | michel.migal@ensiie.fr |
-| RIOS | Timothée | ** |
+| RIOS | Timothé | ** |
 | VENOT | Nicolas | ** |
 
 ### Sujet : 
