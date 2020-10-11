@@ -1,0 +1,2 @@
+#include "OutputPictureManager.h"
+

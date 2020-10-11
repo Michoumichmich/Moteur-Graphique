@@ -1,8 +1,9 @@
-#include <mpi.h>
+#include "raytracer/RayTracer.h"
+
 
 int main(int argc, char **argv) {
-    MPI_Init(&argc, &argv);
+//    MPI_Init(&argc, &argv);
     //Do stuff;
-    MPI_Finalize();
+    //  MPI_Finalize();
     return 0;
 }

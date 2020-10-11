@@ -1,0 +1,10 @@
+#ifndef GRAPHIC_ENGINE_RENDERER_H
+#define GRAPHIC_ENGINE_RENDERER_H
+
+
+class Renderer {
+
+};
+
+
+#endif //GRAPHIC_ENGINE_RENDERER_H
