@@ -4,13 +4,12 @@
 #include <environment.h>
 #include <utils.h>
 
-#include <Renderer.h>
 
-class RayTracer : Renderer {
+class RayTracer {
 private:
     Environment environment;
 public:
-    explicit RayTracer(Environment);
+    RayTracer();
 };
 
 #endif //GRAPHIC_ENGINE_RAYTRACER_H

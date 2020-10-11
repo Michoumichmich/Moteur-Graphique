@@ -7,15 +7,15 @@
 #include "ApparenceProperties.h"
 
 class Object {
-private:
+protected:
     Point3D absoluteCenterPosition;
-    std::list<Tessel> tessels;
+    double xRotation;
+    double yRotation;
+    double zRotation;
+    std::list<Tessel *> tessels;
     ApparenceProperties properties;
 public:
-    /**
-     * sets the list of tessels
-     */
-    //virtual void Tesselate();
+    virtual void Tesselate();
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

@@ -9,11 +9,15 @@
 
 class Environment {
 private:
-    std::list<Camera> cameras;
-    std::list<Tessel> allTessels;
-    std::list<Object> allOjects;
+    std::list<Camera *> cameras;
+    std::list<Tessel *> allTessels;
+    std::list<Object *> allOjects;
 public:
     std::string envName;
+
+    Environment(std::string name);
+
+    Environment();
 };
 
 
