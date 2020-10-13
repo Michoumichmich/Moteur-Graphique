@@ -1,25 +1,26 @@
 #ifndef GRAPHIC_ENGINE_RENDERER_H
 #define GRAPHIC_ENGINE_RENDERER_H
 
-#include <raytracer.h>
-
+#include <config.h>
+#include <environment.h>
 
 enum renderer_type {
-    RAYTRACER = 0
+    RAYTRACER,
 };
 
 class Renderer {
-private:
-    enum renderer_type type;
-    RayTracer *rayTracer = new RayTracer;
-public:
-    Renderer();
-
-    Renderer(enum renderer_type);
-
+ protected:
+  explicit Renderer(renderer_type);
+  enum renderer_type type;
+  unsigned int width = DEFAULT_WIDTH;
+  unsigned int height = DEFAULT_HEIGHT;
+  Environment *environment;
+  OutputPictureManager *picManager;
+ public:
+  Renderer();
+  void SetRendererResolution(unsigned int, unsigned int);
+  void SetEnvironment(Environment *);
+  virtual void renderScene() = 0;
 };
-
-
-
 
 #endif //GRAPHIC_ENGINE_RENDERER_H

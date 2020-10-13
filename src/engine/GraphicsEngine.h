@@ -14,22 +14,25 @@
  * Where we manage the environments and we can launch a render
  */
 class GraphicsEngine {
-private:
-    std::list<Environment *> environments;
-    Renderer *renderer{};
-    Environment *currentEnv{};
-    OutputPictureManager picManager;
-public:
-    void launchRender(const std::string &outName);
+ private:
+  std::list<Environment *> environments;
+  Renderer *renderer{};
+  Environment *currentEnv{};
+  OutputPictureManager *picManager;
+ public:
+  void launchRender(const std::string &outName);
 
-    GraphicsEngine();
+  GraphicsEngine();
 
-    void createEnvironment(std::string name);
+  void createEnvironment(std::string name);
 
-    void switchEnvironment(std::string name);
+  void switchEnvironment(std::string name);
 
-    void setRenderer(enum renderer_type = RAYTRACER);
+  void setRenderer(Renderer *);
+
+  OutputPictureManager *getPicManager();
+
+  Environment *getCurrentEnvironment();
 };
-
 
 #endif //GRAPHIC_ENGINE_GRAPHICSENGINE_H

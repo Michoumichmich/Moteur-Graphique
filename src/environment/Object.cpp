@@ -1,6 +1,6 @@
 #include "Object.h"
 
-
-void Object::Tesselate() {
+void Object::Tesselate()
+{
 
 }

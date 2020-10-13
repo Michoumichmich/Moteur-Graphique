@@ -1,4 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define DEFAULT_WIDTH 1000
+#define DEFAULT_HEIGHT 1000
+
 #endif //INC_3D_RENDERER_CONFIG_H

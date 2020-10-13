@@ -6,5 +6,6 @@
 #include "../environment/Tessel.h"
 #include "../environment/Camera.h"
 #include "../environment/ApparenceProperties.h"
+#include "../environment/MappedTexture.h"
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

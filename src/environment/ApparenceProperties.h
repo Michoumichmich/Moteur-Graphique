@@ -4,12 +4,16 @@
 #include <utils.h>
 
 class ApparenceProperties {
-public:
-    Color color;
-    double refractiveIndex;
-    double transparency;
-    double diffusivity;
+ public:
+  /**
+   * Either object's or light's color
+   */
+  Color color;
+  double refractiveIndex;
+  double transparency;
+  double diffusivity;
+  bool emitsLight;
+  double lightBrightness;
 };
-
 
 #endif //GRAPHIC_ENGINE_APPARENCEPROPERTIES_H
