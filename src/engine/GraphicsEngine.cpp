@@ -20,7 +20,7 @@ void GraphicsEngine::switchEnvironment(std::string name)
   //TODO
 }
 
-void GraphicsEngine::setRenderer(Renderer *renderer)
+void GraphicsEngine::setRenderer(Abstract_Renderer *renderer)
 {
   this->renderer = renderer;
 }

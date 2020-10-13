@@ -8,16 +8,16 @@ enum renderer_type {
     RAYTRACER,
 };
 
-class Renderer {
+class Abstract_Renderer {
  protected:
-  explicit Renderer(renderer_type);
+  explicit Abstract_Renderer(renderer_type);
   enum renderer_type type;
   unsigned int width = DEFAULT_WIDTH;
   unsigned int height = DEFAULT_HEIGHT;
   Environment *environment;
   OutputPictureManager *picManager;
  public:
-  Renderer();
+  Abstract_Renderer();
   void SetRendererResolution(unsigned int, unsigned int);
   void SetEnvironment(Environment *);
   virtual void renderScene() = 0;

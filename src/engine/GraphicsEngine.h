@@ -8,7 +8,7 @@
 #include <utils.h>
 #include <string>
 
-#include "Renderer.h"
+#include "Abstract_Renderer.h"
 
 /**
  * Where we manage the environments and we can launch a render
@@ -16,7 +16,7 @@
 class GraphicsEngine {
  private:
   std::list<Environment *> environments;
-  Renderer *renderer{};
+  Abstract_Renderer *renderer{};
   Environment *currentEnv{};
   OutputPictureManager *picManager;
  public:
@@ -28,11 +28,12 @@ class GraphicsEngine {
 
   void switchEnvironment(std::string name);
 
-  void setRenderer(Renderer *);
+  Environment *getCurrentEnvironment();
+
+  void setRenderer(Abstract_Renderer *);
 
   OutputPictureManager *getPicManager();
 
-  Environment *getCurrentEnvironment();
 };
 
 #endif //GRAPHIC_ENGINE_GRAPHICSENGINE_H

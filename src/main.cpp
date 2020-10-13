@@ -15,7 +15,7 @@ int main(int argc, char **argv)
    */
   auto *gr = new GraphicsEngine();
   gr->createEnvironment("firstEnv");
-  RayTracer *renderer = new RayTracer(gr->getCurrentEnvironment(), gr->getPicManager());
+  RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), gr->getPicManager());
   gr->setRenderer(renderer);
 
   delete gr;

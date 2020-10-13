@@ -7,7 +7,7 @@
 
 #include <environment.h>
 #include <utils.h>
-#include "../engine/Renderer.h"
+#include "../engine/Abstract_Renderer.h"
 #include "RT_RayEnvIntersector.h"
 
 enum rayTracerRenderMode {
@@ -27,14 +27,14 @@ struct rayTracerConfig {
 
 };
 
-class RayTracer : public Renderer {
+class RT_RayTracer : public Abstract_Renderer {
  private:
   Environment *environment{};
   struct rayTracerConfig config;
   RT_RayEnvIntersector *envIntersector;
  public:
-  explicit RayTracer(Environment *, OutputPictureManager *);
-  RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
+  explicit RT_RayTracer(Environment *, OutputPictureManager *);
+  RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
   void renderScene() override;
 };
 
