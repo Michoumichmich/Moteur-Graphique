@@ -1,1 +1,1 @@
-Les interfaces utilisateur pouvant être utilisées pour interragit avec le moteur ie GraphicsEngine. 
+Les interfaces utilisateur pouvant être utilisées pour interagir avec le moteur ie GraphicsEngine. 
