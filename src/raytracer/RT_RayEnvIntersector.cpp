@@ -22,6 +22,9 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir,
         return false;
     }
 
+    //TODO
+
+
     return true;
 }
 
