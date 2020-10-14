@@ -1,8 +1,5 @@
-//
-// Created by michel on 11/10/2020.
-//
-
 #include "Point3D.h"
+#include <cmath>
 
 double Point3D::getX() const
 {
@@ -44,4 +41,8 @@ Point3D::Point3D() : Point3D(0, 0, 0)
 Point3D::Point3D(double x, double y, double z)
 {
   this->setX(x).setY(y).setZ(z);
+}
+double Point3D::distance(Point3D a, Point3D b)
+{
+  return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2));
 }

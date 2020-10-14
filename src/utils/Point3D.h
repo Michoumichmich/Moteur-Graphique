@@ -22,6 +22,9 @@ class Point3D {
   Point3D();
 
   Point3D(double, double, double);
+
+  static double distance(Point3D, Point3D);
+
 };
 
 #endif //GRAPHIC_ENGINE_POINT3D_H

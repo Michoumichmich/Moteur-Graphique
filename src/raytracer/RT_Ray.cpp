@@ -4,27 +4,37 @@
 RT_Ray::RT_Ray(Vector vec, Point3D orig, unsigned int counter) : dir(vec), origin(orig), bouncesLeftCounter(counter)
 {
 }
-void RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic)
+void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic)
 {
-//TODO Computes the ray recursively
-  struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
-  if (!res.intersectsSometing)
+  struct RT_RayOutput res = RT_ComputeDescendingRay(dir, origin, bouncesLeftCounter, intersector);
+  pic->writePixel(res.resultColor, x, y);
+}
+
+struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector)
+{
+  if (rayIntensity == 0 | bouncingsLeft == 0)
     {
-      /**
-       * Le rayon est parti dans le vide
-       */
-      pic->writePixel(Color(BLACK), x, y);
+      // TIDI return {}
     }
-  else
+  //TODO Computes the ray recursively
+  struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
+  if (!res.intersectsSometing || res.type == INF)
     {
-      if (res.type == MAPPED_TEXTURE)
-        {
-          /**
-           * On a touché une texture, on affiche la couleur du pixel
-           */
-          pic->writePixel(res.texture->getPixelAtCoordinates(res.intersectionPoint), x, y);
-        }
-      //TODO les autres cas.
+      return RT_RayOutput{Color(BLACK), -1};
     }
 
+  if (res.type == MAPPED_TEXTURE)
+    {
+      /**
+       * On a touché une texture, on affiche la couleur du pixel
+       */
+      return RT_RayOutput{res.texture->getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint)};
+    }
+
+  if (res.type == TESSEL)
+    {
+      // TODO Ca se complique, et on se rappelle récursivement jusqu'à l'extinction du rayon.
+    }
+
+  return RT_RayOutput();
 }
