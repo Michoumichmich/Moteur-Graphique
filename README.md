@@ -9,8 +9,8 @@
 | BROUAT | Maxime | ** |
 | GAGLIANO | Vivien | vivien.gagliano@ensiie.fr |
 | MALLARDEAU | Lilian | ** |
-| MIGDAL | Michel | michel.migal@ensiie.fr |
-| RIOS | Timothée | ** |
+| MIGDAL | Michel | etu@mgdl.fr |
+| RIOS | Timothé | ** |
 | VENOT | Nicolas | ** |
 
 ### Sujet : 
