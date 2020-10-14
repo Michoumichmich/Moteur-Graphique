@@ -1,9 +1,11 @@
 #include "Tessel.h"
 
 Tessel::Tessel() {
-//TODO
+
 }
 
-Tessel::Tessel(Point3D a, Point3D b, Point3D c, ApparenceProperties prop) {
-    //TODO
+Tessel::Tessel(Point3D p1, Point3D p2, Point3D p3, ApparenceProperties prop) {
+    summmits[0] = p1;
+    summmits[1] = p2;
+    summmits[2] = p3;
 }
