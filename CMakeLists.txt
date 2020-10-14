@@ -3,7 +3,7 @@ project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 11)
 
 
-set(COMPILE_OPTIONS PRIVATE -v -flto=full -Wall -Wextra)
+set(COMPILE_OPTIONS PRIVATE -v -Wall -Wextra)
 
 
 #find_package(MPI) #make it REQUIRED, if you want

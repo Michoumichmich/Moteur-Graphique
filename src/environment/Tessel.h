@@ -8,6 +8,7 @@
 class Tessel {
 public:
     Tessel();
+  Tessel(Tessel const &);
 
     Tessel(Point3D, Point3D, Point3D, ApparenceProperties);
 

@@ -12,6 +12,7 @@
  */
 #define unlikely(x)     __builtin_expect((x),0)
 
+#define PI 3.1415926
 
 #define DEFAULT_WIDTH 1000
 #define DEFAULT_HEIGHT 1000
