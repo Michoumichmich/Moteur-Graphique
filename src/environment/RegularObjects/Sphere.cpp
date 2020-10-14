@@ -4,7 +4,6 @@
 
 #include "Sphere.h"
 
-void Sphere::Tesselate()
-{
-  this->tessels.push_back(new Tessel());
+void Sphere::Tesselate() {
+    this->tessels.push_back(new Tessel());
 }

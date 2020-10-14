@@ -9,18 +9,22 @@ enum renderer_type {
 };
 
 class Abstract_Renderer {
- protected:
-  explicit Abstract_Renderer(renderer_type);
-  enum renderer_type type;
-  unsigned int width = DEFAULT_WIDTH;
-  unsigned int height = DEFAULT_HEIGHT;
-  Environment *environment;
-  OutputPictureManager *picManager;
- public:
-  Abstract_Renderer();
-  void SetRendererResolution(unsigned int, unsigned int);
-  void SetEnvironment(Environment *);
-  virtual void renderScene() = 0;
+protected:
+    explicit Abstract_Renderer(renderer_type);
+
+    enum renderer_type type;
+    unsigned int width = DEFAULT_WIDTH;
+    unsigned int height = DEFAULT_HEIGHT;
+    Environment *environment;
+    OutputPictureManager *picManager;
+public:
+    Abstract_Renderer();
+
+    void SetRendererResolution(unsigned int, unsigned int);
+
+    void SetEnvironment(Environment *);
+
+    virtual void renderScene() = 0;
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H

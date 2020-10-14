@@ -28,14 +28,16 @@ struct rayTracerConfig {
 };
 
 class RT_RayTracer : public Abstract_Renderer {
- private:
-  Environment *environment{};
-  struct rayTracerConfig config;
-  RT_RayEnvIntersector *envIntersector;
- public:
-  explicit RT_RayTracer(Environment *, OutputPictureManager *);
-  RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
-  void renderScene() override;
+private:
+    Environment *environment{};
+    struct rayTracerConfig config;
+    RT_RayEnvIntersector *envIntersector;
+public:
+    explicit RT_RayTracer(Environment *, OutputPictureManager *);
+
+    RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
+
+    void renderScene() override;
 };
 
 #endif //GRAPHIC_ENGINE_RAYTRACER_H

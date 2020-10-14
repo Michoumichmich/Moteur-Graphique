@@ -14,12 +14,12 @@
  * C'est effectué par CoordinatesHandler::fromLocalToGlobal
  */
 class Object {
- protected:
-  struct transformations tranfo;
-  std::list<Tessel *> tessels;
-  ApparenceProperties properties;
- public:
-  virtual void Tesselate();
+protected:
+    struct transformations tranfo;
+    std::list<Tessel *> tessels;
+    ApparenceProperties properties;
+public:
+    virtual void Tesselate();
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

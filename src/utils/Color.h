@@ -13,13 +13,14 @@ enum colors {
 };
 
 class Color {
- public:
-  unsigned int red;
-  unsigned int green;
-  unsigned int blue;
-  unsigned char bit;
-  unsigned int bitDepth;
-  Color(enum colors color = BLACK);
+public:
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
+    unsigned char bit;
+    unsigned int bitDepth;
+
+    Color(enum colors color = BLACK);
 
 };
 
