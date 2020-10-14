@@ -5,14 +5,14 @@
 #include <string>
 
 class Camera {
- private:
-  Point3D origin;
-  Point3D target;
-  double viewportWidth;
-  double viewportHeight;
-  double viewPortDistance;
- public:
-  std::string cameraName;
+private:
+    Point3D origin;
+    Point3D target;
+    double viewportWidth;
+    double viewportHeight;
+    double viewPortDistance;
+public:
+    std::string cameraName;
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

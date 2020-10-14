@@ -5,30 +5,38 @@
 #include <cmath>
 
 class Vector : public Point3D {
- public:
-  double x{}, y{}, z{};
-  Vector();
-  Vector(Point3D x, Point3D y);
-  Vector(double x, double y, double z);
-  Vector operator*(const double &f) const;
+public:
+    double x{}, y{}, z{};
 
-  Vector operator*(const Vector &v) const;
+    Vector();
 
-  double dot(const Vector &v) const;
+    explicit Vector(Point3D x);
 
-  Vector operator-(const Vector &v) const;
+    Vector(Point3D x, Point3D y);
 
-  Vector operator+(const Vector &v) const;
+    Vector(double x, double y, double z);
 
-  Vector &operator+=(const Vector &v);
+    Vector operator*(const double &f) const;
 
-  Vector &operator*=(const Vector &v);
+    Vector operator*(const Vector &v) const;
 
-  Vector operator-() const;
+    double dot(const Vector &v) const;
 
-  double length2() const;
+    Vector operator-(const Vector &v) const;
 
-  double length() const;
+    Vector operator+(const Vector &v) const;
+
+    Vector &operator+=(const Vector &v);
+
+    Vector &operator*=(const Vector &v);
+
+    Vector operator-() const;
+
+    double length2() const;
+
+    double length() const;
+
+    static Vector crossProduct(Vector a, Vector b);
 };
 
 #endif //GRAPHIC_ENGINE_VECTOR_H

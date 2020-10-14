@@ -9,8 +9,8 @@
  */
 
 class RT_RayCaster {
- public:
-  static std::list<RT_Ray> generateFirstRays(Camera *cam, OutputPictureManager *pic);
+public:
+    static std::list<RT_Ray> generateFirstRays(Camera *cam, OutputPictureManager *pic);
 };
 
 #endif //GRAPHIC_ENGINE_RAYCASTER_H

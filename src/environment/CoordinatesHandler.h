@@ -12,8 +12,8 @@ struct transformations {
 };
 
 class CoordinatesHandler {
- public:
-  Point3D fromLocalToGlobal(Point3D, struct transformations);
+public:
+    Point3D fromLocalToGlobal(Point3D, struct transformations);
 };
 
 #endif //_COORDINATESHANDLER_H_
