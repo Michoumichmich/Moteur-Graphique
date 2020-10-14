@@ -44,6 +44,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     std::cout << "No graphic engine set. Initialize with `init ge` \n";
                     status = FAIL;
                 } else {
+                    // TODO Check environment name unicity
                     if (tokens.size() >= 3) {
                         this->graphicEngine->createEnvironment(tokens[2]);
                         std::cout << "Initialization of " << tokens[2] << " environment \n";
@@ -81,6 +82,8 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             status = MISSING_ARGS;
         }
     }
+    // TODO Add command for setting renderer
+    // TODO Add command for setting current environment
     else {
         status = UNKNOWN_COMMAND;
     }
