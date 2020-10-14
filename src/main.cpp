@@ -17,8 +17,7 @@ int main(int argc, char **argv) {
     RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), gr->getPicManager());
     gr->setRenderer(renderer);
 
-    delete gr;
-    delete renderer;
+
 
     /**
      * Test intersection
@@ -32,6 +31,7 @@ int main(int argc, char **argv) {
     OutputPictureManager pm = OutputPictureManager();
     pm.savePicture();
 
-
+    delete gr;
+    delete renderer;
     return 0;
 }

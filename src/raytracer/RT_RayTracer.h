@@ -38,6 +38,8 @@ public:
     RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
 
     void renderScene() override;
+
+    ~RT_RayTracer();
 };
 
 #endif //GRAPHIC_ENGINE_RAYTRACER_H

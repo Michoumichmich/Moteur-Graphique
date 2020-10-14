@@ -24,3 +24,8 @@ RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct r
     this->envIntersector = new RT_RayEnvIntersector(env);
     this->picManager = pic;
 }
+
+RT_RayTracer::~RT_RayTracer() {
+    delete envIntersector;
+
+}

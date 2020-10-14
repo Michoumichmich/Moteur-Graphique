@@ -39,6 +39,8 @@ public:
 
     OutputPictureManager *getPicManager();
 
+    ~GraphicsEngine();
+
 };
 
 #endif //GRAPHIC_ENGINE_GRAPHICSENGINE_H

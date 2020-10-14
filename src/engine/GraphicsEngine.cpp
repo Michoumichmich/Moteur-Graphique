@@ -29,4 +29,8 @@ OutputPictureManager *GraphicsEngine::getPicManager() {
     return this->picManager;
 }
 
+GraphicsEngine::~GraphicsEngine() {
+    delete currentEnv;
+}
+
 GraphicsEngine::GraphicsEngine() = default;
