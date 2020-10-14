@@ -1,7 +1,7 @@
 #include "RT_Ray.h"
 #include <utils.h>
 
-RT_Ray::RT_Ray(Vector vec, Point3D orig, unsigned int counter) : dir(vec), origin(orig), bouncesLeftCounter(counter) {
+RT_Ray::RT_Ray(Vector vec, Point3D orig, unsigned int counter, bool isBitmap) : dir(vec), origin(orig), bouncesLeftCounter(counter), isBitmap(isBitmap) {
 }
 
 void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic) {
@@ -9,14 +9,25 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
     pic->writePixel(res.resultColor, x, y);
 }
 
-struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Vector origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) {
+struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) {
+
+    if (isBitmap) {
+        struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
+        if (res.intersectsSometing) {
+            return RT_RayOutput{Color(1.0), res.distanceMin, 1};
+        } else {
+            return RT_RayOutput{Color(0.0), res.distanceMin, 1};
+        }
+    }
+
+
     if (rayIntensity == 0 | bouncingsLeft == 0) {
         // TIDI return {}
     }
     //TODO Computes the ray recursively
     struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
     if (!res.intersectsSometing || res.type == INF) {
-        return RT_RayOutput{Color(), -1};
+        return RT_RayOutput{Color(), -1, 1};
     }
 
     if (res.type == MAPPED_TEXTURE) {

@@ -28,11 +28,13 @@ private:
     Vector origin;
     unsigned int bouncesLeftCounter;
     double rayIntensity;
+    bool isBitmap;
+    bool isDepthmap;
 
-    struct RT_RayOutput RT_ComputeDescendingRay(Vector, Vector, unsigned int, RT_RayEnvIntersector *);
+    struct RT_RayOutput RT_ComputeDescendingRay(Vector direction, Point3D origin, unsigned int bouncesLeft, RT_RayEnvIntersector *);
 
 public :
-    RT_Ray(Vector, Point3D, unsigned int);
+    RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap);
 
     /**
      * Recursively computes a ray.

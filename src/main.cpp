@@ -23,25 +23,25 @@ int main(int argc, char **argv) {
      * Test intersection
      */
     Vector dir = Vector(0, 0, -1);
-  Vector orig = Vector(0, 0, 2.5);
-  Environment *env = gr->getCurrentEnvironment();
-  RT_RayEnvIntersector intersector = RT_RayEnvIntersector(env);
-  struct RT_RayIntersectionResult res = intersector.RT_RayFindIntersection(orig, dir);
+    Vector orig = Vector(0, 0, 2.5);
+    Environment *env = gr->getCurrentEnvironment();
+    RT_RayEnvIntersector intersector = RT_RayEnvIntersector(env);
+    struct RT_RayIntersectionResult res = intersector.RT_RayFindIntersection(orig, dir);
 
-  OutputPictureManager pm = OutputPictureManager();
-  pm.savePicture();
+    OutputPictureManager pm = OutputPictureManager();
+    pm.savePicture();
 
-  delete gr;
-  delete renderer;
+    delete gr;
+    delete renderer;
 
 
-  /**
-   * Test rotation
-   */
-  double x = 1;
-  double y = 0;
-  CoordinatesHandler::rotate(x, y, 45);
-  std::cout << x << ' ' << y << std::endl;
+    /**
+     * Test rotation
+     */
+    double x = 1;
+    double y = 0;
+    CoordinatesHandler::rotate(x, y, 45);
+    std::cout << x << ' ' << y << std::endl;
 
-  return 0;
+    return 0;
 }

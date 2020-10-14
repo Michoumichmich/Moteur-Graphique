@@ -2,14 +2,13 @@
 
 #include <utility>
 
-OutputPictureManager::OutputPictureManager(std::string name, enum colorMode color, unsigned int width, unsigned int height) : outFile(std::move(name)),
-                                                                                                                              color_mode(color), width(width),
-                                                                                                                              height(height) {
+OutputPictureManager::OutputPictureManager(std::string name, enum colorMode color, unsigned int width, unsigned int height) :
+        outFile(std::move(name)), color_mode(color), width(width), height(height) {
     allColors = (Color **) calloc(sizeof(Color *), height);
     for (int i = 0; i < height; i++) {
         allColors[i] = (Color *) calloc(sizeof(Color), width);
         for (int j = 0; j < width; j++) {
-            allColors[i][j] = Color(0.5);
+            allColors[i][j] = Color(0.0);
         }
     }
 }
