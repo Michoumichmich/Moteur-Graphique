@@ -41,6 +41,8 @@ public:
 
     std::vector<std::string> environmentsName();
 
+    ~GraphicsEngine();
+
 };
 
 #endif //GRAPHIC_ENGINE_GRAPHICSENGINE_H

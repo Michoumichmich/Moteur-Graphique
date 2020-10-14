@@ -2,18 +2,27 @@
 #define _COORDINATESHANDLER_H_
 
 #include <utils.h>
+#include "Tessel.h"
 
+/**
+ * Structure that holds the different transformations that can be applied to a point, an objet or a tessel
+ * The angle is defined in degrees (easier to work with for an end used I think).
+ */
 struct transformations {
     double scale = 1;
-    double rotX = 0;
-    double rotY = 0;
-    double rotZ = 0;
+    int rotX = 0;
+    int rotY = 0;
+    int rotZ = 0;
     Point3D pt = Point3D();
 };
 
 class CoordinatesHandler {
 public:
-    Point3D fromLocalToGlobal(Point3D, struct transformations);
+    static Point3D fromLocalToGlobal(Point3D, struct transformations);
+
+    static Tessel fromLocalToGlobal(const Tessel &, struct transformations);
+
+    static void rotate(double &x, double &y, double deg);
 };
 
 #endif //_COORDINATESHANDLER_H_

@@ -47,5 +47,8 @@ std::vector<std::string> GraphicsEngine::environmentsName() {
     return names;
 }
 
+GraphicsEngine::~GraphicsEngine() {
+    delete currentEnv;
+}
 
 GraphicsEngine::GraphicsEngine() = default;
