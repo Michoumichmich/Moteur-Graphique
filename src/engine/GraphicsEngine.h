@@ -1,3 +1,7 @@
+/**
+ * @file GraphicsEngine.h
+ */
+
 #ifndef GRAPHIC_ENGINE_GRAPHICSENGINE_H
 #define GRAPHIC_ENGINE_GRAPHICSENGINE_H
 
@@ -11,7 +15,8 @@
 #include "Abstract_Renderer.h"
 
 /**
- * Where we manage the environments and we can launch a render
+ * @class GraphicsEngine
+ * Class used to manage the renders, the environment and everything. Ideally all the interactions should go through that class.
  */
 class GraphicsEngine {
  private:
