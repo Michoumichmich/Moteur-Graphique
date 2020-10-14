@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
      * Example using the CLI
      */
     auto *cli = new CommandLineInterface();
-    cli->main_loop();
+    //cli->main_loop();
     delete cli;
 
     /**
@@ -25,9 +25,13 @@ int main(int argc, char **argv) {
      */
     Vector dir = Vector(0, 0, -1);
     Vector orig = Vector(0, 0, 2.5);
-    Environment * env = gr->getCurrentEnvironment();
+    Environment *env = gr->getCurrentEnvironment();
     RT_RayEnvIntersector intersector = RT_RayEnvIntersector(env);
     struct RT_RayIntersectionResult res = intersector.RT_RayFindIntersection(orig, dir);
+
+    OutputPictureManager pm = OutputPictureManager();
+    pm.savePicture();
+
 
     return 0;
 }

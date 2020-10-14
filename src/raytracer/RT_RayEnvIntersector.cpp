@@ -19,14 +19,14 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
         /**
          * Here some multithreading could be useful
          */
-        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)){
-            closest= *aTessel;
-            distanceMinTessel=distance;
+        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
+            closest = *aTessel;
+            distanceMinTessel = distance;
             result.tessel = closest;
             result.intersectionPoint = intersection;
-            result.distanceMin=distance;
-            result.intersectsSometing=true;
-            result.type=TESSEL;
+            result.distanceMin = distance;
+            result.intersectsSometing = true;
+            result.type = TESSEL;
         }
     }
     return result;
@@ -63,7 +63,7 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, 
         /**
          * To check wether the vectors are in the right direction
          */
-        if ((intersection-origin).dot(dir)>=0){
+        if ((intersection - origin).dot(dir) >= 0) {
             intersectionPoint->x = intersection.x;
             intersectionPoint->y = intersection.y;
             intersectionPoint->z = intersection.z;

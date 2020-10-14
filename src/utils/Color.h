@@ -9,7 +9,8 @@ enum colorMode {
 };
 
 enum colors {
-    BLACK
+    BLACK,
+    WHITE,
 };
 
 struct rgbPixel {
@@ -29,9 +30,16 @@ private:
 public:
     explicit Color();
 
-    Color(unsigned int, unsigned int, unsigned int);
+    Color(double, double, double);
 
-    struct rgbPixel getPixelValues(unsigned int bitDepth);
+    explicit Color(double);
+
+    /**
+     * Converts a color to a RGB pixel composed of three ints between 0 and 2**bitDepth-1
+     * @param bitDepth
+     * @return
+     */
+    struct rgbPixel getPixelValues(unsigned int bitDepth) const;
 };
 
 #endif //GRAPHIC_ENGINE_COLOR_H

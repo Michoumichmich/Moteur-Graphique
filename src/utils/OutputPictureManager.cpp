@@ -9,7 +9,7 @@ OutputPictureManager::OutputPictureManager(std::string name, enum colorMode colo
     for (int i = 0; i < height; i++) {
         allColors[i] = (Color *) calloc(sizeof(Color), width);
         for (int j = 0; j < width; j++) {
-            allColors[i][j] = Color();
+            allColors[i][j] = Color(0.5);
         }
     }
 }
@@ -28,7 +28,7 @@ OutputPictureManager::~OutputPictureManager() {
 void OutputPictureManager::savePicture() {
     FILE *f;
     unsigned char *img = NULL;
-    int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
+    unsigned int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
     img = (unsigned char *) malloc(3 * width * height);
     unsigned int x, y;
     for (int i = 0; i < width; i++) {
@@ -47,18 +47,18 @@ void OutputPictureManager::savePicture() {
     unsigned char bmppad[3] = {0, 0, 0};
 
     bmpfileheader[2] = (unsigned char) (filesize);
-    bmpfileheader[3] = (unsigned char) (filesize >> 8);
-    bmpfileheader[4] = (unsigned char) (filesize >> 16);
-    bmpfileheader[5] = (unsigned char) (filesize >> 24);
+    bmpfileheader[3] = (unsigned char) (filesize >> 8u);
+    bmpfileheader[4] = (unsigned char) (filesize >> 16u);
+    bmpfileheader[5] = (unsigned char) (filesize >> 24u);
 
     bmpinfoheader[4] = (unsigned char) (width);
-    bmpinfoheader[5] = (unsigned char) (width >> 8);
-    bmpinfoheader[6] = (unsigned char) (width >> 16);
-    bmpinfoheader[7] = (unsigned char) (width >> 24);
+    bmpinfoheader[5] = (unsigned char) (width >> 8u);
+    bmpinfoheader[6] = (unsigned char) (width >> 16u);
+    bmpinfoheader[7] = (unsigned char) (width >> 24u);
     bmpinfoheader[8] = (unsigned char) (height);
-    bmpinfoheader[9] = (unsigned char) (height >> 8);
-    bmpinfoheader[10] = (unsigned char) (height >> 16);
-    bmpinfoheader[11] = (unsigned char) (height >> 24);
+    bmpinfoheader[9] = (unsigned char) (height >> 8u);
+    bmpinfoheader[10] = (unsigned char) (height >> 16u);
+    bmpinfoheader[11] = (unsigned char) (height >> 24u);
 
     f = fopen("img.bmp", "wb");
     fwrite(bmpfileheader, 1, 14, f);
