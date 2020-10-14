@@ -5,13 +5,17 @@
 #include <utils.h>
 #include "Tessel.h"
 #include "ApparenceProperties.h"
+#include "CoordinatesHandler.h"
 
+/**
+ * @class L'objet doit être crée autour ce son centre géométrique. Ie une sphère aura son centre en (0;0;0).
+ * Lorsqu'on va appliquer la tesselation on va ensuite transformer tous les points pour passer du référentiel de l'objet au référentiel global de la scène.
+ * D'abord l'homothétie "transfo.scale", puis les rotations et finalement ma translation.
+ * C'est effectué par CoordinatesHandler::fromLocalToGlobal
+ */
 class Object {
  protected:
-  Point3D absoluteCenterPosition;
-  double xRotation;
-  double yRotation;
-  double zRotation;
+  struct transformations tranfo;
   std::list<Tessel *> tessels;
   ApparenceProperties properties;
  public:
