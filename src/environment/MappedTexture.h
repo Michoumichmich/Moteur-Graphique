@@ -3,6 +3,7 @@
 
 #include <utils.h>
 #include "Object.h"
+#include "CoordinatesHandler.h"
 
 /**
  * @class ImageTexture
@@ -11,12 +12,7 @@
 class MappedTexture {
  private:
   std::string picturePath;
-  Point3D relativeCenterPos;
-  unsigned int width;
-  unsigned int height;
-  double xRot;
-  double yRot;
-  double zRot;
+  struct transformations transfo;
 
   /**
    * We must compute those values when placing the object in the global environment given the
