@@ -1,6 +1,7 @@
 #include "GraphicsEngine.h"
 
 #include <utility>
+#include <iostream>
 
 void GraphicsEngine::launchRender(const std::string &outName) {
     this->picManager->outFile = outName;
@@ -28,5 +29,14 @@ Environment *GraphicsEngine::getCurrentEnvironment() {
 OutputPictureManager *GraphicsEngine::getPicManager() {
     return this->picManager;
 }
+
+std::vector<std::string> GraphicsEngine::environmentsName() {
+    std::vector<std::string> names{};
+    for (std::list<Environment*>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
+        names.push_back(it.operator*()->envName);
+    }
+    return names;
+}
+
 
 GraphicsEngine::GraphicsEngine() = default;

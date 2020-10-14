@@ -10,7 +10,7 @@
 #include <environment.h>
 #include <raytracer.h>
 #include <utils.h>
-#include <string>
+#include <vector>
 
 #include "Abstract_Renderer.h"
 
@@ -38,6 +38,8 @@ public:
     void setRenderer(Abstract_Renderer *);
 
     OutputPictureManager *getPicManager();
+
+    std::vector<std::string> environmentsName();
 
 };
 

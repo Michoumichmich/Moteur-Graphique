@@ -11,6 +11,7 @@ void CommandLineInterface::main_loop() {
             ExecuteArray(tokens, status);
         }
         ErrorHandler(status);
+        std::cout << std::endl;
     }
 }
 
@@ -30,17 +31,57 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
     if (tokens[0] == "stop") {
         status = STOP_EXEC;
     } else if (tokens[0] == "help") {
-        std::cout << "Supported commands : \n help \n stop \n init ge \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n";
         status = SUCCESS;
     } else if (tokens[0] == "init") {
-        if (tokens[1] == "ge") {
-            this->graphicEngine = new GraphicsEngine();
-            std::cout << "Initialization of the graphic engine \n";
-            status = SUCCESS;
-        } else {
-            status = UNKNOWN_COMMAND;
+        if (tokens.size() >= 2) {
+            if (tokens[1] == "ge") {
+                this->graphicEngine = new GraphicsEngine();
+                std::cout << "Initialization of the graphic engine \n";
+                status = SUCCESS;
+            } else if (tokens[1] == "env") {
+                if (this->graphicEngine == NULL) {
+                    std::cout << "No graphic engine set. Initialize with `init ge` \n";
+                    status = FAIL;
+                } else {
+                    if (tokens.size() >= 3) {
+                        this->graphicEngine->createEnvironment(tokens[2]);
+                        std::cout << "Initialization of " << tokens[2] << " environment \n";
+                        status = SUCCESS;
+                    } else {
+                        this->graphicEngine->createEnvironment("default");
+                        std::cout << "Initialization of default environment \n";
+                        status = SUCCESS;
+                    }
+                }
+            } else {
+                status = UNKNOWN_COMMAND;
+            }
         }
-    } else {
+        else {
+            status = MISSING_ARGS;
+        }
+    }
+    else if (tokens[0] == "list") {
+        if (tokens.size() >= 2) {
+            if (this->graphicEngine == NULL) {
+                std::cout << "No graphic engine set. Initialize with init ge \n";
+                status = FAIL;
+            } else if (tokens[1] == "env") {
+                std::vector<std::string> names = this->graphicEngine->environmentsName();
+                for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); ++it) {
+                    std::cout << *it << std::endl;
+                }
+                status = SUCCESS;
+            } else {
+                status = MISSING_ARGS;
+            }
+        }
+        else {
+            status = MISSING_ARGS;
+        }
+    }
+    else {
         status = UNKNOWN_COMMAND;
     }
 }
@@ -52,6 +93,12 @@ void CommandLineInterface::ErrorHandler(enum command_exec_status &status) {
     }
     if (status == UNKNOWN_COMMAND) {
         std::cout << "Unknown command \n";
+    }
+    if (status == FAIL) {
+        std::cout << "Command fail \n";
+    }
+    if (status == MISSING_ARGS) {
+        std::cout << "Missing argument \n";
     }
 }
 
