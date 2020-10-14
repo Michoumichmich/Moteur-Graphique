@@ -2,7 +2,7 @@
 #define GRAPHIC_ENGINE_POINT3D_H
 
 class Point3D {
-private:
+public:
     double x{};
     double y{};
     double z{};

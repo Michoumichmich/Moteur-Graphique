@@ -6,8 +6,6 @@
 
 class Vector : public Point3D {
 public:
-    double x{}, y{}, z{};
-
     Vector();
 
     explicit Vector(Point3D x);

@@ -29,10 +29,10 @@ struct RT_RayIntersectionResult {
  * Finds the closest tessel that intersects with a given ray
  */
 class RT_RayEnvIntersector {
-private:
+public:
     Environment *environment;
 
-    bool checkForSingleIntersection(Vector origin, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance);
+    static bool checkForSingleIntersection(Vector origin, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance);
 
 public:
     /**

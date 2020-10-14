@@ -29,9 +29,9 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir,
         double a = a0 + a1 + a2;
 
         Vector intersection = Vector(x0 * (a0 / a) + x1 * (a1 / a) + x2 * (a2 / a));
-        intersectionPoint->x = intersection.getX();
-        intersectionPoint->y = intersection.getY();
-        intersectionPoint->z = intersection.getZ();
+        intersectionPoint->x = intersection.x;
+        intersectionPoint->y = intersection.y;
+        intersectionPoint->z = intersection.z;
         *distance = (origin - intersection).norm();
         return true;
     }
