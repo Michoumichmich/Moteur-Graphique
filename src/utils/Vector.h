@@ -32,9 +32,9 @@ public:
 
     Vector operator-() const;
 
-    double length2() const;
+    double norm2() const;
 
-    double length() const;
+    double norm() const;
 
     static Vector crossProduct(Vector a, Vector b);
 };

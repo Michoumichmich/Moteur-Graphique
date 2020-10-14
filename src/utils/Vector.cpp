@@ -49,12 +49,12 @@ Vector Vector::operator-() const {
     return {-x, -y, -z};
 }
 
-double Vector::length2() const {
+double Vector::norm2() const {
     return x * x + y * y + z * z;
 }
 
-double Vector::length() const {
-    return sqrt(length2());
+double Vector::norm() const {
+    return sqrt(norm2());
 }
 
 Vector::Vector(Point3D p) : Vector(p.getX(), p.getY(), p.getZ()) {
