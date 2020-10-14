@@ -38,4 +38,5 @@ Tessel CoordinatesHandler::fromLocalToGlobal(const Tessel &tessel, struct transf
   out.summmits[0] = fromLocalToGlobal(out.summmits[0], transformations);
   out.summmits[1] = fromLocalToGlobal(out.summmits[1], transformations);
   out.summmits[2] = fromLocalToGlobal(out.summmits[2], transformations);
+  return out;
 }
