@@ -16,5 +16,46 @@ Vector::Vector(Point3D x, Point3D y)
 
 Vector::Vector() : Vector(0, 0, 0)
 {
-
+}
+Vector Vector::operator*(const double &f) const
+{
+  return {x * f, y * f, z * f};
+}
+Vector Vector::operator*(const Vector &v) const
+{
+  return {x * v.x, y * v.y, z * v.z};
+}
+double Vector::dot(const Vector &v) const
+{
+  { return x * v.x + y * v.y + z * v.z; }
+}
+Vector &Vector::operator+=(const Vector &v)
+{
+  x += v.x, y += v.y, z += v.z;
+  return *this;
+}
+Vector Vector::operator-(const Vector &v) const
+{
+  return {x - v.x, y - v.y, z - v.z};
+}
+Vector Vector::operator+(const Vector &v) const
+{
+  return {x + v.x, y + v.y, z + v.z};
+}
+Vector &Vector::operator*=(const Vector &v)
+{
+  x *= v.x, y *= v.y, z *= v.z;
+  return *this;
+}
+Vector Vector::operator-() const
+{
+  return {-x, -y, -z};
+}
+double Vector::length2() const
+{
+  return x * x + y * y + z * z;
+}
+double Vector::length() const
+{
+  return sqrt(length2());
 }
