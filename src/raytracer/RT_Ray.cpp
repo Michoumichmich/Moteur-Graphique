@@ -9,7 +9,7 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
     pic->writePixel(res.resultColor, x, y);
 }
 
-struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) {
+struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Vector origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) {
     if (rayIntensity == 0 | bouncingsLeft == 0) {
         // TIDI return {}
     }

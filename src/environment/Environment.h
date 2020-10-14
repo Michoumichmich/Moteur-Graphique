@@ -11,14 +11,14 @@
 class Environment {
 private:
     std::list<Camera *> cameras;
-    std::list<Tessel *> allTessels;
+    std::list<Tessel> allTessels;
     std::list<Object *> allOjects;
     std::list<MappedTexture *> allTMapped;
     Camera *currentCam;
 public:
     std::string envName;
 
-    Environment(std::string name);
+    explicit Environment(std::string name);
 
     Environment();
 
@@ -27,6 +27,9 @@ public:
     std::list<std::string> listCameras();
 
     void switchCamera(std::string camName);
+
+    std::list<Tessel> getTessels();
+
 };
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

@@ -50,7 +50,7 @@ public:
      * @param direction
      * @return
      */
-    struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction);
+    struct RT_RayIntersectionResult RT_RayFindIntersection(Vector origin, Vector direction);
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

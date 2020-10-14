@@ -6,7 +6,26 @@ RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
 }
 
-struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D origin, Vector direction) {
+struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vector origin, Vector direction) {
+    Tessel * closest;
+    double distanceMin;
+    double distance;
+    Vector *intersection = nullptr;
+
+    std::list<Tessel> tessels = this->environment->getTessels();
+    std::list<Tessel>::iterator aTessel;
+    for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
+        /**
+         * Here some multithreading could be useful
+         */
+//TODO
+        checkForSingleIntersection(origin, direction, *aTessel, intersection, &distance);
+
+
+    }
+
+
+
     return {};
 }
 

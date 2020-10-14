@@ -25,11 +25,11 @@ struct RT_RayOutput {
 class RT_Ray {
 private:
     Vector dir;
-    Point3D origin;
+    Vector origin;
     unsigned int bouncesLeftCounter;
     double rayIntensity;
 
-    struct RT_RayOutput RT_ComputeDescendingRay(Vector, Point3D, unsigned int, RT_RayEnvIntersector *);
+    struct RT_RayOutput RT_ComputeDescendingRay(Vector, Vector, unsigned int, RT_RayEnvIntersector *);
 
 public :
     RT_Ray(Vector, Point3D, unsigned int);

@@ -16,4 +16,8 @@ Camera *Environment::getCurrentCam() {
     return currentCam;
 }
 
+std::list<Tessel> Environment::getTessels() {
+    return this->allTessels;
+}
+
 Environment::Environment() = default;
