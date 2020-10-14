@@ -25,6 +25,7 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vec
             result.tessel = closest;
             result.intersectionPoint = intersection;
             result.distanceMin=distance;
+            result.intersectsSometing=true;
         }
     }
     return result;
@@ -53,6 +54,7 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir,
      * There's an intersection if all ai non positive or all ai non negativs while not all null
      */
     if (unlikely(((a0 >= 0 && a1 >= 0 && a2 >= 0) || (a0 <= 0 && a1 <= 0 && a2 <= 0)) && !(a0 == 0 && a1 == 0 && a2 == 0))) {
+  //  if (unlikely(((a0 >= 0 && a1 >= 0 && a2 >= 0)) && !(a0 == 0 && a1 == 0 && a2 == 0))) {
         /**
          * Now we compute the intersection point.
          */
