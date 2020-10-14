@@ -5,7 +5,7 @@
 
 Environment::Environment(std::string name) {
     this->envName = std::move(name);
-    /*
+/*
     Vector tes0 = Vector(-1, -1, 1);
     Vector tes1 = Vector(1, -1, 1);
     Vector tes2 = Vector(0, 1, 1);
@@ -23,7 +23,7 @@ Environment::Environment(std::string name) {
     tessel2.summmits[1] = tes4;
     tessel2.summmits[2] = tes5;
     this->allTessels.push_back(tessel2);
-    */
+*/
 
     /*
     Object *sph = new  Sphere();

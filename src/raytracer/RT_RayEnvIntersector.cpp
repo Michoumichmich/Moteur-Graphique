@@ -26,6 +26,7 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vec
             result.intersectionPoint = intersection;
             result.distanceMin=distance;
             result.intersectsSometing=true;
+            result.type=TESSEL;
         }
     }
     return result;
@@ -59,13 +60,17 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir,
          * Now we compute the intersection point.
          */
         double a = a0 + a1 + a2;
-
         Vector intersection = Vector(x0 * (a0 / a) + x1 * (a1 / a) + x2 * (a2 / a));
-        intersectionPoint->x = intersection.x;
-        intersectionPoint->y = intersection.y;
-        intersectionPoint->z = intersection.z;
-        *distance = (origin - intersection).norm();
-        return true;
+        /**
+         * To check wether the vectors are in the right direction
+         */
+        if ((intersection-origin).dot(dir)>=0){
+            intersectionPoint->x = intersection.x;
+            intersectionPoint->y = intersection.y;
+            intersectionPoint->z = intersection.z;
+            *distance = (origin - intersection).norm();
+            return true;
+        }
     }
     return false;
 }
