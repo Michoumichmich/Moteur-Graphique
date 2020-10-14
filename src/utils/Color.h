@@ -12,16 +12,26 @@ enum colors {
     BLACK
 };
 
-class Color {
-public:
+struct rgbPixel {
     unsigned int red;
     unsigned int green;
     unsigned int blue;
-    unsigned char bit;
-    unsigned int bitDepth;
+};
 
-    Color(enum colors color = BLACK);
+class Color {
+private:
+    double red;
+    double green;
+    enum colorMode colormode;
+    double blue;
+    double greyScale{};
+    unsigned char bit{};
+public:
+    explicit Color();
 
+    Color(unsigned int, unsigned int, unsigned int);
+
+    struct rgbPixel getPixelValues(unsigned int bitDepth);
 };
 
 #endif //GRAPHIC_ENGINE_COLOR_H

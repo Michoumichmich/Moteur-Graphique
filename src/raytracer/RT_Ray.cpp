@@ -16,7 +16,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Vector origin, u
     //TODO Computes the ray recursively
     struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
     if (!res.intersectsSometing || res.type == INF) {
-        return RT_RayOutput{Color(BLACK), -1};
+        return RT_RayOutput{Color(), -1};
     }
 
     if (res.type == MAPPED_TEXTURE) {

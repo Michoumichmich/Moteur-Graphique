@@ -6,8 +6,8 @@ RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
 }
 
-struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vector origin, Vector direction) const {
-    Tessel  closest;
+struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D origin, Vector direction) const {
+    Tessel closest;
     double distanceMinTessel = -1;
     double distanceMinTexture = -1;
     double distance;
@@ -42,20 +42,19 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vec
  * @param distance
  * @return
  */
-bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance) {
-    Vector x0 = tessel.summmits[0];
-    Vector x1 = tessel.summmits[1];
-    Vector x2 = tessel.summmits[2];
+bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance) {
+    Vector x0 = Vector(tessel.summmits[0]);
+    Vector x1 = Vector(tessel.summmits[1]);
+    Vector x2 = Vector(tessel.summmits[2]);
+    Vector origin = Vector(orig);
     double a0 = Vector::crossProduct(x1 - origin, x2 - origin).dot(dir) * 0.5;
     double a1 = Vector::crossProduct(x2 - origin, x0 - origin).dot(dir) * 0.5;
     double a2 = Vector::crossProduct(x0 - origin, x1 - origin).dot(dir) * 0.5;
-
 
     /**
      * There's an intersection if all ai non positive or all ai non negativs while not all null
      */
     if (unlikely(((a0 >= 0 && a1 >= 0 && a2 >= 0) || (a0 <= 0 && a1 <= 0 && a2 <= 0)) && !(a0 == 0 && a1 == 0 && a2 == 0))) {
-  //  if (unlikely(((a0 >= 0 && a1 >= 0 && a2 >= 0)) && !(a0 == 0 && a1 == 0 && a2 == 0))) {
         /**
          * Now we compute the intersection point.
          */
