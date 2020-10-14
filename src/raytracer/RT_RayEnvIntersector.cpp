@@ -6,29 +6,40 @@ RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
 }
 
-struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vector origin, Vector direction) {
-    Tessel * closest;
-    double distanceMin;
+struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Vector origin, Vector direction) const {
+    Tessel  closest;
+    double distanceMinTessel = -1;
+    double distanceMinTexture = -1;
     double distance;
-    Vector *intersection = nullptr;
-
+    Vector intersection = Vector();
+    struct RT_RayIntersectionResult result;
     std::list<Tessel> tessels = this->environment->getTessels();
     std::list<Tessel>::iterator aTessel;
     for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
         /**
          * Here some multithreading could be useful
          */
-//TODO
-        checkForSingleIntersection(origin, direction, *aTessel, intersection, &distance);
-
-
+        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)){
+            closest= *aTessel;
+            distanceMinTessel=distance;
+            result.tessel = closest;
+            result.intersectionPoint = intersection;
+            result.distanceMin=distance;
+        }
     }
-
-
-
-    return {};
+    return result;
 }
 
+
+/**
+ * Réecrire la même pour les rectangles ie textures, on casse le rectangle en deux et on l'appelle deux fois.
+ * @param origin
+ * @param dir
+ * @param tessel
+ * @param intersectionPoint
+ * @param distance
+ * @return
+ */
 bool RT_RayEnvIntersector::checkForSingleIntersection(Vector origin, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance) {
     Vector x0 = tessel.summmits[0];
     Vector x1 = tessel.summmits[1];

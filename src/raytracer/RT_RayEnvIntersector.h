@@ -16,11 +16,12 @@ enum RT_RayIntersectionType {
 };
 
 struct RT_RayIntersectionResult {
-    bool intersectsSometing{};
-    Point3D intersectionPoint;
-    Tessel *tessel{};
-    MappedTexture *texture{};
-    enum RT_RayIntersectionType type;
+    bool intersectsSometing = false;
+    double distanceMin =-1;
+    Vector intersectionPoint = Vector();
+    Tessel tessel{};
+    MappedTexture texture{};
+    enum RT_RayIntersectionType type = INF;
 };
 
 
@@ -50,7 +51,7 @@ public:
      * @param direction
      * @return
      */
-    struct RT_RayIntersectionResult RT_RayFindIntersection(Vector origin, Vector direction);
+    struct RT_RayIntersectionResult RT_RayFindIntersection(Vector origin, Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

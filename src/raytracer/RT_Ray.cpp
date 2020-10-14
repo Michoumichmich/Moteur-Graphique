@@ -23,7 +23,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Vector origin, u
         /**
          * On a touché une texture, on affiche la couleur du pixel
          */
-        return RT_RayOutput{res.texture->getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint)};
+        return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint)};
     }
 
     if (res.type == TESSEL) {
