@@ -7,7 +7,7 @@
 | Nom          | Prénom      | Email                         |
 | -------------|-------------|-------------------------------|
 | BROUAT | Maxime | ** |
-| GAGLIANO | Vivien | ** |
+| GAGLIANO | Vivien | vivien.gagliano@ensiie.fr |
 | MALLARDEAU | Lilian | ** |
 | MIGDAL | Michel | michel.migal@ensiie.fr |
 | RIOS | Timothée | ** |
