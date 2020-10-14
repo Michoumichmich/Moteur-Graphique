@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <iostream>
+#include <algorithm>
 
 void GraphicsEngine::launchRender(const std::string &outName) {
     this->picManager->outFile = outName;
@@ -15,7 +16,15 @@ void GraphicsEngine::createEnvironment(std::string name) {
 }
 
 void GraphicsEngine::switchEnvironment(std::string name) {
-    //TODO
+    bool found = false;
+    for (std::list<Environment*>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
+        if ((*it)->envName == name) {
+            currentEnv = *it;
+        }
+    }
+    if (!found) {
+        std::cout << "Environment not found. Please select valid environment \n";
+    }
 }
 
 void GraphicsEngine::setRenderer(Abstract_Renderer *renderer) {
