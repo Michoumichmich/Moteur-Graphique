@@ -7,7 +7,9 @@
 
 class Tessel {
 public:
-    Vector summmits[3];
+    Tessel();
+    Tessel(Point3D, Point3D, Point3D);
+    Point3D summmits[3];
     ApparenceProperties properties;
 };
 
