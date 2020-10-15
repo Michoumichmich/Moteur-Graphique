@@ -1,5 +1,10 @@
 #include "Camera.h"
 
-Camera CreateCamera(std::string Name){
 
+Camera::Camera(std::string Name) {
+    //TODO
+}
+
+Camera::Camera(Point3D origin, Point3D target) {
+    //TODO
 }
