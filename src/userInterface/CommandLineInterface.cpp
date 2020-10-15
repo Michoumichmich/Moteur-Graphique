@@ -46,9 +46,23 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 } else {
                     // TODO Check environment name unicity
                     if (tokens.size() >= 3) {
+                        std::list<Environment*> env = this->graphicEngine->getEnvironments();
+                        bool unique = true;
+                        for (std::list<Environment*>::iterator it = env.begin(); it != env.end(); ++it) {
+                            if ((*it)->envName == tokens[2]) {
+                                unique = false;
+                                break;
+                            }
+                        }
+                        if (unique) {
                         this->graphicEngine->createEnvironment(tokens[2]);
                         std::cout << "Initialization of " << tokens[2] << " environment \n";
                         status = SUCCESS;
+                        }
+                        else {
+                            std::cout << "Environment with such name already exists. \n";
+                            status = FAIL;
+                        }
                     } else {
                         this->graphicEngine->createEnvironment("default");
                         std::cout << "Initialization of default environment \n";
