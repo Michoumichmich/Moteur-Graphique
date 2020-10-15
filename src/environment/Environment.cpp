@@ -11,8 +11,8 @@ Camera *Environment::getCurrentCam() {
     return currentCam;
 }
 
-std::list<Tessel *> Environment::getTessels() {
-    return this->allTessels;
+std::list<Tessel *> * Environment::getTessels() {
+    return &this->allTessels;
 }
 
 void Environment::addObject(Object *obj) {

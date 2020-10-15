@@ -28,7 +28,7 @@ public:
 
     void switchCamera(std::string camName);
 
-    std::list<Tessel *> getTessels();
+    std::list<Tessel *> * getTessels();
 
     void tesselate();
 
