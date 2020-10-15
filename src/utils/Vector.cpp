@@ -66,3 +66,7 @@ Vector Vector::crossProduct(Vector u, Vector v) {
     double C = (u.x) * (v.y) - (u.y) * (v.x);
     return Vector(A, B, C);
 }
+
+Vector Vector::normalize() const {
+    return *this * (1 / (*this).norm());
+}

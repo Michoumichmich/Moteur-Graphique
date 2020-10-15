@@ -14,7 +14,7 @@ private:
     std::list<Tessel *> allTessels;
     std::list<Object *> allObjects;
     std::list<MappedTexture *> allTMapped;
-    Camera *currentCam;
+    Camera *currentCam = new Camera();
 public:
     std::string envName;
 

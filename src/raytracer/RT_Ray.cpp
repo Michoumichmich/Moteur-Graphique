@@ -1,8 +1,14 @@
 #include "RT_Ray.h"
 #include <utils.h>
 
-RT_Ray::RT_Ray(Vector vec, Point3D orig, unsigned int counter, bool isBitmap) : dir(vec), origin(orig), bouncesLeftCounter(counter), isBitmap(isBitmap) {
+RT_Ray::RT_Ray(Vector dir, Point3D orig, unsigned int counter, bool isBitmap) : dir(dir), origin(orig), bouncesLeftCounter(counter), isBitmap(isBitmap) {
 }
+
+RT_Ray::RT_Ray(Vector dir, Point3D orig, unsigned int counter, bool isBitmap, unsigned int x, unsigned int y) : dir(dir), origin(orig),
+                                                                                                                bouncesLeftCounter(counter), isBitmap(isBitmap),
+                                                                                                                x(x), y(y) {
+}
+
 
 void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic) {
     struct RT_RayOutput res = RT_ComputeDescendingRay(dir, origin, bouncesLeftCounter, intersector);
