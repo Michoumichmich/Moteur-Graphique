@@ -7,7 +7,7 @@
 |  &nbsp;                 | Itération précédente     |
 | -------------           |-------------             |
 | **Product Owner**       | Vivien Gagliano          |
-| **Scrum Master**        | **                       |
+| **Scrum Master**        | Michel Migdal            |
 
 ## Bilan de l'itération précédente  
 ### Évènements 
@@ -21,20 +21,27 @@
 
 ### Liste des User Stories terminées
 *Quelles sont les User Stories qui ont été validées par le PO à la fin de l'itération ?*
-
+> Gestion des environnements par CLI
 
 ## Rétrospective de l'itération précédente
   
 ### Bilans des retours et des précédentes actions 
 *Quels sont les retours faits par l'équipe pendant la rétrospective? Quelles sont les actions qui ont apporté quelque chose ou non?*
-> Répondre ici
+> Manque de documentation des fonctions 
+> Manque d'utilisation du Trello.
+> Manque de communication. 
+> Avancement rapide du backend 
 
 ### Actions prises pour la prochaine itération
 *Quelles sont les actions décidées par l'équipe pour la prochaine itération ?*
- 
+> Regarder le Trello
+> 
+
+
 ### Axes d'améliorations 
 *Quels sont les axes d'améliorations pour les personnes qui ont tenu les rôles de PO, SM et Dev sur la précédente itération?*
 > Répondre ici
+
 
 ## Prévisions de l'itération suivante  
 ### Évènements prévus  
