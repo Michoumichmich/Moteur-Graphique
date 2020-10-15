@@ -8,10 +8,7 @@ enum colorMode {
     ALPHA_MASK
 };
 
-enum colors {
-    BLACK,
-    WHITE,
-};
+
 
 struct rgbPixel {
     unsigned int red;

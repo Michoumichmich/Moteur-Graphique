@@ -8,7 +8,9 @@
 
 void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> firstRays = RT_RayCaster::generateFirstRays(environment->getCurrentCam());
-    this->picManager = new OutputPictureManager(string);
+
+    this->picManager = new OutputPictureManager(string); //TODO SHOUDLNT BE THERE
+    picManager->setColorMapper(new ColorMapper(LINEAR, 4));
     std::list<RT_Ray>::iterator aRay;
     for (aRay = firstRays.begin(); aRay != firstRays.end(); aRay++) {
         /**

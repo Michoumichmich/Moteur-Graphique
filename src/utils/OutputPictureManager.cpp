@@ -1,9 +1,8 @@
 #include "OutputPictureManager.h"
 
-#include <utility>
 
-OutputPictureManager::OutputPictureManager(std::string name, enum colorMode color, unsigned int width, unsigned int height) :
-        outFile(std::move(name)), color_mode(color), width(width), height(height) {
+OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height) :
+        outFile(std::move(name)), width(width), height(height) {
     allColors = (Color **) calloc(sizeof(Color *), height);
     for (int i = 0; i < height; i++) {
         allColors[i] = (Color *) calloc(sizeof(Color), width);
@@ -13,9 +12,27 @@ OutputPictureManager::OutputPictureManager(std::string name, enum colorMode colo
     }
 }
 
+
 void OutputPictureManager::writePixel(Color c, unsigned int x, unsigned int y) {
     this->allColors[y][x] = c;
 }
+
+
+void OutputPictureManager::setColorMapper(ColorMapper *color_mapper)
+{
+  this->mapper= color_mapper;
+}
+
+
+void OutputPictureManager::writePixel(double d, unsigned int x, unsigned int y)
+{
+  if (this->mapper != nullptr){
+      writePixel(this->mapper->Map(d), x, y);
+    } else {
+      writePixel(Color(d), x, y);
+    }
+}
+
 
 OutputPictureManager::~OutputPictureManager() {
     for (int i = 0; i < height; i++) {
@@ -23,6 +40,7 @@ OutputPictureManager::~OutputPictureManager() {
     }
     free(allColors);
 }
+
 
 void OutputPictureManager::savePicture() {
     FILE *f;
@@ -59,15 +77,13 @@ void OutputPictureManager::savePicture() {
     bmpinfoheader[10] = (unsigned char) (height >> 16u);
     bmpinfoheader[11] = (unsigned char) (height >> 24u);
 
-    f = fopen("img.bmp", "wb");
+    f = fopen(this->outFile.c_str(), "wb");
     fwrite(bmpfileheader, 1, 14, f);
     fwrite(bmpinfoheader, 1, 40, f);
     for (int i = 0; i < height; i++) {
         fwrite(img + (width * (height - i - 1) * 3), 3, width, f);
         fwrite(bmppad, 1, (4 - (width * 3) % 4) % 4, f);
     }
-
     free(img);
     fclose(f);
-
 }

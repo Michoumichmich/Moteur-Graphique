@@ -9,7 +9,6 @@ Color::Color() {
 }
 
 Color::Color(double r, double g, double b) : red(r), green(g), blue(b), colormode(RGB) {
-
 }
 
 struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {
