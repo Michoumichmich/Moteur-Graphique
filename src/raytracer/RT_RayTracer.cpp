@@ -4,6 +4,8 @@
 #include "RT_Ray.h"
 #include "RT_RayCaster.h"
 
+#include <iostream>
+
 void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> firstRays = RT_RayCaster::generateFirstRays(environment->getCurrentCam());
     this->picManager = new OutputPictureManager(string);
@@ -12,6 +14,7 @@ void RT_RayTracer::renderScene(const std::string string) {
         /**
          * Here some multithreading could be useful
          */
+        std::cout << aRay->x << ' ' << aRay->y << std::endl;
         aRay->RT_ComputePrimaryRay(envIntersector, picManager);
     }
     picManager->savePicture();

@@ -24,7 +24,7 @@ public:
 
     void SetEnvironment(Environment *);
 
-    virtual void renderScene() = 0;
+    virtual void renderScene(std::string string) = 0;
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H

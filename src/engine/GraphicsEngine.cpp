@@ -6,11 +6,15 @@
 
 void GraphicsEngine::launchRender(const std::string &outName) {
     this->picManager = new OutputPictureManager(outName);
-    this->renderer->renderScene();
+    this->currentEnv->tesselate();
+    this->renderer->SetEnvironment(this->currentEnv);
+    this->renderer->renderScene(outName);
 }
 
 void GraphicsEngine::createEnvironment(std::string name) {
     auto *env = new Environment(std::move(name));
+    Sphere *sph = new Sphere(1.0); //TODO tmp
+    env->addObject(sph);                //TODO tmp
     this->currentEnv = env;
     this->environments.push_back(env);
 }
