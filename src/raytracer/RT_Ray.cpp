@@ -12,21 +12,16 @@ RT_Ray::RT_Ray(Vector dir, Point3D orig, unsigned int counter, bool isBitmap, un
 
 void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic) {
 
-  isBitmap=false;
-  isDepthmap=true;
-
     struct RT_RayOutput res = RT_ComputeDescendingRay(dir, origin, bouncesLeftCounter, intersector);
 
-    if (isBitmap && res.distance>=0){
-      pic->writePixel(Color(1), x, y);
-    }
-
-    else if (isDepthmap && res.distance>=0){
+    if (isBitmap && res.distance >= 0) {
+        pic->writePixel(Color(1), x, y);
+    } else if (isDepthmap && res.distance >= 0) {
         pic->writePixel(res.distance, x, y);
-    } else if (res.distance >=0){
+    } else if (res.distance >= 0) {
         pic->writePixel(res.resultColor, x, y);
     } else {
-      pic->writePixel(Color(0), x, y);
+        pic->writePixel(Color(0), x, y);
     }
 
 
@@ -46,8 +41,8 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, 
         }
     }
 
-    if (isDepthmap){
-      //TODO return the distance
+    if (isDepthmap) {
+        //TODO return the distance
     }
 
     if (rayIntensity == 0 | bouncingsLeft == 0) {

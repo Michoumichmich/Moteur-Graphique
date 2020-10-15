@@ -46,20 +46,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     status = FAIL;
                 } else {
                     if (tokens.size() >= 3) {
-                        std::list<Environment*> env = this->graphicEngine->getEnvironments();
+                        std::list<Environment *> env = this->graphicEngine->getEnvironments();
                         bool unique = true;
-                        for (std::list<Environment*>::iterator it = env.begin(); it != env.end(); ++it) {
+                        for (std::list<Environment *>::iterator it = env.begin(); it != env.end(); ++it) {
                             if ((*it)->envName == tokens[2]) {
                                 unique = false;
                                 break;
                             }
                         }
                         if (unique) {
-                        this->graphicEngine->createEnvironment(tokens[2]);
-                        std::cout << "Initialization of " << tokens[2] << " environment \n";
-                        status = SUCCESS;
-                        }
-                        else {
+                            this->graphicEngine->createEnvironment(tokens[2]);
+                            std::cout << "Initialization of " << tokens[2] << " environment \n";
+                            status = SUCCESS;
+                        } else {
                             std::cout << "Environment with such name already exists. \n";
                             status = FAIL;
                         }
@@ -72,12 +71,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             } else {
                 status = UNKNOWN_COMMAND;
             }
-        }
-        else {
+        } else {
             status = MISSING_ARGS;
         }
-    }
-    else if (tokens[0] == "list") {
+    } else if (tokens[0] == "list") {
         if (tokens.size() >= 2) {
             if (this->graphicEngine == NULL) {
                 std::cout << "No graphic engine set. Initialize with init ge \n";

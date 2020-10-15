@@ -9,7 +9,6 @@ enum colorMode {
 };
 
 
-
 struct rgbPixel {
     unsigned int red;
     unsigned int green;

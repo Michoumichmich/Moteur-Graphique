@@ -3,7 +3,8 @@
 
 #include <utils.h>
 #include <string>
-enum camMode{
+
+enum camMode {
     PERSPECTIVE,
     ORTHOGRAPHIC
 };

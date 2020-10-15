@@ -5,20 +5,21 @@
 #include "Color.h"
 
 
-enum coloringMethods{
+enum coloringMethods {
     LINEAR,
     NONSENSE,
     STRIPS,
     TOPO_LINES,
 };
 
-class ColorMapper{
- private :
-  enum coloringMethods method;
-  double param;
- public :
-  explicit ColorMapper(enum coloringMethods, double param = 0.1);
-  Color Map (double);
+class ColorMapper {
+private :
+    enum coloringMethods method;
+    double param;
+public :
+    explicit ColorMapper(enum coloringMethods, double param = 0.1);
+
+    Color Map(double);
 
 };
 

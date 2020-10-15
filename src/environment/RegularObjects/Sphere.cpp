@@ -8,7 +8,7 @@ void Sphere::Tesselate() {
     int n_lat = 20;
     int n_long = 20;
 
-    Point3D globe[n_lat+1][n_long+1];
+    Point3D globe[n_lat + 1][n_long + 1];
 
     auto map = [](double value, double start1, double stop1, double start2, double stop2) {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
