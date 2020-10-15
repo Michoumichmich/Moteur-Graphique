@@ -3,17 +3,24 @@
 
 #include <utils.h>
 #include <string>
-
+enum camMode{
+    PERSPECTIVE,
+    ORTHOGONAL
+};
 class Camera {
 private:
     Point3D origin;
     Point3D target;
     double viewportWidth;
     double viewportHeight;
-    double viewPortDistance;
+    enum camMode mode;
 
 public:
     std::string cameraName;
+    Camera CreateCamera();
+    Camera CreateCamera(Point3D origin, Point3D target);
+    void ModifyViewport(double width,double height);
+    void PositionCamera(Point3D origin,Point3D target);
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

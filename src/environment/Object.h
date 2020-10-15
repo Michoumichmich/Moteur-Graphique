@@ -3,6 +3,7 @@
 
 #include <list>
 #include <utils.h>
+#include <string>
 #include "Tessel.h"
 #include "ApparenceProperties.h"
 #include "CoordinatesHandler.h"
@@ -20,6 +21,7 @@ protected:
     ApparenceProperties properties;
 public:
     virtual void Tesselate();
+    std::string ObjectName;
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H
