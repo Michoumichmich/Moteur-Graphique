@@ -12,12 +12,13 @@
 ## Bilan de l'itération précédente  
 ### Évènements 
 *Quels sont les évènements qui ont marqué l'itération précédente? Répertoriez ici les évènements qui ont eu un impact sur ce qui était prévu à l'itération précédente.*
-> Problèmes d'organisation à cause du covid. Deux membres confinés par précaution. 
-> Soutenance du projet d'IPS
+
+* Problèmes d'organisation à cause du covid. Deux membres confinés par précaution. 
+* Soutenance du projet d'IPS
 
 ### Taux de complétion de l'itération  
 *Quel est le nombre d'éléments terminés par rapport au nombre total d'éléments prévu pour l'itération?*
-> 6 terminées / 7 prévues = 86%
+* 6 terminées / 7 prévues = 86%
 
 ### Liste des User Stories terminées
 *Quelles sont les User Stories qui ont été validées par le PO à la fin de l'itération ?*

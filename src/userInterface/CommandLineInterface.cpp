@@ -28,6 +28,7 @@ std::vector<std::string> CommandLineInterface::ParseToArray(const std::string &i
 }
 
 void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status) {
+    // TODO Replace if/else cascade by a switch
     if (tokens[0] == "stop") {
         status = STOP_EXEC;
     } else if (tokens[0] == "help") {
@@ -44,7 +45,6 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     std::cout << "No graphic engine set. Initialize with `init ge` \n";
                     status = FAIL;
                 } else {
-                    // TODO Check environment name unicity
                     if (tokens.size() >= 3) {
                         std::list<Environment*> env = this->graphicEngine->getEnvironments();
                         bool unique = true;
@@ -95,6 +95,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
         else {
             status = MISSING_ARGS;
         }
+    }
+    // TODO Add object to environment
+    else if () {
+
     }
     // TODO Add command for setting renderer
     // TODO Add command for setting current environment
