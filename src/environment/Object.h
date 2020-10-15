@@ -21,6 +21,8 @@ protected:
     ApparenceProperties properties;
 public:
     virtual void Tesselate();
+
+    std::list<Tessel *> getTessels();
     std::string ObjectName;
 };
 

@@ -13,14 +13,14 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
     double distance;
     Vector intersection = Vector();
     struct RT_RayIntersectionResult result;
-    std::list<Tessel> tessels = this->environment->getTessels();
-    std::list<Tessel>::iterator aTessel;
+    std::list<Tessel *> tessels = this->environment->getTessels();
+    std::list<Tessel *>::iterator aTessel;
     for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
         /**
          * Here some multithreading could be useful
          */
-        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
-            closest = *aTessel;
+        if (checkForSingleIntersection(origin, direction, **aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
+            closest = **aTessel;
             distanceMinTessel = distance;
             result.tessel = closest;
             result.intersectionPoint = intersection;
