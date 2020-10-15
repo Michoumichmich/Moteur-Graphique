@@ -34,5 +34,5 @@ RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct r
 
 RT_RayTracer::~RT_RayTracer() {
     delete envIntersector;
-
+    delete picManager;
 }

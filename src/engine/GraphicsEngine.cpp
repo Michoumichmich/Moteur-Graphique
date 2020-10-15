@@ -5,7 +5,6 @@
 #include <algorithm>
 
 void GraphicsEngine::launchRender(const std::string &outName) {
-    this->picManager = new OutputPictureManager(outName);
     this->currentEnv->tesselate();
     this->renderer->SetEnvironment(this->currentEnv);
     this->renderer->renderScene(outName);
@@ -13,7 +12,7 @@ void GraphicsEngine::launchRender(const std::string &outName) {
 
 void GraphicsEngine::createEnvironment(std::string name) {
     auto *env = new Environment(std::move(name));
-    Sphere *sph = new Sphere(1.0); //TODO tmp
+    auto *sph = new Sphere(1.0); //TODO tmp
     env->addObject(sph);                //TODO tmp
     this->currentEnv = env;
     this->environments.push_back(env);
@@ -56,7 +55,8 @@ std::vector<std::string> GraphicsEngine::environmentsName() {
 }
 
 GraphicsEngine::~GraphicsEngine() {
-    delete currentEnv;
+    environments.clear();
+    // delete currentEnv;
 }
 
 GraphicsEngine::GraphicsEngine() = default;

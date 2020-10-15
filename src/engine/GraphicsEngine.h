@@ -20,7 +20,7 @@
  */
 class GraphicsEngine {
 private:
-    std::list<Environment *> environments;
+    std::list<Environment *> environments{};
     Abstract_Renderer *renderer{};
     Environment *currentEnv{};
     OutputPictureManager *picManager;

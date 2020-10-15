@@ -19,7 +19,7 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
         /**
          * Here some multithreading could be useful
          */
-        if (checkForSingleIntersection(origin, direction, **aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
+        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
             closest = **aTessel;
             distanceMinTessel = distance;
             result.tessel = closest;
@@ -42,13 +42,16 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
  * @param distance
  * @return
  */
-bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance) {
-    Vector x0 = Vector(tessel.summmits[0]);
-    Vector x1 = Vector(tessel.summmits[1]);
-    Vector x2 = Vector(tessel.summmits[2]);
+bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance) {
+    Vector x0 = Vector(tessel->summmits[0]);
+    Vector x1 = Vector(tessel->summmits[1]);
+    Vector x2 = Vector(tessel->summmits[2]);
     Vector origin = Vector(orig);
     double a0 = Vector::crossProduct(x1 - origin, x2 - origin).dot(dir) * 0.5;
     double a1 = Vector::crossProduct(x2 - origin, x0 - origin).dot(dir) * 0.5;
+    if ((a0 < 0 && a1 > 0) || (a0 > 0 && a1 < 0)) {
+        return false;
+    }
     double a2 = Vector::crossProduct(x0 - origin, x1 - origin).dot(dir) * 0.5;
 
     /**

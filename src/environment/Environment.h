@@ -14,7 +14,7 @@ private:
     std::list<Tessel *> allTessels;
     std::list<Object *> allObjects;
     std::list<MappedTexture *> allTMapped;
-    Camera *currentCam = new Camera();
+    Camera *currentCam;
 public:
     std::string envName;
 
@@ -28,11 +28,13 @@ public:
 
     void switchCamera(std::string camName);
 
-    std::list<Tessel *> * getTessels();
+    std::list<Tessel *> *getTessels();
 
     void tesselate();
 
     void addObject(Object *);
+
+    ~Environment();
 
 };
 

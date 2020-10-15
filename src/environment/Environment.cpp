@@ -4,6 +4,8 @@
 #include "RegularObjects/Sphere.h"
 
 Environment::Environment(std::string name) {
+    currentCam = new Camera();
+    cameras.push_back(currentCam);
     this->envName = std::move(name);
 }
 
@@ -31,5 +33,15 @@ void Environment::tesselate() {
     }
 }
 
+Environment::~Environment() {
+    allTessels.clear();
+    allObjects.clear();
+    cameras.clear();
+    allTMapped.clear();
+    delete currentCam;
+}
 
-Environment::Environment() = default;
+Environment::Environment() {
+    currentCam = new Camera();
+    cameras.push_back(currentCam);
+};

@@ -33,7 +33,7 @@ class RT_RayEnvIntersector {
 public:
     Environment *environment;
 
-    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel tessel, Vector *intersectionPoint, double *distance);
+    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance);
 
 public:
     /**
