@@ -4,8 +4,9 @@
 #include "RT_Ray.h"
 #include "RT_RayCaster.h"
 
-void RT_RayTracer::renderScene() {
-    std::list<RT_Ray> firstRays = RT_RayCaster::generateFirstRays(environment->getCurrentCam(), picManager);
+void RT_RayTracer::renderScene(const std::string string) {
+    std::list<RT_Ray> firstRays = RT_RayCaster::generateFirstRays(environment->getCurrentCam());
+    this->picManager = new OutputPictureManager(string);
     std::list<RT_Ray>::iterator aRay;
     for (aRay = firstRays.begin(); aRay != firstRays.end(); aRay++) {
         /**
@@ -13,16 +14,19 @@ void RT_RayTracer::renderScene() {
          */
         aRay->RT_ComputePrimaryRay(envIntersector, picManager);
     }
+    picManager->savePicture();
 }
 
 RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic) {
     this->picManager = pic;
+    this->environment = env;
     this->envIntersector = new RT_RayEnvIntersector(env);
 }
 
 RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct rayTracerConfig conf) : config(conf) {
     this->envIntersector = new RT_RayEnvIntersector(env);
     this->picManager = pic;
+    this->environment = env;
 }
 
 RT_RayTracer::~RT_RayTracer() {

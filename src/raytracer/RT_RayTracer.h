@@ -37,7 +37,7 @@ public:
 
     RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
 
-    void renderScene() override;
+    void renderScene(const std::string string) override;
 
     ~RT_RayTracer();
 };

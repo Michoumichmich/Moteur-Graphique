@@ -20,7 +20,7 @@ std::list<RT_Ray> RT_RayCaster::generateFirstRays(Camera *cam, unsigned int pixe
 
         for (unsigned x = 0; x < pixel_width_count; x++) {
             for (unsigned y = 0; y < pixel_height_count; y++) {
-                Vector target = Vector(bottomLeft) + up_unit * (y / pixel_height) + right_unit * (x / pixel_width);
+                Vector target = Vector(bottomLeft) + up_unit * (y * pixel_height) + right_unit * (x * pixel_width);
                 Rays.emplace_back(target, cam->origin, 1, true, x, y);
             }
         }
