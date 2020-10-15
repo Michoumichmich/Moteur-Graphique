@@ -5,7 +5,7 @@
 #include <algorithm>
 
 void GraphicsEngine::launchRender(const std::string &outName) {
-    this->picManager->outFile = outName;
+    this->picManager = new OutputPictureManager(outName);
     this->renderer->renderScene();
 }
 
@@ -15,9 +15,9 @@ void GraphicsEngine::createEnvironment(std::string name) {
     this->environments.push_back(env);
 }
 
-void GraphicsEngine::switchEnvironment(std::string name) {
+void GraphicsEngine::switchEnvironment(const std::string &name) {
     bool found = false;
-    for (std::list<Environment*>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
+    for (std::list<Environment *>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
         if ((*it)->envName == name) {
             currentEnv = *it;
         }
@@ -41,7 +41,7 @@ OutputPictureManager *GraphicsEngine::getPicManager() {
 
 std::vector<std::string> GraphicsEngine::environmentsName() {
     std::vector<std::string> names{};
-    for (std::list<Environment*>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
+    for (std::list<Environment *>::const_iterator it = environments.begin(); it != environments.end(); ++it) {
         names.push_back(it.operator*()->envName);
     }
     return names;

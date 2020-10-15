@@ -31,7 +31,7 @@ public:
 
     void createEnvironment(std::string name);
 
-    void switchEnvironment(std::string name);
+    void switchEnvironment(const std::string &name);
 
     Environment *getCurrentEnvironment();
 

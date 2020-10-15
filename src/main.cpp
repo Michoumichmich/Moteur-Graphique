@@ -17,9 +17,6 @@ int main(int argc, char **argv) {
     RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), gr->getPicManager());
     gr->setRenderer(renderer);
 
-
-
-
     /**
      * Test intersection
      */
