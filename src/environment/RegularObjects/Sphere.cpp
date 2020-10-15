@@ -13,9 +13,9 @@ void Sphere::Tesselate() {
     auto map = [](double value, double start1, double stop1, double start2, double stop2) {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     };
-    for (int i = 0; i < n_lat; ++i) {
+    for (int i = 0; i <= n_lat; ++i) {
         double theta = map(i, 0, n_lat, 0, PI);
-        for (int j = 0; j < n_long; ++j) {
+        for (int j = 0; j <= n_long; ++j) {
             double phi = map(j, 0, n_long, 0, 2 * PI);
             double x = radius * sin(theta) * cos(phi);
             double y = radius * sin(theta) * sin(phi);
