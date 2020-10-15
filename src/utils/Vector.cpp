@@ -7,9 +7,9 @@ Vector::Vector(double x, double y, double z) : Point3D(x, y, z) {
 }
 
 Vector::Vector(Point3D x, Point3D y) {
-    this->x = x.getX() - y.getX();
-    this->y = x.getY() - y.getY();
-    this->z = x.getZ() - y.getZ();
+    this->x = x.x - y.x;
+    this->y = x.y - y.y;
+    this->z = x.z - y.z;
 }
 
 Vector::Vector() : Vector(0, 0, 0) {
@@ -57,7 +57,7 @@ double Vector::norm() const {
     return sqrt(norm2());
 }
 
-Vector::Vector(Point3D p) : Vector(p.getX(), p.getY(), p.getZ()) {
+Vector::Vector(Point3D p) : Vector(p.x, p.y, p.z) {
 }
 
 Vector Vector::crossProduct(Vector u, Vector v) {
