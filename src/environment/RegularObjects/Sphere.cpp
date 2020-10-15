@@ -11,7 +11,7 @@ void Sphere::Tesselate() {
 
     Point3D globe[n_lat+1][n_long+1];
 
-    std::function<double(double, double, double, double, double)> map = [](double value, double start1, double stop1, double start2, double stop2) {
+    auto map = [](double value, double start1, double stop1, double start2, double stop2) {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     };
     for (int i = 0; i < n_lat; ++i) {
