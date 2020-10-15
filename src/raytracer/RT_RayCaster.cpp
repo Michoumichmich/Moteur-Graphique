@@ -1,12 +1,12 @@
 #include "RT_RayCaster.h"
 
-std::list<RT_Ray> RT_RayCaster::generateFirstRays(Camera *cam, unsigned int pixel_height_count, unsigned int pixel_width_count) {
+std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, Camera *cam, unsigned int pixel_height_count, unsigned int pixel_width_count) {
     std::list<RT_Ray> Rays;
 
     if (cam->mode == ORTHOGRAPHIC) {
         for (int i = 0; i < pixel_width_count; i += 1 / pixel_height_count) {
             for (int j = 0; j < pixel_width_count; j += 1 / pixel_width_count) {
-                Rays.push_back(RT_Ray(Vector(cam->origin, cam->target), cam->origin, 1 /*default counter ?*/, true));
+                Rays.push_back(RT_Ray(Vector(cam->origin, cam->target), cam->origin, config, i, j));
             }
         }
     } else if (cam->mode == PERSPECTIVE) {
@@ -21,7 +21,7 @@ std::list<RT_Ray> RT_RayCaster::generateFirstRays(Camera *cam, unsigned int pixe
         for (unsigned x = 0; x < pixel_width_count; x++) {
             for (unsigned y = 0; y < pixel_height_count; y++) {
                 Vector target = Vector(bottomLeft) + up_unit * (y * pixel_height) + right_unit * (x * pixel_width);
-                Rays.emplace_back(target, cam->origin, 1, true, x, y);
+                Rays.emplace_back(target, cam->origin, config, x, y);
             }
         }
     }

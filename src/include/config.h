@@ -13,7 +13,8 @@
 #define unlikely(x)     __builtin_expect((x),0)
 
 #define PI 3.1415926
-
+#define TESSELATION_DENSITY 20
+#define MAX_BOUNCES 1
 #define DEFAULT_WIDTH 400
 #define DEFAULT_HEIGHT 200
 

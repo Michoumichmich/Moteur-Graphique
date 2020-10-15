@@ -9,34 +9,69 @@
 #include <environment.h>
 #include "RT_RayEnvIntersector.h"
 
-struct RT_RayOutput {
-    Color resultColor;
-
-    /**
-     * The distance between the ray and the first tessel it touched. If the ray goes to infinity we return -1
-     * It's going to be useful to compute the bitmap and deph map, furthermore it can be used to create volumetric effet
-     * it applying some filter depending on the distance between the camera and the ray for the primary rays
-     * For the others, we can still apply some kind of ray extinction
-     */
-    double distance;
-    double rayIntensity;
+/**
+ * Used to define the type of rendering.
+ */
+enum RT_RayRenderingMode {
+    RT_BITMAP,
+    RT_DEPTHMAP,
+    RT_STANDARD,
 };
 
+/**
+ * The configuration of the renderer and the ray
+ * //TODO split the global renderer config and the ray's one to avoid duplicating data
+ */
+struct RT_RayConfig {
+    bool reflexions = false;
+    bool refractions = false;
+    bool transparency = false;
+    bool diffusivity = false;
+    bool depthOfField = false;
+    enum RT_RayRenderingMode rtMode = RT_DEPTHMAP;
+    unsigned int bouncesLeft = MAX_BOUNCES;
+    double intensity = 1;
+};
+
+/**
+ * Data outputed by the ray launched by the cam.
+ * The distance between the ray and the first tessel it touched. If the ray goes to infinity we return -1
+ * It's going to be useful to compute the bitmap and deph map, furthermore it can be used to create volumetric effet
+ * it applying some filter depending on the distance between the camera and the ray for the primary rays
+ * For the others, we can still apply some kind of ray extinction
+ */
+struct RT_RayOutput {
+    Color resultColor;
+    double distance;
+    double intensity;
+};
+
+
+/**
+ * @class RT_Ray
+ * Contains everything to create and compute a ray.
+ */
 class RT_Ray {
 private:
     Vector dir;
     Vector origin;
-    unsigned int bouncesLeftCounter;
-    double rayIntensity;
-    bool isBitmap;
-    bool isDepthmap;
+    RT_RayConfig config;
 
-    struct RT_RayOutput RT_ComputeDescendingRay(Vector direction, Point3D origin, unsigned int bouncesLeft, RT_RayEnvIntersector *) const;
+    static struct RT_RayOutput RT_ComputeRecurseRay(Vector dir, Point3D origin, struct RT_RayConfig config, RT_RayEnvIntersector *intersector);
 
 public :
-    RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap);
+    /**
+     * Will be used to generate the secondary rays
+     */
+    RT_Ray(Vector direction, Point3D origin, struct RT_RayConfig config);
 
-    RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap, unsigned x, unsigned y);
+    /**
+     * Should be used for the first rays only. The ray needs to hold the data on where it should be displayed as
+     * the rays are not computed at the same time they're launched
+     * @param x smaller that the width
+     * @param y smaller than the height
+     */
+    RT_Ray(Vector direction, Point3D origin, struct RT_RayConfig config, unsigned x, unsigned y);
 
     /**
      * Recursively computes a ray.

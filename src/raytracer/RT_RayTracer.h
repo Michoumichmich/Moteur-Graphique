@@ -9,35 +9,20 @@
 #include <utils.h>
 #include "../engine/Abstract_Renderer.h"
 #include "RT_RayEnvIntersector.h"
+#include "RT_Ray.h"
 
-enum rayTracerRenderMode {
-    BITMAP,
-    DEPTHMAP,
-    STANDARD,
-};
-
-struct rayTracerConfig {
-    bool reflexions = false;
-    bool refractions = false;
-    bool transparency = false;
-    bool diffusivity = false;
-    bool depthOfField = false;
-    enum rayTracerRenderMode rtMode = BITMAP;
-    unsigned int maxRayBounce = 0;
-
-};
 
 class RT_RayTracer : public Abstract_Renderer {
 private:
     Environment *environment{};
-    struct rayTracerConfig config;
+    struct RT_RayConfig config;
     RT_RayEnvIntersector *envIntersector;
 public:
     explicit RT_RayTracer(Environment *, OutputPictureManager *);
 
-    RT_RayTracer(Environment *, OutputPictureManager *pic, struct rayTracerConfig);
+    RT_RayTracer(Environment *, OutputPictureManager *pic, struct RT_RayConfig);
 
-    void renderScene(const std::string string) override;
+    void renderScene(std::string string) override;
 
     ~RT_RayTracer();
 };
