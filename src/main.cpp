@@ -19,18 +19,21 @@ int main(int argc, char **argv) {
 
 
 
+
     /**
      * Test intersection
      */
-    Vector dir = Vector(0, 0, -1);
-    Vector orig = Vector(0, 0, 2.5);
+    Vector dir = Vector(0, 11, 11);
+    Vector orig = Vector(0, 0, 1.1);
     Environment *env = gr->getCurrentEnvironment();
+    Sphere *sph = new Sphere();
+    sph->Tesselate();
+    env->addObject(sph);
     RT_RayEnvIntersector intersector = RT_RayEnvIntersector(env);
     struct RT_RayIntersectionResult res = intersector.RT_RayFindIntersection(orig, dir);
 
     OutputPictureManager pm = OutputPictureManager();
     pm.savePicture();
-
     delete gr;
     delete renderer;
 

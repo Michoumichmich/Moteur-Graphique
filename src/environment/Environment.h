@@ -30,6 +30,8 @@ public:
 
     std::list<Tessel> getTessels();
 
+    void addObject(Object *);
+
 };
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

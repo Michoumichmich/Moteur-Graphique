@@ -7,5 +7,6 @@
 #include "../environment/Camera.h"
 #include "../environment/ApparenceProperties.h"
 #include "../environment/MappedTexture.h"
+#include "../environment/RegularObjects/Sphere.h"
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

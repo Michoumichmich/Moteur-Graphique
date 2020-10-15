@@ -23,9 +23,9 @@ Environment::Environment(std::string name) {
     tessel2.summmits[1] = tes4;
     tessel2.summmits[2] = tes5;
     this->allTessels.push_back(tessel2);
-*/
 
-    /*
+*/
+/*
     Object *sph = new  Sphere();
     this->allOjects.push_back(sph);
     sph->Tesselate();
@@ -38,6 +38,16 @@ Camera *Environment::getCurrentCam() {
 
 std::list<Tessel> Environment::getTessels() {
     return this->allTessels;
+}
+
+void Environment::addObject(Object *obj) {
+    this->allOjects.push_back(obj);
+
+}
+
+std::list<std::string> Environment::listCameras() {
+    //TODO
+    return std::list<std::string>();
 }
 
 Environment::Environment() = default;

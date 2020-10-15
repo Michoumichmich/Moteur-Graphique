@@ -27,8 +27,8 @@ void Sphere::Tesselate() {
     }
     for (int i = 0; i < n_lat; ++i) {
         for (int j = 0; j < n_long; ++j) {
-            this->tessels.push_back(new Tessel(globe[i][j], globe[i+1][j], globe[i][j+1]));
-            this->tessels.push_back(new Tessel(globe[i+1][j+1], globe[i+1][j], globe[i][j+1]));
+            this->tessels.push_back(new Tessel(globe[i][j], globe[i + 1][j], globe[i][j + 1], this->properties));
+            this->tessels.push_back(new Tessel(globe[i + 1][j + 1], globe[i + 1][j], globe[i][j + 1], this->properties));
         }
     }
 }
