@@ -7,7 +7,7 @@
 |  &nbsp;                 | Itération précédente     |
 | -------------           |-------------             |
 | **Product Owner**       | Vivien Gagliano          |
-| **Scrum Master**        | Michel Migdal            |
+| **Scrum Master**        | Timothé Rios             |
 
 ## Bilan de l'itération précédente  
 ### Évènements 
