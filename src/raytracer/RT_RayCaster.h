@@ -10,7 +10,7 @@
 
 class RT_RayCaster {
 public:
-    static std::list<RT_Ray> generateFirstRays(Camera *cam, OutputPictureManager *pic,double height,double width);
+    static std::list<RT_Ray> generateFirstRays(Camera *cam, OutputPictureManager *pic, double height = DEFAULT_HEIGHT, double width = DEFAULT_WIDTH);
 };
 
 #endif //GRAPHIC_ENGINE_RAYCASTER_H
