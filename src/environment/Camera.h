@@ -11,6 +11,7 @@ private:
     double viewportWidth;
     double viewportHeight;
     double viewPortDistance;
+
 public:
     std::string cameraName;
 };
