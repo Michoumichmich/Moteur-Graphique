@@ -35,10 +35,9 @@ public:
 
     Camera(Point3D origin, Point3D target);
 
-    Camera(Point3D origin, Point3D target, std::string Name, enum camMode);
+    Camera(Point3D origin, Point3D target, std::string name, enum camMode);
 
     Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
-
 
     void ModifyViewport(double width, double height);
 
