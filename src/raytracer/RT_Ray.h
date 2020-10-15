@@ -31,7 +31,7 @@ private:
     bool isBitmap;
     bool isDepthmap;
 
-    struct RT_RayOutput RT_ComputeDescendingRay(Vector direction, Point3D origin, unsigned int bouncesLeft, RT_RayEnvIntersector *);
+    struct RT_RayOutput RT_ComputeDescendingRay(Vector direction, Point3D origin, unsigned int bouncesLeft, RT_RayEnvIntersector *) const;
 
 public :
     RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap);

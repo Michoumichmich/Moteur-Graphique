@@ -15,8 +15,11 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
     pic->writePixel(res.resultColor, x, y);
 }
 
-struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) {
+struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) const {
 
+    /**
+     * No reflexions or whatsoever, we return directly the result.
+     */
     if (isBitmap) {
         struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
         if (res.intersectsSometing) {
@@ -26,10 +29,14 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, 
         }
     }
 
+    if (isDepthmap){
+      //TODO return the distance
+    }
+
     if (rayIntensity == 0 | bouncingsLeft == 0) {
         // TODO  return what ?
     }
-    //TODO Computes the ray recursively
+
     struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
     if (!res.intersectsSometing || res.type == INF) {
         return RT_RayOutput{Color(), -1, 1};
