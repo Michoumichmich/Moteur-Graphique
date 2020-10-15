@@ -12,7 +12,7 @@ Vector::Vector(Point3D x, Point3D y) {
     this->z = x.z - y.z;
 }
 
-Vector::Vector() : Vector(0, 0, 0) {
+Vector::Vector() : Point3D() {
 }
 
 Vector Vector::operator*(const double &f) const {
@@ -57,7 +57,7 @@ double Vector::norm() const {
     return sqrt(norm2());
 }
 
-Vector::Vector(Point3D p) : Vector(p.x, p.y, p.z) {
+Vector::Vector(Point3D p) : Point3D(p.x, p.y, p.z) {
 }
 
 Vector Vector::crossProduct(Vector u, Vector v) {
