@@ -36,6 +36,8 @@ private:
 public :
     RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap);
 
+    RT_Ray(Vector, Point3D, unsigned int counter, bool isBitmap, unsigned x, unsigned y);
+
     /**
      * Recursively computes a ray.
      * First it looks for the closest tessel in the env that's on its path
