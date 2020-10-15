@@ -1,3 +1,0 @@
-/home/michel/Desktop/ENSIIE/S3/PIMA/Moteur-Graphique/CMakeFiles/rebuild_cache.dir
-/home/michel/Desktop/ENSIIE/S3/PIMA/Moteur-Graphique/CMakeFiles/edit_cache.dir
-/home/michel/Desktop/ENSIIE/S3/PIMA/Moteur-Graphique/CMakeFiles/main.dir
