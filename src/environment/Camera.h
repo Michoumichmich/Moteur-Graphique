@@ -9,15 +9,15 @@ enum camMode{
 };
 class Camera {
 private:
-    Point3D origin;
-    Point3D target;
+
+public:
     double viewportWidth;
     double viewportHeight;
     enum camMode mode;
-
-public:
+    Point3D origin;
+    Point3D target;
     std::string cameraName;
-    Camera CreateCamera();
+    Camera CreateCamera(std::string Name);
     Camera CreateCamera(Point3D origin, Point3D target);
     void ModifyViewport(double width,double height);
     void PositionCamera(Point3D origin,Point3D target);

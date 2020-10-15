@@ -1,5 +1,5 @@
 #include "Camera.h"
 
-Camera CreateCamera(){
+Camera CreateCamera(std::string Name){
 
 }
