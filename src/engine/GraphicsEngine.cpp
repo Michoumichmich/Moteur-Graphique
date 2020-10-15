@@ -39,6 +39,10 @@ OutputPictureManager *GraphicsEngine::getPicManager() {
     return this->picManager;
 }
 
+std::list<Environment *> GraphicsEngine::getEnvironments() {
+    return environments;
+}
+
 std::vector<std::string> GraphicsEngine::environmentsName() {
     std::vector<std::string> names{};
     for (std::list<Environment*>::const_iterator it = environments.begin(); it != environments.end(); ++it) {

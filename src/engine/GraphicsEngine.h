@@ -39,6 +39,8 @@ public:
 
     OutputPictureManager *getPicManager();
 
+    std::list<Environment *> getEnvironments();
+
     std::vector<std::string> environmentsName();
 
     ~GraphicsEngine();
