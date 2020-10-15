@@ -2,7 +2,6 @@
 // Created by michel on 11/10/2020.
 //
 
-#include <functional>
 #include "Sphere.h"
 
 void Sphere::Tesselate() {
@@ -18,9 +17,9 @@ void Sphere::Tesselate() {
         double theta = map(i, 0, n_lat, 0, PI);
         for (int j = 0; j < n_long; ++j) {
             double phi = map(j, 0, n_long, 0, 2 * PI);
-            double x = sin(theta) * cos(phi) * radius;
-            double y = sin(theta) * sin(phi) * radius;
-            double z = cos(theta) * radius;
+            double x = radius * sin(theta) * cos(phi);
+            double y = radius * sin(theta) * sin(phi);
+            double z = radius * cos(theta);
             globe[i][j] = Point3D(x, y, z);
         }
     }
