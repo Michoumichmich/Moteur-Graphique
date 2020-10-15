@@ -91,17 +91,15 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             } else {
                 status = MISSING_ARGS;
             }
-        }
-        else {
+        } else {
             status = MISSING_ARGS;
         }
     }
-    // TODO Add object to environment
-    else if () {
-
-    }
-    // TODO Add command for setting renderer
-    // TODO Add command for setting current environment
+        // TODO Add object to environment
+        // else if () {
+        //  }
+        // TODO Add command for setting renderer
+        // TODO Add command for setting current environment
     else {
         status = UNKNOWN_COMMAND;
     }

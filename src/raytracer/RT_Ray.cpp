@@ -20,9 +20,8 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, 
         }
     }
 
-
     if (rayIntensity == 0 | bouncingsLeft == 0) {
-        // TIDI return {}
+        // TODO  return what ?
     }
     //TODO Computes the ray recursively
     struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
