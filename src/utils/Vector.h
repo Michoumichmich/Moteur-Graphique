@@ -34,6 +34,8 @@ public:
 
     double norm() const;
 
+    Vector normalize() const;
+
     static Vector crossProduct(Vector a, Vector b);
 };
 
