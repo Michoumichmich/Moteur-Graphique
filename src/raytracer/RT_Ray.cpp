@@ -12,19 +12,19 @@ RT_Ray::RT_Ray(Vector dir, Point3D orig, unsigned int counter, bool isBitmap, un
 
 void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic) {
 
-    struct RT_RayOutput res = RT_ComputeDescendingRay(dir, origin, bouncesLeftCounter, intersector);
+    struct RT_RayOutput rayOutput = RT_ComputeDescendingRay(dir, origin, bouncesLeftCounter, intersector);
+    isBitmap = false,
+            isDepthmap = true;
 
-    if (isBitmap && res.distance >= 0) {
+    if (isBitmap && rayOutput.distance >= 0) {
         pic->writePixel(Color(1), x, y);
-    } else if (isDepthmap && res.distance >= 0) {
-        pic->writePixel(res.distance, x, y);
-    } else if (res.distance >= 0) {
-        pic->writePixel(res.resultColor, x, y);
+    } else if (isDepthmap && rayOutput.distance >= 0) {
+        pic->writePixel(rayOutput.distance, x, y);
+    } else if (rayOutput.distance >= 0) {
+        pic->writePixel(rayOutput.resultColor, x, y);
     } else {
         pic->writePixel(Color(0), x, y);
     }
-
-
 }
 
 struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, unsigned int bouncingsLeft, RT_RayEnvIntersector *intersector) const {
@@ -32,17 +32,13 @@ struct RT_RayOutput RT_Ray::RT_ComputeDescendingRay(Vector dir, Point3D origin, 
     /**
      * No reflexions or whatsoever, we return directly the result.
      */
-    if (isBitmap) {
+    if (isBitmap || isDepthmap) {
         struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
         if (res.intersectsSometing) {
             return RT_RayOutput{Color(1.0), res.distanceMin, 1};
         } else {
             return RT_RayOutput{Color(0.0), res.distanceMin, 1};
         }
-    }
-
-    if (isDepthmap) {
-        //TODO return the distance
     }
 
     if (rayIntensity == 0 | bouncingsLeft == 0) {

@@ -15,9 +15,15 @@ enum coloringMethods {
 class ColorMapper {
 private :
     enum coloringMethods method;
-    double param;
+    double param1;
+    double param2;
 public :
-    explicit ColorMapper(enum coloringMethods, double param = 0.1);
+    /**
+     * Constructor for the color mapper. The parameter's signification depends on the context.
+     * @param param1
+     * @param param2
+     */
+    explicit ColorMapper(enum coloringMethods method, double param1 = 0.1, double param2 = 0);
 
     Color Map(double);
 

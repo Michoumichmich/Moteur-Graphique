@@ -20,7 +20,7 @@ private:
 public :
     std::string outFile;
 
-    explicit OutputPictureManager(std::string = "output.ppm", unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
+    explicit OutputPictureManager(std::string = "output.bmp", unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
 
     void writePixel(Color, unsigned int x, unsigned int y);
 
