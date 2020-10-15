@@ -26,9 +26,10 @@ int main(int argc, char **argv) {
     Vector dir = Vector(0, 11, 11);
     Vector orig = Vector(0, 0, 1.1);
     Environment *env = gr->getCurrentEnvironment();
-    Sphere *sph = new Sphere();
-    sph->Tesselate();
+    Sphere *sph = new Sphere(1.0);
     env->addObject(sph);
+    sph->Tesselate();
+
     RT_RayEnvIntersector intersector = RT_RayEnvIntersector(env);
     struct RT_RayIntersectionResult res = intersector.RT_RayFindIntersection(orig, dir);
 

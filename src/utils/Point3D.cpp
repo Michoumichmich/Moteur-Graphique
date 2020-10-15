@@ -32,7 +32,9 @@ Point3D::Point3D() : Point3D(0, 0, 0) {
 }
 
 Point3D::Point3D(double x, double y, double z) {
-    this->setX(x).setY(y).setZ(z);
+    this->setX(x);
+    this->setY(y);
+    this->setZ(z);
 }
 
 double Point3D::distance(Point3D a, Point3D b) {
