@@ -1,15 +1,22 @@
 #include "ColorMapper.h"
+#include <cmath>
+#include <random>
 
-ColorMapper::ColorMapper(enum coloringMethods method, double param1, double param2) : method(method), param1(param1), param2(param2) {
+ColorMapper::ColorMapper(enum colorMappingMethods method, double param1, double param2) : method(method), param1(param1), param2(param2) {
+    srand(time(NULL));
+    rand = std::rand() % 1000;
 }
 
 Color ColorMapper::Map(double val) {
+    double fracpart, intpart, param;
     switch (method) {
         case LINEAR:
             return Color(1 - ((val - param1) / (param2 - param1)));
             break;
         case NONSENSE:
-
+            param = val * rand;
+            fracpart = modf(param, &intpart);
+            return {(int) pow(intpart, 1) % 256, (int) pow(intpart, 2) % 256, (int) pow(intpart, 3) % 256, 256};
             break;
         case STRIPS:
             break;

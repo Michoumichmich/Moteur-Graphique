@@ -12,10 +12,14 @@
  */
 #define unlikely(x)     __builtin_expect((x),0)
 
+/**
+ * Coloring mode NONSENSE or LINEAR
+ */
+#define COLORING_MODE NONSENSE
 #define PI 3.1415926
 #define TESSELATION_DENSITY 20
 #define MAX_BOUNCES 1
-#define DEFAULT_WIDTH 400
-#define DEFAULT_HEIGHT 200
+#define DEFAULT_WIDTH 800
+#define DEFAULT_HEIGHT 400
 
 #endif //INC_3D_RENDERER_CONFIG_H

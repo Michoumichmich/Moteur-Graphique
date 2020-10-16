@@ -28,6 +28,8 @@ public:
 
     Color(double, double, double);
 
+    Color(int, int, int, int);
+
     explicit Color(double);
 
     /**

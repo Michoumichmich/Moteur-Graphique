@@ -31,7 +31,7 @@ void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
 
     this->picManager = new OutputPictureManager(string); //TODO SHOUDLNT BE THERE
-    picManager->setColorMapper(new ColorMapper(LINEAR, 1, 1.8)); //TODO SHOUDLNT BE THERE
+    picManager->setColorMapper(new ColorMapper(COLORING_MODE, 1, 1.8)); //TODO SHOUDLNT BE THERE
 
     std::list<RT_Ray>::iterator aRay;
     for (aRay = primaryRays.begin(); aRay != primaryRays.end(); aRay++) {

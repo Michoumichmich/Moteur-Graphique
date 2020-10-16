@@ -16,15 +16,15 @@ private:
      * allColors[height ie y][width ie x]
      */
     Color **allColors;
-
-public :
     std::string outFile;
+public :
+
 
     explicit OutputPictureManager(std::string = "output.bmp", unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
 
-    void writePixel(Color, unsigned int x, unsigned int y);
+    void writePixel(Color c, unsigned int x, unsigned int y);
 
-    void writePixel(double, unsigned int x, unsigned int y);
+    void writePixel(double d, unsigned int x, unsigned int y);
 
     void setColorMapper(ColorMapper *color_mapper);
 
