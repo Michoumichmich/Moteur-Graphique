@@ -12,7 +12,7 @@
 /**
  * Used to define the type of rendering.
  */
-enum RT_RayRenderingMode {
+enum class RT_RayRenderingMode {
     RT_BITMAP,
     RT_DEPTHMAP,
     RT_STANDARD,
@@ -28,7 +28,7 @@ struct RT_RayConfig {
     bool transparency = false;
     bool diffusivity = false;
     bool depthOfField = false;
-    enum RT_RayRenderingMode rtMode = RT_DEPTHMAP;
+    RT_RayRenderingMode rtMode = RT_RayRenderingMode::RT_DEPTHMAP;
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
 };

@@ -5,13 +5,13 @@ Color::Color() {
     red = 0;
     blue = 0;
     green = 0;
-    colormode = RGB;
+    colormode = colorMode::RGB;
 }
 
-Color::Color(double r, double g, double b) : red(r), green(g), blue(b), colormode(RGB) {
+Color::Color(double r, double g, double b) : red(r), green(g), blue(b), colormode(colorMode::RGB) {
 }
 
-Color::Color(int r, int g, int b, int d) : red((double) r / d), green((double) g / d), blue((double) b / d), colormode(RGB) {
+Color::Color(int r, int g, int b, int d) : red((double) r / d), green((double) g / d), blue((double) b / d), colormode(colorMode::RGB) {
 }
 
 struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {

@@ -1,7 +1,6 @@
 #include "Environment.h"
 
-#include <utility>
-#include "RegularObjects/Sphere.h"
+#include <sstream>
 
 Environment::Environment(std::string name) {
     currentCam = new Camera();
@@ -29,7 +28,8 @@ std::list<std::string> Environment::listCameras() {
 void Environment::tesselate() {
     for (std::list<Object *>::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it) {
         (*it)->Tesselate();
-        allTessels.merge((*it)->getTessels());
+        auto tmp = (*it)->getTessels();
+        copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
     }
 }
 

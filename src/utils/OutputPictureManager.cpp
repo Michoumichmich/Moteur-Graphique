@@ -4,12 +4,17 @@
 OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height) :
         outFile(std::move(name)), width(width), height(height) {
     allColors = (Color **) calloc(sizeof(Color *), height);
-    for (unsigned i = 0; i < height; i++) {
-        allColors[i] = (Color *) calloc(sizeof(Color), width);
-        for (unsigned j = 0; j < width; j++) {
-            allColors[i][j] = Color(0.0);
+    if (allColors != nullptr) {
+        for (unsigned i = 0; i < height; i++) {
+            allColors[i] = (Color*)calloc(sizeof(Color), width);
+            if (allColors[i] != nullptr) {
+                for (unsigned j = 0; j < width; j++) {
+                    allColors[i][j] = Color(0.0);
+                }
+            }
         }
     }
+    
 }
 
 
@@ -42,9 +47,8 @@ OutputPictureManager::~OutputPictureManager() {
 
 void OutputPictureManager::savePicture() {
     FILE *f;
-    unsigned char *img = NULL;
+    auto *img = (unsigned char*)malloc(3 * width * height);
     unsigned int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
-    img = (unsigned char *) malloc(3 * width * height);
     unsigned int x, y;
     for (unsigned i = 0; i < width; i++) {
         for (unsigned j = 0; j < height; j++) {

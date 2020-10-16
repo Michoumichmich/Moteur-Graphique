@@ -5,3 +5,9 @@
 /misc/business_card/card
 misc/business_card/cmake-build-debug/
 main
+/src/Release/
+/src/.vs/
+/src/Moteur-Graphique.vcxproj
+/src/Moteur-Graphique.vcxproj.filters
+/src/Moteur-Graphique.vcxproj.user
+/src/test.bmp
