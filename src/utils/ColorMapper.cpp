@@ -13,12 +13,10 @@ Color ColorMapper::Map(double val) {
     switch (method) {
         case LINEAR:
             return Color(1 - ((val - param1) / (param2 - param1)));
-            break;
         case NONSENSE:
             param = val * rand;
             fracpart = modf(param, &intpart);
             return {(int) pow(intpart, 1) % 256, (int) pow(intpart, 2) % 256, (int) pow(intpart, 3) % 256, 256};
-            break;
         case STRIPS:
             break;
         case TOPO_LINES:
