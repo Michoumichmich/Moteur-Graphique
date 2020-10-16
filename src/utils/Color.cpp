@@ -15,7 +15,7 @@ Color::Color(int r, int g, int b, int d) : red((double) r / d), green((double) g
 }
 
 struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {
-    unsigned int factor = pow(2, bitDepth) - 1;
+    unsigned int factor = (unsigned)pow(2, bitDepth) - 1;
     return rgbPixel{(unsigned int) (red * factor), (unsigned int) (green * factor), (unsigned int) (blue * factor)};
 }
 

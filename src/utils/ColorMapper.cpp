@@ -1,9 +1,10 @@
 #include "ColorMapper.h"
 #include <cmath>
 #include <random>
+#include <time.h>
 
 ColorMapper::ColorMapper(enum colorMappingMethods method, double param1, double param2) : method(method), param1(param1), param2(param2) {
-    srand(time(NULL));
+    srand((unsigned)time(nullptr));
     rand = std::rand() % 1000;
 }
 

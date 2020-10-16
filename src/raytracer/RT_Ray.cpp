@@ -51,7 +51,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
         }
     }
 
-    if (config.intensity == 0 | config.bouncesLeft == 0) {
+    if (config.intensity == 0 || config.bouncesLeft == 0) {
         // TODO  return what ?
     }
 

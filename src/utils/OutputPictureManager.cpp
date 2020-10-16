@@ -4,9 +4,9 @@
 OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height) :
         outFile(std::move(name)), width(width), height(height) {
     allColors = (Color **) calloc(sizeof(Color *), height);
-    for (int i = 0; i < height; i++) {
+    for (unsigned i = 0; i < height; i++) {
         allColors[i] = (Color *) calloc(sizeof(Color), width);
-        for (int j = 0; j < width; j++) {
+        for (unsigned j = 0; j < width; j++) {
             allColors[i][j] = Color(0.0);
         }
     }
@@ -33,7 +33,7 @@ void OutputPictureManager::writePixel(double d, unsigned int x, unsigned int y) 
 
 
 OutputPictureManager::~OutputPictureManager() {
-    for (int i = 0; i < height; i++) {
+    for (unsigned i = 0; i < height; i++) {
         free(allColors[i]);
     }
     free(allColors);
@@ -46,8 +46,8 @@ void OutputPictureManager::savePicture() {
     unsigned int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
     img = (unsigned char *) malloc(3 * width * height);
     unsigned int x, y;
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
+    for (unsigned i = 0; i < width; i++) {
+        for (unsigned j = 0; j < height; j++) {
             x = i;
             y = (height - 1) - j;
             struct rgbPixel rgb = allColors[y][x].getPixelValues(8);
@@ -78,7 +78,7 @@ void OutputPictureManager::savePicture() {
     f = fopen(this->outFile.c_str(), "wb");
     fwrite(bmpfileheader, 1, 14, f);
     fwrite(bmpinfoheader, 1, 40, f);
-    for (int i = 0; i < height; i++) {
+    for (unsigned i = 0; i < height; i++) {
         fwrite(img + (width * (height - i - 1) * 3), 3, width, f);
         fwrite(bmppad, 1, (4 - (width * 3) % 4) % 4, f);
     }
