@@ -3,7 +3,7 @@
 #include <utils.h>
 #include "RT_Ray.h"
 #include "RT_RayCaster.h"
-
+#include <omp.h>
 #include <iostream>
 
 RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic) {
@@ -30,12 +30,15 @@ RT_RayTracer::~RT_RayTracer() {
 void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
     std::list<RT_Ray>::iterator aRay;
+
+#pragma omp parallel default(none) private(aRay) shared(envIntersector, picManager, primaryRays)
+#pragma omp single
+//#pragma omp parallel for default(none) private(aRay) shared(envIntersector, picManager)
     for (aRay = primaryRays.begin(); aRay != primaryRays.end(); aRay++) {
-        /**
-         * Here some multithreading could be useful
-         */
-        std::cout << aRay->x << ' ' << aRay->y << std::endl;
+      #pragma omp task firstprivate(aRay)
+       // std::cout << aRay->x << ' ' << aRay->y << std::endl;
         aRay->RT_ComputePrimaryRay(envIntersector, picManager);
+#pragma omp taskwait
     }
     picManager->savePicture();
 }

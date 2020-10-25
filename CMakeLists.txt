@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 
-set(COMPILE_OPTIONS PRIVATE -v -Wall -Wextra)
-
+set(CMAKE_CXX_FLAGS_RELEASE "-flto -O3 -ffast-math -fopenmp")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fopenmp")
 
 #find_package(MPI) #make it REQUIRED, if you want
 #include_directories(SYSTEM ${MPI_INCLUDE_PATH})
