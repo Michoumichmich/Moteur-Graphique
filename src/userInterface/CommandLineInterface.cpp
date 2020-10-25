@@ -1,5 +1,5 @@
 #include "CommandLineInterface.h"
-
+#include<string>
 void CommandLineInterface::main_loop() {
     enum command_exec_status status = SUCCESS;
     std::string input;
@@ -13,6 +13,10 @@ void CommandLineInterface::main_loop() {
         ErrorHandler(status);
         std::cout << std::endl;
     }
+}
+
+constexpr unsigned int str2int(const char *str, int h=0){
+    return !str[h] ? 5381 : (str2int(str,h+1)*33)^str[h];
 }
 
 std::vector<std::string> CommandLineInterface::ParseToArray(const std::string &input, enum command_exec_status &status) {
@@ -29,76 +33,84 @@ std::vector<std::string> CommandLineInterface::ParseToArray(const std::string &i
 
 void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status) {
     // TODO Replace if/else cascade by a switch
-    if (tokens[0] == "stop") {
-        status = STOP_EXEC;
-    } else if (tokens[0] == "help") {
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n";
-        status = SUCCESS;
-    } else if (tokens[0] == "init") {
-        if (tokens.size() >= 2) {
-            if (tokens[1] == "ge") {
-                this->graphicEngine = new GraphicsEngine();
-                std::cout << "Initialization of the graphic engine \n";
-                status = SUCCESS;
-            } else if (tokens[1] == "env") {
-                if (this->graphicEngine == NULL) {
-                    std::cout << "No graphic engine set. Initialize with `init ge` \n";
-                    status = FAIL;
-                } else {
-                    if (tokens.size() >= 3) {
-                        std::list<Environment *> env = this->graphicEngine->getEnvironments();
-                        bool unique = true;
-                        for (std::list<Environment *>::iterator it = env.begin(); it != env.end(); ++it) {
-                            if ((*it)->envName == tokens[2]) {
-                                unique = false;
-                                break;
-                            }
-                        }
-                        if (unique) {
-                            this->graphicEngine->createEnvironment(tokens[2]);
-                            std::cout << "Initialization of " << tokens[2] << " environment \n";
-                            status = SUCCESS;
-                        } else {
-                            std::cout << "Environment with such name already exists. \n";
-                            status = FAIL;
-                        }
+
+    switch (str2int(tokens[0].c_str())) {
+        case str2int("stop"):
+            status = STOP_EXEC;
+            break;
+        case str2int("help"):
+            std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n";
+            status = SUCCESS;
+            break;
+        case str2int("init"):
+            if (tokens.size() >= 2) {
+                switch(str2int(tokens[1].c_str())){
+                    case str2int("ge"):
+                    this->graphicEngine = new GraphicsEngine();
+                    std::cout << "Initialization of the graphic engine \n";
+                    status = SUCCESS; break;
+                    case str2int("env"):
+                    if (this->graphicEngine == NULL) {
+                        std::cout << "No graphic engine set. Initialize with `init ge` \n";
+                        status = FAIL;
                     } else {
-                        this->graphicEngine->createEnvironment("default");
-                        std::cout << "Initialization of default environment \n";
-                        status = SUCCESS;
+                        if (tokens.size() >= 3) {
+                            std::list<Environment *> env = this->graphicEngine->getEnvironments();
+                            bool unique = true;
+                            for (std::list<Environment *>::iterator it = env.begin(); it != env.end(); ++it) {
+                                if ((*it)->envName == tokens[2]) {
+                                    unique = false;
+                                    break;
+                                }
+                            }
+                            if (unique) {
+                                this->graphicEngine->createEnvironment(tokens[2]);
+                                std::cout << "Initialization of " << tokens[2] << " environment \n";
+                                status = SUCCESS;
+                            } else {
+                                std::cout << "Environment with such name already exists. \n";
+                                status = FAIL;
+                            }
+                        } else {
+                            this->graphicEngine->createEnvironment("default");
+                            std::cout << "Initialization of default environment \n";
+                            status = SUCCESS;
+                        }
                     }
+                    break;
+                    default :
+                    status = UNKNOWN_COMMAND; break;
                 }
-            } else {
-                status = UNKNOWN_COMMAND;
-            }
-        } else {
-            status = MISSING_ARGS;
-        }
-    } else if (tokens[0] == "list") {
-        if (tokens.size() >= 2) {
-            if (this->graphicEngine == NULL) {
-                std::cout << "No graphic engine set. Initialize with init ge \n";
-                status = FAIL;
-            } else if (tokens[1] == "env") {
-                std::vector<std::string> names = this->graphicEngine->environmentsName();
-                for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); ++it) {
-                    std::cout << *it << std::endl;
-                }
-                status = SUCCESS;
             } else {
                 status = MISSING_ARGS;
             }
-        } else {
-            status = MISSING_ARGS;
-        }
-    }
-        // TODO Add object to environment
-        // else if () {
-        //  }
-        // TODO Add command for setting renderer
-        // TODO Add command for setting current environment
-    else {
-        status = UNKNOWN_COMMAND;
+        break;
+        case str2int("list"):
+            if (tokens.size() >= 2) {
+                if (this->graphicEngine == NULL) {
+                    std::cout << "No graphic engine set. Initialize with init ge \n";
+                    status = FAIL;
+                } else if (tokens[1] == "env") {
+                    std::vector<std::string> names = this->graphicEngine->environmentsName();
+                    for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); ++it) {
+                        std::cout << *it << std::endl;
+                    }
+                    status = SUCCESS;
+                } else {
+                    status = MISSING_ARGS;
+                }
+            } else {
+                status = MISSING_ARGS;
+            }
+            break;
+            // TODO Add object to environment
+            // else if () {
+            //  }
+            // TODO Add command for setting renderer
+            // TODO Add command for setting current environment
+        default :
+            status = UNKNOWN_COMMAND;
+            break;
     }
 }
 

@@ -1,7 +1,7 @@
 #ifndef GRAPHIC_ENGINE_COLOR_H
 #define GRAPHIC_ENGINE_COLOR_H
 
-enum colorMode {
+enum class colorMode {
     RGB,
     BLACK_AND_WHITE,
     GREY_SCALE,
@@ -19,7 +19,7 @@ class Color {
 private:
     double red;
     double green;
-    enum colorMode colormode;
+    colorMode colormode;
     double blue;
     double greyScale{};
     unsigned char bit{};

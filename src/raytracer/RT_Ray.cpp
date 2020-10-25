@@ -17,11 +17,11 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
 
     struct RT_RayOutput rayOutput = RT_ComputeRecurseRay(dir, origin, config, intersector);
 
-    if (config.rtMode == RT_BITMAP && rayOutput.distance >= 0) {
+    if (config.rtMode == RT_RayRenderingMode::RT_BITMAP && rayOutput.distance >= 0) {
         pic->writePixel(Color(1), x, y);
-    } else if (config.rtMode == RT_DEPTHMAP && rayOutput.distance >= 0) {
+    } else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP && rayOutput.distance >= 0) {
         pic->writePixel(rayOutput.distance, x, y);
-    } else if (config.rtMode == RT_STANDARD && rayOutput.distance >= 0) {
+    } else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD && rayOutput.distance >= 0) {
         pic->writePixel(rayOutput.resultColor, x, y);
     } else {
         pic->writePixel(Color(0), x, y);
@@ -42,7 +42,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
     /**
      * No reflexions or whatsoever, we return directly the result.
      */
-    if (config.rtMode == RT_BITMAP || config.rtMode == RT_DEPTHMAP) {
+    if (config.rtMode == RT_RayRenderingMode::RT_BITMAP || config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
         struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
         if (res.intersectsSometing) {
             return RT_RayOutput{Color(1.0), res.distanceMin, 1};
@@ -56,18 +56,18 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
     }
 
     struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
-    if (!res.intersectsSometing || res.type == INF) {
+    if (!res.intersectsSometing || res.type == RT_RayIntersectionType::INF) {
         return RT_RayOutput{Color(), -1, 1};
     }
 
-    if (res.type == MAPPED_TEXTURE) {
+    if (res.type == RT_RayIntersectionType::MAPPED_TEXTURE) {
         /**
          * On a touché une texture, on affiche la couleur du pixel
          */
         return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint)};
     }
 
-    if (res.type == TESSEL) {
+    if (res.type == RT_RayIntersectionType::TESSEL) {
         // TODO Ca se complique, et on se rappelle récursivement jusqu'à l'extinction du rayon.
     }
 

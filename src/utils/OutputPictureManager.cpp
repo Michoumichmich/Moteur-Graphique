@@ -4,12 +4,17 @@
 OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height) :
         outFile(std::move(name)), width(width), height(height) {
     allColors = (Color **) calloc(sizeof(Color *), height);
-    for (unsigned i = 0; i < height; i++) {
-        allColors[i] = (Color *) calloc(sizeof(Color), width);
-        for (unsigned j = 0; j < width; j++) {
-            allColors[i][j] = Color(0.0);
+    if (allColors != nullptr) {
+        for (unsigned i = 0; i < height; i++) {
+            allColors[i] = (Color*)calloc(sizeof(Color), width);
+            if (allColors[i] != nullptr) {
+                for (unsigned j = 0; j < width; j++) {
+                    allColors[i][j] = Color(0.0);
+                }
+            }
         }
     }
+    
 }
 
 
@@ -42,9 +47,8 @@ OutputPictureManager::~OutputPictureManager() {
 
 void OutputPictureManager::savePicture() {
     FILE *f;
-    unsigned char *img = NULL;
+    auto *img = (unsigned char*)malloc(3 * width * height);
     unsigned int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
-    img = (unsigned char *) malloc(3 * width * height);
     unsigned int x, y;
     for (unsigned i = 0; i < width; i++) {
         for (unsigned j = 0; j < height; j++) {
@@ -76,12 +80,15 @@ void OutputPictureManager::savePicture() {
     bmpinfoheader[11] = (unsigned char) (height >> 24u);
 
     f = fopen(this->outFile.c_str(), "wb");
-    fwrite(bmpfileheader, 1, 14, f);
-    fwrite(bmpinfoheader, 1, 40, f);
-    for (unsigned i = 0; i < height; i++) {
-        fwrite(img + (width * (height - i - 1) * 3), 3, width, f);
-        fwrite(bmppad, 1, (4 - (width * 3) % 4) % 4, f);
+    if (f!= nullptr){
+        fwrite(bmpfileheader, 1, 14, f);
+        fwrite(bmpinfoheader, 1, 40, f);
+        for (unsigned i = 0; i < height; i++) {
+            fwrite(img + (width * (height - i - 1) * 3), 3, width, f);
+            fwrite(bmppad, 1, (4 - (width * 3) % 4) % 4, f);
+        }
+
+        fclose(f);
     }
     free(img);
-    fclose(f);
 }

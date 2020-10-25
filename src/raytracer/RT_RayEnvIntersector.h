@@ -9,7 +9,7 @@
 #include <environment.h>
 #include <utils.h>
 
-enum RT_RayIntersectionType {
+enum class RT_RayIntersectionType {
     INF,
     TESSEL,
     MAPPED_TEXTURE
@@ -21,7 +21,7 @@ struct RT_RayIntersectionResult {
     Vector intersectionPoint = Vector();
     Tessel tessel{};
     MappedTexture texture{};
-    enum RT_RayIntersectionType type = INF;
+    RT_RayIntersectionType type = RT_RayIntersectionType::INF;
 };
 
 
