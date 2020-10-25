@@ -38,10 +38,6 @@ Environment *GraphicsEngine::getCurrentEnvironment() {
     return currentEnv;
 }
 
-OutputPictureManager *GraphicsEngine::getPicManager() {
-    return this->picManager;
-}
-
 std::list<Environment *> GraphicsEngine::getEnvironments() {
     return environments;
 }

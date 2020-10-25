@@ -14,7 +14,9 @@ int main(int argc, char **argv) {
      */
     auto *gr = new GraphicsEngine();
     gr->createEnvironment("firstEnv");
-    RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), gr->getPicManager());
+    OutputPictureManager * pm = new OutputPictureManager;
+    pm->setColorMapper(new ColorMapper(COLORING_MODE, 1, 1.8));
+    RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), pm);
     gr->setRenderer(renderer);
     gr->launchRender("test.bmp");
     delete gr;

@@ -23,7 +23,6 @@ private:
     std::list<Environment *> environments{};
     Abstract_Renderer *renderer{};
     Environment *currentEnv{};
-    OutputPictureManager *picManager;
 public:
     void launchRender(const std::string &outName);
 
@@ -36,8 +35,6 @@ public:
     Environment *getCurrentEnvironment();
 
     void setRenderer(Abstract_Renderer *);
-
-    OutputPictureManager *getPicManager();
 
     std::list<Environment *> getEnvironments();
 
