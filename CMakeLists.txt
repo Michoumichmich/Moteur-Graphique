@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wno-unused -flto -O3 -ffast-math -fopenmp -DCHRONO -msse4.1")
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wno-unused -Og -g3 -DCHRONO -DDEBUG -msse4.1 ")
+set(ARCH_FLAGS "-march=native -mtune=native  -msse -msse2 -msse4 -mavx")
+set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wall -Wextra -Wno-unused -DCHRONO -fopenmp -O3 -ffast-math")
+set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -Wall -Wextra -Og -g3 -DCHRONO -DDEBUG")
 
 include_directories(src/include)
 add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
@@ -11,7 +12,7 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/environment/Camera.cpp src/environment/Camera.h src/environment/Tessel.cpp src/environment/Tessel.h src/environment/Object.cpp
         src/environment/Object.h src/include/environment.h src/include/raytracer.h src/raytracer/RT_RayCaster.cpp src/raytracer/RT_RayCaster.h
         src/userInterface/CommandLineInterface.cpp src/userInterface/CommandLineInterface.h src/userInterface/GraphicalUserInterface.cpp
-        src/userInterface/GraphicalUserInterface.h src/utils/Point3D.cpp src/utils/Point3D.h src/include/utils.h src/utils/Color.cpp
+        src/userInterface/GraphicalUserInterface.h src/include/utils.h src/utils/Color.cpp
         src/utils/Color.h src/environment/ApparenceProperties.cpp src/environment/ApparenceProperties.h src/include/ui.h src/engine/GraphicsEngine.cpp
         src/engine/GraphicsEngine.h src/engine/Abstract_Renderer.h src/utils/OutputPictureManager.cpp src/utils/OutputPictureManager.h src/include/graphicsEngine.h src/engine/Abstract_Renderer.cpp
         src/environment/RegularObjects/Sphere.cpp src/environment/RegularObjects/Sphere.h src/raytracer/RT_Ray.cpp src/raytracer/RT_Ray.h
