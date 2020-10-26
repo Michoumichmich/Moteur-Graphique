@@ -4,7 +4,7 @@
 RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config) : dir(dir), origin(orig), config(config) {
 }
 
-RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config, unsigned int x, unsigned int y) : dir(dir), origin(orig), x(x), y(y), config(config) {
+RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config, unsigned int x, unsigned int y) : dir(dir), origin(orig), config(config), x(x), y(y) {
 }
 
 /**
@@ -64,7 +64,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
         /**
          * On a touché une texture, on affiche la couleur du pixel
          */
-        return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint)};
+        return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), Point3D::distance(origin, res.intersectionPoint), 1};
     }
 
     if (res.type == RT_RayIntersectionType::TESSEL) {

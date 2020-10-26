@@ -1,10 +1,15 @@
 #include "RT_RayTracer.h"
-
+#include <iostream>
 #include <utils.h>
 #include "RT_Ray.h"
 #include "RT_RayCaster.h"
+
+#ifdef _OPENMP
+
 #include <omp.h>
-#include <iostream>
+
+#endif
+
 
 RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic) {
     this->picManager = pic;
@@ -31,14 +36,22 @@ void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
     std::list<RT_Ray>::iterator aRay;
 
+#ifdef _OPENMP
+#ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
+#warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
+#pragma omp parallel default(none) private(aRay) shared(envIntersector, picManager, primaryRays, std::cout)
+#else
 #pragma omp parallel default(none) private(aRay) shared(envIntersector, picManager, primaryRays)
-#pragma omp single
-//#pragma omp parallel for default(none) private(aRay) shared(envIntersector, picManager)
+#endif
+#endif
     for (aRay = primaryRays.begin(); aRay != primaryRays.end(); aRay++) {
-      #pragma omp task firstprivate(aRay)
-       // std::cout << aRay->x << ' ' << aRay->y << std::endl;
+#ifdef DEBUG // Regardless of openmp we print the coordinates
+        std::cout << aRay->x << ' ' << aRay->y << std::endl;
+#endif
+#ifdef _OPENMP
+#pragma omp single nowait
+#endif
         aRay->RT_ComputePrimaryRay(envIntersector, picManager);
-#pragma omp taskwait
     }
     picManager->savePicture();
 }

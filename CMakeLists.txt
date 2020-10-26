@@ -1,13 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wno-unused -flto -O3 -ffast-math -fopenmp -DCHRONO")
+set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wno-unused -Og -g3 -DCHRONO -DDEBUG ")
 
-set(CMAKE_CXX_FLAGS_RELEASE "-flto -O3 -ffast-math -fopenmp")
-set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fopenmp")
-
-#find_package(MPI) #make it REQUIRED, if you want
-#include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(src/include)
 add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/utils/Vector.h src/raytracer/RT_RayTracer.cpp src/raytracer/RT_RayTracer.h src/environment/Environment.cpp src/environment/Environment.h
@@ -20,6 +17,3 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/environment/RegularObjects/Sphere.cpp src/environment/RegularObjects/Sphere.h src/raytracer/RT_Ray.cpp src/raytracer/RT_Ray.h
         src/raytracer/RT_RayEnvIntersector.cpp src/raytracer/RT_RayEnvIntersector.h src/environment/MappedTexture.cpp src/environment/MappedTexture.h
         src/environment/CoordinatesHandler.cpp src/environment/CoordinatesHandler.h src/environment/RegularObjects/Cube.cpp src/environment/RegularObjects/Cube.h src/utils/ColorMapper.cpp src/utils/ColorMapper.h)
-#target_link_libraries(main ${MPI_CXX_LIBRARIES})
-
-
