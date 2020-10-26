@@ -8,5 +8,6 @@
 #include "../environment/ApparenceProperties.h"
 #include "../environment/MappedTexture.h"
 #include "../environment/RegularObjects/Sphere.h"
+#include "../environment/RegularObjects/Cube.h"
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

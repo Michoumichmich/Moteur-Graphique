@@ -15,16 +15,14 @@ class Abstract_Renderer {
   enum renderer_type type;
   unsigned int width = DEFAULT_WIDTH;
   unsigned int height = DEFAULT_HEIGHT;
-  Environment *environment;
-  OutputPictureManager *picManager;
+  Environment *environment{};
+  OutputPictureManager *picManager{};
  public:
   Abstract_Renderer();
 
   void SetRendererResolution(unsigned int, unsigned int);
 
-  void SetEnvironment(Environment *);
-
-  virtual void renderScene(std::string string) = 0;
+  virtual void renderScene(std::string string, Environment *env) = 0;
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H

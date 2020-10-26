@@ -32,6 +32,8 @@ class GraphicsEngine {
 
   void switchEnvironment(const std::string &name);
 
+  void addObjInEnv(Object *obj);
+
   Environment *getCurrentEnvironment();
 
   void setRenderer(Abstract_Renderer *);

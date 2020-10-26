@@ -7,8 +7,8 @@
 
 void Sphere::Tesselate()
 {
-  int n_lat = 20;
-  int n_long = 20;
+  int n_lat = 30;
+  int n_long = 30;
 
   Point3D globe[n_lat + 1][n_long + 1];
 

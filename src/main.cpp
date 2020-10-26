@@ -29,9 +29,12 @@ int main(int argc, char **argv)
    */
   GraphicsEngine *gr = new GraphicsEngine();
   gr->createEnvironment("firstEnv");
+  gr->addObjInEnv(new Sphere(0.92));
+  gr->addObjInEnv(new Cube(1.21));
+
   OutputPictureManager *pm = new OutputPictureManager;
   pm->setColorMapper(new ColorMapper(LINEAR, 1, 1.8));
-  RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), pm);
+  RT_RayTracer *renderer = new RT_RayTracer(pm);
   gr->setRenderer(renderer);
 
 #ifdef CHRONO

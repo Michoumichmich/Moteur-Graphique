@@ -7,15 +7,12 @@
 void GraphicsEngine::launchRender(const std::string &outName)
 {
   this->currentEnv->tesselate();
-  this->renderer->SetEnvironment(this->currentEnv);
-  this->renderer->renderScene(outName);
+  this->renderer->renderScene(outName, this->currentEnv);
 }
 
 void GraphicsEngine::createEnvironment(std::string name)
 {
   auto *env = new Environment(std::move(name));
-  auto *sph = new Sphere(1.0); //TODO tmp
-  env->addObject(sph);                //TODO tmp
   this->currentEnv = env;
   this->environments.push_back(env);
 }
@@ -65,6 +62,10 @@ GraphicsEngine::~GraphicsEngine()
 {
   environments.clear();
   // delete currentEnv;
+}
+void GraphicsEngine::addObjInEnv(Object *obj)
+{
+  this->currentEnv->addObject(obj);
 }
 
 GraphicsEngine::GraphicsEngine() = default;

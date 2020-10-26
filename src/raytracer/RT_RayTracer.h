@@ -15,13 +15,13 @@ class RT_RayTracer : public Abstract_Renderer {
  private:
   Environment *environment{};
   struct RT_RayConfig config;
-  RT_RayEnvIntersector *envIntersector;
+  RT_RayEnvIntersector *envIntersector{};
  public:
-  explicit RT_RayTracer(Environment *, OutputPictureManager *);
+  explicit RT_RayTracer(OutputPictureManager *);
 
-  RT_RayTracer(Environment *, OutputPictureManager *pic, struct RT_RayConfig);
+  RT_RayTracer(OutputPictureManager *pic, struct RT_RayConfig);
 
-  void renderScene(std::string string) override;
+  void renderScene(std::string string, Environment *env) override;
 
   ~RT_RayTracer();
 };

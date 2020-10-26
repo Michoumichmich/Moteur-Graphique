@@ -10,18 +10,14 @@
 
 #endif
 
-RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic)
+RT_RayTracer::RT_RayTracer(OutputPictureManager *pic)
 {
   this->picManager = pic;
-  this->environment = env;
-  this->envIntersector = new RT_RayEnvIntersector(env);
 }
 
-RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct RT_RayConfig conf) : config(conf)
+RT_RayTracer::RT_RayTracer(OutputPictureManager *pic, struct RT_RayConfig conf) : config(conf)
 {
-  this->envIntersector = new RT_RayEnvIntersector(env);
   this->picManager = pic;
-  this->environment = env;
 }
 
 RT_RayTracer::~RT_RayTracer()
@@ -34,8 +30,10 @@ RT_RayTracer::~RT_RayTracer()
  * Main function of the Ray tracer
  * @param string
  */
-void RT_RayTracer::renderScene(const std::string string)
+void RT_RayTracer::renderScene(std::string string, Environment *env)
 {
+  this->environment = env;
+  this->envIntersector = new RT_RayEnvIntersector(env);
   std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
   std::list<RT_Ray>::iterator aRay;
   picManager->setOutFile(string);
