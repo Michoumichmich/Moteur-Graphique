@@ -30,7 +30,7 @@ int main(int argc, char **argv)
   GraphicsEngine *gr = new GraphicsEngine();
   gr->createEnvironment("firstEnv");
   OutputPictureManager *pm = new OutputPictureManager;
-  pm->setColorMapper(new ColorMapper(NONSENSE, 1, 1.8));
+  pm->setColorMapper(new ColorMapper(LINEAR, 1, 1.8));
   RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), pm);
   gr->setRenderer(renderer);
 
