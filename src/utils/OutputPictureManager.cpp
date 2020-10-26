@@ -91,3 +91,7 @@ void OutputPictureManager::savePicture() {
     }
     free(img);
 }
+
+void OutputPictureManager::setOutFile(const std::string &basicString) {
+    this->outFile = basicString;
+}

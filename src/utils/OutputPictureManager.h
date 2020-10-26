@@ -31,6 +31,8 @@ public :
     void savePicture();
 
     ~OutputPictureManager();
+
+    void setOutFile(const std::string &basicString);
 };
 
 #endif //GRAPHIC_ENGINE_OUTPUTPICTUREMANAGER_H

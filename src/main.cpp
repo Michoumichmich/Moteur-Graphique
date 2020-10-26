@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
     /**
      * hardcoded example without the CLI
      */
-    auto *gr = new GraphicsEngine();
+    GraphicsEngine *gr = new GraphicsEngine();
     gr->createEnvironment("firstEnv");
-    OutputPictureManager * pm = new OutputPictureManager;
+    OutputPictureManager *pm = new OutputPictureManager;
     pm->setColorMapper(new ColorMapper(COLORING_MODE, 1, 1.8));
     RT_RayTracer *renderer = new RT_RayTracer(gr->getCurrentEnvironment(), pm);
     gr->setRenderer(renderer);

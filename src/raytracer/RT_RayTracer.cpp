@@ -35,6 +35,7 @@ RT_RayTracer::~RT_RayTracer() {
 void RT_RayTracer::renderScene(const std::string string) {
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
     std::list<RT_Ray>::iterator aRay;
+    picManager->setOutFile(string);
 
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
