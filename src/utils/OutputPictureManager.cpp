@@ -87,7 +87,6 @@ void OutputPictureManager::savePicture() {
             fwrite(img + (width * (height - i - 1) * 3), 3, width, f);
             fwrite(bmppad, 1, (4 - (width * 3) % 4) % 4, f);
         }
-
         fclose(f);
     }
     free(img);

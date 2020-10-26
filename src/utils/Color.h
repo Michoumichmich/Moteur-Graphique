@@ -19,8 +19,8 @@ class Color {
 private:
     double red;
     double green;
-    colorMode colormode;
     double blue;
+    colorMode colormode;
     double greyScale{};
     unsigned char bit{};
 public:

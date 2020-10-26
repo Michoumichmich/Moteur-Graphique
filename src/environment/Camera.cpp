@@ -3,7 +3,7 @@
 #include <utility>
 
 
-Camera::Camera(Point3D origin, Point3D target) : target(target), origin(origin) {
+Camera::Camera(Point3D origin, Point3D target) : origin(origin), target(target) {
 }
 
 Camera::Camera(Point3D origin, Point3D target, std::string name, enum camMode mode) : cameraName(std::move(name)), mode(mode), origin(origin), target(target) {

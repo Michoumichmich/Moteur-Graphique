@@ -9,6 +9,7 @@
 
 class OutputPictureManager {
 private:
+    std::string outFile;
     unsigned int width;
     unsigned int height;
     ColorMapper *mapper = nullptr;
@@ -16,7 +17,6 @@ private:
      * allColors[height ie y][width ie x]
      */
     Color **allColors;
-    std::string outFile;
 public :
 
 
