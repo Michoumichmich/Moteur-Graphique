@@ -3,7 +3,6 @@
 
 #include "Color.h"
 
-
 /**
  * Method used to convert a double to a color
  */
@@ -23,27 +22,26 @@ enum colorMappingMethods {
  * selected mapping will be made.
  */
 class ColorMapper {
-private :
-    enum colorMappingMethods method;
-    double param1;
-    double param2;
-    int rand;
-public :
-    /**
-     * Constructor for the color mapper. The parameter's signification depends on the context.
-     * @param param1
-     * @param param2
-     */
-    explicit ColorMapper(enum colorMappingMethods method, double param1 = 0.1, double param2 = 0);
+ private :
+  enum colorMappingMethods method;
+  double param1;
+  double param2;
+  int rand;
+ public :
+  /**
+   * Constructor for the color mapper. The parameter's signification depends on the context.
+   * @param param1
+   * @param param2
+   */
+  explicit ColorMapper(enum colorMappingMethods method, double param1 = 0.1, double param2 = 0);
 
-    /**
-     * Takes a double and returns the right color
-     * accorging the the selected method and pressets
-     * @return
-     */
-    Color Map(double);
+  /**
+   * Takes a double and returns the right color
+   * accorging the the selected method and pressets
+   * @return
+   */
+  Color Map(double);
 
 };
-
 
 #endif //_COLORINGMETHODS_H_

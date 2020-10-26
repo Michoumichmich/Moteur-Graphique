@@ -6,17 +6,17 @@
 #include "ApparenceProperties.h"
 
 class Tessel {
-public:
-    Tessel();
+ public:
+  Tessel();
 
-    Tessel(Tessel const &);
+  Tessel(Tessel const &);
 
-    Tessel(Point3D, Point3D, Point3D);
+  Tessel(Point3D, Point3D, Point3D);
 
-    Tessel(Point3D, Point3D, Point3D, ApparenceProperties);
+  Tessel(Point3D, Point3D, Point3D, ApparenceProperties);
 
-    Point3D summmits[3];
-    ApparenceProperties properties;
+  Point3D summmits[3];
+  ApparenceProperties properties;
 };
 
 #endif //GRAPHIC_ENGINE_TESSEL_H

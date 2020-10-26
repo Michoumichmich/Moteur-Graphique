@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wno-unused -flto -O3 -ffast-math -fopenmp -DCHRONO")
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wno-unused -Og -g3 -DCHRONO -DDEBUG ")
+set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wno-unused -flto -O3 -ffast-math -fopenmp -DCHRONO -msse4")
+set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wno-unused -Og -g3 -DCHRONO -DDEBUG -msse4 ")
 
 include_directories(src/include)
 add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp

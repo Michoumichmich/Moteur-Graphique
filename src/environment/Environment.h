@@ -9,32 +9,32 @@
 #include "MappedTexture.h"
 
 class Environment {
-private:
-    std::list<Camera *> cameras;
-    std::list<Tessel *> allTessels;
-    std::list<Object *> allObjects;
-    std::list<MappedTexture *> allTMapped;
-    Camera *currentCam;
-public:
-    std::string envName;
+ private:
+  std::list<Camera *> cameras;
+  std::list<Tessel *> allTessels;
+  std::list<Object *> allObjects;
+  std::list<MappedTexture *> allTMapped;
+  Camera *currentCam;
+ public:
+  std::string envName;
 
-    explicit Environment(std::string name);
+  explicit Environment(std::string name);
 
-    Environment();
+  Environment();
 
-    Camera *getCurrentCam();
+  Camera *getCurrentCam();
 
-    std::list<std::string> listCameras();
+  std::list<std::string> listCameras();
 
-    void switchCamera(std::string camName);
+  void switchCamera(std::string camName);
 
-    std::list<Tessel *> *getTessels();
+  std::list<Tessel *> *getTessels();
 
-    void tesselate();
+  void tesselate();
 
-    void addObject(Object *);
+  void addObject(Object *);
 
-    ~Environment();
+  ~Environment();
 
 };
 

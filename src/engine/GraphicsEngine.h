@@ -19,28 +19,28 @@
  * Class used to manage the renders, the environment and everything. Ideally all the interactions should go through that class.
  */
 class GraphicsEngine {
-private:
-    std::list<Environment *> environments{};
-    Abstract_Renderer *renderer{};
-    Environment *currentEnv{};
-public:
-    void launchRender(const std::string &outName);
+ private:
+  std::list<Environment *> environments{};
+  Abstract_Renderer *renderer{};
+  Environment *currentEnv{};
+ public:
+  void launchRender(const std::string &outName);
 
-    GraphicsEngine();
+  GraphicsEngine();
 
-    void createEnvironment(std::string name);
+  void createEnvironment(std::string name);
 
-    void switchEnvironment(const std::string &name);
+  void switchEnvironment(const std::string &name);
 
-    Environment *getCurrentEnvironment();
+  Environment *getCurrentEnvironment();
 
-    void setRenderer(Abstract_Renderer *);
+  void setRenderer(Abstract_Renderer *);
 
-    std::list<Environment *> getEnvironments();
+  std::list<Environment *> getEnvironments();
 
-    std::vector<std::string> environmentsName();
+  std::vector<std::string> environmentsName();
 
-    ~GraphicsEngine();
+  ~GraphicsEngine();
 
 };
 

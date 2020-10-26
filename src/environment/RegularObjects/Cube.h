@@ -8,13 +8,12 @@
 #include "../Object.h"
 
 class Cube : public Object {
-private:
-    double size;
-public:
-    explicit Cube(double size);
+ private:
+  double size;
+ public:
+  explicit Cube(double size);
 
-    void Tesselate() override;
+  void Tesselate() override;
 };
-
 
 #endif //GRAPHICSENGINE_CUBE_H

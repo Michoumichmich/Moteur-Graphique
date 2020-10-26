@@ -10,32 +10,35 @@
 
 #endif
 
-
-RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic) {
-    this->picManager = pic;
-    this->environment = env;
-    this->envIntersector = new RT_RayEnvIntersector(env);
+RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic)
+{
+  this->picManager = pic;
+  this->environment = env;
+  this->envIntersector = new RT_RayEnvIntersector(env);
 }
 
-RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct RT_RayConfig conf) : config(conf) {
-    this->envIntersector = new RT_RayEnvIntersector(env);
-    this->picManager = pic;
-    this->environment = env;
+RT_RayTracer::RT_RayTracer(Environment *env, OutputPictureManager *pic, struct RT_RayConfig conf) : config(conf)
+{
+  this->envIntersector = new RT_RayEnvIntersector(env);
+  this->picManager = pic;
+  this->environment = env;
 }
 
-RT_RayTracer::~RT_RayTracer() {
-    delete envIntersector;
-    delete picManager;
+RT_RayTracer::~RT_RayTracer()
+{
+  delete envIntersector;
+  delete picManager;
 }
 
 /**
  * Main function of the Ray tracer
  * @param string
  */
-void RT_RayTracer::renderScene(const std::string string) {
-    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
-    std::list<RT_Ray>::iterator aRay;
-    picManager->setOutFile(string);
+void RT_RayTracer::renderScene(const std::string string)
+{
+  std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
+  std::list<RT_Ray>::iterator aRay;
+  picManager->setOutFile(string);
 
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
@@ -45,14 +48,15 @@ void RT_RayTracer::renderScene(const std::string string) {
 #pragma omp parallel default(none) private(aRay) shared(envIntersector, picManager, primaryRays)
 #endif
 #endif
-    for (aRay = primaryRays.begin(); aRay != primaryRays.end(); aRay++) {
+  for (aRay = primaryRays.begin(); aRay != primaryRays.end(); aRay++)
+    {
 #ifdef DEBUG // Regardless of openmp we print the coordinates
-        std::cout << aRay->x << ' ' << aRay->y << std::endl;
+      std::cout << aRay->x << ' ' << aRay->y << std::endl;
 #endif
 #ifdef _OPENMP
 #pragma omp single nowait
 #endif
-        aRay->RT_ComputePrimaryRay(envIntersector, picManager);
+      aRay->RT_ComputePrimaryRay(envIntersector, picManager);
     }
-    picManager->savePicture();
+  picManager->savePicture();
 }

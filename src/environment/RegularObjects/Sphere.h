@@ -4,12 +4,12 @@
 #include "../Object.h"
 
 class Sphere : public Object {
-private:
-    double radius;
-public:
-    explicit Sphere(double radius);
+ private:
+  double radius;
+ public:
+  explicit Sphere(double radius);
 
-    void Tesselate() override;
+  void Tesselate() override;
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H

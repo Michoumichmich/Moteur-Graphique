@@ -1,9 +1,11 @@
 #include "Object.h"
 
-void Object::Tesselate() {
+void Object::Tesselate()
+{
 
 }
 
-std::list<Tessel *> Object::getTessels() {
-    return this->tessels;
+std::list<Tessel *> Object::getTessels()
+{
+  return this->tessels;
 }
