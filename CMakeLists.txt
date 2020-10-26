@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
-set(ARCH_FLAGS "-march=native -mtune=native  -msse -msse2 -msse4 -mavx")
+set(ARCH_FLAGS "-march=native -mtune=native  -msse -msse2 -msse4")
 set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wall -Wextra -Wno-unused -DCHRONO -fopenmp -O3 -ffast-math")
 set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -Wall -Wextra -Og -g3 -DCHRONO -DDEBUG")
 
