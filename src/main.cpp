@@ -20,22 +20,22 @@ int main(int argc, char **argv)
   /**
    * Example using the CLI
    */
-  auto *cli = new CommandLineInterface();
-  cli->main_loop();
-  delete cli;
+    auto *cli = new CommandLineInterface();
+    //cli->main_loop();
+    delete cli;
 
-  /**
-   * hardcoded example without the CLI
-   */
-  GraphicsEngine *gr = new GraphicsEngine();
-  gr->createEnvironment("firstEnv");
-  gr->addObjInEnv(new Sphere(0.92));
-  gr->addObjInEnv(new Cube(1.21));
+    /**
+     * hardcoded example without the CLI
+     */
+    GraphicsEngine *gr = new GraphicsEngine();
+    gr->createEnvironment("firstEnv");
+    gr->addObjInEnv(new Sphere(1 / 1.42));
+    gr->addObjInEnv(new Cube(1));
 
-  OutputPictureManager *pm = new OutputPictureManager;
-  pm->setColorMapper(new ColorMapper(LINEAR, 1, 1.8));
-  RT_RayTracer *renderer = new RT_RayTracer(pm);
-  gr->setRenderer(renderer);
+    OutputPictureManager *pm = new OutputPictureManager;
+    pm->setColorMapper(new ColorMapper(LINEAR, 2, 3));
+    RT_RayTracer *renderer = new RT_RayTracer(pm);
+    gr->setRenderer(renderer);
 
 #ifdef CHRONO
   auto start = std::chrono::high_resolution_clock::now();
