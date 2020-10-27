@@ -22,13 +22,12 @@ Point3D CoordinatesHandler::fromLocalToGlobal(Point3D local, struct transformati
   return vec;
 }
 
-void CoordinatesHandler::rotate(double *x, double *y, double deg)
-{
-  double theta = PI * deg / 180.0;
-  double x_tmp = *x;
-  double y_tmp = *y;
-  *x = x_tmp * cos(theta) - y_tmp * sin(theta);
-  *y = x_tmp * sin(theta) + y_tmp * cos(theta);
+void CoordinatesHandler::rotate(float *x, float *y, float deg) {
+    float theta = PI * deg / 180.0;
+    float x_tmp = *x;
+    float y_tmp = *y;
+    *x = x_tmp * cos(theta) - y_tmp * sin(theta);
+    *y = x_tmp * sin(theta) + y_tmp * cos(theta);
 }
 
 Tessel CoordinatesHandler::fromLocalToGlobal(const Tessel &tessel, struct transformations transformations)

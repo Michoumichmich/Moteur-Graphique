@@ -129,14 +129,13 @@ class __attribute__((aligned (16))) Vector
 
   /// Subscript operator
   // Note: there is not bound checking here.
-  inline const double &operator[](const int i) const
-  {
-    return i == 0 ? this->x : (i == 1 ? this->y : this->z);
+  inline const float &operator[](const int i) const {
+      return i == 0 ? this->x : (i == 1 ? this->y : this->z);
   }
-  inline double &operator[](const int i)
-  {
-    return i == 0 ? this->x : (i == 1 ? this->y : this->z);
-  }
+
+    inline float &operator[](const int i) {
+        return i == 0 ? this->x : (i == 1 ? this->y : this->z);
+    }
 
   /// Cross product
   [[nodiscard]] inline Vector cross(const Vector &b) const
@@ -173,7 +172,7 @@ class __attribute__((aligned (16))) Vector
   /// Direct access member variables.
   union {
       struct {
-          double x, y, z;
+          float x, y, z;
       };
       __m128 mmvalue;
   };

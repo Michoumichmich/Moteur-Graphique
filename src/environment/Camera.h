@@ -10,28 +10,28 @@ enum camMode {
 };
 
 class Camera {
- private:
+private:
 
- public:
-  std::string cameraName = "Camera unnamed";
-  /**
-   * Wether the rays are parallel or not
-   */
-  enum camMode mode = PERSPECTIVE;
-  Point3D origin = Point3D(0, 0, -2);
-  Point3D target = Point3D(0, 0, 1);
-  double viewportWidth = 2;
-  double viewportHeight = 1;
-  /**
-   * Camera's view up vector.
-   * TO obtain the real vector we project it on the view vector and substract that amount to the viewUP. Then we compute the right vector using a scalar
-   * product and we norm everything
-   */
-  Vector viewUp = Vector(0, 1, 0);
+public:
+    std::string cameraName = "Camera unnamed";
+    /**
+     * Wether the rays are parallel or not
+     */
+    enum camMode mode = PERSPECTIVE;
+    Point3D origin = Point3D(0, 2.01, -2.01);
+    Point3D target = Point3D(0, 0, 0);
+    double viewportWidth = 4;
+    double viewportHeight = 2;
+    /**
+     * Camera's view up vector.
+     * TO obtain the real vector we project it on the view vector and substract that amount to the viewUP. Then we compute the right vector using a scalar
+     * product and we norm everything
+     */
+    Vector viewUp = Vector(0, 1, 0);
 
-  Camera();
+    Camera();
 
-  Camera(Point3D origin, Point3D target);
+    Camera(Point3D origin, Point3D target);
 
   Camera(Point3D origin, Point3D target, std::string name, enum camMode);
 
