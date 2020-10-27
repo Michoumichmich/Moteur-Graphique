@@ -41,19 +41,18 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
  * @param distance
  * @return
  */
-bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance)
+bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D origin, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance)
 {
-  Vector x0 = Vector(tessel->summmits[0]);
-  Vector x1 = Vector(tessel->summmits[1]);
-  Vector x2 = Vector(tessel->summmits[2]);
-  Vector origin = Vector(orig);
-  double a0 = (x1 - origin).cross(x2 - origin).dot(dir) * 0.5;
-  double a1 = (x2 - origin).cross(x0 - origin).dot(dir) * 0.5;
-  if ((a0 < 0 && a1 > 0) || (a0 > 0 && a1 < 0))
+  Vector x0_orig = tessel->summmits[0] - origin;
+  Vector x1_orig = tessel->summmits[1] - origin;
+  Vector x2_orig = tessel->summmits[2] - origin;
+  double a0 = (x1_orig).cross(x2_orig).dot(dir);
+  double a1 = (x2_orig).cross(x0_orig).dot(dir);
+  if (likely(a0 < 0 && a1 > 0) || (a0 > 0 && a1 < 0))
     {
       return false;
     }
-  double a2 = (x0 - origin).cross(x1 - origin).dot(dir) * 0.5;
+  double a2 = (x0_orig).cross(x1_orig).dot(dir);
 
   /**
    * There's an intersection if all ai non positive or all ai non negativs while not all null
@@ -63,19 +62,17 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D orig, Vector dir, 
       /**
        * Now we compute the intersection point.
        */
-      double a = a0 + a1 + a2;
-      Vector intersection = Vector(x0 * (a0 / a) + x1 * (a1 / a) + x2 * (a2 / a));
+      Vector intersection = Vector(tessel->summmits[0] * a0 + tessel->summmits[1] * a1 + tessel->summmits[2] * a2) / (a0 + a1 + a2);
       /**
        * To check wether the vectors are in the right direction
        */
-      if ((intersection - origin).dot(dir) >= 0)
+      if (likely((intersection - origin).dot(dir) >= 0))
         {
-          intersectionPoint->x = intersection.x;
-          intersectionPoint->y = intersection.y;
-          intersectionPoint->z = intersection.z;
+          *intersectionPoint = intersection;
           *distance = (origin - intersection).length();
           return true;
         }
+      return false;
     }
   return false;
 }
