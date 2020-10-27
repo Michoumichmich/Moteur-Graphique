@@ -3,11 +3,10 @@
 
 Point3D CoordinatesHandler::fromLocalToGlobal(Point3D local, struct transformations transformations)
 {
-  Vector vec = (local);
   /**
    * Scaling of the point. Makes sense given that the figure's center is in 0.0.0
    */
-  vec = vec * transformations.scale;
+  Vector vec = local * transformations.scale;
 
   /**
    * Now the rotations : their order is important
@@ -19,7 +18,7 @@ Point3D CoordinatesHandler::fromLocalToGlobal(Point3D local, struct transformati
   /**
    * Translation in the world
    */
-  vec += Vector(transformations.pt);
+  vec += transformations.pt;
   return vec;
 }
 

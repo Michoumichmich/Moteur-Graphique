@@ -48,33 +48,33 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D origin, Vector dir
   Vector x2_orig = tessel->summmits[2] - origin;
   double a0 = (x1_orig).cross(x2_orig).dot(dir);
   double a1 = (x2_orig).cross(x0_orig).dot(dir);
-  if (likely(a0 < 0 && a1 > 0) || (a0 > 0 && a1 < 0))
-    {
-      return false;
-    }
-  double a2 = (x0_orig).cross(x1_orig).dot(dir);
 
-  /**
-   * There's an intersection if all ai non positive or all ai non negativs while not all null
-   */
-  if (unlikely(((a0 >= 0 && a1 >= 0 && a2 >= 0) || (a0 <= 0 && a1 <= 0 && a2 <= 0)) && !(a0 == 0 && a1 == 0 && a2 == 0)))
+  if (unlikely(a0 < 0 && a1 < 0) || (a0 > 0 && a1 > 0))
     {
+      double a2 = (x0_orig).cross(x1_orig).dot(dir);
       /**
-       * Now we compute the intersection point.
+       * There's an intersection if all ai non positive or all ai non negativs while not all null
+       * We already know that a0 and a1 are of the same sign
        */
-      Vector intersection = Vector(tessel->summmits[0] * a0 + tessel->summmits[1] * a1 + tessel->summmits[2] * a2) / (a0 + a1 + a2);
-      /**
-       * To check wether the vectors are in the right direction
-       */
-      if (likely((intersection - origin).dot(dir) >= 0))
+      if ((a1 >= 0 && a2 >= 0) || (a1 <= 0 && a2 <= 0))//&& !(a0 == 0 && a1 == 0 && a2 == 0)))
         {
-          *intersectionPoint = intersection;
-          *distance = (origin - intersection).length();
-          return true;
+          /**
+           * Now we compute the intersection point.
+           */
+          Vector intersection = (tessel->summmits[0] * a0 + tessel->summmits[1] * a1 + tessel->summmits[2] * a2) / (a0 + a1 + a2);
+          /**
+           * To check wether the vectors are in the right direction
+           */
+          if (likely((intersection - origin).dot(dir) >= 0))
+            {
+              *intersectionPoint = intersection;
+              *distance = (origin - intersection).length();
+              return true;
+            }
         }
-      return false;
     }
   return false;
 }
+
 
 
