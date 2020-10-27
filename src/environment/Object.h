@@ -20,14 +20,20 @@ class Object {
   std::list<Tessel *> tessels;
   ApparenceProperties properties;
   bool needComputeTessels = true;
- public:
   virtual void Tesselate() = 0;
+ public:
 
+  /**
+   * Computes if needed the tessels and if needed moves them in the environment
+   * Also passes a copt of ApparenceProperties to child tessels
+   * @return
+   */
   std::list<Tessel *> getTessels();
 
   void setTransformation(struct transformations);
 
   std::string ObjectName;
+  void setColor(Color color);
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

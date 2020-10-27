@@ -23,3 +23,8 @@ void Object::setTransformation(struct transformations transfo)
   this->tranfo = transfo;
   this->needComputeTessels = true;
 }
+
+void Object::setColor(Color color)
+{
+  this->properties.color = color;
+}
