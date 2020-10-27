@@ -34,6 +34,7 @@ void RT_RayTracer::renderScene(std::string string, Environment *env)
 {
   this->environment = env;
   this->envIntersector = new RT_RayEnvIntersector(env);
+  this->config.cam_view_center = environment->getCurrentCam()->getCamViewCenter();
   std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
   std::list<RT_Ray>::iterator aRay;
   picManager->setOutFile(string);

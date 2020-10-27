@@ -24,7 +24,7 @@ struct RT_RayIntersectionResult RT_RayEnvIntersector::RT_RayFindIntersection(Poi
           distanceMinTessel = distance;
           result.tessel = closest;
           result.intersectionPoint = intersection;
-          result.distanceMin = distance;
+          result.distance = distance;
           result.intersectsSometing = true;
           result.type = RT_RayIntersectionType::TESSEL;
         }

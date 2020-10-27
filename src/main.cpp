@@ -21,8 +21,8 @@ int main(int argc, char **argv)
    * Example using the CLI
    */
     auto *cli = new CommandLineInterface();
-    //cli->main_loop();
-    delete cli;
+    cli->main_loop();
+  delete cli;
 
     /**
      * hardcoded example without the CLI
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     gr->addObjInEnv(new Cube(1));
 
     OutputPictureManager *pm = new OutputPictureManager;
-    pm->setColorMapper(new ColorMapper(LINEAR, 2, 3));
+  pm->setColorMapper(new ColorMapper(LINEAR, 2.3, 2.9));
     RT_RayTracer *renderer = new RT_RayTracer(pm);
     gr->setRenderer(renderer);
 

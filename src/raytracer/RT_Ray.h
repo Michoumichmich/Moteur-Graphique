@@ -31,6 +31,7 @@ struct RT_RayConfig {
     RT_RayRenderingMode rtMode = RT_RayRenderingMode::RT_DEPTHMAP;
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
+    Vector cam_view_center = Vector();
 };
 
 /**
@@ -42,8 +43,10 @@ struct RT_RayConfig {
  */
 struct RT_RayOutput {
     Color resultColor;
-    double distance;
-    double intensity;
+    Vector rayTesselIntersection;
+    double distance{};
+    double ortho_distance{};
+    double intensity{};
 };
 
 /**

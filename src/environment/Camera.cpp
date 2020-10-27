@@ -19,5 +19,9 @@ Camera::Camera(Point3D origin, Point3D target, std::string name, enum camMode mo
 {
 
 }
+Vector Camera::getCamViewCenter() const
+{
+  return Vector(origin, target);
+}
 
 Camera::Camera() = default;
