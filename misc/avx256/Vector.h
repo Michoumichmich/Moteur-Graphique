@@ -17,7 +17,7 @@
 #define _mm_extract_epi64(x, imm) _mm_cvtsi128_si64(_mm_srli_si128((x), 8 * (imm)))
 
 // __m128 bits mask to target the doubleing point sign bit.
-static const __m256d SIGNMASK = _mm256_castsi256_pd(_mm256_set1_epi32(0x80000000));
+static const __m256d SIGNMASK = _mm256_castsi256_pd(_mm256_set1_epi64x(0x80000000));
 
 /**
 ** 16-bytes aligned memory allocation function.
@@ -169,7 +169,7 @@ class __attribute__((aligned (16))) Vector
     __m128d hi128 = _mm256_extractf128_pd(temp, 1);
     __m128d lo128 = _mm256_extractf128_pd(temp, 0);
     __m128d dotproduct = _mm_add_pd(lo128, hi128);
-    return _mm256_cvtsd_f64(_mm256_sqrt_pd(_mm256_sqrt_pd(_mm256_castpd128_pd256(dotproduct))));
+      return _mm256_cvtsd_f64(_mm256_sqrt_pd(_mm256_castpd128_pd256(dotproduct)));
   }
   /// Returns the normalized vector
   [[nodiscard]] inline Vector normalize() const
