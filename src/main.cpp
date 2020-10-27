@@ -24,15 +24,22 @@ int main(int argc, char **argv)
     cli->main_loop();
   delete cli;
 
-    /**
-     * hardcoded example without the CLI
-     */
-    GraphicsEngine *gr = new GraphicsEngine();
-    gr->createEnvironment("firstEnv");
-    gr->addObjInEnv(new Sphere(1 / 1.42));
-    gr->addObjInEnv(new Cube(1));
+  /**
+   * hardcoded example without the CLI
+   */
+  GraphicsEngine *gr = new GraphicsEngine();
+  gr->createEnvironment("firstEnv");
+  gr->addObjInEnv(new Sphere(1 / 1.42));
+  gr->addObjInEnv(new Cube(1));
 
-    OutputPictureManager *pm = new OutputPictureManager;
+  Cube *cube_right = new Cube(1);
+  cube_right->setTransformation({0.5, 0, 45, 0, Vector(-1.2, 0.25, -0.25)});
+  Cube *cube_left = new Cube(1);
+  cube_left->setTransformation({0.5, 0, 45, 60, Vector(1.2, 0.25, -0.25)});
+  gr->addObjInEnv(cube_left);
+  gr->addObjInEnv(cube_right);
+
+  OutputPictureManager *pm = new OutputPictureManager;
   pm->setColorMapper(new ColorMapper(LINEAR, 2.3, 2.9));
     RT_RayTracer *renderer = new RT_RayTracer(pm);
     gr->setRenderer(renderer);

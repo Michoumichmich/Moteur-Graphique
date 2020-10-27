@@ -16,13 +16,16 @@
  */
 class Object {
  protected:
-  struct transformations tranfo;
+  struct transformations tranfo{};
   std::list<Tessel *> tessels;
   ApparenceProperties properties;
+  bool needComputeTessels = true;
  public:
-  virtual void Tesselate();
+  virtual void Tesselate() = 0;
 
   std::list<Tessel *> getTessels();
+
+  void setTransformation(struct transformations);
 
   std::string ObjectName;
 };
