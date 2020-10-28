@@ -16,4 +16,14 @@ Tessel::Tessel(Point3D p1, Point3D p2, Point3D p3, ApparenceProperties prop) : T
 {
   this->properties = prop;
 }
+Vector Tessel::getNormalVector()
+{
+  Vector tmp = Vector(summmits[0], summmits[1]);
+  return tmp.cross(Vector(summmits[1], summmits[2])).normalize();
+}
 
+Vector Tessel::getReflexionVector(Vector direction)
+{
+  Vector n = getNormalVector();
+  return direction - 2 * (direction.dot(n)) * n;
+}
