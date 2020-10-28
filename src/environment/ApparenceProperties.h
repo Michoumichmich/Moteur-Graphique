@@ -10,11 +10,11 @@ class ApparenceProperties {
    * Default is white so we can use it for the depth map directly
    */
   Color color = Color(1);
-  double refractiveIndex;
-  double transparency;
-  double diffusivity;
-  bool emitsLight;
-  double lightBrightness;
+  double refractiveIndex{};
+  double transparency{};
+  double diffusivity{};
+  bool emitsLight{};
+  double lightBrightness{};
 };
 
 #endif //GRAPHIC_ENGINE_APPARENCEPROPERTIES_H

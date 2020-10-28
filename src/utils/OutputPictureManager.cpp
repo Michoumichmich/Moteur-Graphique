@@ -31,6 +31,18 @@ void OutputPictureManager::setColorMapper(ColorMapper *color_mapper)
   this->mapper = color_mapper;
 }
 
+void OutputPictureManager::writePixel(Color color, double d, unsigned int x, unsigned int y)
+{
+  if (this->mapper != nullptr)
+    {
+      writePixel(this->mapper->Map(d, color), x, y);
+    }
+  else
+    {
+      writePixel(color, x, y);
+    }
+}
+
 void OutputPictureManager::writePixel(double d, unsigned int x, unsigned int y)
 {
   if (this->mapper != nullptr)

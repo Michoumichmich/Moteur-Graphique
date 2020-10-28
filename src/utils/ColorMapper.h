@@ -40,7 +40,7 @@ class ColorMapper {
    * accorging the the selected method and pressets
    * @return
    */
-  Color Map(double);
+  Color Map(double, Color = Color(1));
 
 };
 

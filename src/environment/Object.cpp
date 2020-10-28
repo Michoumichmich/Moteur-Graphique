@@ -12,19 +12,22 @@ std::list<Tessel *> Object::getTessels()
       for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++)
         {
           **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, this->tranfo);
+          (*aTessel)->properties = this->properties;
         }
       this->needComputeTessels = false;
     }
   return this->tessels;
 }
 
-void Object::setTransformation(struct transformations transfo)
+Object *Object::setTransformation(struct transformations transfo)
 {
   this->tranfo = transfo;
   this->needComputeTessels = true;
+  return this;
 }
 
-void Object::setColor(Color color)
+Object *Object::setColor(Color color)
 {
   this->properties.color = color;
+  return this;
 }

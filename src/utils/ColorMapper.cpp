@@ -9,16 +9,17 @@ ColorMapper::ColorMapper(enum colorMappingMethods method, double param1, double 
   rand = std::rand() % 1000;
 }
 
-Color ColorMapper::Map(double val)
+Color ColorMapper::Map(double val, Color refColor)
 {
   double fracpart, intpart, param;
-    double tmp;
-  switch (method) {
+  double tmp;
+  switch (method)
+    {
       case LINEAR:
-          tmp = 1 - (param1 - val) / (param1 - param2);
-          if (tmp < 0)return Color(0);
-          else if (tmp > 1) return Color(1);
-          else return Color(tmp);
+        tmp = 1 - (param1 - val) / (param1 - param2);
+      if (tmp < 0)return Color(0);
+      else if (tmp > 1) return Color(1);
+      else return Color(tmp * refColor.red, tmp * refColor.green, tmp * refColor.blue);
       case NONSENSE:
           param = val * rand;
           fracpart = modf(param, &intpart);

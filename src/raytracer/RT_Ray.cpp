@@ -22,11 +22,11 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
   struct RT_RayOutput rayOutput = RT_ComputeRecurseRay(dir, origin, config, intersector);
   if (config.rtMode == RT_RayRenderingMode::RT_BITMAP && rayOutput.distance >= 0)
     {
-      pic->writePixel(Color(1), x, y);
+      pic->writePixel(rayOutput.resultColor, x, y);
     }
   else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP && rayOutput.distance >= 0)
     {
-      pic->writePixel(rayOutput.ortho_distance, x, y);
+      pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
     }
   else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD && rayOutput.distance >= 0)
     {
@@ -61,7 +61,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
       double ortho_dist = std::sqrt(config.cam_view_center.dot(res.intersectionPoint - origin));
       if (res.intersectsSometing)
         {
-          return RT_RayOutput{Color(1.0), res.intersectionPoint, res.distance, ortho_dist, 1};
+          return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, ortho_dist, 1};
         }
       else
         {

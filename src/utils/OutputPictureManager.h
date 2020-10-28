@@ -32,6 +32,7 @@ class OutputPictureManager {
   ~OutputPictureManager();
 
   void setOutFile(const std::string &basicString);
+  void writePixel(Color color, double d, unsigned int x, unsigned int y);
 };
 
 #endif //GRAPHIC_ENGINE_OUTPUTPICTUREMANAGER_H
