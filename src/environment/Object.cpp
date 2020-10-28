@@ -1,12 +1,11 @@
 #include "Object.h"
 
-
 std::list<Tessel *> Object::getTessels()
 {
 
   if (this->needComputeTessels)
     {
-      this->tessels = {};
+      this->tessels.clear();
       this->Tesselate();
       std::list<Tessel *>::iterator aTessel;
       for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++)

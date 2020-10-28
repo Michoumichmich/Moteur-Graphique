@@ -2,9 +2,13 @@ cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
-set(ARCH_FLAGS "-march=native -mtune=native  -msse -msse2 -msse4")
-set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wall -Wextra -Wno-unused -DCHRONO -fopenmp -O3 -ffast-math")
-set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -Wall -Wextra -Og -g3 -DCHRONO -DDEBUG")
+
+set(ARCH_FLAGS "-Wall -Wextra -march=native -mtune=native  -msse -msse2 -msse4")
+
+set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -O3 -ffast-math -DBENCHMARK")
+set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -Og -g3 -DDEBUG")
+set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -O3 -ffast-math -DBENCHMARK")
+
 
 include_directories(src/include)
 add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
@@ -18,3 +22,13 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/environment/RegularObjects/Sphere.cpp src/environment/RegularObjects/Sphere.h src/raytracer/RT_Ray.cpp src/raytracer/RT_Ray.h
         src/raytracer/RT_RayEnvIntersector.cpp src/raytracer/RT_RayEnvIntersector.h src/environment/MappedTexture.cpp src/environment/MappedTexture.h
         src/environment/CoordinatesHandler.cpp src/environment/CoordinatesHandler.h src/environment/RegularObjects/Cube.cpp src/environment/RegularObjects/Cube.h src/utils/ColorMapper.cpp src/utils/ColorMapper.h)
+
+
+if (CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_CONFIGURATION_TYPES Debug Release BENCHMARK)
+endif ()
+
+MARK_AS_ADVANCED(
+        CMAKE_CXX_FLAGS_RELEASE
+        CMAKE_CXX_FLAGS_DEBUG
+        CMAKE_CXX_FLAGS_BENCHMARK)

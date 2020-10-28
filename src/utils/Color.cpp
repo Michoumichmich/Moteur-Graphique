@@ -9,11 +9,11 @@ Color::Color()
   colormode = colorMode::RGB;
 }
 
-Color::Color(double r, double g, double b) : red(r), green(g), blue(b), colormode(colorMode::RGB)
+Color::Color(double r, double g, double b) : colormode(colorMode::RGB), red(r), green(g), blue(b)
 {
 }
 
-Color::Color(int r, int g, int b, int d) : red((double) r / d), green((double) g / d), blue((double) b / d), colormode(colorMode::RGB)
+Color::Color(int r, int g, int b, int d) : colormode(colorMode::RGB), red((double) r / d), green((double) g / d), blue((double) b / d)
 {
 }
 

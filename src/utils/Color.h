@@ -20,6 +20,9 @@ class Color {
   double greyScale{};
   unsigned char bit{};
  public:
+  double red;
+  double green;
+  double blue;
   explicit Color();
 
   Color(int, int, int, int);
@@ -34,9 +37,7 @@ class Color {
    * @return
    */
   struct rgbPixel getPixelValues(unsigned int bitDepth) const;
-  double red;
-  double green;
-  double blue;
+
 };
 
 #endif //GRAPHIC_ENGINE_COLOR_H

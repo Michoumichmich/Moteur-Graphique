@@ -32,6 +32,7 @@ std::list<std::string> Environment::listCameras()
 
 void Environment::tesselate()
 {
+  allTessels.clear();
   for (std::list<Object *>::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it)
     {
       auto tmp = (*it)->getTessels();

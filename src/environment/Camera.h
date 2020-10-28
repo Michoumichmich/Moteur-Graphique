@@ -11,6 +11,16 @@ enum camMode {
 
 class Camera {
  private:
+  int pixel_width_count = DEFAULT_WIDTH;
+  int pixel_height_count = DEFAULT_HEIGHT;
+  double pixel_width{};
+  double pixel_height{};
+  Vector up_unit{};
+  Vector right_unit{};
+  Vector view{};
+  Point3D bottom_left{};
+
+  void InitBasicVectors();
 
  public:
   std::string cameraName = "Camera unnamed";
@@ -37,7 +47,9 @@ class Camera {
 
   Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
 
-  Vector getCamViewCenter() const;
+  [[nodiscard]] Vector getCamViewCenter() const;
+
+  Point3D getPixelTargetInEnv(int x, int y);
 
   void ModifyViewport(double width, double height);
 
