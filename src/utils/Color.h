@@ -16,18 +16,18 @@ struct rgbPixel {
 
 class Color {
  private:
-  double red;
-  double green;
-  double blue;
   colorMode colormode;
   double greyScale{};
   unsigned char bit{};
  public:
+  double red;
+  double green;
+  double blue;
   explicit Color();
 
-  Color(double, double, double);
-
   Color(int, int, int, int);
+
+  Color(double, double, double);
 
   explicit Color(double);
 
@@ -37,6 +37,7 @@ class Color {
    * @return
    */
   struct rgbPixel getPixelValues(unsigned int bitDepth) const;
+
 };
 
 #endif //GRAPHIC_ENGINE_COLOR_H

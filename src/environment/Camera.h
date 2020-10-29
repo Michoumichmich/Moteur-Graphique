@@ -11,6 +11,16 @@ enum camMode {
 
 class Camera {
  private:
+  int pixel_width_count = DEFAULT_WIDTH;
+  int pixel_height_count = DEFAULT_HEIGHT;
+  double pixel_width{};
+  double pixel_height{};
+  Vector up_unit{};
+  Vector right_unit{};
+  Vector view{};
+  Point3D bottom_left{};
+
+  void InitBasicVectors();
 
  public:
   std::string cameraName = "Camera unnamed";
@@ -18,10 +28,10 @@ class Camera {
    * Wether the rays are parallel or not
    */
   enum camMode mode = PERSPECTIVE;
-  Point3D origin = Point3D(0, 0, -2);
-  Point3D target = Point3D(0, 0, 1);
-  double viewportWidth = 2;
-  double viewportHeight = 1;
+  Point3D origin = Point3D(0, 2.01, -2.01);
+  Point3D target = Point3D(0, 0, 0);
+  double viewportWidth = 4;
+  double viewportHeight = 2;
   /**
    * Camera's view up vector.
    * TO obtain the real vector we project it on the view vector and substract that amount to the viewUP. Then we compute the right vector using a scalar
@@ -36,6 +46,10 @@ class Camera {
   Camera(Point3D origin, Point3D target, std::string name, enum camMode);
 
   Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
+
+  [[nodiscard]] Vector getCamViewCenter() const;
+
+  Point3D getPixelTargetInEnv(int x, int y);
 
   void ModifyViewport(double width, double height);
 

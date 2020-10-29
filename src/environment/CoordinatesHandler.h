@@ -22,7 +22,7 @@ class CoordinatesHandler {
 
   static Tessel fromLocalToGlobal(const Tessel &, struct transformations);
 
-  static void rotate(double *x, double *y, double deg);
+  static void rotate(float *x, float *y, float deg);
 };
 
 #endif //_COORDINATESHANDLER_H_

@@ -11,8 +11,8 @@
 class RT_RayCaster {
  public:
   static std::list<RT_Ray>
-  generateFirstRays(struct RT_RayConfig config, Camera *cam, unsigned int pixel_height_count = DEFAULT_HEIGHT,
-                    unsigned int pixel_width_count = DEFAULT_WIDTH);
+  generateFirstRays(struct RT_RayConfig config, Camera *cam, int pixel_height_count = DEFAULT_HEIGHT,
+                    int pixel_width_count = DEFAULT_WIDTH);
 };
 
 #endif //GRAPHIC_ENGINE_RAYCASTER_H

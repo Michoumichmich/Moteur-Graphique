@@ -32,9 +32,9 @@ std::list<std::string> Environment::listCameras()
 
 void Environment::tesselate()
 {
+  allTessels.clear();
   for (std::list<Object *>::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it)
     {
-      (*it)->Tesselate();
       auto tmp = (*it)->getTessels();
       copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
     }
@@ -53,4 +53,4 @@ Environment::Environment()
 {
   currentCam = new Camera();
   cameras.push_back(currentCam);
-};
+}

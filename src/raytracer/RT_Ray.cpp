@@ -1,5 +1,6 @@
 #include "RT_Ray.h"
 #include <utils.h>
+#include <cmath>
 
 RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config) : dir(dir), origin(orig), config(config)
 {
@@ -19,14 +20,13 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictu
 {
 
   struct RT_RayOutput rayOutput = RT_ComputeRecurseRay(dir, origin, config, intersector);
-
   if (config.rtMode == RT_RayRenderingMode::RT_BITMAP && rayOutput.distance >= 0)
     {
-      pic->writePixel(Color(1), x, y);
+      pic->writePixel(rayOutput.resultColor, x, y);
     }
   else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP && rayOutput.distance >= 0)
     {
-      pic->writePixel(rayOutput.distance, x, y);
+      pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
     }
   else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD && rayOutput.distance >= 0)
     {
@@ -55,13 +55,17 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
   if (config.rtMode == RT_RayRenderingMode::RT_BITMAP || config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP)
     {
       struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
+      /**
+       * Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc
+       */
+      double ortho_dist = std::sqrt(config.cam_view_center.dot(res.intersectionPoint - origin));
       if (res.intersectsSometing)
         {
-          return RT_RayOutput{Color(1.0), res.distanceMin, 1};
+          return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, ortho_dist, 1};
         }
       else
         {
-          return RT_RayOutput{Color(0.0), res.distanceMin, 1};
+          return RT_RayOutput{Color(0.0), res.intersectionPoint, res.distance, ortho_dist, 1};
         }
     }
 
@@ -73,7 +77,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
   struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
   if (!res.intersectsSometing || res.type == RT_RayIntersectionType::INF)
     {
-      return RT_RayOutput{Color(), -1, 1};
+      return RT_RayOutput{Color(), res.intersectionPoint, -1, 1};
     }
 
   if (res.type == RT_RayIntersectionType::MAPPED_TEXTURE)
@@ -81,7 +85,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
       /**
        * On a touché une texture, on affiche la couleur du pixel
        */
-      return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), (origin - res.intersectionPoint).length(), 1};
+      return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
     }
 
   if (res.type == RT_RayIntersectionType::TESSEL)
