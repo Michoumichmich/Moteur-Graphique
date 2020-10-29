@@ -162,7 +162,7 @@ class __attribute__((aligned (16))) Vector
     return _mm_cvtsd_f64(dotproduct);
   }
   /// Length of the vector
-  [[nodiscard]] inline double length() const
+  [[nodiscard]]  double length() const
   {
     __m256d xy = _mm256_mul_pd(mmvalue, mmvalue);
     __m256d temp = _mm256_hadd_pd(xy, xy);
