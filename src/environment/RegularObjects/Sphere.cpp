@@ -5,7 +5,7 @@
 #include "Sphere.h"
 #include <cmath>
 
-void Sphere::Tesselate()
+void Sphere::Tesselate(int resolution)
 {
   int n = 30;
 

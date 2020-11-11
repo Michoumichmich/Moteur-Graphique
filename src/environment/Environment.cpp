@@ -35,7 +35,7 @@ void Environment::tesselate()
   allTessels.clear();
   for (std::list<Object *>::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it)
     {
-      auto tmp = (*it)->getTessels();
+      auto tmp = (*it)->getTessels(tesselResolution);
       copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
     }
 }
@@ -53,4 +53,12 @@ Environment::Environment()
 {
   currentCam = new Camera();
   cameras.push_back(currentCam);
+}
+
+void Environment::setResolution(int n) {
+    tesselResolution = n >= 30 ? n : 30;
+}
+
+int Environment::getResolution() {
+    return tesselResolution;
 }

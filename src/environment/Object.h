@@ -20,7 +20,7 @@ class Object {
   std::list<Tessel *> tessels;
   ApparenceProperties properties;
   bool needComputeTessels = true;
-  virtual void Tesselate() = 0;
+  virtual void Tesselate(int resolution) = 0;
  public:
   std::string ObjectName;
   /**
@@ -28,7 +28,7 @@ class Object {
    * Also passes a copt of ApparenceProperties to child tessels
    * @return
    */
-  std::list<Tessel *> getTessels();
+  std::list<Tessel *> getTessels(int resolution);
   Object *setTransformation(struct transformations);
   Object *setColor(Color color);
 };

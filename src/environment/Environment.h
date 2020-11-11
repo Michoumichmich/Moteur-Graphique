@@ -17,8 +17,10 @@ class Environment {
   std::list<Light *> allLights;
   std::list<MappedTexture *> allTMapped;
   Camera *currentCam;
+  int tesselResolution = 30;
  public:
   std::string envName;
+  Color backgroundColor = Color(24, 179, 220);
 
   explicit Environment(std::string name);
 
@@ -29,6 +31,10 @@ class Environment {
   std::list<std::string> listCameras();
 
   void switchCamera(std::string camName);
+
+  void setResolution(int n);
+
+  int getResolution();
 
   std::list<Tessel *> *getTessels();
 

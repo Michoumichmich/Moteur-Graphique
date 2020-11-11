@@ -13,7 +13,7 @@ class Cube : public Object {
  public:
   explicit Cube(double size);
 
-  void Tesselate() override;
+  void Tesselate(int resolution) override;
 };
 
 #endif //GRAPHICSENGINE_CUBE_H

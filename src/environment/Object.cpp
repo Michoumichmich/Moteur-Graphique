@@ -1,12 +1,12 @@
 #include "Object.h"
 
-std::list<Tessel *> Object::getTessels()
+std::list<Tessel *> Object::getTessels(int resolution)
 {
 
   if (this->needComputeTessels)
     {
       this->tessels.clear();
-      this->Tesselate();
+      this->Tesselate(resolution);
       std::list<Tessel *>::iterator aTessel;
       for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++)
         {

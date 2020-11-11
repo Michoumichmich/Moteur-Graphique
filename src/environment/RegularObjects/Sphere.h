@@ -9,7 +9,7 @@ class Sphere : public Object {
  public:
   explicit Sphere(double radius);
 
-  void Tesselate() override;
+  void Tesselate(int resolution) override;
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H
