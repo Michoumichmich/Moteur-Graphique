@@ -48,10 +48,12 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       case str2int("stop"):
         status = STOP_EXEC;
       break;
+
       case str2int("help"):
         std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n";
       status = SUCCESS;
       break;
+
       case str2int("init"):
         if (tokens.size() >= 2)
           {
@@ -112,6 +114,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             status = MISSING_ARGS;
           }
       break;
+
       case str2int("list"):
         if (tokens.size() >= 2)
           {
@@ -139,6 +142,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             status = MISSING_ARGS;
           }
       break;
+
       // TODO Add object to environment
       // else if () {
       //  }
