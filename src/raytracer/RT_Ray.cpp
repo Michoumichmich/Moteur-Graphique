@@ -16,26 +16,10 @@ RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config, unsigned in
  * @param intersector
  * @param pic
  */
-void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, OutputPictureManager *pic)
-{
+void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, RT_OutputManager *pic) {
 
-  struct RT_RayOutput rayOutput = RT_ComputeRecurseRay(dir, origin, config, intersector);
-  if (config.rtMode == RT_RayRenderingMode::RT_BITMAP && rayOutput.distance >= 0)
-    {
-      pic->writePixel(rayOutput.resultColor, x, y);
-    }
-  else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP && rayOutput.distance >= 0)
-    {
-      pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
-    }
-  else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD && rayOutput.distance >= 0)
-    {
-      pic->writePixel(rayOutput.resultColor, x, y);
-    }
-  else
-    {
-      pic->writePixel(Color(0), x, y);
-    }
+    struct RT_RayOutput rayOutput = RT_ComputeRecurseRay(dir, origin, config, intersector);
+    pic->RT_SaveRay(rayOutput, x, y);
 }
 
 /**

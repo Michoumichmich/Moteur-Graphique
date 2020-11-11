@@ -16,6 +16,7 @@ class RT_RayTracer : public Abstract_Renderer {
   Environment *environment{};
   struct RT_RayConfig config;
   RT_RayEnvIntersector *envIntersector{};
+    RT_OutputManager *ray_out_manager;
  public:
   explicit RT_RayTracer(OutputPictureManager *);
 
