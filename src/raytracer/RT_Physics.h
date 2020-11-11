@@ -1,5 +1,5 @@
-#ifndef BUSINESS_CARD_DEMO_CPP_RT_PHYSICS_H
-#define BUSINESS_CARD_DEMO_CPP_RT_PHYSICS_H
+#ifndef _GRAPHIC_ENGINE_PHYSICS_H
+#define _GRAPHIC_ENGINE_PHYSICS_H
 
 #include "utils.h"
 #include "environment.h"
@@ -20,4 +20,4 @@ class RT_Physics {
 };
 
 
-#endif //BUSINESS_CARD_DEMO_CPP_RT_PHYSICS_H
+#endif //_GRAPHIC_ENGINE_PHYSICS_H

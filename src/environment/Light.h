@@ -1,5 +1,5 @@
-#ifndef BUSINESS_CARD_DEMO_CPP_LIGHT_H
-#define BUSINESS_CARD_DEMO_CPP_LIGHT_H
+#ifndef _GRAPHIC_ENGINE_LIGHT_H
+#define _GRAPHIC_ENGINE_LIGHT_H
 
 #include "utils.h"
 
@@ -11,4 +11,4 @@ class Light {
 };
 
 
-#endif //BUSINESS_CARD_DEMO_CPP_LIGHT_H
+#endif //G_RAPHIC_ENGINE_LIGHT_H
