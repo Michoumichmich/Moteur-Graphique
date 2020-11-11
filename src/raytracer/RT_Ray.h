@@ -38,16 +38,16 @@ private:
    */
   RT_Ray(Vector direction, Point3D origin, struct RT_RayConfig config, unsigned x, unsigned y);
 
-    /**
-     * Recursively computes a ray.
-     * First it looks for the closest tessel in the env that's on its path
-     * Then it computes all reflections/refractions
-     * It launches the rays and decrements the bounces counter in the new rays -> the recursion must end at some point
-     * If the ray hits a light object, it returns its color
-     * When a ray goes through an tessel, we must not forget to take in account the object's color
-     * La fonction est une procédure ce qui permettra de la lancer en parallèle sans s'embêter avec la valeur de retour. Elle enverra son résultat au PictureManager.
-     */
-    void RT_ComputePrimaryRay(RT_RayEnvIntersector *, RT_OutputManager *);
+  /**
+   * Recursively computes a ray.
+   * First it looks for the closest tessel in the env that's on its path
+   * Then it computes all reflections/refractions
+   * It launches the rays and decrements the bounces counter in the new rays -> the recursion must end at some point
+   * If the ray hits a light object, it returns its color
+   * When a ray goes through an tessel, we must not forget to take in account the object's color
+   * La fonction est une procédure ce qui permettra de la lancer en parallèle sans s'embêter avec la valeur de retour. Elle enverra son résultat au PictureManager.
+   */
+  void RT_ComputePrimaryRay(RT_RayEnvIntersector *, RT_OutputManager *);
 
   /**
    * When the ray is casted we can find where the color goes in the picture
