@@ -22,7 +22,9 @@ class Abstract_Renderer {
 
   void SetRendererResolution(unsigned int, unsigned int);
 
-  virtual void renderScene(std::string string, Environment *env) = 0;
+  virtual ~Abstract_Renderer();
+
+    virtual void renderScene(std::string string, Environment *env) = 0;
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H

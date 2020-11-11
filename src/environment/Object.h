@@ -31,6 +31,8 @@ class Object {
   std::list<Tessel *> getTessels();
   Object *setTransformation(struct transformations);
   Object *setColor(Color color);
+
+    virtual ~Object();
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

@@ -49,5 +49,12 @@ void RT_OutputManager::apply_global_transformations() {
 
 }
 
+RT_OutputManager::~RT_OutputManager() {
+    for (unsigned int y = 0; y < height; y++)
+        free(allRaysOutput[y]);
+    free(allRaysOutput);
+}
+
+
 
 

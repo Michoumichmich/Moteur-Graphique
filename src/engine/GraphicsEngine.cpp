@@ -20,17 +20,12 @@ void GraphicsEngine::createEnvironment(std::string name)
 void GraphicsEngine::switchEnvironment(const std::string &name)
 {
   bool found = false;
-  for (std::list<Environment *>::const_iterator it = environments.begin(); it != environments.end(); ++it)
-    {
-      if ((*it)->envName == name)
-        {
-          currentEnv = *it;
-        }
-    }
-  if (!found)
-    {
-      std::cout << "Environment not found. Please select valid environment \n";
-    }
+  for (auto &environment : environments) {
+      if (environment->envName == name) {
+          currentEnv = environment;
+      }
+  }
+    std::cout << "Environment not found. Please select valid environment \n";
 }
 
 void GraphicsEngine::setRenderer(Abstract_Renderer *renderer)
@@ -51,17 +46,15 @@ std::list<Environment *> GraphicsEngine::getEnvironments()
 std::vector<std::string> GraphicsEngine::environmentsName()
 {
   std::vector<std::string> names{};
-  for (std::list<Environment *>::const_iterator it = environments.begin(); it != environments.end(); ++it)
-    {
-      names.push_back(it.operator*()->envName);
+    for (auto it = environments.begin(); it != environments.end(); ++it) {
+        names.push_back(it.operator*()->envName);
     }
   return names;
 }
 
-GraphicsEngine::~GraphicsEngine()
-{
-  environments.clear();
-  // delete currentEnv;
+GraphicsEngine::~GraphicsEngine() {
+    delete renderer;
+    while (!environments.empty()) delete environments.front(), environments.pop_front();
 }
 void GraphicsEngine::addObjInEnv(Object *obj)
 {

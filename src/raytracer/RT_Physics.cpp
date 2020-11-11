@@ -9,7 +9,7 @@ Vector RT_Physics::computePhongIllumination(Vector p, Vector n, Vector incomingR
     /**
      * Diffuse and specular components
      */
-    incomingRay.normalize();
+    incomingRay = incomingRay.normalize();
     std::list<Light>::iterator it;
     for (it = lights.begin(); it != lights.end(); it++) {
         Vector lightDirection = (it->position - p).normalize();

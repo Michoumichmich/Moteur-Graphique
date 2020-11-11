@@ -23,7 +23,7 @@ int main(int argc, char **argv)
    * Example using the CLI
    */
     auto *cli = new CommandLineInterface();
-    cli->main_loop();
+   // cli->main_loop();
   delete cli;
 
   /**
@@ -63,5 +63,6 @@ int main(int argc, char **argv)
     }
   std::cout << "avg time " << avg / (1000000.0 * lap_count) << "s" << std::endl;
 #endif
+    delete gr;
   return 0;
 }

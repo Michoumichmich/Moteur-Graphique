@@ -62,6 +62,7 @@ OutputPictureManager::~OutputPictureManager()
       free(allColors[i]);
     }
   free(allColors);
+    delete mapper;
 }
 
 void OutputPictureManager::savePicture()

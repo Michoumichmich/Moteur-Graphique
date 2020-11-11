@@ -20,13 +20,15 @@ std::list<Tessel *> Object::getTessels()
 
 Object *Object::setTransformation(struct transformations transfo)
 {
-  this->tranfo = transfo;
-  this->needComputeTessels = true;
-  return this;
+    this->tranfo = transfo;
+    this->needComputeTessels = true;
+    return this;
 }
 
-Object *Object::setColor(Color color)
-{
-  this->properties.color = color;
-  return this;
+Object *Object::setColor(Color color) {
+    this->properties.color = color;
+    return this;
 }
+
+
+Object::~Object() = default;

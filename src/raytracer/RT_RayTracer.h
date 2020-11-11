@@ -24,7 +24,7 @@ class RT_RayTracer : public Abstract_Renderer {
 
   void renderScene(std::string string, Environment *env) override;
 
-  ~RT_RayTracer();
+  ~RT_RayTracer() override;
 };
 
 #endif //GRAPHIC_ENGINE_RAYTRACER_H

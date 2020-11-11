@@ -16,6 +16,8 @@ private:
 public:
     explicit RT_OutputManager(RT_RayConfig config, unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
 
+    ~RT_OutputManager();
+
     void RT_SaveRay(struct RT_RayOutput, unsigned int x, unsigned int y);
 
     void apply_global_transformations();

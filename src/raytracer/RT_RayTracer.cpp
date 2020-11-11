@@ -23,6 +23,7 @@ RT_RayTracer::RT_RayTracer(OutputPictureManager *pic, struct RT_RayConfig conf) 
 RT_RayTracer::~RT_RayTracer() {
     delete envIntersector;
     delete picManager;
+    delete ray_out_manager;
 }
 
 /**
