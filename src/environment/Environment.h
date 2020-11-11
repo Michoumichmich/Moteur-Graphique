@@ -7,12 +7,14 @@
 #include "Camera.h"
 #include "Object.h"
 #include "MappedTexture.h"
+#include "Light.h"
 
 class Environment {
  private:
   std::list<Camera *> cameras;
   std::list<Tessel *> allTessels;
   std::list<Object *> allObjects;
+  std::list<Light *> allLights;
   std::list<MappedTexture *> allTMapped;
   Camera *currentCam;
  public:
