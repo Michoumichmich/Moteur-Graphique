@@ -15,6 +15,14 @@ class ApparenceProperties {
   double diffusivity{};
   bool emitsLight{};
   double lightBrightness{};
+
+  /**
+   * Phong illumination parameters as Vector for RGB components
+   */
+   Vector materialIntensity{};
+   Vector materialDiffuseIntensity{};
+   Vector materialSpecularIntensity{};
+
 };
 
 #endif //GRAPHIC_ENGINE_APPARENCEPROPERTIES_H
