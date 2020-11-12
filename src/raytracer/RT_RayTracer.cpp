@@ -12,10 +12,12 @@
 
 RT_RayTracer::RT_RayTracer() {
     this->ray_out_manager = new RT_OutputManager(this->config);
+    this->config.env = environment;
 }
 
 RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf) : config(conf) {
     this->ray_out_manager = new RT_OutputManager(conf);
+    this->config.env = environment;
 }
 
 RT_RayTracer::~RT_RayTracer() {
@@ -52,6 +54,6 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *env) {
 #endif
         aRay->RT_ComputePrimaryRay(envIntersector, ray_out_manager);
     }
-    ray_out_manager->apply_global_transformations();
+    ray_out_manager->apply_global_operations();
     ray_out_manager->export_picture(out_file);
 }

@@ -1,6 +1,7 @@
 #ifndef GRAPHICSENGINE_RT_COMMONS_H
 #define GRAPHICSENGINE_RT_COMMONS_H
 
+#include "environment.h"
 
 /**
  * Used to define the type of rendering.
@@ -21,10 +22,12 @@ struct RT_RayConfig {
     bool transparency = false;
     bool diffusivity = false;
     bool depthOfField = false;
+    bool isShadowRay = false;
     RT_RayRenderingMode rtMode = RT_RayRenderingMode::RT_DEPTHMAP;
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
     Vector cam_view_center = Vector();
+    Environment *env = new Environment();
 };
 
 

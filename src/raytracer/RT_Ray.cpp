@@ -33,12 +33,18 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, RT_OutputMa
 struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, struct RT_RayConfig config, RT_RayEnvIntersector *intersector)
 {
 
+  if (config.bouncesLeft == 0)
+    {
+      return RT_RayOutput{config.env->backgroundColor, Vector{}, 0.0, -1, 1};
+    }
+
+  struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
+
   /**
    * No reflexions or whatsoever, we return directly the result.
    */
   if (config.rtMode == RT_RayRenderingMode::RT_BITMAP || config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP)
     {
-      struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
       /**
        * Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc
        */
@@ -49,33 +55,34 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
         }
       else
         {
-          return RT_RayOutput{Color(0.0), res.intersectionPoint, res.distance, ortho_dist, 1};
+          return RT_RayOutput{config.env->backgroundColor, res.intersectionPoint, res.distance, ortho_dist, 1};
         }
     }
 
-  if (config.intensity == 0 || config.bouncesLeft == 0)
-    {
-      // TODO  return what ?
-    }
+  /**
+   * With reflection & refraction
+   */
+  else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD)
+  {
+      if (!res.intersectsSometing || res.type == RT_RayIntersectionType::INF)
+        {
+          return RT_RayOutput{config.env->backgroundColor, res.intersectionPoint, -1, 1};
+        }
 
-  struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
-  if (!res.intersectsSometing || res.type == RT_RayIntersectionType::INF)
-    {
-      return RT_RayOutput{Color(), res.intersectionPoint, -1, 1};
-    }
+      if (res.type == RT_RayIntersectionType::MAPPED_TEXTURE)
+        {
+          /**
+           * On a touché une texture, on affiche la couleur du pixel
+           */
+          return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
+          //TODO Add general case for hitting any material, and treat the cases separately depending on if the surface is opaque, reflective, or transparent reflective.
+        }
 
-  if (res.type == RT_RayIntersectionType::MAPPED_TEXTURE)
-    {
-      /**
-       * On a touché une texture, on affiche la couleur du pixel
-       */
-      return RT_RayOutput{res.texture.getPixelAtCoordinates(res.intersectionPoint), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
-    }
+      if (res.type == RT_RayIntersectionType::TESSEL)
+        {
+          // TODO Ca se complique, et on se rappelle récursivement jusqu'à l'extinction du rayon.
+        }
+      return RT_RayOutput();
+  }
 
-  if (res.type == RT_RayIntersectionType::TESSEL)
-    {
-      // TODO Ca se complique, et on se rappelle récursivement jusqu'à l'extinction du rayon.
-    }
-
-  return RT_RayOutput();
 }

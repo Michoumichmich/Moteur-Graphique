@@ -24,27 +24,40 @@ RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsi
  */
 void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsigned int y) {
     this->allRaysOutput[y][x] = ray;
+
+
+    if (ray.ortho_distance < distance_min || distance_min < 0) {
+        distance_min = ray.ortho_distance;
+    }
+
+    if (ray.ortho_distance > distance_max || distance_max < 0) {
+        distance_max = ray.ortho_distance;
+    }
+
+
 }
 
 void RT_OutputManager::export_picture(std::string name) {
     OutputPictureManager *pic = new OutputPictureManager(std::move(name), width, height);
     if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
-        pic->setColorMapper(new ColorMapper(LINEAR, 2.33, 2.88));
+        pic->setColorMapper(new ColorMapper(LINEAR, distance_min, distance_max));
     }
     for (unsigned int x = 0; x < width; x++) {
         for (unsigned y = 0; y < height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
-            if (config.rtMode == RT_RayRenderingMode::RT_BITMAP && rayOutput.distance >= 0) {
-                pic->writePixel(rayOutput.resultColor, x, y);
-            } else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP && rayOutput.distance >= 0) {
-                //pic->RT_SaveRay(rayOutput, x, y);
-                pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
-            } else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD && rayOutput.distance >= 0) {
-                //pic->RT_SaveRay(rayOutput, x, y);
-                pic->writePixel(rayOutput.resultColor, x, y);
+            if (rayOutput.distance >= 0) {
+                if (config.rtMode == RT_RayRenderingMode::RT_BITMAP) {
+                    pic->writePixel(rayOutput.resultColor, x, y);
+                } else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
+                    //pic->RT_SaveRay(rayOutput, x, y);
+                    pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
+                } else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD) {
+                    //pic->RT_SaveRay(rayOutput, x, y);
+                    pic->writePixel(rayOutput.resultColor, x, y);
+                }
             } else {
                 //pic->RT_SaveRay(rayOutput, x, y);
-                pic->writePixel(Color(0), x, y);
+                pic->writePixel(Color(0.5), x, y);
             }
         }
     }
@@ -52,7 +65,7 @@ void RT_OutputManager::export_picture(std::string name) {
     delete pic;
 }
 
-void RT_OutputManager::apply_global_transformations() {
+void RT_OutputManager::apply_global_operations() {
 
 }
 
