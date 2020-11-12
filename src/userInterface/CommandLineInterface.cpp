@@ -61,8 +61,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
               {
                 case str2int("ge"):
                   this->graphicEngine = new GraphicsEngine();
-                  RT_RayTracer *renderer = new RT_RayTracer();
-                  this->graphicEngine->setRenderer(renderer);
+                  this->graphicEngine->setRenderer(new RT_RayTracer());
                 std::cout << "Initialization of the graphic engine \n";
                 status = SUCCESS;
                 break;
