@@ -22,6 +22,7 @@ struct RT_RayConfig {
     bool transparency = false;
     bool diffusivity = false;
     bool depthOfField = false;
+    bool isShadowRay = false;
     RT_RayRenderingMode rtMode = RT_RayRenderingMode::RT_DEPTHMAP;
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
