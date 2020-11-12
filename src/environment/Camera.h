@@ -27,7 +27,7 @@ class Camera {
     /**
      * Wether the rays are parallel or not
      */
-    enum camMode mode = ORTHOGRAPHIC;
+    enum camMode mode = PERSPECTIVE;
     Point3D origin = Point3D(0, 2.01, -2.01);
   Point3D target = Point3D(0, 0, 0);
   double viewportWidth = 4;

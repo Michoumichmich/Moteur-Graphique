@@ -41,7 +41,7 @@ void RT_OutputManager::export_picture(std::string name) {
     OutputPictureManager *pic = new OutputPictureManager(std::move(name), width, height);
     if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
         //pic->setColorMapper(new ColorMapper(LINEAR, distance_min, distance_max));
-        pic->setColorMapper(new ColorMapper(TOPO_LINES, 0.03, 0.04));
+        pic->setColorMapper(new ColorMapper(TOPO_LINES, 0.02, 0.04));
     }
     for (unsigned int x = 0; x < width; x++) {
         for (unsigned y = 0; y < height; y++) {
