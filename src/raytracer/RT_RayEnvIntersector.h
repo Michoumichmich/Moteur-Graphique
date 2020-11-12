@@ -50,7 +50,7 @@ class RT_RayEnvIntersector {
    * @param direction
    * @return
    */
-  struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
+  [[nodiscard]] struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

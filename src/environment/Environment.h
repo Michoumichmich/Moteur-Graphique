@@ -9,41 +9,44 @@
 #include "MappedTexture.h"
 #include "Light.h"
 
-class Environment {
- private:
-  std::list<Camera *> cameras;
-  std::list<Tessel *> allTessels;
-  std::list<Object *> allObjects;
-  std::list<Light *> allLights;
-  std::list<MappedTexture *> allTMapped;
-  Camera *currentCam;
-  int tesselResolution = 30;
- public:
-  std::string envName;
-  Color backgroundColor = Color(24, 179, 220);
+class Environment : public Serializable {
+private:
+    std::list<Camera *> cameras;
+    std::list<Tessel *> allTessels;
+    std::list<Object *> allObjects;
+    std::list<Light *> allLights;
+    std::list<MappedTexture *> allTMapped;
+    Camera *currentCam;
+    int tesselResolution = 30;
+public:
+    std::string envName;
+    Color backgroundColor = Color(24, 179, 220);
 
-  explicit Environment(std::string name);
+    explicit Environment(std::string name);
 
-  Environment();
+    Environment();
 
-  Camera *getCurrentCam();
+    Camera *getCurrentCam();
 
-  std::list<std::string> listCameras();
+    std::list<std::string> listCameras();
 
-  void switchCamera(std::string camName);
+    void switchCamera(std::string camName);
 
-  void setResolution(int n);
+    std::list<Tessel *> *getTessels();
 
-  int getResolution();
+    void tesselate();
 
-  std::list<Tessel *> *getTessels();
+    void addObject(Object *);
 
-  void tesselate();
+    ~Environment();
 
-  void addObject(Object *);
+    void serialize(std::ostream &stream) override;
 
-  ~Environment();
+    void deserialize(std::istream &stream) override;
 
+    int getResolution();
+
+    void setResolution(int n);
 };
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

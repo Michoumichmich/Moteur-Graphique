@@ -14,23 +14,28 @@
  * D'abord l'homothétie "transfo.scale", puis les rotations et finalement ma translation.
  * C'est effectué par CoordinatesHandler::fromLocalToGlobal
  */
-class Object {
- protected:
-  struct transformations tranfo{};
-  std::list<Tessel *> tessels;
-  ApparenceProperties properties;
-  bool needComputeTessels = true;
-  virtual void Tesselate(int resolution) = 0;
- public:
-  std::string ObjectName;
-  /**
-   * Computes if needed the tessels and if needed moves them in the environment
-   * Also passes a copt of ApparenceProperties to child tessels
-   * @return
-   */
-  std::list<Tessel *> getTessels(int resolution);
-  Object *setTransformation(struct transformations);
-  Object *setColor(Color color);
+class Object : public Serializable {
+protected:
+    struct transformations tranfo{};
+    std::list<Tessel *> tessels;
+    ApparenceProperties properties;
+    bool needComputeTessels = true;
+
+    virtual void Tesselate(int resolution) = 0;
+
+public:
+    std::string ObjectName;
+
+    /**
+     * Computes if needed the tessels and if needed moves them in the environment
+     * Also passes a copt of ApparenceProperties to child tessels
+     * @return
+     */
+    std::list<Tessel *> getTessels(int resolution);
+
+    Object *setTransformation(struct transformations);
+
+    Object *setColor(Color color);
 
     virtual ~Object();
 };

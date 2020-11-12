@@ -5,17 +5,16 @@
 #include "Sphere.h"
 #include <cmath>
 
-void Sphere::Tesselate(int resolution)
-{
-  int n = resolution;
+void Sphere::Tesselate(int resolution) {
+    int n = resolution;
 
 
-  Point3D** globe = (Point3D**) calloc(n+1, sizeof(Point3D*));
-    for (int i = 0; i < n+1; ++i) {
-        globe[i] = (Point3D*) calloc(n+1, sizeof(Point3D));
+    Point3D **globe = (Point3D **) calloc(n + 1, sizeof(Point3D *));
+    for (int i = 0; i < n + 1; ++i) {
+        globe[i] = (Point3D *) calloc(n + 1, sizeof(Point3D));
     }
 
-  auto map = [](double value, double start1, double stop1, double start2, double stop2)
+    auto map = [](double value, double start1, double stop1, double start2, double stop2)
   {
       return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
   };
@@ -47,6 +46,14 @@ void Sphere::Tesselate(int resolution)
     free(globe);
 }
 
-Sphere::Sphere(double radius) : radius(radius)
-{
+Sphere::Sphere(double radius) : radius(radius) {
+}
+
+
+void Sphere::serialize(std::ostream &stream) {
+    Serializable::export_entry(stream, "Sphere", {{"radius", std::to_string(radius)}});
+}
+
+void Sphere::deserialize(std::istream &stream) {
+
 }

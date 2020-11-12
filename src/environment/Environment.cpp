@@ -55,3 +55,16 @@ void Environment::setResolution(int n) {
 int Environment::getResolution() {
     return tesselResolution;
 }
+
+void Environment::serialize(std::ostream &stream) {
+
+    std::list<std::string> serial;
+    for (auto const &obj:allObjects)
+        obj->serialize(stream);
+
+    // jsonify_serializable_list(stream, allObjects);
+}
+
+void Environment::deserialize(std::istream &stream) {
+
+}
