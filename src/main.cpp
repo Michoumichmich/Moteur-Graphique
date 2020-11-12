@@ -22,9 +22,9 @@ int main(int argc, char **argv)
   /**
    * Example using the CLI
    */
-   // auto *cli = new CommandLineInterface();
+    auto *cli = new CommandLineInterface();
    // cli->main_loop();
-   // delete cli;
+  delete cli;
 
   /**
    * hardcoded example without the CLI
@@ -43,9 +43,7 @@ int main(int argc, char **argv)
   gr->addObjInEnv(new Sphere(1 / 1.42));
 
   gr->getCurrentEnvironment()->setResolution(30);
-  OutputPictureManager *pm = new OutputPictureManager;
-  pm->setColorMapper(new ColorMapper(NONSENSE, 2.33, 2.88));
-  RT_RayTracer *renderer = new RT_RayTracer(pm);
+  RT_RayTracer *renderer = new RT_RayTracer();
   gr->setRenderer(renderer);
 
 #ifdef BENCHMARK
@@ -55,7 +53,7 @@ int main(int argc, char **argv)
     {
       auto start = std::chrono::high_resolution_clock::now();
 #endif
-    //   gr->launchRender("test.bmp");
+    gr->launchRender("test.bmp");
 #ifdef BENCHMARK
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
@@ -65,7 +63,9 @@ int main(int argc, char **argv)
   std::cout << "avg time " << avg / (1000000.0 * lap_count) << "s" << std::endl;
 #endif
 
-    gr->getCurrentEnvironment()->serialize(std::cout);
+    std::stringstream ss;
+    gr->serialize(ss);
+    std::cout << ss.str() << std::endl;
     delete gr;
 
 

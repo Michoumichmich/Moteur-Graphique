@@ -13,6 +13,9 @@ private:
     RT_RayConfig config;
     unsigned int height;
     unsigned int width;
+    double distance_min = -1;
+    double distance_max = -1;
+
 public:
     explicit RT_OutputManager(RT_RayConfig config, unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
 
@@ -20,9 +23,9 @@ public:
 
     void RT_SaveRay(struct RT_RayOutput, unsigned int x, unsigned int y);
 
-    void apply_global_transformations();
+    void apply_global_operations();
 
-    void export_picture(OutputPictureManager *pManager);
+    void export_picture(std::string out_name);
 };
 
 
