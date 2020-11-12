@@ -17,14 +17,16 @@ Color::Color(int r, int g, int b, int d) : colormode(colorMode::RGB), red((doubl
 {
 }
 
-struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const
-{
-  unsigned int factor = (unsigned) pow(2, bitDepth) - 1;
-  return rgbPixel{(unsigned int) (red * factor), (unsigned int) (green * factor), (unsigned int) (blue * factor)};
+struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {
+    unsigned int factor = (unsigned) pow(2, bitDepth) - 1;
+    return rgbPixel{(unsigned int) (red * factor), (unsigned int) (green * factor), (unsigned int) (blue * factor)};
 }
 
-Color::Color(double d) : Color(d, d, d)
-{
+Color::Color(double d) : Color(d, d, d) {
+}
+
+Color Color::invert() {
+    return Color(256 - red, 256 - green, 256 - blue);
 }
 
 

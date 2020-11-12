@@ -28,6 +28,8 @@ public:
 
     Color(int, int, int, int = 256);
 
+    Color invert();
+
     Color(double, double, double);
 
     explicit Color(double);
