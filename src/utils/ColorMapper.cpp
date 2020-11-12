@@ -27,9 +27,9 @@ Color ColorMapper::Map(double val, Color refColor) {
              */
             fracpart = modf(val / param1, &intpart);
             if ((int) intpart % 2 == 0) {
-                return Color(255, 0, 0);
+                return refColor;
             } else {
-                return Color(1);
+                return refColor.invert();
             }
             break;
         case TOPO_LINES:
@@ -40,9 +40,9 @@ Color ColorMapper::Map(double val, Color refColor) {
             fracpart = modf(val / param1, &intpart);
             fracpart = modf(fracpart / param2, &intpart);
             if ((int) intpart < 2) {
-                return Color(255, 0, 0);
+                return refColor;
             } else {
-                return Color(1);
+                return refColor.invert();
             }
             break;
     }
