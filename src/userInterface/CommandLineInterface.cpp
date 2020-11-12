@@ -188,6 +188,13 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 status = MISSING_ARGS;
             break;
 
+        case str2int("render"):
+            if (tokens.size() >= 2) {
+                this->graphicEngine->launchRender(tokens[1]);
+            } else
+                status = MISSING_ARGS;
+            break;
+
         // TODO Add object to environment
         // else if () {
         //  }
