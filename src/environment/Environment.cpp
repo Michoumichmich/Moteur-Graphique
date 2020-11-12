@@ -1,58 +1,51 @@
-#include "Environment.h"
+#define free_ptr_list(list) while(!list.empty()) delete list.front(), list.pop_front()
 
+
+#include "Environment.h"
 #include <sstream>
 
-Environment::Environment(std::string name)
-{
-  currentCam = new Camera();
-  cameras.push_back(currentCam);
-  this->envName = std::move(name);
+Environment::Environment(std::string name) {
+    currentCam = new Camera();
+    cameras.push_back(currentCam);
+    this->envName = std::move(name);
 }
 
-Camera *Environment::getCurrentCam()
-{
-  return currentCam;
+Camera *Environment::getCurrentCam() {
+    return currentCam;
 }
 
-std::list<Tessel *> *Environment::getTessels()
-{
-  return &this->allTessels;
+std::list<Tessel *> *Environment::getTessels() {
+    return &this->allTessels;
 }
 
-void Environment::addObject(Object *obj)
-{
-  this->allObjects.push_back(obj);
+void Environment::addObject(Object *obj) {
+    this->allObjects.push_back(obj);
 }
 
-std::list<std::string> Environment::listCameras()
-{
-  //TODO
-  return std::list<std::string>();
+std::list<std::string> Environment::listCameras() {
+    //TODO
+    return std::list<std::string>();
 }
 
-void Environment::tesselate()
-{
-  allTessels.clear();
-  for (std::list<Object *>::const_iterator it = allObjects.begin(); it != allObjects.end(); ++it)
-    {
-      auto tmp = (*it)->getTessels(tesselResolution);
-      copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
+void Environment::tesselate() {
+    allTessels.clear();
+    for (auto &allObject : allObjects) {
+        auto tmp = allObject->getTessels();
+        copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
     }
 }
 
-Environment::~Environment()
-{
-  allTessels.clear();
-  allObjects.clear();
-  cameras.clear();
-  allTMapped.clear();
-  delete currentCam;
+Environment::~Environment() {
+
+    free_ptr_list(allTessels);
+    free_ptr_list(cameras);
+    free_ptr_list(allTMapped);
+    free_ptr_list(allObjects);
 }
 
-Environment::Environment()
-{
-  currentCam = new Camera();
-  cameras.push_back(currentCam);
+Environment::Environment() {
+    currentCam = new Camera();
+    cameras.push_back(currentCam);
 }
 
 void Environment::setResolution(int n) {
