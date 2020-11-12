@@ -30,7 +30,7 @@ std::list<std::string> Environment::listCameras() {
 void Environment::tesselate() {
     allTessels.clear();
     for (auto &allObject : allObjects) {
-        auto tmp = allObject->getTessels();
+        auto tmp = allObject->getTessels(tesselResolution);
         copy(tmp.rbegin(), tmp.rend(), front_inserter(allTessels));
     }
 }
