@@ -16,7 +16,7 @@ public:
 
     virtual ~Serializable() = default;
 
-    static void jsonify_serializable_list(std::ostream &out, std::list<Serializable *> &list);
+    static void jsonify_serializable_list(std::ostream &out, const std::string &entry_name, std::list<std::string> &string);
 
     static void export_entry(std::ostream &out, const std::string &entry_name, std::list<json_entry> list);
 

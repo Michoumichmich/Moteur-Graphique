@@ -14,7 +14,7 @@
  * D'abord l'homothétie "transfo.scale", puis les rotations et finalement ma translation.
  * C'est effectué par CoordinatesHandler::fromLocalToGlobal
  */
-class Object {
+class Object : public Serializable {
 protected:
     struct transformations tranfo{};
     std::list<Tessel *> tessels;

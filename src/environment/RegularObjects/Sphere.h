@@ -11,9 +11,9 @@ public:
 
     void Tesselate(int resolution) override;
 
-    void deserialize(std::istream &stream);
+    void deserialize(std::istream &stream) override;
 
-    void serialize(std::ostream &stream) const;
+    void serialize(std::ostream &stream) override;
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H
