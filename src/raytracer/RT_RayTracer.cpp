@@ -52,6 +52,6 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *env) {
 #endif
         aRay->RT_ComputePrimaryRay(envIntersector, ray_out_manager);
     }
-    ray_out_manager->apply_global_transformations();
+    ray_out_manager->apply_global_operations();
     ray_out_manager->export_picture(out_file);
 }
