@@ -50,7 +50,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       break;
 
       case str2int("help"):
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n";
       status = SUCCESS;
       break;
 
@@ -142,6 +142,38 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             status = MISSING_ARGS;
           }
       break;
+
+      case str2int("set"):
+        if (tokens.size() >= 2)
+        {
+            if (this->graphicEngine == NULL)
+            {
+                std::cout << "No graphic engine set. Initialize with init ge \n";
+                status = FAIL;
+            }
+
+            else if (this->graphicEngine->getEnvironments().empty())
+            {
+                std::cout << "No environment set. Initialize with init env <environment name> \n";
+                status = FAIL;
+            }
+
+            else if (tokens.size() >= 3)
+            {
+              if (tokens[1] == "resolution")
+              {
+                  int res = std::stoi(tokens[2]);
+                  this->graphicEngine->getCurrentEnvironment()->setResolution(res);
+                  std::cout << "Tesselation resolution set to " << (res < 20 ? 20 : res) << std::endl;
+                  status = SUCCESS;
+              }
+            }
+
+            else
+            {
+                status = MISSING_ARGS;
+            }
+        }
 
       // TODO Add object to environment
       // else if () {

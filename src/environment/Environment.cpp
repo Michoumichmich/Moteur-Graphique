@@ -56,7 +56,7 @@ Environment::Environment()
 }
 
 void Environment::setResolution(int n) {
-    tesselResolution = n >= 30 ? n : 30;
+    tesselResolution = n >= 20 ? n : 20;
 }
 
 int Environment::getResolution() {
