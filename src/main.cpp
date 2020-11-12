@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 #endif
 
     std::stringstream ss;
-    gr->getCurrentEnvironment()->serialize(ss);
+    gr->serialize(ss);
     std::cout << ss.str() << std::endl;
     delete gr;
 

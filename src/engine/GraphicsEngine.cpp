@@ -3,6 +3,7 @@
 #include <utility>
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 void GraphicsEngine::launchRender(const std::string &outName)
 {
@@ -56,9 +57,18 @@ GraphicsEngine::~GraphicsEngine() {
     delete renderer;
     while (!environments.empty()) delete environments.front(), environments.pop_front();
 }
-void GraphicsEngine::addObjInEnv(Object *obj)
-{
-  this->currentEnv->addObject(obj);
+
+void GraphicsEngine::addObjInEnv(Object *obj) {
+    this->currentEnv->addObject(obj);
+}
+
+void GraphicsEngine::deserialize(std::istream &stream) {
+
+}
+
+void GraphicsEngine::serialize(std::stringstream &stream) {
+    //  Serialize_Atrubutes_List(stream, "GraphicsEngine", environments)
+    Serialize_Serializable_List(stream, "Environments", environments)
 }
 
 GraphicsEngine::GraphicsEngine() = default;
