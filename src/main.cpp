@@ -42,9 +42,7 @@ int main(int argc, char **argv)
   gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108, 255)));
   gr->addObjInEnv(new Sphere(1 / 1.42));
 
-  OutputPictureManager *pm = new OutputPictureManager;
-  pm->setColorMapper(new ColorMapper(LINEAR, 2.33, 2.88));
-  RT_RayTracer *renderer = new RT_RayTracer(pm);
+  RT_RayTracer *renderer = new RT_RayTracer();
   gr->setRenderer(renderer);
 
 #ifdef BENCHMARK

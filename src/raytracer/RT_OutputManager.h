@@ -22,7 +22,7 @@ public:
 
     void apply_global_transformations();
 
-    void export_picture(OutputPictureManager *pManager);
+    void export_picture(std::string out_name);
 };
 
 

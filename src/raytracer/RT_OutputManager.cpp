@@ -1,5 +1,7 @@
 #include "RT_OutputManager.h"
 
+#include <utility>
+
 RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height) : config(config), height(height), width(width) {
     allRaysOutput = static_cast<struct RT_RayOutput **>( calloc(sizeof(struct RT_RayOutput *), height));
     if (allRaysOutput != nullptr) {
@@ -24,7 +26,11 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
     this->allRaysOutput[y][x] = ray;
 }
 
-void RT_OutputManager::export_picture(OutputPictureManager *pic) {
+void RT_OutputManager::export_picture(std::string name) {
+    OutputPictureManager *pic = new OutputPictureManager(std::move(name), width, height);
+    if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
+        pic->setColorMapper(new ColorMapper(LINEAR, 2.33, 2.88));
+    }
     for (unsigned int x = 0; x < width; x++) {
         for (unsigned y = 0; y < height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
@@ -43,6 +49,7 @@ void RT_OutputManager::export_picture(OutputPictureManager *pic) {
         }
     }
     pic->savePicture();
+    delete pic;
 }
 
 void RT_OutputManager::apply_global_transformations() {
