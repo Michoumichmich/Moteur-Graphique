@@ -25,7 +25,7 @@ struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {
 Color::Color(double d) : Color(d, d, d) {
 }
 
-Color Color::invert() {
+Color Color::invert() const {
     return Color(256 - red, 256 - green, 256 - blue);
 }
 

@@ -29,9 +29,9 @@ void Camera::InitBasicVectors()
 {
   pixel_width = viewportWidth / pixel_width_count;
   pixel_height = viewportHeight / pixel_height_count;
-  view = Vector(origin, target);
-  up_unit = (viewUp - view.normalize() * (view.normalize().dot(viewUp))).normalize();
-  right_unit = -up_unit.cross(view).normalize();
+    view = Vector(origin, target);
+    up_unit = -(viewUp - view.normalize() * (view.normalize().dot(viewUp))).normalize();
+    right_unit = -up_unit.cross(view).normalize();
   bottom_left = target - up_unit * (viewportHeight / 2.0) - right_unit * (viewportWidth / 2.0);
 }
 Point3D Camera::getPixelTargetInEnv(int x, int y)

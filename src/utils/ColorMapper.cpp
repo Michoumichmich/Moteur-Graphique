@@ -40,9 +40,9 @@ Color ColorMapper::Map(double val, Color refColor) {
             fracpart = modf(val / param1, &intpart);
             fracpart = modf(fracpart / param2, &intpart);
             if ((int) intpart < 2) {
-                return refColor;
-            } else {
                 return refColor.invert();
+            } else {
+                return refColor;
             }
             break;
     }

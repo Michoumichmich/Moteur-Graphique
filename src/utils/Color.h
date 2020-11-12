@@ -28,7 +28,7 @@ public:
 
     Color(int, int, int, int = 256);
 
-    Color invert();
+    Color invert() const;
 
     Color(double, double, double);
 
