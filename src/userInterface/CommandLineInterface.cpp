@@ -50,7 +50,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       break;
 
       case str2int("help"):
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n render <filename.bmp> \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> \n render <filename.bmp> \n";
       status = SUCCESS;
       break;
 
@@ -155,6 +155,14 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         this->graphicEngine->getCurrentEnvironment()->setResolution(res);
                         std::cout << "Tesselation resolution set to " << (res < 20 ? 20 : res) << std::endl;
                         status = SUCCESS;
+                    } else if (tokens[1] == "env") {
+                        if (this->graphicEngine->switchEnvironment(tokens[2])) { // returns false if environment is not found
+                            std::cout << "Switched to environment " << tokens[2] << std::endl;
+                            status = SUCCESS;
+                        } else {
+                            std::cout << "Environment not found. Please select valid environment." << std::endl;
+                            status = FAIL;
+                        }
                     }
                 } else {
                     status = MISSING_ARGS;
@@ -199,10 +207,6 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 status = MISSING_ARGS;
             break;
 
-        // TODO Add object to environment
-        // else if () {
-        //  }
-        // TODO Add command for setting renderer
         // TODO Add command for setting current environment
         default :
             status = UNKNOWN_COMMAND;

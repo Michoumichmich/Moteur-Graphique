@@ -18,15 +18,15 @@ void GraphicsEngine::createEnvironment(std::string name)
   this->environments.push_back(env);
 }
 
-void GraphicsEngine::switchEnvironment(const std::string &name)
+bool GraphicsEngine::switchEnvironment(const std::string &name)
 {
-  bool found = false;
   for (auto &environment : environments) {
       if (environment->envName == name) {
           currentEnv = environment;
+          return true;
       }
   }
-    std::cout << "Environment not found. Please select valid environment \n";
+  return false;
 }
 
 void GraphicsEngine::setRenderer(Abstract_Renderer *renderer)

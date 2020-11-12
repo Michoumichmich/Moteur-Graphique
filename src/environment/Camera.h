@@ -24,11 +24,11 @@ class Camera {
 
  public:
   std::string cameraName = "Camera unnamed";
-  /**
-   * Wether the rays are parallel or not
-   */
-  enum camMode mode = PERSPECTIVE;
-  Point3D origin = Point3D(0, 2.01, -2.01);
+    /**
+     * Wether the rays are parallel or not
+     */
+    enum camMode mode = ORTHOGRAPHIC;
+    Point3D origin = Point3D(0, 2.01, -2.01);
   Point3D target = Point3D(0, 0, 0);
   double viewportWidth = 4;
   double viewportHeight = 2;
