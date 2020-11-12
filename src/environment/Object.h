@@ -35,6 +35,8 @@ public:
 
     Object *setTransformation(struct transformations);
 
+    Object *setCenter(Point3D);
+
     Object *setColor(Color color);
 
     virtual ~Object();

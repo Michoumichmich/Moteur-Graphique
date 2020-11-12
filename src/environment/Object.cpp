@@ -22,6 +22,11 @@ Object *Object::setTransformation(struct transformations transfo)
     return this;
 }
 
+Object *Object::setCenter(Point3D center) {
+    this->tranfo.pt = center;
+    return this;
+}
+
 Object *Object::setColor(Color color) {
     this->properties.color = color;
     return this;

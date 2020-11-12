@@ -50,7 +50,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       break;
 
       case str2int("help"):
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n";
       status = SUCCESS;
       break;
 
@@ -159,12 +159,40 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     status = MISSING_ARGS;
                 }
             }
+            break;
 
-            // TODO Add object to environment
-            // else if () {
-            //  }
-            // TODO Add command for setting renderer
-            // TODO Add command for setting current environment
+        case str2int("add"):
+            if (tokens.size() >= 6) {
+                double x = stod(tokens[2]);
+                double y = stod(tokens[3]);
+                double z = stod(tokens[4]);
+                switch (str2int(tokens[1].c_str())) {
+                    case str2int("sphere"): {
+                        Sphere* sphere = new Sphere(stod(tokens[5]));
+                        sphere->setCenter(Point3D(x, y, z));
+                        this->graphicEngine->getCurrentEnvironment()->addObject(sphere);
+                        break;
+                    }
+                    case str2int("cube"): {
+                        Cube *cube = new Cube(stod(tokens[5]));
+                        cube->setCenter(Point3D(x, y, z));
+                        this->graphicEngine->getCurrentEnvironment()->addObject(cube);
+                        break;
+                    }
+                    default:
+                        std::cout << "The object " << tokens[1] << " doesn't exist" << std::endl;
+                        status = FAIL;
+                        break;
+                }
+            } else
+                status = MISSING_ARGS;
+            break;
+
+        // TODO Add object to environment
+        // else if () {
+        //  }
+        // TODO Add command for setting renderer
+        // TODO Add command for setting current environment
         default :
             status = UNKNOWN_COMMAND;
             break;
