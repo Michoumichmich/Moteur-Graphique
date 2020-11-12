@@ -44,6 +44,9 @@ public:
 
     void deserialize(std::istream &stream) override;
 
+    int getResolution();
+
+    void setResolution(int n);
 };
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H
