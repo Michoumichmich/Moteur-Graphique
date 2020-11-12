@@ -50,7 +50,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       break;
 
       case str2int("help"):
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n render <filename.bmp> \n";
       status = SUCCESS;
       break;
 
