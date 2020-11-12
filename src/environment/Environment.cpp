@@ -36,6 +36,7 @@ void Environment::tesselate() {
 }
 
 Environment::~Environment() {
+
     free_ptr_list(allTessels);
     free_ptr_list(cameras);
     free_ptr_list(allTMapped);
@@ -45,6 +46,14 @@ Environment::~Environment() {
 Environment::Environment() {
     currentCam = new Camera();
     cameras.push_back(currentCam);
+}
+
+void Environment::setResolution(int n) {
+    tesselResolution = n >= 20 ? n : 20;
+}
+
+int Environment::getResolution() {
+    return tesselResolution;
 }
 
 void Environment::serialize(std::ostream &stream) {

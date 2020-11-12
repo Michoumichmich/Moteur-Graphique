@@ -9,7 +9,7 @@ private:
 public:
     explicit Sphere(double radius);
 
-    void Tesselate() override;
+    void Tesselate(int resolution) override;
 
     void deserialize(std::istream &stream) override;
 

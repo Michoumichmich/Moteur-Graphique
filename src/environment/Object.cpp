@@ -1,16 +1,13 @@
 #include "Object.h"
 
-std::list<Tessel *> Object::getTessels()
-{
+std::list<Tessel *> Object::getTessels(int resolution) {
 
-  if (this->needComputeTessels)
-    {
-      this->tessels.clear();
-      this->Tesselate();
-      std::list<Tessel *>::iterator aTessel;
-      for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++)
-        {
-          **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, this->tranfo);
+    if (this->needComputeTessels) {
+        this->tessels.clear();
+        this->Tesselate(resolution);
+        std::list<Tessel *>::iterator aTessel;
+        for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
+            **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, this->tranfo);
           (*aTessel)->properties = this->properties;
         }
       this->needComputeTessels = false;

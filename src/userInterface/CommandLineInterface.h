@@ -37,7 +37,7 @@ class CommandLineInterface {
 
   void ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status);
 
-  void ErrorHandler(enum command_exec_status &);
+  static void ErrorHandler(enum command_exec_status &);
 
  public:
   CommandLineInterface();
