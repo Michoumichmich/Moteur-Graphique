@@ -17,8 +17,7 @@
 
 #endif
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     /**
      * Example using the CLI
      */
@@ -42,9 +41,8 @@ int main(int argc, char **argv)
     gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108, 255)));
     gr->addObjInEnv(new Sphere(1 / 1.42));
 
-    gr->getCurrentEnvironment()->setResolution(30);
-    RT_RayTracer *renderer = new RT_RayTracer();
-    gr->setRenderer(renderer);
+    gr->currEnv()->setResolution(40);
+    gr->setRenderer(new RT_RayTracer());
 
 #ifdef BENCHMARK
     int lap_count = 1;

@@ -34,7 +34,7 @@ public:
 
     void addObjInEnv(Object *obj);
 
-    Environment *getCurrentEnvironment();
+    Environment *currEnv();
 
     void setRenderer(Abstract_Renderer *);
 

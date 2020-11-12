@@ -17,7 +17,7 @@ private:
     double distance_max = -1;
 
 public:
-    explicit RT_OutputManager(RT_RayConfig config, unsigned int width = DEFAULT_WIDTH, unsigned int height = DEFAULT_HEIGHT);
+    explicit RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height);
 
     ~RT_OutputManager();
 

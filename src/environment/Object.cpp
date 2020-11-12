@@ -8,15 +8,14 @@ std::list<Tessel *> Object::getTessels(int resolution) {
         std::list<Tessel *>::iterator aTessel;
         for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
             **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, this->tranfo);
-          (*aTessel)->properties = this->properties;
+            (*aTessel)->properties = this->properties;
         }
-      this->needComputeTessels = false;
+        this->needComputeTessels = false;
     }
-  return this->tessels;
+    return this->tessels;
 }
 
-Object *Object::setTransformation(struct transformations transfo)
-{
+Object *Object::setTransformation(struct transformations transfo) {
     this->tranfo = transfo;
     this->needComputeTessels = true;
     return this;

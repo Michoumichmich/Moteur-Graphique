@@ -10,12 +10,9 @@
 
 #endif
 
-RT_RayTracer::RT_RayTracer() {
-    this->ray_out_manager = new RT_OutputManager(this->config);
-}
+RT_RayTracer::RT_RayTracer() = default;
 
 RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf) : config(conf) {
-    this->ray_out_manager = new RT_OutputManager(conf);
 }
 
 RT_RayTracer::~RT_RayTracer() {
@@ -28,12 +25,13 @@ RT_RayTracer::~RT_RayTracer() {
  * Main function of the Ray tracer
  * @param out_file
  */
-void RT_RayTracer::renderScene(std::string out_file, Environment *env) {
-    this->environment = env;
-    this->config.env = env;
-    this->envIntersector = new RT_RayEnvIntersector(env);
-    this->config.cam_view_center = environment->getCurrentCam()->getCamViewCenter();
-    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
+void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
+    this->env = environment;
+    config.env = env;
+    ray_out_manager = new RT_OutputManager(config, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
+    envIntersector = new RT_RayEnvIntersector(env);
+    config.cam_view_center = env->currCam()->getCamViewCenter();
+    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, env->currCam());
     std::list<RT_Ray>::iterator aRay;
 
 #ifdef _OPENMP

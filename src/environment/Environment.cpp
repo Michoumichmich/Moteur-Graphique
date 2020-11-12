@@ -10,7 +10,7 @@ Environment::Environment(std::string name) {
     this->envName = std::move(name);
 }
 
-Camera *Environment::getCurrentCam() {
+Camera *Environment::currCam() {
     return currentCam;
 }
 
@@ -23,8 +23,11 @@ void Environment::addObject(Object *obj) {
 }
 
 std::list<std::string> Environment::listCameras() {
-    //TODO
-    return std::list<std::string>();
+    std::list<std::string> out;
+    for (auto const &it : cameras) {
+        out.push_back(it->getName());
+    }
+    return out;
 }
 
 void Environment::tesselate() {
@@ -36,7 +39,6 @@ void Environment::tesselate() {
 }
 
 Environment::~Environment() {
-
     free_ptr_list(allTessels);
     free_ptr_list(cameras);
     free_ptr_list(allTMapped);
@@ -52,7 +54,7 @@ void Environment::setResolution(int n) {
     tesselResolution = n >= 20 ? n : 20;
 }
 
-int Environment::getResolution() {
+int Environment::getResolution() const {
     return tesselResolution;
 }
 
@@ -62,4 +64,16 @@ void Environment::serialize(std::stringstream &stream) {
 
 void Environment::deserialize(std::istream &stream) {
 
+}
+
+void Environment::addCamera(Camera *cam) {
+    cameras.push_back(cam);
+}
+
+void Environment::switchCamera(const std::string &camName) {
+    for (auto const &it : cameras) {
+        if (it->getName() == camName) {
+            this->currentCam = it;
+        }
+    }
 }

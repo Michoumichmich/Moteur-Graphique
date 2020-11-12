@@ -13,7 +13,7 @@ private:
 public:
     explicit Cube(double size);
 
-  void Tesselate(int resolution) override;
+    void Tesselate(int resolution) override;
 
     void serialize(std::stringstream &stream) override;
 

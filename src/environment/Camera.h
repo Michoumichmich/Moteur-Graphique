@@ -10,50 +10,74 @@ enum camMode {
 };
 
 class Camera {
- private:
-  int pixel_width_count = DEFAULT_WIDTH;
-  int pixel_height_count = DEFAULT_HEIGHT;
-  double pixel_width{};
-  double pixel_height{};
-  Vector up_unit{};
-  Vector right_unit{};
-  Vector view{};
-  Point3D bottom_left{};
-
-  void InitBasicVectors();
-
- public:
-  std::string cameraName = "Camera unnamed";
-    /**
-     * Wether the rays are parallel or not
-     */
+private:
+    Point3D origin = Point3D(-1, 2.01, -2.01);
+    Point3D target = Point3D(0, 0, 0);
+    std::string cameraName = "Camera unnamed";
     enum camMode mode = PERSPECTIVE;
-    Point3D origin = Point3D(0, 2.01, -2.01);
-  Point3D target = Point3D(0, 0, 0);
-  double viewportWidth = 4;
-  double viewportHeight = 2;
-  /**
-   * Camera's view up vector.
-   * TO obtain the real vector we project it on the view vector and substract that amount to the viewUP. Then we compute the right vector using a scalar
-   * product and we norm everything
-   */
-  Vector viewUp = Vector(0, 1, 0);
+    double viewportWidth = 4;
+    double viewportHeight = 2;
+    /**
+     * Camera's view up vector.
+     * TO obtain the real vector we project it on the view vector and substract that amount to the viewUP. Then we compute the right vector using a scalar
+     * product and we norm everything
+     */
+    Vector viewUp = Vector(0, 1, 0);
 
-  Camera();
 
-  Camera(Point3D origin, Point3D target);
+    int pixel_width_count = DEFAULT_WIDTH;
+public:
+    int pxWidthCount() const;
 
-  Camera(Point3D origin, Point3D target, std::string name, enum camMode);
+    void setPixelWidthCount(int pixelWidthCount);
 
-  Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
+    int pxHeightCount() const;
 
-  [[nodiscard]] Vector getCamViewCenter() const;
+    void setPixelHeightCount(int pixelHeightCount);
 
-  Point3D getPixelTargetInEnv(int x, int y);
+private:
+    int pixel_height_count = DEFAULT_HEIGHT;
+    double pixel_width{};
+    double pixel_height{};
+    Vector up_unit{};
+    Vector right_unit{};
+    Vector view{};
+    Point3D bottom_left{};
 
-  void ModifyViewport(double width, double height);
+    void UpdateBasicVectors();
 
-  void PositionCamera(Point3D origin, Point3D target);
+public:
+
+
+    Camera();
+
+    Camera(Point3D origin, Point3D target);
+
+    Camera(Point3D origin, Point3D target, std::string name, enum camMode);
+
+    Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
+
+    [[nodiscard]] Vector getCamViewCenter() const;
+
+    Point3D translatePixelCoordinates(int x, int y);
+
+    void setViewDimensions(double width, double height);
+
+    void setCameraPosition(Point3D origin, Point3D target);
+
+    void setCameraMode(enum camMode);
+
+    void setCamScreenResolution(int width, int height);
+
+    void setCamName(std::string name);
+
+    [[nodiscard]] Point3D getTarget() const;
+
+    [[nodiscard]] Point3D getOrigin() const;
+
+    std::string getName();
+
+    enum camMode getMode();
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

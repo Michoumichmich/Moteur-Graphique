@@ -30,19 +30,19 @@ enum command_exec_status {
  * A sorte of shell used to interact with the game engine;
  */
 class CommandLineInterface {
- private:
-  GraphicsEngine *graphicEngine;
+private:
+    GraphicsEngine *graphicEngine;
 
-  static std::vector<std::string> ParseToArray(const std::string &input, enum command_exec_status &status);
+    static std::vector<std::string> ParseToArray(const std::string &input, enum command_exec_status &status);
 
-  void ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status);
+    void ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status);
 
-  static void ErrorHandler(enum command_exec_status &);
+    static void ErrorHandler(enum command_exec_status &);
 
- public:
-  CommandLineInterface();
+public:
+    CommandLineInterface();
 
-  void main_loop();
+    void main_loop();
 };
 
 #endif //GRAPHIC_ENGINE_COMMANDLINEINTERFACE_H

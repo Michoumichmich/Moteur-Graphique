@@ -4,10 +4,11 @@
 #include "utils.h"
 
 class Light {
-    public:
-        Light(Vector p, double intensity);
-        Vector position;
-        double intensity;
+public:
+    Light(Vector p, double intensity);
+
+    Vector position;
+    double intensity;
 };
 
 

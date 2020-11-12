@@ -165,7 +165,7 @@ void print_line(char *line) {
 void compute_line(int y, char *buff_line) {
     vector p;
     for (int x = 0; x < X_SIZE; x++) {   //For each pixel in a line
-        p = compute_pixel((X_SIZE - x)*(512.0/Y_SIZE), y*(512.0/Y_SIZE)); //L'inversion c'est juste pour le format ppm
+        p = compute_pixel((X_SIZE - x) * (512.0 / Y_SIZE), y * (512.0 / Y_SIZE)); //L'inversion c'est juste pour le format ppm
         buff_line[3 * x + 0] = (char) p.x;
         buff_line[3 * x + 1] = (char) p.y;
         buff_line[3 * x + 2] = (char) p.z;

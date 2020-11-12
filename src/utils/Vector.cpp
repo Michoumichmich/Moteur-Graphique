@@ -1,32 +1,29 @@
 #include "Vector.h"
 
-void *malloc_simd(const size_t size)
-{
+void *malloc_simd(const size_t size) {
 #if defined WIN32
-  return _aligned_malloc(size, 16);
+    return _aligned_malloc(size, 16);
 #elif defined __linux__
-  return memalign(16, size);
+    return memalign(16, size);
 #elif defined __MACH__
-  return malloc(size);
+    return malloc(size);
 #else // use page-aligned memory for other systems
-  return valloc(size);
+    return valloc(size);
 #endif
 }
 
-void free_simd(void *v)
-{
+void free_simd(void *v) {
 #if defined WIN32
-  return _aligned_free(v);
+    return _aligned_free(v);
 #else
-  return free(v);
+    return free(v);
 #endif
 }
 
-std::ostream &operator<<(std::ostream &os, const Vector &v)
-{
-  os << "Vector(" << v.x << ", "
-     << v.y << ", "
-     << v.z << ")";
-  return os;
+std::ostream &operator<<(std::ostream &os, const Vector &v) {
+    os << "Vector(" << v.x << ", "
+       << v.y << ", "
+       << v.z << ")";
+    return os;
 }
 

@@ -26,11 +26,13 @@ public:
 
     Environment();
 
-    Camera *getCurrentCam();
+    Camera *currCam();
+
+    void addCamera(Camera *);
 
     std::list<std::string> listCameras();
 
-    void switchCamera(std::string camName);
+    void switchCamera(const std::string &camName);
 
     std::list<Tessel *> *getTessels();
 
@@ -38,13 +40,13 @@ public:
 
     void addObject(Object *);
 
-    ~Environment();
+    ~Environment() override;
 
     void serialize(std::stringstream &stream) override;
 
     void deserialize(std::istream &stream) override;
 
-    int getResolution();
+    [[nodiscard]] int getResolution() const;
 
     void setResolution(int n);
 };

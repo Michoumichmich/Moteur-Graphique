@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(3D_Renderer CXX)
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 
 set(COMPILE_OPTIONS PRIVATE -v -flto=full -Wall -Wextra -O3)

@@ -21,9 +21,7 @@
 /**
  * Coloring mode NONSENSE or LINEAR
  */
-#define COLORING_MODE LINEAR
 #define PI 3.1415926
-#define TESSELATION_DENSITY 20
 #define MAX_BOUNCES 1
 #define DEFAULT_WIDTH 2001
 #define DEFAULT_HEIGHT 1001

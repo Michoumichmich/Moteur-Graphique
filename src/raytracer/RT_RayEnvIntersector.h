@@ -10,9 +10,9 @@
 #include <utils.h>
 
 enum class RT_RayIntersectionType {
-  INF,
-  TESSEL,
-  MAPPED_TEXTURE
+    INF,
+    TESSEL,
+    MAPPED_TEXTURE
 };
 
 struct RT_RayIntersectionResult {
@@ -30,28 +30,28 @@ struct RT_RayIntersectionResult {
  * Finds the closest tessel that intersects with a given ray
  */
 class RT_RayEnvIntersector {
- public:
-  Environment *environment;
+public:
+    Environment *environment;
 
-  static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance);
+    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance);
 
- public:
-  /**
-   * Instantiates the environment prober once.
-   * For now it might seem useless. But with a smarter implementation later it could be useful
-   * We could split the environment in small zones thus reducing the number of tesssels we're checking.
-   * Or something like that...
-   */
-  explicit RT_RayEnvIntersector(Environment *);
+public:
+    /**
+     * Instantiates the environment prober once.
+     * For now it might seem useless. But with a smarter implementation later it could be useful
+     * We could split the environment in small zones thus reducing the number of tesssels we're checking.
+     * Or something like that...
+     */
+    explicit RT_RayEnvIntersector(Environment *);
 
-  /**
-   * Its easy. This functions takes an origin and a direction and returns the struct
-   * to know whether the ray hit something or not, what and where.
-   * @param origin
-   * @param direction
-   * @return
-   */
-  [[nodiscard]] struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
+    /**
+     * Its easy. This functions takes an origin and a direction and returns the struct
+     * to know whether the ray hit something or not, what and where.
+     * @param origin
+     * @param direction
+     * @return
+     */
+    [[nodiscard]] struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

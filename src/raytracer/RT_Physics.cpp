@@ -16,9 +16,9 @@ Vector RT_Physics::computePhongIllumination(Vector p, Vector n, Vector incomingR
         RT_RayConfig config{};
         config.isShadowRay = true;
         //TODO Cast shadow rays to check if point is in shadow
-        intensity+= properties.materialDiffuseIntensity * it->intensity * n.dot(lightDirection); /**< Diffuse term */
+        intensity += properties.materialDiffuseIntensity * it->intensity * n.dot(lightDirection); /**< Diffuse term */
         double specular = n.dot((lightDirection + incomingRay).normalize());
-        intensity+= properties.materialSpecularIntensity * it->intensity * specular; /**< Specular term, computed with Blinn's formula */
+        intensity += properties.materialSpecularIntensity * it->intensity * specular; /**< Specular term, computed with Blinn's formula */
     }
 
     return intensity;

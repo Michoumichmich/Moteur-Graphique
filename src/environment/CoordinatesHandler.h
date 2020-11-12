@@ -17,12 +17,12 @@ struct transformations {
 };
 
 class CoordinatesHandler {
- public:
-  static Point3D fromLocalToGlobal(Point3D, struct transformations);
+public:
+    static Point3D fromLocalToGlobal(Point3D, struct transformations);
 
-  static Tessel fromLocalToGlobal(const Tessel &, struct transformations);
+    static Tessel fromLocalToGlobal(const Tessel &, struct transformations);
 
-  static void rotate(float *x, float *y, float deg);
+    static void rotate(float *x, float *y, float deg);
 };
 
 #endif //_COORDINATESHANDLER_H_
