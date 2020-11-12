@@ -7,7 +7,7 @@
 
 void Sphere::Tesselate(int resolution)
 {
-  int n = 30;
+  int n = resolution;
 
 
   Point3D** globe = (Point3D**) calloc(n+1, sizeof(Point3D*));
