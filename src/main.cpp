@@ -19,22 +19,22 @@
 
 int main(int argc, char **argv)
 {
-  /**
-   * Example using the CLI
-   */
+    /**
+     * Example using the CLI
+     */
     auto *cli = new CommandLineInterface();
-   // cli->main_loop();
-  delete cli;
+    cli->main_loop();
+    delete cli;
 
-  /**
-   * hardcoded example without the CLI
-   */
-  GraphicsEngine *gr = new GraphicsEngine();
-  gr->createEnvironment("firstEnv");
+    /**
+     * hardcoded example without the CLI
+     */
+    GraphicsEngine *gr = new GraphicsEngine();
+    gr->createEnvironment("firstEnv");
 
-  Cube *cube_center = new Cube(1);
-  Cube *cube_left = new Cube(1);
-  Cube *cube_right = new Cube(1);
+    Cube *cube_center = new Cube(1);
+    Cube *cube_left = new Cube(1);
+    Cube *cube_right = new Cube(1);
   cube_right->setTransformation({0.5, 0, 45, 0, Vector(-1.2, 0.25, -0.25)});
   cube_left->setTransformation({0.5, 0, 0, 45, Vector(1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70, 255));
   gr->addObjInEnv(cube_left);
@@ -67,11 +67,5 @@ int main(int argc, char **argv)
     gr->serialize(ss);
     std::cout << ss.str() << std::endl;
     delete gr;
-
-
-    auto *sph = new Sphere(1);
-    sph->serialize(std::cout);
-
-
     return 0;
 }
