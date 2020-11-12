@@ -18,9 +18,9 @@ public:
 
     static void jsonify_serializable_list(std::ostream &out, const std::string &entry_name, std::list<std::string> &string);
 
-    static void export_entry(std::ostream &out, const std::string &entry_name, std::list<json_entry> list);
+    static std::string export_entry(const std::string &entry_name, std::list<json_entry> list);
 
-    virtual void serialize(std::ostream &stream) = 0;
+    virtual std::string serialize(std::ostream &stream) = 0;
 
     virtual void deserialize(std::istream &stream) = 0;
 };

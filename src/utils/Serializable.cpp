@@ -16,17 +16,19 @@ void Serializable::jsonify_serializable_list(std::ostream &out, const std::strin
     out << "]";
 }
 
-void Serializable::export_entry(std::ostream &out, const std::string &entry_name, std::list<json_entry> list) {
+std::string Serializable::export_entry(const std::string &entry_name, std::list<json_entry> list) {
+    std::stringstream string;
     bool isFirst = true;
-    if (!entry_name.empty()) out << "\"" << entry_name << "\":";
-    out << "{";
+    if (!entry_name.empty()) string << "\"" << entry_name << "\":";
+    string << "{";
     for (auto &it : list) {
         if (isFirst) {
             isFirst = false;
         } else {
-            out << ',' << std::endl;
+            string << ',' << std::endl;
         }
-        out << "\"" << it.name << "\": " << "\"" << it.data << "\"";
+        string << "\"" << it.name << "\": " << "\"" << it.data << "\"";
     }
-    out << "}" << std::endl;
+    string << "}" << std::endl;
+    return string.str();
 }

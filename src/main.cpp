@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     {
       auto start = std::chrono::high_resolution_clock::now();
 #endif
-    //   gr->launchRender("test.bmp");
+   //    gr->launchRender("test.bmp");
 #ifdef BENCHMARK
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
@@ -64,13 +64,8 @@ int main(int argc, char **argv)
   std::cout << "avg time " << avg / (1000000.0 * lap_count) << "s" << std::endl;
 #endif
 
-    gr->getCurrentEnvironment()->serialize(std::cout);
+    // gr->getCurrentEnvironment()->serialize(std::cout);
     delete gr;
-
-
-    auto *sph = new Sphere(1);
-    sph->serialize(std::cout);
-
 
     return 0;
 }

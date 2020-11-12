@@ -15,7 +15,7 @@ public:
 
   void Tesselate(int resolution) override;
 
-    void serialize(std::ostream &stream) override;
+    std::string serialize(std::ostream &stream) override;
 
     void deserialize(std::istream &stream) override;
 };

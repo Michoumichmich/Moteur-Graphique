@@ -13,7 +13,7 @@ public:
 
     void deserialize(std::istream &stream) override;
 
-    void serialize(std::ostream &stream) override;
+    std::string serialize(std::ostream &stream) override;
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H

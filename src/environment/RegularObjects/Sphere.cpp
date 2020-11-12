@@ -50,8 +50,8 @@ Sphere::Sphere(double radius) : radius(radius) {
 }
 
 
-void Sphere::serialize(std::ostream &stream) {
-    Serializable::export_entry(stream, "Sphere", {{"radius", std::to_string(radius)}});
+std::string Sphere::serialize(std::ostream &stream) {
+    return Serializable::export_entry("Sphere", {{"radius", std::to_string(radius)}});
 }
 
 void Sphere::deserialize(std::istream &stream) {

@@ -40,7 +40,7 @@ public:
 
     ~Environment();
 
-    void serialize(std::ostream &stream) override;
+    std::string serialize(std::ostream &stream) override;
 
     void deserialize(std::istream &stream) override;
 
