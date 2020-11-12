@@ -58,7 +58,7 @@ void RT_OutputManager::export_picture(std::string name) {
                 }
             } else {
                 //pic->RT_SaveRay(rayOutput, x, y);
-                pic->writePixel(Color(0.5), x, y);
+                pic->writePixel(Color(0.0), x, y);
             }
         }
     }

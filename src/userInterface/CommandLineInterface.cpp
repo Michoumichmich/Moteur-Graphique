@@ -4,7 +4,7 @@ void CommandLineInterface::main_loop()
 {
   enum command_exec_status status = SUCCESS;
   std::string input;
-  std::cout << "Welcome in the rendering engine CLI \n For a list of available commands type \'help \'  \n";
+  std::cout << "Welcome in the rendering engine CLI \n For a list of available commands type \'help\'  \n";
   while (status != STOP_EXEC)
     {
       getline(std::cin, input);
@@ -50,7 +50,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
       break;
 
       case str2int("help"):
-        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n";
+        std::cout << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n add <object> <x> <y> <z> <size> \n render <filename.bmp> \n";
       status = SUCCESS;
       break;
 
@@ -61,6 +61,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
               {
                 case str2int("ge"):
                   this->graphicEngine = new GraphicsEngine();
+                  this->graphicEngine->setRenderer(new RT_RayTracer());
                 std::cout << "Initialization of the graphic engine \n";
                 status = SUCCESS;
                 break;
@@ -171,12 +172,14 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         Sphere* sphere = new Sphere(stod(tokens[5]));
                         sphere->setCenter(Point3D(x, y, z));
                         this->graphicEngine->getCurrentEnvironment()->addObject(sphere);
+                        std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius " << tokens[5] << " to current environment" << std::endl;
                         break;
                     }
                     case str2int("cube"): {
                         Cube *cube = new Cube(stod(tokens[5]));
                         cube->setCenter(Point3D(x, y, z));
                         this->graphicEngine->getCurrentEnvironment()->addObject(cube);
+                        std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment" << std::endl;
                         break;
                     }
                     default:
@@ -191,6 +194,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
         case str2int("render"):
             if (tokens.size() >= 2) {
                 this->graphicEngine->launchRender(tokens[1]);
+                std::cout << "Rendered file " << tokens[1] << std::endl;
             } else
                 status = MISSING_ARGS;
             break;
