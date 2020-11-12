@@ -22,8 +22,27 @@ Color ColorMapper::Map(double val, Color refColor) {
             fracpart = modf(param, &intpart);
             return {(int) pow(intpart, 1) % 256, (int) pow(intpart, 2) % 256, (int) pow(intpart, 3) % 256, 256};
         case STRIPS:
+            /**
+             * Param 1 will be the strip width
+             */
+            fracpart = modf(val / param1, &intpart);
+            if ((int) intpart % 2 == 0) {
+                return Color(255, 0, 0);
+            } else {
+                return Color(1);
+            }
             break;
         case TOPO_LINES:
+            /**
+             * Param 1 will be the line spacing
+             * Param 2 the line width
+             */
+            fracpart = modf(val / param1, &intpart);
+            if ((int) intpart % 2 == 0) {
+                return Color(255, 0, 0);
+            } else {
+                return Color(1);
+            }
             break;
     }
     return Color(0);

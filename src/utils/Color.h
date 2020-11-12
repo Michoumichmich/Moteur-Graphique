@@ -26,7 +26,7 @@ public:
 
     explicit Color();
 
-    Color(int, int, int, int);
+    Color(int, int, int, int = 256);
 
     Color(double, double, double);
 
