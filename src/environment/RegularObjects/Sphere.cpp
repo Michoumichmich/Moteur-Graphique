@@ -47,6 +47,14 @@ void Sphere::Tesselate()
     free(globe);
 }
 
-Sphere::Sphere(double radius) : radius(radius)
-{
+Sphere::Sphere(double radius) : radius(radius) {
+}
+
+
+void Sphere::serialize(std::ostream &stream) {
+    export_entry(stream, "Sphere", {{"radius", std::to_string(radius)}});
+}
+
+void Sphere::deserialize(std::istream &stream) {
+
 }

@@ -9,16 +9,16 @@
 #include "MappedTexture.h"
 #include "Light.h"
 
-class Environment {
- private:
-  std::list<Camera *> cameras;
-  std::list<Tessel *> allTessels;
-  std::list<Object *> allObjects;
-  std::list<Light *> allLights;
-  std::list<MappedTexture *> allTMapped;
-  Camera *currentCam;
- public:
-  std::string envName;
+class Environment : public Serializable {
+private:
+    std::list<Camera *> cameras;
+    std::list<Tessel *> allTessels;
+    std::list<Object *> allObjects;
+    std::list<Light *> allLights;
+    std::list<MappedTexture *> allTMapped;
+    Camera *currentCam;
+public:
+    std::string envName;
 
   explicit Environment(std::string name);
 
@@ -28,15 +28,19 @@ class Environment {
 
   std::list<std::string> listCameras();
 
-  void switchCamera(std::string camName);
+    void switchCamera(std::string camName);
 
-  std::list<Tessel *> *getTessels();
+    std::list<Tessel *> *getTessels();
 
-  void tesselate();
+    void tesselate();
 
-  void addObject(Object *);
+    void addObject(Object *);
 
-  ~Environment();
+    ~Environment();
+
+    void serialize(std::ostream &stream) override;
+
+    void deserialize(std::istream &stream) override;
 
 };
 

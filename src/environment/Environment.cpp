@@ -36,7 +36,6 @@ void Environment::tesselate() {
 }
 
 Environment::~Environment() {
-
     free_ptr_list(allTessels);
     free_ptr_list(cameras);
     free_ptr_list(allTMapped);
@@ -46,4 +45,12 @@ Environment::~Environment() {
 Environment::Environment() {
     currentCam = new Camera();
     cameras.push_back(currentCam);
+}
+
+void Environment::serialize(std::ostream &stream) {
+    // jsonify_serializable_list(stream, allObjects);
+}
+
+void Environment::deserialize(std::istream &stream) {
+
 }

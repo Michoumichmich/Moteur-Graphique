@@ -5,5 +5,6 @@
 #include "../utils/Color.h"
 #include "../utils/OutputPictureManager.h"
 #include "../utils/ColorMapper.h"
+#include "../utils/Serializable.h"
 
 #endif //GRAPHIC_ENGINE_UTILS_H
