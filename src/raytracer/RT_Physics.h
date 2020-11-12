@@ -3,6 +3,7 @@
 
 #include "utils.h"
 #include "environment.h"
+#include "raytracer.h"
 
 class RT_Physics {
     public:

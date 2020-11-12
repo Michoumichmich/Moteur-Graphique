@@ -22,6 +22,7 @@ struct RT_RayIntersectionResult {
     Tessel tessel{};
     MappedTexture texture{};
     RT_RayIntersectionType type = RT_RayIntersectionType::INF;
+    //TODO Add an Object to the result, so that surface characteristics are accessible
 };
 
 /**
