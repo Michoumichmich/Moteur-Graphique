@@ -38,7 +38,8 @@ Color ColorMapper::Map(double val, Color refColor) {
              * Param 2 the line width
              */
             fracpart = modf(val / param1, &intpart);
-            if ((int) intpart % 2 == 0) {
+            fracpart = modf(fracpart / param2, &intpart);
+            if ((int) intpart < 2) {
                 return Color(255, 0, 0);
             } else {
                 return Color(1);
