@@ -33,6 +33,11 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, RT_OutputMa
 struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, struct RT_RayConfig config, RT_RayEnvIntersector *intersector)
 {
 
+  if (config.bouncesLeft == 0)
+    {
+      return RT_RayOutput{Color(0.0), Vector{}, 0.0, 0.0, 1};
+    }
+
   /**
    * No reflexions or whatsoever, we return directly the result.
    */
@@ -51,11 +56,6 @@ struct RT_RayOutput RT_Ray::RT_ComputeRecurseRay(Vector dir, Point3D origin, str
         {
           return RT_RayOutput{Color(0.0), res.intersectionPoint, res.distance, ortho_dist, 1};
         }
-    }
-
-  if (config.intensity == 0 || config.bouncesLeft == 0)
-    {
-      // TODO  return what ?
     }
 
   struct RT_RayIntersectionResult res = intersector->RT_RayFindIntersection(origin, dir);
