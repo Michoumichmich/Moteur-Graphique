@@ -63,13 +63,13 @@ public:
 
     void setViewDimensions(double width, double height);
 
-    void setCameraPosition(Point3D origin, Point3D target);
+    void setDirection(Point3D origin, Point3D target);
 
-    void setCameraMode(enum camMode);
+    void setMode(enum camMode);
 
-    void setCamScreenResolution(int width, int height);
+    void setResolution(int width, int height);
 
-    void setCamName(std::string name);
+    void setName(std::string name);
 
     [[nodiscard]] Point3D getTarget() const;
 

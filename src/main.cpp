@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
      * Example using the CLI
      */
     auto *cli = new CommandLineInterface();
-    cli->main_loop();
+ //   cli->main_loop();
     delete cli;
 
     /**
@@ -40,9 +40,19 @@ int main(int argc, char **argv) {
     gr->addObjInEnv(cube_center);
     gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108, 255)));
     gr->addObjInEnv(new Sphere(1 / 1.42));
-
     gr->currEnv()->setResolution(40);
     gr->setRenderer(new RT_RayTracer());
+
+
+    auto *cam = new Camera();
+    cam->setName("Test");
+    cam->setMode(PERSPECTIVE);
+    cam->setResolution(801, 401);
+    cam->setViewDimensions(4, 2);
+    cam->setDirection(Point3D(0, 1.51, -1.51), Point3D(0, 0, 0));
+    gr->currEnv()->addCamera(cam);
+    gr->currEnv()->switchCamera("Test");
+
 
 #ifdef BENCHMARK
     int lap_count = 1;

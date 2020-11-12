@@ -42,21 +42,21 @@ void Camera::setViewDimensions(double width, double height) {
     UpdateBasicVectors();
 }
 
-void Camera::setCameraPosition(Point3D origin, Point3D target) {
+void Camera::setDirection(Point3D origin, Point3D target) {
     this->origin = origin;
     this->target = target;
     UpdateBasicVectors();
 }
 
-void Camera::setCameraMode(enum camMode mode) {
+void Camera::setMode(enum camMode) {
     this->mode = mode;
 }
 
-void Camera::setCamName(std::string name) {
+void Camera::setName(std::string name) {
     this->cameraName = std::move(name);
 }
 
-void Camera::setCamScreenResolution(int width, int height) {
+void Camera::setResolution(int width, int height) {
     this->pixel_width_count = width;
     this->pixel_height_count = height;
 }
