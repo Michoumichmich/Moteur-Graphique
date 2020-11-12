@@ -13,11 +13,13 @@
 RT_RayTracer::RT_RayTracer(OutputPictureManager *pic) {
     this->picManager = pic;
     this->ray_out_manager = new RT_OutputManager(this->config);
+    this->config.env = environment;
 }
 
 RT_RayTracer::RT_RayTracer(OutputPictureManager *pic, struct RT_RayConfig conf) : config(conf) {
     this->picManager = pic;
     this->ray_out_manager = new RT_OutputManager(conf);
+    this->config.env = environment;
 }
 
 RT_RayTracer::~RT_RayTracer() {
