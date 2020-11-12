@@ -29,6 +29,6 @@ std::string Serializable::export_entry(const std::string &entry_name, std::list<
         }
         string << "\"" << it.name << "\": " << "\"" << it.data << "\"";
     }
-    string << "}" << std::endl;
+    string << "}";
     return string.str();
 }
