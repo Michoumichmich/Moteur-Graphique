@@ -12,12 +12,10 @@
 
 RT_RayTracer::RT_RayTracer() {
     this->ray_out_manager = new RT_OutputManager(this->config);
-    this->config.env = environment;
 }
 
 RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf) : config(conf) {
     this->ray_out_manager = new RT_OutputManager(conf);
-    this->config.env = environment;
 }
 
 RT_RayTracer::~RT_RayTracer() {
@@ -32,6 +30,7 @@ RT_RayTracer::~RT_RayTracer() {
  */
 void RT_RayTracer::renderScene(std::string out_file, Environment *env) {
     this->environment = env;
+    this->config.env = env;
     this->envIntersector = new RT_RayEnvIntersector(env);
     this->config.cam_view_center = environment->getCurrentCam()->getCamViewCenter();
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, environment->getCurrentCam());
