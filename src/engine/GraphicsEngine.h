@@ -30,7 +30,7 @@ public:
 
     void createEnvironment(std::string name);
 
-  void switchEnvironment(const std::string &name);
+    bool switchEnvironment(const std::string &name);
 
     void addObjInEnv(Object *obj);
 
