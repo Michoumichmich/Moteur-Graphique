@@ -27,7 +27,7 @@ struct RT_RayConfig {
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
     Vector cam_view_center = Vector();
-    Environment *env = new Environment();
+    Environment *env = nullptr;
 };
 
 

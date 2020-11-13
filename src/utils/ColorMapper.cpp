@@ -3,7 +3,8 @@
 #include <ctime>
 #include <cstdlib>
 
-ColorMapper::ColorMapper(enum colorMappingMethods method, double param1, double param2) : method(method), param1(param1), param2(param2) {
+ColorMapper::ColorMapper(enum colorMappingMethods method, Color background, double param1, double param2) : method(method), param1(param1), param2(param2),
+                                                                                                            background(background) {
     srand((unsigned) time(nullptr));
     rand = std::rand() % 1000;
 }
@@ -46,5 +47,5 @@ Color ColorMapper::Map(double val, Color refColor) {
             }
             break;
     }
-    return Color(0);
+    return background;
 }

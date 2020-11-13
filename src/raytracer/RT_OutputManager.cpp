@@ -38,9 +38,9 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
 }
 
 void RT_OutputManager::export_picture(std::string name) {
-    OutputPictureManager *pic = new OutputPictureManager(std::move(name), width, height);
+    OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
     if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
-        pic->setColorMapper(new ColorMapper(LINEAR, distance_min, distance_max));
+        pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
         //   pic->setColorMapper(new ColorMapper(TOPO_LINES, 0.02, 0.04));
     }
     for (unsigned int x = 0; x < width; x++) {
@@ -48,22 +48,21 @@ void RT_OutputManager::export_picture(std::string name) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
             if (rayOutput.distance >= 0) {
                 if (config.rtMode == RT_RayRenderingMode::RT_BITMAP) {
-                    pic->writePixel(rayOutput.resultColor, x, y);
+                    pic.writePixel(rayOutput.resultColor, x, y);
                 } else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
                     //pic->RT_SaveRay(rayOutput, x, y);
-                    pic->writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
+                    pic.writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
                 } else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD) {
                     //pic->RT_SaveRay(rayOutput, x, y);
-                    pic->writePixel(rayOutput.resultColor, x, y);
+                    pic.writePixel(rayOutput.resultColor, x, y);
                 }
             } else {
                 //pic->RT_SaveRay(rayOutput, x, y);
-                pic->writePixel(Color(0.0), x, y);
+                pic.writePixel(Color(0.0), x, y);
             }
         }
     }
-    pic->savePicture();
-    delete pic;
+    pic.savePicture();
 }
 
 void RT_OutputManager::apply_global_operations() {

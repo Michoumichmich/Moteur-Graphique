@@ -27,13 +27,14 @@ private :
     double param1;
     double param2;
     int rand;
+    Color background;
 public :
     /**
      * Constructor for the color mapper. The parameter's signification depends on the context.
      * @param param1
      * @param param2
      */
-    explicit ColorMapper(enum colorMappingMethods method, double param1 = 0.1, double param2 = 0);
+    explicit ColorMapper(enum colorMappingMethods method, Color background = Color(0), double param1 = 0.1, double param2 = 0);
 
     /**
      * Takes a double and returns the right color
