@@ -48,7 +48,7 @@ void Camera::setDirection(Point3D origin, Point3D target) {
     UpdateBasicVectors();
 }
 
-void Camera::setMode(enum camMode) {
+void Camera::setMode(enum camMode mode) {
     this->mode = mode;
 }
 

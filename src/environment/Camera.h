@@ -11,9 +11,9 @@ enum camMode {
 
 class Camera {
 private:
-    Point3D origin = Point3D(-1, 2.01, -2.01);
+    Point3D origin = Point3D(0, 2.01, -2.01);
     Point3D target = Point3D(0, 0, 0);
-    std::string cameraName = "Camera unnamed";
+    std::string cameraName = "Default";
     enum camMode mode = PERSPECTIVE;
     double viewportWidth = 4;
     double viewportHeight = 2;
@@ -23,20 +23,8 @@ private:
      * product and we norm everything
      */
     Vector viewUp = Vector(0, 1, 0);
-
-
-    int pixel_width_count = DEFAULT_WIDTH;
-public:
-    int pxWidthCount() const;
-
-    void setPixelWidthCount(int pixelWidthCount);
-
-    int pxHeightCount() const;
-
-    void setPixelHeightCount(int pixelHeightCount);
-
-private:
     int pixel_height_count = DEFAULT_HEIGHT;
+    int pixel_width_count = DEFAULT_WIDTH;
     double pixel_width{};
     double pixel_height{};
     Vector up_unit{};
@@ -46,9 +34,8 @@ private:
 
     void UpdateBasicVectors();
 
+
 public:
-
-
     Camera();
 
     Camera(Point3D origin, Point3D target);
@@ -78,6 +65,14 @@ public:
     std::string getName();
 
     enum camMode getMode();
+
+    [[nodiscard]] int pxWidthCount() const;
+
+    [[nodiscard]] int pxHeightCount() const;
+
+    void setPixelWidthCount(int pixelWidthCount);
+
+    void setPixelHeightCount(int pixelHeightCount);
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H
