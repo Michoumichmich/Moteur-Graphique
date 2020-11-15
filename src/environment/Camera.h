@@ -11,9 +11,9 @@ enum camMode {
 
 class Camera {
 private:
+    std::string cameraName;
     Point3D origin = Point3D(0, 2.01, -2.01);
     Point3D target = Point3D(0, 0, 0);
-    std::string cameraName = "Default";
     enum camMode mode = PERSPECTIVE;
     double viewportWidth = 4;
     double viewportHeight = 2;
@@ -36,13 +36,13 @@ private:
 
 
 public:
-    Camera();
+    explicit Camera(std::string name);
 
-    Camera(Point3D origin, Point3D target);
+    Camera(std::string name, Point3D origin, Point3D target);
 
-    Camera(Point3D origin, Point3D target, std::string name, enum camMode);
+    Camera(std::string name, Point3D origin, Point3D target, enum camMode);
 
-    Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up);
+    Camera(std::string name, Point3D origin, Point3D target, enum camMode mode, double width, double height, Vector up);
 
     [[nodiscard]] Vector getCamViewCenter() const;
 

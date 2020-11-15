@@ -1,6 +1,7 @@
 #include "RT_RayEnvIntersector.h"
 #include <config.h>
 
+
 RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
 }

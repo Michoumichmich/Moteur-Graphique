@@ -5,7 +5,7 @@
 #include <sstream>
 
 Environment::Environment(std::string name) {
-    currentCam = new Camera();
+    currentCam = new Camera("Default");
     cameras.push_back(currentCam);
     this->envName = std::move(name);
 }
@@ -46,7 +46,7 @@ Environment::~Environment() {
 }
 
 Environment::Environment() {
-    currentCam = new Camera();
+    currentCam = new Camera("Default");
     cameras.push_back(currentCam);
 }
 

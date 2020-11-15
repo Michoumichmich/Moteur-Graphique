@@ -2,16 +2,16 @@
 
 #include <utility>
 
-Camera::Camera(Point3D origin, Point3D target) : origin(origin), target(target) {
+Camera::Camera(std::string str, Point3D origin, Point3D target) : cameraName(std::move(str)), origin(origin), target(target) {
     UpdateBasicVectors();
 }
 
-Camera::Camera(Point3D origin, Point3D target, std::string name, enum camMode mode) : origin(origin), target(target), cameraName(std::move(name)), mode(mode) {
+Camera::Camera(std::string name, Point3D origin, Point3D target, enum camMode mode) : cameraName(std::move(name)), origin(origin), target(target), mode(mode) {
     UpdateBasicVectors();
 }
 
-Camera::Camera(Point3D origin, Point3D target, std::string name, enum camMode mode, double width, double height, Vector up) :
-        origin(origin), target(target), cameraName(std::move(name)), mode(mode), viewportWidth(width), viewportHeight(height), viewUp(up) {
+Camera::Camera(std::string name, Point3D origin, Point3D target, enum camMode mode, double width, double height, Vector up) :
+        cameraName(std::move(name)), origin(origin), target(target), mode(mode), viewportWidth(width), viewportHeight(height), viewUp(up) {
     UpdateBasicVectors();
 }
 
@@ -32,7 +32,7 @@ Point3D Camera::translatePixelCoordinates(int x, int y) {
     return (bottom_left) + (up_unit * (y * pixel_height)) + (right_unit * (x * pixel_width));
 }
 
-Camera::Camera() {
+Camera::Camera(std::string str) : cameraName(std::move(str)) {
     UpdateBasicVectors();
 }
 

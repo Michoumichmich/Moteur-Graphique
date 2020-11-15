@@ -10,6 +10,7 @@
 #include <graphicsEngine.h>
 #include <ui.h>
 #include <iostream>
+#include <memory>
 
 #ifdef BENCHMARK
 
@@ -21,14 +22,13 @@ int main(int argc, char **argv) {
     /**
      * Example using the CLI
      */
-    auto *cli = new CommandLineInterface();
+    auto cli = std::make_unique<CommandLineInterface>();
  //   cli->main_loop();
-    delete cli;
 
     /**
      * hardcoded example without the CLI
      */
-    GraphicsEngine *gr = new GraphicsEngine();
+    std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
 
     Cube *cube_center = new Cube(1);
@@ -44,8 +44,7 @@ int main(int argc, char **argv) {
     gr->setRenderer(new RT_RayTracer());
 
 
-    auto *cam = new Camera();
-    cam->setName("Face");
+    auto *cam = new Camera("Face");
     cam->setMode(PERSPECTIVE);
     cam->setResolution(2001, 1001);
     cam->setViewDimensions(4, 2);
@@ -57,10 +56,6 @@ int main(int argc, char **argv) {
     gr->currEnv()->switchCamera("Default");
     gr->launchRender("test_default.bmp");
 
-
-
-
-//
 //#ifdef BENCHMARK
 //    int lap_count = 1;
 //    double avg = 0;
@@ -80,6 +75,6 @@ int main(int argc, char **argv) {
 //    std::stringstream ss;
 //    gr->serialize(ss);
 //    std::cout << ss.str() << std::endl;
-    delete gr;
-    return 0;
+
+    exit(0);
 }
