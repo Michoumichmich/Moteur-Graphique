@@ -2,32 +2,57 @@
 
 std::list<Tessel *> Object::getTessels(int resolution) {
 
-    if (this->needComputeTessels) {
-        this->tessels.clear();
-        this->Tesselate(resolution);
+    if (needComputeTessels) {
+        tessels.clear();
+        Tesselate(resolution);
         std::list<Tessel *>::iterator aTessel;
         for (aTessel = tessels.begin(); aTessel != tessels.end(); aTessel++) {
-            **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, this->tranfo);
-            (*aTessel)->properties = this->properties;
+            **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, transformations);
+            (*aTessel)->properties = properties;
         }
-        this->needComputeTessels = false;
+        needComputeTessels = false;
     }
-    return this->tessels;
+    return tessels;
 }
 
 Object *Object::setTransformation(struct transformations transfo) {
-    this->tranfo = transfo;
-    this->needComputeTessels = true;
+    transformations = transfo;
+    needComputeTessels = true;
     return this;
 }
 
 Object *Object::setCenter(Point3D center) {
-    this->tranfo.pt = center;
+    transformations.pt = center;
     return this;
 }
 
 Object *Object::setColor(Color color) {
-    this->properties.color = color;
+    properties.color = color;
+    return this;
+}
+
+Object *Object::setLightIntensity(double intensity) {
+    properties.lightIntensity = intensity;
+    return this;
+}
+
+Object *Object::setDiffusivity(double diffusivity) {
+    properties.diffusivity = diffusivity;
+    return this;
+}
+
+Object *Object::setReflexivity(double reflexivity) {
+    properties.reflexivity = reflexivity;
+    return this;
+}
+
+Object *Object::setRefractiveIndex(double index) {
+    properties.refractiveIndex = index;
+    return this;
+}
+
+Object *Object::setTransparency(double transparency) {
+    properties.transparency = transparency;
     return this;
 }
 

@@ -16,7 +16,7 @@
  */
 class Object : public Serializable {
 protected:
-    struct transformations tranfo{};
+    struct transformations transformations{};
     std::list<Tessel *> tessels;
     ApparenceProperties properties;
     bool needComputeTessels = true;
@@ -38,6 +38,16 @@ public:
     Object *setCenter(Point3D);
 
     Object *setColor(Color color);
+
+    Object *setTransparency(double transparency);
+
+    Object *setRefractiveIndex(double index);
+
+    Object *setReflexivity(double reflexivity);
+
+    Object *setDiffusivity(double diffusivity);
+
+    Object *setLightIntensity(double intensity);
 
     virtual ~Object();
 };

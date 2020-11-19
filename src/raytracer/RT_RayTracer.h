@@ -14,17 +14,39 @@
 class RT_RayTracer : public Abstract_Renderer {
 private:
     Environment *env{};
-    struct RT_RayConfig config;
+    struct RT_RayConfig default_ray;
     RT_RayEnvIntersector *envIntersector{};
     RT_OutputManager *ray_out_manager{};
 public:
     explicit RT_RayTracer();
 
-    RT_RayTracer(struct RT_RayConfig);
+    explicit RT_RayTracer(struct RT_RayConfig);
 
     void renderScene(std::string out_file, Environment *environment) override;
 
-    ~RT_RayTracer() override;
+    void setMode(RT_RayRenderMode mode);
+
+    void setMaxBounces(int max);
+
+    void enableReflexions();
+
+    void enableRefractions();
+
+    void enableDiffusivity();
+
+    void enableTransparency();
+
+    void enableDepthOfField();
+
+    void disableReflexions();
+
+    void disableRefractions();
+
+    void disableDisffusivity();
+
+    void disableTransparency();
+
+    void disableDepthOfField();
 };
 
 #endif //GRAPHIC_ENGINE_RAYTRACER_H

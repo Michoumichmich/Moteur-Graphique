@@ -17,7 +17,8 @@ public:
      * @return vector with RGB components of the light intensity in given space position
      * @remark formula explained here http://rodolphe-vaillant.fr/?e=85
      */
-    static Vector computePhongIllumination(Vector p, Vector n, Vector incomingRay, Vector ambientIntensity, std::list<Light> lights, ApparenceProperties properties);
+    static Vector
+    computePhongIllumination(Vector p, Vector n, Vector incomingRay, Vector ambientIntensity, std::list<Light> lights, ApparenceProperties properties);
 };
 
 

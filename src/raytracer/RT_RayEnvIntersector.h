@@ -15,7 +15,7 @@ enum class RT_RayIntersectionType {
     MAPPED_TEXTURE
 };
 
-struct RT_RayIntersectionResult {
+struct RT_IntersectorResult {
     bool intersectsSometing = false;
     double distance = -1;
     Vector intersectionPoint = Vector();
@@ -51,7 +51,7 @@ public:
      * @param direction
      * @return
      */
-    [[nodiscard]] struct RT_RayIntersectionResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
+    [[nodiscard]] struct RT_IntersectorResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

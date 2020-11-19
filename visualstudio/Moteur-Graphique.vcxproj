@@ -152,7 +152,7 @@
     <ClInclude Include="..\src\environment\regularobjects\Cube.h" />
     <ClInclude Include="..\src\environment\regularobjects\Sphere.h" />
     <ClInclude Include="..\src\environment\Tessel.h" />
-    <ClInclude Include="..\src\include\config.h" />
+    <ClInclude Include="..\src\include\ray_conf.h" />
     <ClInclude Include="..\src\include\environment.h" />
     <ClInclude Include="..\src\include\graphicsEngine.h" />
     <ClInclude Include="..\src\include\raytracer.h" />

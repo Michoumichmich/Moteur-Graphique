@@ -151,14 +151,16 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         Sphere *sphere = new Sphere(stod(tokens[5]));
                         sphere->setCenter(Point3D(x, y, z));
                         this->graphicEngine->currEnv()->addObject(sphere);
-                        std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius " << tokens[5] << " to current environment" << std::endl;
+                        std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius " << tokens[5] << " to current environment"
+                                  << std::endl;
                         break;
                     }
                     case str2int("cube"): {
                         Cube *cube = new Cube(stod(tokens[5]));
                         cube->setCenter(Point3D(x, y, z));
                         this->graphicEngine->currEnv()->addObject(cube);
-                        std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment" << std::endl;
+                        std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment"
+                                  << std::endl;
                         break;
                     }
                     default:

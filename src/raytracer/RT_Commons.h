@@ -6,7 +6,7 @@
 /**
  * Used to define the type of rendering.
  */
-enum class RT_RayRenderingMode {
+enum class RT_RayRenderMode {
     RT_BITMAP,
     RT_DEPTHMAP,
     RT_STANDARD,
@@ -23,7 +23,7 @@ struct RT_RayConfig {
     bool diffusivity = false;
     bool depthOfField = false;
     bool isShadowRay = false;
-    RT_RayRenderingMode rtMode = RT_RayRenderingMode::RT_DEPTHMAP;
+    RT_RayRenderMode rtMode = RT_RayRenderMode::RT_DEPTHMAP;
     unsigned int bouncesLeft = MAX_BOUNCES;
     double intensity = 1;
     Vector cam_view_center = Vector();
@@ -40,7 +40,7 @@ struct RT_RayConfig {
  */
 struct RT_RayOutput {
     Color resultColor;
-    Vector rayTesselIntersection;
+    Point3D rayTesselIntersection;
     double distance{};
     double ortho_distance{};
     double intensity{};

@@ -20,9 +20,16 @@ class RT_Ray {
 private:
     Vector dir;
     Vector origin;
-    RT_RayConfig config;
+    RT_RayConfig ray_conf;
+/**
+     * When the ray is casted we can find where the color goes in the picture
+     */
+    const unsigned int x = 0;
+    const unsigned int y = 0;
 
-    static struct RT_RayOutput RT_ComputeRecurseRay(Vector dir, Point3D origin, struct RT_RayConfig config, RT_RayEnvIntersector *intersector);
+    std::list<RT_Ray> RT_PrepareRays(RT_IntersectorResult result);
+
+    static Color RT_ComputePreparedRays(std::list<RT_Ray> rays, RT_RayEnvIntersector *intersector);
 
 public :
     /**
@@ -49,11 +56,8 @@ public :
      */
     void RT_ComputePrimaryRay(RT_RayEnvIntersector *, RT_OutputManager *);
 
-    /**
-     * When the ray is casted we can find where the color goes in the picture
-     */
-    const unsigned int x = 0;
-    const unsigned int y = 0;
+
+    struct RT_RayOutput RT_ComputeRay(RT_RayEnvIntersector *intersector);
 };
 
 #endif //_RT_RAY_H_

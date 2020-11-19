@@ -4,21 +4,18 @@
 #include "RT_Ray.h"
 #include "RT_RayCaster.h"
 
-#ifdef _OPENMP
 
-#include <omp.h>
-
-#endif
-
-RT_RayTracer::RT_RayTracer() = default;
-
-RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf) : config(conf) {
+RT_RayTracer::RT_RayTracer() {
+    default_ray.bouncesLeft = 10;
+    default_ray.rtMode = RT_RayRenderMode::RT_DEPTHMAP;
+    default_ray.reflexions = true;
+    default_ray.refractions = false;
+    default_ray.depthOfField = false;
+    default_ray.diffusivity = false;
+    default_ray.transparency = false;
 }
 
-RT_RayTracer::~RT_RayTracer() {
-    delete envIntersector;
-    delete picManager;
-    delete ray_out_manager;
+RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf) : default_ray(conf) {
 }
 
 /**
@@ -27,17 +24,17 @@ RT_RayTracer::~RT_RayTracer() {
  */
 void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
     this->env = environment;
-    config.env = env;
-    ray_out_manager = new RT_OutputManager(config, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
+    default_ray.env = env;
+    ray_out_manager = new RT_OutputManager(default_ray, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
     envIntersector = new RT_RayEnvIntersector(env);
-    config.cam_view_center = env->currCam()->getCamViewCenter();
-    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(config, env->currCam());
+    default_ray.cam_view_center = env->currCam()->getCamViewCenter();
+    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(default_ray, env->currCam());
     std::list<RT_Ray>::iterator aRay;
 
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
 #warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
-#pragma omp parallel default(none) private(aRay) shared(envIntersector, picManager, primaryRays, std::cout)
+#pragma omp parallel default(none) private(aRay) shared(envIntersector, ray_out_manager, primaryRays, std::cout)
 #else
 #pragma omp parallel default(none) private(aRay) shared(envIntersector, ray_out_manager, primaryRays)
 #endif
@@ -53,4 +50,54 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
     }
     ray_out_manager->apply_global_operations();
     ray_out_manager->export_picture(out_file);
+    delete envIntersector;
+    delete ray_out_manager;
+}
+
+void RT_RayTracer::setMode(RT_RayRenderMode mode) {
+    default_ray.rtMode = mode;
+}
+
+void RT_RayTracer::setMaxBounces(int max) {
+    default_ray.bouncesLeft = max;
+}
+
+void RT_RayTracer::enableReflexions() {
+    default_ray.reflexions = true;
+}
+
+void RT_RayTracer::enableDiffusivity() {
+    default_ray.diffusivity = true;
+}
+
+void RT_RayTracer::enableRefractions() {
+    default_ray.refractions = true;
+}
+
+void RT_RayTracer::enableTransparency() {
+    default_ray.transparency = true;
+}
+
+void RT_RayTracer::enableDepthOfField() {
+    default_ray.depthOfField = true;
+}
+
+void RT_RayTracer::disableDisffusivity() {
+    default_ray.diffusivity = false;
+}
+
+void RT_RayTracer::disableReflexions() {
+    default_ray.reflexions = false;
+}
+
+void RT_RayTracer::disableTransparency() {
+    default_ray.transparency = false;
+}
+
+void RT_RayTracer::disableRefractions() {
+    default_ray.refractions = false;
+}
+
+void RT_RayTracer::disableDepthOfField() {
+    default_ray.depthOfField = false;
 }

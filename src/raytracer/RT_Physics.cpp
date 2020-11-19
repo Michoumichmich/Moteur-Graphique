@@ -1,6 +1,7 @@
 #include "RT_Physics.h"
 
-Vector RT_Physics::computePhongIllumination(Vector p, Vector n, Vector incomingRay, Vector ambientIntensity, std::list<Light> lights, ApparenceProperties properties) {
+Vector
+RT_Physics::computePhongIllumination(Vector p, Vector n, Vector incomingRay, Vector ambientIntensity, std::list<Light> lights, ApparenceProperties properties) {
     /**
      * Ambient component
      */

@@ -39,7 +39,7 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
 
 void RT_OutputManager::export_picture(std::string name) {
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
-    if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
+    if (config.rtMode == RT_RayRenderMode::RT_DEPTHMAP) {
         pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
         //   pic->setColorMapper(new ColorMapper(TOPO_LINES, 0.02, 0.04));
     }
@@ -47,12 +47,12 @@ void RT_OutputManager::export_picture(std::string name) {
         for (unsigned y = 0; y < height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
             if (rayOutput.distance >= 0) {
-                if (config.rtMode == RT_RayRenderingMode::RT_BITMAP) {
+                if (config.rtMode == RT_RayRenderMode::RT_BITMAP) {
                     pic.writePixel(rayOutput.resultColor, x, y);
-                } else if (config.rtMode == RT_RayRenderingMode::RT_DEPTHMAP) {
+                } else if (config.rtMode == RT_RayRenderMode::RT_DEPTHMAP) {
                     //pic->RT_SaveRay(rayOutput, x, y);
                     pic.writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
-                } else if (config.rtMode == RT_RayRenderingMode::RT_STANDARD) {
+                } else if (config.rtMode == RT_RayRenderMode::RT_STANDARD) {
                     //pic->RT_SaveRay(rayOutput, x, y);
                     pic.writePixel(rayOutput.resultColor, x, y);
                 }
