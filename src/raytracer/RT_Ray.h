@@ -21,11 +21,6 @@ private:
     Vector dir;
     Vector origin;
     RT_RayConfig ray_conf;
-/**
-     * When the ray is casted we can find where the color goes in the picture
-     */
-    const unsigned int x = 0;
-    const unsigned int y = 0;
 
     std::list<RT_Ray> RT_PrepareRays(RT_IntersectorResult result);
 
@@ -58,6 +53,12 @@ public :
 
 
     struct RT_RayOutput RT_ComputeRay(RT_RayEnvIntersector *intersector);
+
+/**
+     * When the ray is casted we can find where the color goes in the picture
+     */
+    const unsigned int x = 0;
+    const unsigned int y = 0;
 };
 
 #endif //_RT_RAY_H_
