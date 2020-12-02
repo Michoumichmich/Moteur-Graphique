@@ -18,7 +18,8 @@ enum class RT_RayIntersectionType {
 struct RT_IntersectorResult {
     bool intersectsSometing = false;
     double distance = -1;
-    Vector intersectionPoint = Vector();
+  double ortho_dist = -1;
+  Vector intersectionPoint = Vector();
     Tessel tessel{};
     MappedTexture texture{};
     RT_RayIntersectionType type = RT_RayIntersectionType::INF;

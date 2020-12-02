@@ -26,11 +26,11 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
     this->allRaysOutput[y][x] = ray;
 
 
-    if (ray.ortho_distance < distance_min || distance_min < 0) {
+    if ((ray.ortho_distance<distance_min || distance_min<0) && ray.ortho_distance>0) {
         distance_min = ray.ortho_distance;
     }
 
-    if (ray.ortho_distance > distance_max || distance_max < 0) {
+    if ((ray.ortho_distance>distance_max || distance_max<0) && ray.ortho_distance>0) {
         distance_max = ray.ortho_distance;
     }
 

@@ -28,7 +28,7 @@ public:
 
     Color(int, int, int, int = 256);
 
-    Color invert() const;
+    [[nodiscard]] Color invert() const;
 
     Color(double, double, double);
 
@@ -42,13 +42,12 @@ public:
         return Color(b * red, b * green, b * blue);
     }
 
-
     /**
      * Converts a color to a RGB pixel composed of three ints between 0 and 2**bitDepth-1
      * @param bitDepth
      * @return
      */
-    struct rgbPixel getPixelValues(unsigned int bitDepth) const;
+    [[nodiscard]] struct rgbPixel getPixelValues(unsigned int bitDepth) const;
 
 };
 

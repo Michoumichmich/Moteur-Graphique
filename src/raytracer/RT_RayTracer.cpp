@@ -6,7 +6,7 @@
 
 
 RT_RayTracer::RT_RayTracer() {
-    default_ray.bouncesLeft = 10;
+    default_ray.bouncesLeft = MAX_BOUNCES;
     default_ray.rtMode = RT_RayRenderMode::RT_DEPTHMAP;
     default_ray.reflexions = true;
     default_ray.refractions = false;
