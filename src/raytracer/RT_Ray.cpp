@@ -1,4 +1,4 @@
-#include "RT_Ray.h"
+#include <raytracer.h>
 #include <utils.h>
 #include <cmath>
 
@@ -51,6 +51,11 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector) {
         }
 
         if (res.type == RT_RayIntersectionType::TESSEL) {
+            if (!res.tessel.properties.sendRay()) {
+                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin - res.intersectionPoint).normalize(), environment, *intersector, res.tessel.properties);
+                return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
+            }
+            //TODO else send other rays
             std::list<RT_Ray> rays = RT_PrepareRays(res);
         }
         return RT_RayOutput();

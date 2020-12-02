@@ -21,6 +21,7 @@ private:
     Vector dir;
     Vector origin;
     RT_RayConfig ray_conf;
+    Environment environment;
 
     std::list<RT_Ray> RT_PrepareRays(RT_IntersectorResult result);
 
