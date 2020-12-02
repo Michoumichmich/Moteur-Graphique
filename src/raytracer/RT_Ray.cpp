@@ -1,6 +1,5 @@
 #include "RT_Ray.h"
 #include <utils.h>
-#include <cmath>
 
 RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config)
         :dir(dir), origin(orig), ray_conf(config)
@@ -64,13 +63,13 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
                // child_rays_color = res.tessel.properties.color;//* res.tessel.properties.lightIntensity;
             }
 
-            result_color.blue *= res.tessel.properties.lightIntensity;
-            result_color.green *= res.tessel.properties.lightIntensity;
-            result_color.red *= res.tessel.properties.lightIntensity;
+            result_color.blue *= res.tessel.properties.lightIntensity *this->ray_conf.intensity;
+            result_color.green *= res.tessel.properties.lightIntensity *this->ray_conf.intensity;
+            result_color.red *= res.tessel.properties.lightIntensity *this->ray_conf.intensity;
 
             result_color.blue = std::max(result_color.blue, child_rays_color.blue);
-            result_color.blue = std::max(result_color.red, child_rays_color.red);
-            result_color.blue = std::max(result_color.green, child_rays_color.green);
+            result_color.red = std::max(result_color.red, child_rays_color.red);
+            result_color.green = std::max(result_color.green, child_rays_color.green);
 
             //TODO stuff with the color, take in account phong illumin ? etc
             return RT_RayOutput{result_color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
@@ -90,7 +89,7 @@ Color RT_Ray::RT_ComputePreparedRays(std::list<RT_Ray> rays, RT_RayEnvIntersecto
         R += tmp.resultColor.red* ray.ray_conf.intensity;
         G += tmp.resultColor.green* ray.ray_conf.intensity;
         B += tmp.resultColor.blue* ray.ray_conf.intensity;
-        std::cout << tmp.resultColor.red << "  " << tmp.resultColor.green << "  " << tmp.resultColor.blue << "intensity " << ray.ray_conf.intensity << std::endl;
+  //      std::cout << tmp.resultColor.red << "  " << tmp.resultColor.green << "  " << tmp.resultColor.blue << "intensity " << ray.ray_conf.intensity << std::endl;
     }
     //TODO
     return Color{R, G, B};

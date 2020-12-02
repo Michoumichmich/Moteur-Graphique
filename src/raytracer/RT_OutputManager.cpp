@@ -25,7 +25,6 @@ RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsi
 void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsigned int y) {
     this->allRaysOutput[y][x] = ray;
 
-
     if ((ray.ortho_distance<distance_min || distance_min<0) && ray.ortho_distance>0) {
         distance_min = ray.ortho_distance;
     }
