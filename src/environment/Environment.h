@@ -50,6 +50,8 @@ public:
     [[nodiscard]] int getResolution() const;
 
     void setResolution(int n);
+
+    void reset();
 };
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

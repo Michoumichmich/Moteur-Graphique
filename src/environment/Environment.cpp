@@ -77,3 +77,16 @@ void Environment::switchCamera(const std::string &camName) {
         }
     }
 }
+
+void Environment::reset() {
+    cameras = std::list<Camera *>{};
+    allTessels = std::list<Tessel *>{};
+    allObjects = std::list<Object *>{};
+    allTMapped = std::list<MappedTexture *>{};
+    currentCam = new Camera("Default");
+    cameras.push_back(currentCam);
+    int tesselResolution = 30;
+    envName = std::string{};
+    backgroundColor = Color(24, 179, 220);
+    allLights = std::list<Light *>{};
+}
