@@ -18,11 +18,11 @@ public:
 
 
     /**
-     * Phong illumination parameters as Vector for RGB components
+     * Phong illumination parameters
      */
-    Vector materialIntensity{};
-    Vector materialDiffuseIntensity{};
-    Vector materialSpecularIntensity{};
+    Color materialIntensity{};
+    Color materialDiffuseIntensity{};
+    Color materialSpecularIntensity{};
 };
 
 #endif //GRAPHIC_ENGINE_APPARENCEPROPERTIES_H
