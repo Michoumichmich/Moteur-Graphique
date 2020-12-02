@@ -16,7 +16,7 @@ struct json_entry {
     for (auto &it : string) {if (isFirst) {isFirst = false;} \
     else {out << ',' << std::endl;}it->serialize(out); } out << "]";}
 
-#define Serialize_Atrubutes_List(out, entry_name, string) \
+#define Serialize_Atributes_List(out, entry_name, string) \
     {if (entry_name[0]!='\0') {out << "\"" << entry_name << "\":" << std::endl;} \
     bool isFirst = true;out << "{";\
     for (auto &it : string) {if (isFirst) {isFirst = false;} \

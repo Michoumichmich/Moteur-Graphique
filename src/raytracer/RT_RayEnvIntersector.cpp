@@ -1,6 +1,6 @@
 #include "RT_RayEnvIntersector.h"
 #include <config.h>
-
+#include <cmath>
 
 RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
@@ -18,6 +18,7 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D
     for (aTessel = tessels->begin(); aTessel != tessels->end(); aTessel++) {
         if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0)) {
             closest = **aTessel;
+            result.ortho_dist = std::sqrt(this->environment->currCam()->getCamViewCenter().dot(intersection-origin));
             distanceMinTessel = distance;
             result.tessel = closest;
             result.intersectionPoint = intersection;
@@ -26,6 +27,8 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D
             result.type = RT_RayIntersectionType::TESSEL;
         }
     }
+
+    // Then we check for textures.
     return result;
 }
 

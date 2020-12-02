@@ -30,11 +30,10 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector) {
     /* No reflexions or whatever, we return directly the result */
     if (ray_conf.rtMode == RT_RayRenderMode::RT_BITMAP || ray_conf.rtMode == RT_RayRenderMode::RT_DEPTHMAP) {
         /* Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc */
-        double ortho_dist = std::sqrt(ray_conf.cam_view_center.dot(res.intersectionPoint - origin));
         if (res.intersectsSometing) {
-            return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, ortho_dist, 1};
+            return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         } else {
-            return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, res.distance, ortho_dist, 1};
+            return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
     }
 
@@ -52,6 +51,11 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector) {
 
         if (res.type == RT_RayIntersectionType::TESSEL) {
             std::list<RT_Ray> rays = RT_PrepareRays(res);
+            Color ray_color = RT_ComputePreparedRays(rays, intersector);
+            //TODO stuff with the color, take in account phong illumin ? etc
+
+
+            return RT_RayOutput{ray_color, res.intersectionPoint, res.distance, res.ortho_dist};
         }
         return RT_RayOutput();
     }
@@ -62,8 +66,12 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector) {
 
 Color RT_Ray::RT_ComputePreparedRays(std::list<RT_Ray> rays, RT_RayEnvIntersector *intersector) {
     struct RT_RayOutput tmp;
+    double R, G, B;
     for (auto &ray: rays) {
         tmp = ray.RT_ComputeRay(intersector);
+        R += tmp.resultColor.red*tmp.intensity;
+        G += tmp.resultColor.green*tmp.intensity;
+        B += tmp.resultColor.blue*tmp.intensity;
     }
     //TODO
 }

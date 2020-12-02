@@ -41,10 +41,12 @@ int main(int argc, char **argv) {
     gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108)));
     gr->addObjInEnv(new Sphere(1 / 1.42));
     gr->currEnv()->setResolution(40);
-    gr->setRenderer(new RT_RayTracer());
 
+    auto raytracer = new RT_RayTracer();
+    raytracer->setMode(RT_RayRenderMode::RT_DEPTHMAP);
+    gr->setRenderer(raytracer);
 
-    auto *cam = new Camera("Face");
+    auto* cam = new Camera("Face");
     cam->setMode(PERSPECTIVE);
     cam->setResolution(2001, 1001);
     cam->setViewDimensions(4, 2);
