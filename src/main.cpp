@@ -31,15 +31,17 @@ int main(int argc, char **argv) {
     std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
 
-    Cube *cube_center = new Cube(1);
-    Cube *cube_left = new Cube(1);
-    Cube *cube_right = new Cube(1);
+    Cube* cube_center = new Cube(1);
+    Cube* cube_left = new Cube(1);
+    Cube* cube_right = new Cube(1);
+    cube_center->setLightIntensity(1);
+    cube_left->setReflexivity(1);
     cube_right->setTransformation({0.5, 0, 45, 0, Vector(-1.2, 0.25, -0.25)});
     cube_left->setTransformation({0.5, 0, 0, 45, Vector(1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
     gr->addObjInEnv(cube_left);
     gr->addObjInEnv(cube_center);
     gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108)));
-    gr->addObjInEnv(new Sphere(1 / 1.42));
+    gr->addObjInEnv(new Sphere(1/1.42));
     gr->currEnv()->setResolution(40);
 
     auto raytracer = new RT_RayTracer();

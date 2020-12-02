@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(ARCH_FLAGS "-Wall -Wextra -march=native -mtune=native  -msse -msse2 -msse4")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -O3 -ffast-math -DBENCHMARK")
-set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -Og -g3 -DDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -DDEBUG")
 set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -O3 -ffast-math -DBENCHMARK")
 
 
