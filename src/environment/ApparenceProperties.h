@@ -20,9 +20,9 @@ public:
     /**
      * Phong illumination parameters
      */
-    Color materialIntensity{};
-    Color materialDiffuseIntensity{};
-    Color materialSpecularIntensity{};
+    Vector materialIntensity{};
+    Vector materialDiffuseIntensity{};
+    Vector materialSpecularIntensity{};
 };
 
 #endif //GRAPHIC_ENGINE_APPARENCEPROPERTIES_H

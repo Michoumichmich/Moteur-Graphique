@@ -14,13 +14,14 @@ private:
     std::list<Camera *> cameras;
     std::list<Tessel *> allTessels;
     std::list<Object *> allObjects;
-    std::list<Light *> allLights;
     std::list<MappedTexture *> allTMapped;
     Camera *currentCam;
     int tesselResolution = 30;
 public:
     std::string envName;
     Color backgroundColor = Color(24, 179, 220);
+    Vector ambientIntensity;
+    std::list<Light *> allLights;
 
     explicit Environment(std::string name);
 
