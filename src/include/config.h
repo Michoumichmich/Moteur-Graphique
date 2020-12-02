@@ -22,7 +22,7 @@
  * Coloring mode NONSENSE or LINEAR
  */
 #define PI 3.1415926
-#define MAX_BOUNCES 1
+#define MAX_BOUNCES 2
 #define DEFAULT_WIDTH 2001
 #define DEFAULT_HEIGHT 1001
 

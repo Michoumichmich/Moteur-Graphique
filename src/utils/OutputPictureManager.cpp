@@ -49,7 +49,7 @@ OutputPictureManager::~OutputPictureManager() {
 
 void OutputPictureManager::savePicture() {
     FILE *f;
-    auto *img = (unsigned char *) malloc(3 * width * height);
+    auto *img = (unsigned char *) calloc(3 * width * height, sizeof(unsigned char));
     unsigned int filesize = 54 + 3 * width * height;  //w is your image width, h is image height, both int
     unsigned int x, y;
     for (unsigned i = 0; i < width; i++) {

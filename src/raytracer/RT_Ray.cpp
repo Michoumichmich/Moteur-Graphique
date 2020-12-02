@@ -56,10 +56,17 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
 
         if (res.type==RT_RayIntersectionType::TESSEL) {
             Color ray_color = res.tessel.properties.color;
-            if (this->ray_conf.bouncesLeft>0) {
+            if (this->ray_conf.bouncesLeft > 0 && res.tessel.properties.lightIntensity < 0.1) {
                 std::list<RT_Ray> rays = RT_PrepareRays(res);
-                RT_ComputePreparedRays(rays, intersector);
-                ray_color = res.tessel.properties.color;//* res.tessel.properties.lightIntensity;
+                ray_color = RT_ComputePreparedRays(rays, intersector);
+
+                //              std::cout << ray_color.red << ray_color.green << ray_color.blue << std::endl;
+                //  ray_color = res.tessel.properties.color;//* res.tessel.properties.lightIntensity;
+            } else {
+                ray_color = res.tessel.properties.color;
+                ray_color.blue *= res.tessel.properties.lightIntensity;
+                ray_color.green *= res.tessel.properties.lightIntensity;
+                ray_color.red *= res.tessel.properties.lightIntensity;
             }
 
             //TODO stuff with the color, take in account phong illumin ? etc
@@ -77,12 +84,14 @@ Color RT_Ray::RT_ComputePreparedRays(std::list<RT_Ray> rays, RT_RayEnvIntersecto
     struct RT_RayOutput tmp;
     double R, G, B;
     for (auto& ray: rays) {
+        std::cout << R << "  " << G << "  " << B << std::endl;
         tmp = ray.RT_ComputeRay(intersector);
         R += tmp.resultColor.red*ray.ray_conf.intensity;
         G += tmp.resultColor.green*ray.ray_conf.intensity;
         B += tmp.resultColor.blue*ray.ray_conf.intensity;
     }
     //TODO
+    return Color{(int) R, (int) G, (int) B};
 }
 
 std::list<RT_Ray> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
@@ -90,14 +99,14 @@ std::list<RT_Ray> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
     std::list<RT_Ray> rays;
     ApparenceProperties tessel_prop = result.tessel.properties;
 
-    if (this->ray_conf.transparency) {
-        this->ray_conf.intensity *= (1-tessel_prop.transparency);
-        RT_RayConfig new_config = this->ray_conf;
-        new_config.bouncesLeft--;
-        new_config.intensity *= tessel_prop.transparency;
-        RT_Ray transparent_ray = RT_Ray(this->dir, result.intersectionPoint, new_config);
-        rays.push_back(transparent_ray);
-    }
+    /*  if (this->ray_conf.transparency) {
+          this->ray_conf.intensity *= (1-tessel_prop.transparency);
+          RT_RayConfig new_config = this->ray_conf;
+          new_config.bouncesLeft--;
+          new_config.intensity *= tessel_prop.transparency;
+          RT_Ray transparent_ray = RT_Ray(this->dir, result.intersectionPoint, new_config);
+          rays.push_back(transparent_ray);
+      }*/
 
     if (this->ray_conf.reflexions) {
         this->ray_conf.intensity *= (1-tessel_prop.reflexivity);
@@ -109,14 +118,6 @@ std::list<RT_Ray> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
     }
 
     return rays;
-
-
-
-
-
-
-
-
 
     //TODO
 }
