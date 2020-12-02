@@ -34,6 +34,10 @@ public:
 
     explicit Color(double);
 
+    inline Color operator*(const Color &b) const {
+        return Color(red * b.red, green * b.green, blue * b.blue);
+    };
+
     /**
      * Converts a color to a RGB pixel composed of three ints between 0 and 2**bitDepth-1
      * @param bitDepth
