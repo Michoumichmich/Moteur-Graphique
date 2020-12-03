@@ -33,7 +33,7 @@ public:
 
     std::list<std::string> listCameras();
 
-    void switchCamera(const std::string &camName);
+    bool switchCamera(const std::string &camName);
 
     std::list<Tessel *> *getTessels();
 

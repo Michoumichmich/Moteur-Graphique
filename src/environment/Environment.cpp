@@ -70,12 +70,14 @@ void Environment::addCamera(Camera *cam) {
     cameras.push_back(cam);
 }
 
-void Environment::switchCamera(const std::string &camName) {
+bool Environment::switchCamera(const std::string &camName) {
     for (auto const &it : cameras) {
         if (it->getName() == camName) {
             this->currentCam = it;
+            return true;
         }
     }
+    return false;
 }
 
 void Environment::reset() {

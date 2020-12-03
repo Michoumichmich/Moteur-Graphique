@@ -42,7 +42,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
 
         case str2int("help"):
             std::cout
-                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
+                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n select camera <camera> \n select env <environment> \n reset <environment> \n render <filename.bmp> \n";
             status = SUCCESS;
             break;
 
@@ -134,10 +134,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                             std::cout << "Environment not found. Please select valid environment." << std::endl;
                             status = FAIL;
                         }
+                    } else if (tokens[1] == "camera") {
+                        if (graphicEngine->currEnv()->switchCamera(tokens[2])) {
+                            std::cout << "Successfully changed to " << tokens[2] << " camera\n";
+                            status = SUCCESS;
+                        } else {
+                            std::cout << "Camera not found \n";
+                            status = FAIL;
+                        }
                     }
-                } else {
-                    status = MISSING_ARGS;
                 }
+            }
+            else {
+                status = MISSING_ARGS;
             }
             break;
 
@@ -171,6 +180,29 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                                   << std::endl;
                         break;
                     }
+                    case str2int("camera") : {
+                        if (tokens.size() >= 9) {
+                            bool found = false;
+                            for (std::string camName : graphicEngine->currEnv()->listCameras()) {
+                                if (camName == tokens[2]) {
+                                    std::cout << "Camera already exists \n";
+                                    found = true;
+                                    status = FAIL;
+                                }
+                            }
+                            if (!found) {
+                                //TODO Fix that shit
+                                Camera *camera = new Camera(tokens[2]);
+                                camera->setDirection(Point3D(stod(tokens[3]), stod(tokens[4]), stod(tokens[5])), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
+                                graphicEngine->currEnv()->addCamera(camera);
+                                std::cout << tokens[2] << " camera added \n";
+                                status = SUCCESS;
+                            }
+                        }
+                        else
+                            status = MISSING_ARGS;
+                        break;
+                    }
                     default:
                         std::cout << "The object " << tokens[1] << " doesn't exist" << std::endl;
                         status = FAIL;
@@ -189,6 +221,8 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         env->reset();
                         env->envName = envName;
                         found = true;
+                        std::cout << tokens[1] << " successfully reset\n";
+                        status = SUCCESS;
                         break;
                     }
                 }
@@ -210,7 +244,6 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 status = MISSING_ARGS;
             break;
 
-            // TODO Add command for setting current environment
         default :
             status = UNKNOWN_COMMAND;
             break;
