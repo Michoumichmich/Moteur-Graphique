@@ -39,6 +39,8 @@ public:
 
     std::list<Tessel *> *getTessels();
 
+    std::list<Object *> *getObjects();
+
     void tesselate();
 
     void addObject(Object *);

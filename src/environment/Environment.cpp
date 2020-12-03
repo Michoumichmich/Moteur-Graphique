@@ -18,6 +18,10 @@ std::list<Tessel *> *Environment::getTessels() {
     return &this->allTessels;
 }
 
+std::list<Object *> *Environment::getObjects() {
+    return &this->allObjects;
+}
+
 void Environment::addObject(Object *obj) {
     this->allObjects.push_back(obj);
 }

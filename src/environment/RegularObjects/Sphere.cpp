@@ -53,3 +53,8 @@ void Sphere::serialize(std::stringstream &stream) {
 void Sphere::deserialize(std::istream &stream) {
 
 }
+
+std::ostream& operator<< (std::ostream &out, const Sphere &sphere) {
+    out << "Sphere(" << sphere.transformations.pt << ", " << sphere.radius << ")";
+    return out;
+}
