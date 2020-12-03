@@ -24,8 +24,8 @@ int main(int argc, char** argv)
     /**
      * Example using the CLI
      */
-    auto cli = std::make_unique<CommandLineInterface>();
-    //cli->main_loop();
+    std::unique_ptr<CommandLineInterface> cli = std::make_unique<CommandLineInterface>();
+   // cli->main_loop();
 
     /**
      * hardcoded example without the CLI
@@ -59,22 +59,21 @@ int main(int argc, char** argv)
 
     for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
 
-    gr->currEnv()->setResolution(10);
-
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
     raytracer->setMaxBounces(5);
     gr->setRenderer(raytracer);
 
-    auto cam = std::make_shared<Camera>("Face");
+    std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(4001, 2001);
+    cam->setResolution(41, 21);
     cam->setViewDimensions(4, 2);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
+
+    gr->currEnv()->setResolution(10);
     gr->currEnv()->switchCamera("Face");
     gr->launchRender("test_face.bmp");
-
     gr->currEnv()->switchCamera("Default");
     //   gr->launchRender("test_default.bmp");
 
