@@ -58,6 +58,11 @@ public:
 
     void setResolution(int n);
 
+    std::ostream& print_objects(std::ostream& str);
+
+
+
+
     void reset();
 };
 

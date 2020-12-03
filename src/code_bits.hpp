@@ -40,27 +40,27 @@ static void inline default_test()
     cube_center->setColor(Color(200, 200, 200));
     cube_center->setLightIntensity(0.99);
     cube_center->setReflexivity(0);
-    gr->addObjInEnv(cube_center);
+    gr->addObjInEnv(std::dynamic_pointer_cast<Object>(cube_center));
 
     std::shared_ptr<Cube> cube_left = std::make_shared<Cube>(1);
     cube_left->setReflexivity(0.51);
     cube_left->setLightIntensity(1);
     cube_left->setTransformation({0.5, 0, 20, 45, Vector(-1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
-    gr->addObjInEnv(cube_left);
+    gr->addObjInEnv(std::dynamic_pointer_cast<Object>(cube_left));
 
     std::shared_ptr<Cube> cube_right = std::make_shared<Cube>(1);
     cube_right->setReflexivity(0.39)->setColor(Color(0, 85, 108));
     cube_right->setLightIntensity(1);
     cube_right->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)});
-    gr->addObjInEnv(cube_right);
+    gr->addObjInEnv(std::dynamic_pointer_cast<Object>(cube_right));
 
     std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
     sphere->setLightIntensity(1);
     sphere->setColor(Color(0.2, 0.0, 0.5));
     sphere->setReflexivity(0.40);
-    gr->addObjInEnv(sphere);
+    gr->addObjInEnv(std::dynamic_pointer_cast<Object>(sphere));
 
-    for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i<250; i++) gr->addObjInEnv(std::dynamic_pointer_cast<Object>(cube_generator()));
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
@@ -76,6 +76,7 @@ static void inline default_test()
 
     gr->currEnv()->setResolution(10);
     gr->currEnv()->switchCamera("Face");
+    gr->currEnv()->print_objects(std::cout);
     gr->launchRender("test_face.bmp");
     gr->currEnv()->switchCamera("Default");
 

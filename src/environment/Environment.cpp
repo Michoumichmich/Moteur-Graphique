@@ -118,3 +118,10 @@ void Environment::reset()
     backgroundColor = Color(24, 179, 220);
     allLights = std::list<Light*>{};
 }
+std::ostream& Environment::print_objects(std::ostream& str)
+{
+    for (const auto& obj : allObjects) {
+        str << *obj << std::endl;
+    }
+    return str;
+}
