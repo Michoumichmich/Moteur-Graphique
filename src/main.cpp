@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
     raytracer->setMaxBounces(2);
     gr->setRenderer(raytracer);
 
-    auto* cam = new Camera("Face");
+    auto cam = new Camera("Face");
     cam->setMode(PERSPECTIVE);
     cam->setResolution(4001, 2001);
     cam->setViewDimensions(4, 2);
