@@ -46,7 +46,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
 
     case str2int("help"):
         std::cout
-                << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n list objects \n list cameras \n list lights \n set resolution <resolution> \n set env <environment> \n set camera \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
+                << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n list objects \n list cameras \n list lights \n set resolution <resolution> \n set env <environment> \n set camera \n set reflexion <on/off> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
         status = SUCCESS;
         break;
 
@@ -179,6 +179,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     else {
                         std::cout << "Camera not found \n";
                         status = FAIL;
+                    }
+                }
+                else if (tokens[1] == "reflexion") {
+                    if (tokens[2] == "on") {
+                        this->graphicEngine->getRenderer()->enableReflexions();
+                        std::cout << "Enabled reflexion" << std::endl;
+                        status = SUCCESS;
+                    } else if (tokens[2] == "off") {
+                        this->graphicEngine->getRenderer()->disableReflexions();
+                        std::cout << "Disabled reflexion" << std::endl;
+                        status = SUCCESS;
+                    } else {
+                        status = MISSING_ARGS;
                     }
                 }
             }

@@ -42,7 +42,7 @@ public:
 
     void disableRefractions();
 
-    void disableDisffusivity();
+    void disableDiffusivity();
 
     void disableTransparency();
 

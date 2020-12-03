@@ -29,6 +29,10 @@ bool GraphicsEngine::switchEnvironment(const std::string& name)
     return false;
 }
 
+Abstract_Renderer* GraphicsEngine::getRenderer() {
+    return this->renderer;
+}
+
 void GraphicsEngine::setRenderer(Abstract_Renderer* renderer)
 {
     this->renderer = renderer;
