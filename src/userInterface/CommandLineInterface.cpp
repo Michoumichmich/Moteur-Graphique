@@ -1,5 +1,5 @@
 #include "CommandLineInterface.h"
-#include<string>
+#include <string>
 
 void CommandLineInterface::main_loop() {
     enum command_exec_status status = SUCCESS;
