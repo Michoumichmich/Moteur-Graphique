@@ -37,6 +37,8 @@ public:
 
     Environment* currEnv();
 
+    Abstract_Renderer* getRenderer();
+
     void setRenderer(Abstract_Renderer*);
 
     std::list<Environment*> getEnvironments();
