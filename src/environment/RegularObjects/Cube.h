@@ -18,6 +18,8 @@ public:
     void serialize(std::stringstream &stream) override;
 
     void deserialize(std::istream &stream) override;
+
+    friend std::ostream& operator<< (std::ostream &, const Cube &);
 };
 
 #endif //GRAPHICSENGINE_CUBE_H
