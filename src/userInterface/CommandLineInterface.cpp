@@ -181,6 +181,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                         status = FAIL;
                     }
                 }
+                else if (tokens[1] == "reflexion") {
+                    if (tokens[2] == "on") {
+                        this->graphicEngine->getRenderer()->enableReflexions();
+                        std::cout << "Enabled reflexion" << std::endl;
+                        status = SUCCESS;
+                    } else if (tokens[2] == "off") {
+                        this->graphicEngine->getRenderer()->disableReflexions();
+                        std::cout << "Disabled reflexion" << std::endl;
+                        status = SUCCESS;
+                    } else {
+                        status = MISSING_ARGS;
+                    }
+                }
             }
         }
         else {

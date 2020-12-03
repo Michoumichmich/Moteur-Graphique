@@ -21,6 +21,10 @@ public:
     virtual ~Abstract_Renderer();
 
     virtual void renderScene(std::string string, Environment* env) = 0;
+
+    virtual void enableReflexions(); // TODO remove that
+
+    virtual void disableReflexions();
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H
