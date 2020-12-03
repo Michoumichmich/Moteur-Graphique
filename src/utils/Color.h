@@ -1,6 +1,7 @@
 #ifndef GRAPHIC_ENGINE_COLOR_H
 #define GRAPHIC_ENGINE_COLOR_H
 
+#include <ostream>
 enum class colorMode {
     RGB,
     BLACK_AND_WHITE,
@@ -44,7 +45,7 @@ public:
     };
 
     inline Color operator*(const double &b) const {
-        return Color(b * red, b * green, b * blue);
+        return Color(b*red, b*green, b*blue);
     }
 
     /**
@@ -53,6 +54,8 @@ public:
      * @return
      */
     [[nodiscard]] struct rgbPixel getPixelValues(unsigned int bitDepth) const;
+
+    friend std::ostream& operator<<(std::ostream& stream, const Color& color);
 
 };
 

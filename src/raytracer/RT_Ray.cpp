@@ -76,6 +76,9 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
             // result_color.green += std::max(result_color.green, child_rays_color.green);
 
             //  result_color = result_color * child_rays_color.getIntensity() + ;
+            if (result_color.green>1 || result_color.blue>1 || result_color.red>1) {
+                std::cout << result_color;
+            }
 
             //TODO stuff with the color, take in account phong illumin ? etc
             return RT_RayOutput{result_color, res.intersectionPoint, res.distance, res.ortho_dist, 1};

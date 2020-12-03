@@ -1,5 +1,6 @@
 #include "Color.h"
 #include <cmath>
+#include <iostream>
 
 Color::Color()
 {
@@ -53,8 +54,12 @@ Color Color::operator+(const Color& c1) const
 }
 double Color::getIntensity() const
 {
-    return sqrt(red*red + green*green + blue * blue)/sqrt(3);
+    return sqrt(red*red+green*green+blue*blue)/sqrt(3);
     //return (red+green+blue)/3;
+}
+std::ostream& operator<<(std::ostream& stream, const Color& color)
+{
+    std::cout << "Color R: " << color.red << " G: " << color.green << " B: " << color.blue << std::endl;
 }
 
 
