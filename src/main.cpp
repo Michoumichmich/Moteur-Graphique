@@ -25,7 +25,15 @@ int main(int argc, char** argv)
      * Example using the CLI
      */
     CommandLineInterface cli;
-    cli.main_loop();
+    // cli.main_loop();
+
+
+    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
+    sphere->setLightIntensity(1);
+    sphere->setColor(Color(0.2, 0.0, 0.5));
+    sphere->setReflexivity(0.40);
+    Object * obj = dynamic_cast<Object*>(sphere.get());
+    std::cout << *obj << std::endl;
 
 
     // default_test();

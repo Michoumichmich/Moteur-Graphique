@@ -2,7 +2,6 @@
 
 std::list<Tessel*> Object::getTessels(int resolution)
 {
-
     if (needComputeTessels) {
         tessels.clear();
         Tesselate(resolution);
