@@ -70,17 +70,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
                 result_color = child_rays_color*(1-this->ray_conf.intensity)+result_color*this->ray_conf.intensity*res.tessel.properties.lightIntensity;
             }
 
-            //result_color = result_color*res.tessel.properties.lightIntensity*this->ray_conf.intensity ;
-
-            // result_color.blue  += std::max(result_color.blue, child_rays_color.blue);
-            // result_color.red  += std::max(result_color.red, child_rays_color.red);
-            // result_color.green += std::max(result_color.green, child_rays_color.green);
-
-            //  result_color = result_color * child_rays_color.getIntensity() + ;
-            if (result_color.green>1 || result_color.blue>1 || result_color.red>1) {
-                std::cout << result_color;
-            }
-
+            //if (result_color.green>1 || result_color.blue>1 || result_color.red>1) {std::cout << result_color;}
 
             //TODO stuff with the color, take in account phong illumin ? etc
             return RT_RayOutput{result_color, res.intersectionPoint, res.distance, res.ortho_dist, 0.99};

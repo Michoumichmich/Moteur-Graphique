@@ -59,7 +59,7 @@ double Color::getIntensity() const
 }
 std::ostream& operator<<(std::ostream& stream, const Color& color)
 {
-    std::cout << "Color R: " << color.red << " G: " << color.green << " B: " << color.blue << std::endl;
+    return stream << "Color R: " << color.red << " G: " << color.green << " B: " << color.blue << std::endl;
 }
 
 
