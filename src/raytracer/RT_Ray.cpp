@@ -59,7 +59,8 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
         if (res.type==RT_RayIntersectionType::TESSEL) {
             Color result_color = res.tessel.properties.color;
             if (!res.tessel.properties.sendRay()) {
-                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin-res.intersectionPoint).normalize(), &environment, *intersector,res.tessel.properties);
+                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin-res.intersectionPoint).normalize(), &environment, *intersector,
+                        res.tessel.properties);
                 //TODO ?     return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
             }
             Color child_rays_color;
@@ -69,10 +70,10 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
             }
 
             //result_color = result_color*res.tessel.properties.lightIntensity*this->ray_conf.intensity ;
-            //result_color = child_rays_color;
-            result_color.blue = std::max(result_color.blue, child_rays_color.blue);
-            result_color.red = std::max(result_color.red, child_rays_color.red);
-            result_color.green = std::max(result_color.green, child_rays_color.green);
+            result_color = result_color+child_rays_color*(1-this->ray_conf.intensity);
+            // result_color.blue  += std::max(result_color.blue, child_rays_color.blue);
+            // result_color.red  += std::max(result_color.red, child_rays_color.red);
+            // result_color.green += std::max(result_color.green, child_rays_color.green);
 
             //  result_color = result_color * child_rays_color.getIntensity() + ;
 
@@ -89,7 +90,7 @@ Color RT_Ray::RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& r
 {
     struct RT_RayOutput tmp;
     Color color(0);
-    for (auto ray: rays) {
+    for (const auto& ray: rays) {
         tmp = ray->RT_ComputeRay(intersector);
         color = color+tmp.resultColor*ray->ray_conf.intensity;
     }
