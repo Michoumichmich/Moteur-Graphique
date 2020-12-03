@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
      * Example using the CLI
      */
     auto cli = std::make_unique<CommandLineInterface>();
-    //   cli->main_loop();
+    cli->main_loop();
 
     /**
      * hardcoded example without the CLI
