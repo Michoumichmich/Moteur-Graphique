@@ -20,7 +20,7 @@ private:
     int tesselResolution = 30;
 public:
     std::string envName;
-    Color backgroundColor = Color(24, 179, 220);
+    Color backgroundColor = Color(150, 150, 150);
     Vector ambientIntensity;
     std::list<Light *> allLights;
 

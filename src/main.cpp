@@ -19,7 +19,8 @@
 
 #endif
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     /**
      * Example using the CLI
      */
@@ -33,8 +34,8 @@ int main(int argc, char **argv) {
     gr->createEnvironment("firstEnv");
 
     std::shared_ptr<Cube> cube_center = std::make_shared<Cube>(1);
-    cube_center->setColor(Color(255, 255, 255));
-    cube_center->setLightIntensity(1);
+    cube_center->setColor(Color(200, 200, 200));
+    cube_center->setLightIntensity(0.99);
     cube_center->setReflexivity(0);
     gr->addObjInEnv(cube_center);
 
@@ -45,29 +46,30 @@ int main(int argc, char **argv) {
     gr->addObjInEnv(cube_left);
 
     std::shared_ptr<Cube> cube_right = std::make_shared<Cube>(1);
-    cube_right->setReflexivity(0.69)->setColor(Color(0, 85, 108));
+    cube_right->setReflexivity(0.39)->setColor(Color(0, 85, 108));
+    cube_right->setLightIntensity(1);
     cube_right->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)});
     gr->addObjInEnv(cube_right);
 
     std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
-    // sphere->setLightIntensity(0.99);
+    sphere->setLightIntensity(1);
     sphere->setColor(Color(0.2, 0.0, 0.5));
-    sphere->setReflexivity(0.39);
+    sphere->setReflexivity(0.40);
     gr->addObjInEnv(sphere);
 
-    for (int i = 0; i<100; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
 
     gr->currEnv()->setResolution(10);
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(3);
+    raytracer->setMaxBounces(10);
     gr->setRenderer(raytracer);
 
     auto cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
     cam->setResolution(1001, 501);
-    cam->setViewDimensions(3, 1.5);
+    cam->setViewDimensions(4, 2);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
     gr->currEnv()->switchCamera("Face");

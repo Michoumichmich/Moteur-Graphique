@@ -38,11 +38,11 @@ struct RT_RayConfig {
  * For the others, we can still apply some kind of ray extinction
  */
 struct RT_RayOutput {
-    Color resultColor;
-    Point3D rayTesselIntersection;
+    Color resultColor = Color(0);
+  Point3D rayTesselIntersection;
     double distance{};
-    double ortho_distance{};
-    double intensity{};
+  double ortho_distance{};
+  double intensity = 1;
 };
 
 #endif //GRAPHICSENGINE_RT_COMMONS_H
