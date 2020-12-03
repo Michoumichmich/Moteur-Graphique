@@ -23,9 +23,9 @@ private:
     RT_RayConfig ray_conf;
     Environment environment;
 
-    std::list<RT_Ray> RT_PrepareRays(RT_IntersectorResult result);
+    std::list<RT_Ray*> RT_PrepareRays(RT_IntersectorResult result);
 
-    static Color RT_ComputePreparedRays(std::list<RT_Ray> rays, RT_RayEnvIntersector *intersector);
+    static Color RT_ComputePreparedRays(const std::list<RT_Ray*>& rays, RT_RayEnvIntersector *intersector);
 
 public :
     /**

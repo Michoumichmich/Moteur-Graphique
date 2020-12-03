@@ -46,7 +46,7 @@ public:
 
     void serialize(std::stringstream &stream) override;
 
-    ~GraphicsEngine();
+    ~GraphicsEngine() override;
 
 };
 
