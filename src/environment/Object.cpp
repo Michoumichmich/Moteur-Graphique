@@ -56,5 +56,9 @@ Object *Object::setTransparency(double transparency) {
     return this;
 }
 
+std::ostream& operator<< (std::ostream &out, const Object &object) {
+    out << "object of center " << object.transformations.pt; // TODO: call child class << overloaded operator
+    return out;
+}
 
 Object::~Object() = default;
