@@ -1,6 +1,6 @@
 #include "RT_RayCaster.h"
 
-std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, Camera *cam) {
+std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, std::shared_ptr<Camera>cam) {
     std::list<RT_Ray> Rays;
 
     if (cam->getMode() == ORTHOGRAPHIC) {
