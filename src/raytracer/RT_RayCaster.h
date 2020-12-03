@@ -3,6 +3,7 @@
 
 #include <list>
 #include "RT_Ray.h"
+#include<memory>
 
 /**
  * @class RT_RayCaster
@@ -11,7 +12,7 @@
 class RT_RayCaster {
 public:
     static std::list<RT_Ray>
-    generateFirstRays(struct RT_RayConfig config, Camera *cam);
+    generateFirstRays(struct RT_RayConfig config, std::shared_ptr<Camera> cam);
 };
 
 #endif //GRAPHIC_ENGINE_RAYCASTER_H

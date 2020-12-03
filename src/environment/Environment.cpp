@@ -5,12 +5,12 @@
 #include <sstream>
 
 Environment::Environment(std::string name) {
-    currentCam = new Camera("Default");
+    currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
     this->envName = std::move(name);
 }
 
-Camera *Environment::currCam() {
+std::shared_ptr<Camera> Environment::currCam() {
     return currentCam;
 }
 
@@ -18,17 +18,18 @@ std::list<Tessel *> *Environment::getTessels() {
     return &this->allTessels;
 }
 
-std::list<Object *> *Environment::getObjects() {
-    return &this->allObjects;
+std::list<std::shared_ptr<Object>> Environment::getObjects() {
+    return this->allObjects;
 }
 
-std::list<Camera *> *Environment::getCameras() {
-    return &this->cameras;
+std::list<std::shared_ptr<Camera>> Environment::getCameras() {
+    return this->cameras;
 }
 
-void Environment::addObject(Object *obj) {
+void Environment::addObject(const std::shared_ptr<Object>& obj) {
     this->allObjects.push_back(obj);
 }
+
 
 std::list<std::string> Environment::listCameras() {
     std::list<std::string> out;
@@ -48,13 +49,10 @@ void Environment::tesselate() {
 
 Environment::~Environment() {
     free_ptr_list(allTessels);
-    free_ptr_list(cameras);
-    free_ptr_list(allTMapped);
-    free_ptr_list(allObjects);
 }
 
 Environment::Environment() {
-    currentCam = new Camera("Default");
+    currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
 }
 
@@ -74,7 +72,7 @@ void Environment::deserialize(std::istream &stream) {
 
 }
 
-void Environment::addCamera(Camera *cam) {
+void Environment::addCamera(const std::shared_ptr<Camera>& cam) {
     cameras.push_back(cam);
 }
 
@@ -82,20 +80,22 @@ void Environment::addLight(Light *light) {
     allLights.push_back(light);
 }
 
-void Environment::switchCamera(const std::string &camName) {
+bool Environment::switchCamera(const std::string &camName) {
     for (auto const &it : cameras) {
         if (it->getName() == camName) {
             this->currentCam = it;
+            return true;
         }
     }
+    return false;
 }
 
 void Environment::reset() {
-    cameras = std::list<Camera *>{};
+    cameras.clear();
     allTessels = std::list<Tessel *>{};
-    allObjects = std::list<Object *>{};
-    allTMapped = std::list<MappedTexture *>{};
-    currentCam = new Camera("Default");
+    allObjects.clear();
+    allTMapped.clear();
+    currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
     int tesselResolution = 30;
     envName = std::string{};

@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
      * Example using the CLI
      */
     auto cli = std::make_unique<CommandLineInterface>();
-    //   cli->main_loop();
+    //cli->main_loop();
 
     /**
      * hardcoded example without the CLI
@@ -31,27 +31,28 @@ int main(int argc, char **argv) {
     std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
 
-    Cube *cube_center = new Cube(1);
+    std::shared_ptr<Cube> cube_center = std::make_shared<Cube>(1);
     cube_center->setColor(Color(255, 255, 255));
     cube_center->setLightIntensity(1);
     cube_center->setReflexivity(0.9);
 
-    Cube *cube_left = new Cube(1);
-    Cube *cube_right = new Cube(1);
+
+    std::shared_ptr<Cube> cube_left = std::make_shared<Cube>(1);
+    std::shared_ptr<Cube> cube_right = std::make_shared<Cube>(1);
     cube_left->setReflexivity(1);
-    cube_right->setReflexivity(0.9);
+    cube_right->setReflexivity(0.9)->setColor(Color(0, 85, 108));
     cube_left->setLightIntensity(1);
     cube_right->setTransformation({0.5, 20, 45, 0, Vector(-1.2, 0.25, -0.25)});
     cube_left->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
 
-    Sphere * sphere = new Sphere(1/1.42);
+    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
     sphere->setLightIntensity(0.2);
     sphere->setColor(Color(0.2, 0.0, 0.5));
     sphere->setReflexivity(0.2);
 
     gr->addObjInEnv(cube_left);
     gr->addObjInEnv(cube_center);
-    gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108)));
+    gr->addObjInEnv(cube_right);
     gr->addObjInEnv(sphere);
     gr->currEnv()->setResolution(10);
 
@@ -60,7 +61,7 @@ int main(int argc, char **argv) {
     raytracer->setMaxBounces(2);
     gr->setRenderer(raytracer);
 
-    auto cam = new Camera("Face");
+    auto cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
     cam->setResolution(4001, 2001);
     cam->setViewDimensions(4, 2);

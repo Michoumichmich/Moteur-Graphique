@@ -51,7 +51,7 @@ GraphicsEngine::~GraphicsEngine() {
     while (!environments.empty()) delete environments.front(), environments.pop_front();
 }
 
-void GraphicsEngine::addObjInEnv(Object *obj) {
+void GraphicsEngine::addObjInEnv(const std::shared_ptr<Object>&obj) {
     this->currentEnv->addObject(obj);
 }
 

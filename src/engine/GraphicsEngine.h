@@ -11,6 +11,7 @@
 #include <raytracer.h>
 #include <utils.h>
 #include <vector>
+#include <memory>
 
 #include "Abstract_Renderer.h"
 
@@ -32,7 +33,7 @@ public:
 
     bool switchEnvironment(const std::string &name);
 
-    void addObjInEnv(Object *obj);
+    void addObjInEnv(const std::shared_ptr<Object>&obj);
 
     Environment *currEnv();
 

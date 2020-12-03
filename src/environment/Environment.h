@@ -8,14 +8,15 @@
 #include "Object.h"
 #include "MappedTexture.h"
 #include "Light.h"
+#include <memory>
 
 class Environment : public Serializable {
 private:
-    std::list<Camera *> cameras;
+    std::list<std::shared_ptr<Camera>> cameras;
     std::list<Tessel *> allTessels;
-    std::list<Object *> allObjects;
-    std::list<MappedTexture *> allTMapped;
-    Camera *currentCam;
+    std::list<std::shared_ptr<Object>> allObjects;
+    std::list<std::shared_ptr<MappedTexture>> allTMapped;
+    std::shared_ptr<Camera>currentCam;
     int tesselResolution = 30;
 public:
     std::string envName;
@@ -27,25 +28,25 @@ public:
 
     Environment();
 
-    Camera *currCam();
+    std::shared_ptr<Camera> currCam();
 
-    void addCamera(Camera *);
+    void addCamera(const std::shared_ptr<Camera>& camera);
 
     void addLight(Light *);
 
     std::list<std::string> listCameras();
 
-    void switchCamera(const std::string &camName);
+    bool switchCamera(const std::string &camName);
 
     std::list<Tessel *> *getTessels();
 
-    std::list<Object *> *getObjects();
+    std::list<std::shared_ptr<Object>> getObjects();
 
-    std::list<Camera *> *getCameras();
+    std::list<std::shared_ptr<Camera>> getCameras();
 
     void tesselate();
 
-    void addObject(Object *);
+    void addObject(const std::shared_ptr<Object>& obj);
 
     ~Environment() override;
 

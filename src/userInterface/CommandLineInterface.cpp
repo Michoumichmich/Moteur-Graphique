@@ -42,75 +42,80 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
 
         case str2int("help"):
             std::cout
-                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
+                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n set camera \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
             status = SUCCESS;
             break;
 
-        case str2int("init"):
-            if (tokens.size() >= 2) {
-                switch (str2int(tokens[1].c_str())) {
-                    case str2int("ge"):
-                        this->graphicEngine = new GraphicsEngine();
-                        this->graphicEngine->setRenderer(new RT_RayTracer());
-                        std::cout << "Initialization of the graphic engine \n";
-                        status = SUCCESS;
-                        break;
-                    case str2int("env"):
-                        if (this->graphicEngine == NULL) {
-                            std::cout << "No graphic engine set. Initialize with `init ge` \n";
-                            status = FAIL;
-                        } else {
-                            if (tokens.size() >= 3) {
-                                std::list<Environment *> env = this->graphicEngine->getEnvironments();
-                                bool unique = true;
-                                for (std::list<Environment *>::iterator it = env.begin(); it != env.end(); ++it) {
-                                    if ((*it)->envName == tokens[2]) {
-                                        unique = false;
-                                        break;
-                                    }
-                                }
-                                if (unique) {
-                                    this->graphicEngine->createEnvironment(tokens[2]);
-                                    std::cout << "Initialization of " << tokens[2] << " environment \n";
-                                    status = SUCCESS;
-                                } else {
-                                    std::cout << "Environment with such name already exists. \n";
-                                    status = FAIL;
-                                }
-                            } else {
-                                this->graphicEngine->createEnvironment("default");
-                                std::cout << "Initialization of default environment \n";
-                                status = SUCCESS;
+    case str2int("init"):
+        if (tokens.size()>=2) {
+            switch (str2int(tokens[1].c_str())) {
+            case str2int("ge"):this->graphicEngine = new GraphicsEngine();
+                this->graphicEngine->setRenderer(new RT_RayTracer());
+                std::cout << "Initialization of the graphic engine \n";
+                status = SUCCESS;
+                break;
+            case str2int("env"):
+                if (this->graphicEngine==nullptr) {
+                    std::cout << "No graphic engine set. Initialize with `init ge` \n";
+                    status = FAIL;
+                }
+                else {
+                    if (tokens.size()>=3) {
+                        std::list<Environment*> env = this->graphicEngine->getEnvironments();
+                        bool unique = true;
+                        for (auto& it : env) {
+                            if (it->envName==tokens[2]) {
+                                unique = false;
+                                break;
                             }
                         }
-                        break;
-                    default :
-                        status = UNKNOWN_COMMAND;
-                        break;
-                }
-            } else {
-                status = MISSING_ARGS;
-            }
-            break;
-
-        case str2int("list"):
-            if (tokens.size() >= 2) {
-                if (this->graphicEngine == NULL) {
-                    std::cout << "No graphic engine set. Initialize with init ge \n";
-                    status = FAIL;
-                } else if (tokens[1] == "env") {
-                    std::vector<std::string> names = this->graphicEngine->environmentsName();
-                    for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); ++it) {
-                        std::cout << *it << std::endl;
+                        if (unique) {
+                            this->graphicEngine->createEnvironment(tokens[2]);
+                            std::cout << "Initialization of " << tokens[2] << " environment \n";
+                            status = SUCCESS;
+                        }
+                        else {
+                            std::cout << "Environment with such name already exists. \n";
+                            status = FAIL;
+                        }
                     }
-                    status = SUCCESS;
-                } else {
-                    status = MISSING_ARGS;
+                    else {
+                        this->graphicEngine->createEnvironment("default");
+                        std::cout << "Initialization of default environment \n";
+                        status = SUCCESS;
+                    }
                 }
-            } else {
+                break;
+            default :status = UNKNOWN_COMMAND;
+                break;
+            }
+        }
+        else {
+            status = MISSING_ARGS;
+        }
+        break;
+
+    case str2int("list"):
+        if (tokens.size()>=2) {
+            if (this->graphicEngine==nullptr) {
+                std::cout << "No graphic engine set. Initialize with init ge \n";
+                status = FAIL;
+            }
+            else if (tokens[1]=="env") {
+                std::vector<std::string> names = this->graphicEngine->environmentsName();
+                for (const auto& name : names) {
+                    std::cout << name << std::endl;
+                }
+                status = SUCCESS;
+            }
+            else {
                 status = MISSING_ARGS;
             }
-            break;
+        }
+        else {
+            status = MISSING_ARGS;
+        }
+        break;
 
         case str2int("set"):
             if (tokens.size() >= 2) {
@@ -134,10 +139,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                             std::cout << "Environment not found. Please select valid environment." << std::endl;
                             status = FAIL;
                         }
+                    } else if (tokens[1] == "camera") {
+                        if (graphicEngine->currEnv()->switchCamera(tokens[2])) {
+                            std::cout << "Successfully changed to " << tokens[2] << " camera\n";
+                            status = SUCCESS;
+                        } else {
+                            std::cout << "Camera not found \n";
+                            status = FAIL;
+                        }
                     }
-                } else {
-                    status = MISSING_ARGS;
                 }
+            }
+            else {
+                status = MISSING_ARGS;
             }
             break;
 
@@ -148,7 +162,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 double z = stod(tokens[4]);
                 switch (str2int(tokens[1].c_str())) {
                     case str2int("sphere"): {
-                        Sphere *sphere = new Sphere(stod(tokens[5]));
+                        auto sphere = std::make_shared<Sphere>(stod(tokens[5]));
                         sphere->setCenter(Point3D(x, y, z));
                         if (tokens.size() >= 9) {
                             Color color(stod(tokens[6]), stod(tokens[7]), stod(tokens[8]));
@@ -160,7 +174,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         break;
                     }
                     case str2int("cube"): {
-                        Cube *cube = new Cube(stod(tokens[5]));
+                        auto cube = std::make_shared<Cube>(stod(tokens[5]));
                         cube->setCenter(Point3D(x, y, z));
                         if (tokens.size() >= 9) {
                             Color color(stod(tokens[6]), stod(tokens[7]), stod(tokens[8]));
@@ -169,6 +183,29 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         this->graphicEngine->currEnv()->addObject(cube);
                         std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment"
                                   << std::endl;
+                        break;
+                    }
+                    case str2int("camera") : {
+                        if (tokens.size() >= 9) {
+                            bool found = false;
+                            for (std::string camName : graphicEngine->currEnv()->listCameras()) {
+                                if (camName == tokens[2]) {
+                                    std::cout << "Camera already exists \n";
+                                    found = true;
+                                    status = FAIL;
+                                }
+                            }
+                            if (!found) {
+                                //TODO Fix that shit
+                                auto camera = std::make_shared<Camera>(tokens[2]);
+                                camera->setDirection(Point3D(stod(tokens[3]), stod(tokens[4]), stod(tokens[5])), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
+                                graphicEngine->currEnv()->addCamera(camera);
+                                std::cout << tokens[2] << " camera added \n";
+                                status = SUCCESS;
+                            }
+                        }
+                        else
+                            status = MISSING_ARGS;
                         break;
                     }
                     case str2int("light") : {
@@ -196,6 +233,8 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         env->reset();
                         env->envName = envName;
                         found = true;
+                        std::cout << tokens[1] << " successfully reset\n";
+                        status = SUCCESS;
                         break;
                     }
                 }
@@ -209,15 +248,15 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
             }
             break;
 
-        case str2int("render"):
-            if (tokens.size() >= 2) {
-                this->graphicEngine->launchRender(tokens[1]);
-                std::cout << "Rendered file " << tokens[1] << std::endl;
-            } else
-                status = MISSING_ARGS;
-            break;
+    case str2int("render"):
+        if (tokens.size()>=2) {
+            this->graphicEngine->launchRender(tokens[1]);
+            std::cout << "Rendered file " << tokens[1] << std::endl;
+        }
+        else
+            status = MISSING_ARGS;
+        break;
 
-            // TODO Add command for setting current environment
         default :
             status = UNKNOWN_COMMAND;
             break;
