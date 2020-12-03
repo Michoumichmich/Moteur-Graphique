@@ -3,7 +3,6 @@
 
 #define free_ptr_list(list) while(!list.empty()) delete list.front(), list.pop_front()
 
-
 RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config)
         :dir(dir), origin(orig), ray_conf(config)
 {
@@ -46,7 +45,6 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
         }
     }
 
-
     if (ray_conf.rtMode==RT_RayRenderMode::RT_STANDARD) {
         if (!res.intersectsSometing || res.type==RT_RayIntersectionType::INF) {
             return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, -1, 1};
@@ -61,8 +59,8 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
         if (res.type==RT_RayIntersectionType::TESSEL) {
             Color result_color = res.tessel.properties.color;
             if (!res.tessel.properties.sendRay()) {
-             //  Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin - res.intersectionPoint).normalize(), environment, *intersector, res.tessel.properties);
-         //TODO ?     return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
+                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin-res.intersectionPoint).normalize(), &environment, *intersector,res.tessel.properties);
+                //TODO ?     return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
             }
             Color child_rays_color;
             if (this->ray_conf.bouncesLeft>0) {
@@ -88,7 +86,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
     return RT_RayOutput();
 }
 
-Color RT_Ray::RT_ComputePreparedRays(const std::list<RT_Ray *>& rays, RT_RayEnvIntersector* intersector)
+Color RT_Ray::RT_ComputePreparedRays(const std::list<RT_Ray*>& rays, RT_RayEnvIntersector* intersector)
 {
     struct RT_RayOutput tmp;
     Color color(0);
@@ -118,7 +116,7 @@ std::list<RT_Ray*> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
         new_config.intensity *= tessel_prop.reflexivity;
         this->ray_conf.intensity *= (1-tessel_prop.reflexivity);
         //  std::cout << "intensity" << this->ray_conf.intensity << " child intenisty" << new_config.intensity<< std::endl;
-        auto *  reflected = new RT_Ray(result.tessel.getReflexionVector(this->dir), result.intersectionPoint, new_config);
+        auto* reflected = new RT_Ray(result.tessel.getReflexionVector(this->dir), result.intersectionPoint, new_config);
         rays.push_back(reflected);
     }
     return rays;
