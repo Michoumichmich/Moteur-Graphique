@@ -28,42 +28,48 @@ int main(int argc, char **argv) {
     /**
      * hardcoded example without the CLI
      */
-//    std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
-//    gr->createEnvironment("firstEnv");
-//
-//    Cube *cube_center = new Cube(1);
-//    Cube *cube_left = new Cube(1);
-//    Cube *cube_right = new Cube(1);
-//    Sphere * sphere = new Sphere(1/1.42);
-//    sphere->setLightIntensity(0.5);
-//    sphere->setColor(Color(0.5, 0.0, 0.5));
-//    cube_center->setColor(Color(0, 255, 255));
-//    cube_center->setLightIntensity(0.9);
-//    cube_left->setReflexivity(0.9);
-//    cube_right->setReflexivity(0.5);
-//    cube_center->setReflexivity(0.5);
-//    cube_right->setTransformation({0.5, 0, 45, 0, Vector(-1.2, 0.25, -0.25)});
-//    cube_left->setTransformation({0.5, 0, 0, 45, Vector(1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
-//    gr->addObjInEnv(cube_left);
-//    gr->addObjInEnv(cube_center);
-//    gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108)));
-//    gr->addObjInEnv(sphere);
-//    gr->currEnv()->setResolution(40);
-//
-//    auto raytracer = new RT_RayTracer();
-//    raytracer->setMode(RT_RayRenderMode::RT_DEPTHMAP);
-//    gr->setRenderer(raytracer);
-//
-//    auto* cam = new Camera("Face");
-//    cam->setMode(PERSPECTIVE);
-//    cam->setResolution(501, 251);
-//    cam->setViewDimensions(4, 2);
-//    cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
-//    gr->currEnv()->addCamera(cam);
-//    gr->currEnv()->switchCamera("Face");
-//    gr->launchRender("test_face.bmp");
-//
-//    gr->currEnv()->switchCamera("Default");
+    std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
+    gr->createEnvironment("firstEnv");
+
+    Cube *cube_center = new Cube(1);
+    cube_center->setColor(Color(255, 255, 255));
+    cube_center->setLightIntensity(1);
+    cube_center->setReflexivity(0.9);
+
+    Cube *cube_left = new Cube(1);
+    Cube *cube_right = new Cube(1);
+    cube_left->setReflexivity(1);
+    cube_right->setReflexivity(0.9);
+    cube_left->setLightIntensity(1);
+    cube_right->setTransformation({0.5, 20, 45, 0, Vector(-1.2, 0.25, -0.25)});
+    cube_left->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
+
+    Sphere * sphere = new Sphere(1/1.42);
+    sphere->setLightIntensity(0.2);
+    sphere->setColor(Color(0.2, 0.0, 0.5));
+    sphere->setReflexivity(0.2);
+
+    gr->addObjInEnv(cube_left);
+    gr->addObjInEnv(cube_center);
+    gr->addObjInEnv(cube_right->setColor(Color(0, 85, 108)));
+    gr->addObjInEnv(sphere);
+    gr->currEnv()->setResolution(10);
+
+    auto raytracer = new RT_RayTracer();
+    raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
+    raytracer->setMaxBounces(2);
+    gr->setRenderer(raytracer);
+
+    auto* cam = new Camera("Face");
+    cam->setMode(PERSPECTIVE);
+    cam->setResolution(4001, 2001);
+    cam->setViewDimensions(4, 2);
+    cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
+    gr->currEnv()->addCamera(cam);
+    gr->currEnv()->switchCamera("Face");
+    gr->launchRender("test_face.bmp");
+
+    gr->currEnv()->switchCamera("Default");
  //   gr->launchRender("test_default.bmp");
 
 //#ifdef BENCHMARK
