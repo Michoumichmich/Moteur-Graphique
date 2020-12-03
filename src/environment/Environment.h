@@ -31,6 +31,8 @@ public:
 
     void addCamera(Camera *);
 
+    void addLight(Light *);
+
     std::list<std::string> listCameras();
 
     bool switchCamera(const std::string &camName);

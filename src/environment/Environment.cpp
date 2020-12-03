@@ -70,6 +70,10 @@ void Environment::addCamera(Camera *cam) {
     cameras.push_back(cam);
 }
 
+void Environment::addLight(Light *light) {
+    allLights.push_back(light);
+}
+
 bool Environment::switchCamera(const std::string &camName) {
     for (auto const &it : cameras) {
         if (it->getName() == camName) {

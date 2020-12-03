@@ -1,5 +1,5 @@
 #include "CommandLineInterface.h"
-#include<string>
+#include <string>
 
 void CommandLineInterface::main_loop() {
     enum command_exec_status status = SUCCESS;
@@ -42,7 +42,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
 
         case str2int("help"):
             std::cout
-                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n select camera <camera> \n select env <environment> \n reset <environment> \n render <filename.bmp> \n";
+                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n set camera \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
             status = SUCCESS;
             break;
 
@@ -201,6 +201,13 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                         }
                         else
                             status = MISSING_ARGS;
+                        break;
+                    }
+                    case str2int("light") : {
+                        Light *light = new Light(Vector(x, y, z), stod(tokens[5]));
+                        this->graphicEngine->currEnv()->addLight(light);
+                        std::cout << "Added light in position (" << x << ", " << y << ", " << z << ") and intensity "
+                                  << tokens[5] << " to current environment" << std::endl;
                         break;
                     }
                     default:
