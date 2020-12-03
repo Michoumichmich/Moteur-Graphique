@@ -17,7 +17,7 @@
 class Object : public Serializable {
 protected:
     struct transformations transformations{};
-    std::list<Tessel *> tessels;
+    std::list<Tessel*> tessels;
     ApparenceProperties properties;
     bool needComputeTessels = true;
 
@@ -31,25 +31,25 @@ public:
      * Also passes a copt of ApparenceProperties to child tessels
      * @return
      */
-    std::list<Tessel *> getTessels(int resolution);
+    std::list<Tessel*> getTessels(int resolution);
 
-    Object *setTransformation(struct transformations);
+    Object* setTransformation(struct transformations);
 
-    Object *setCenter(Point3D);
+    Object* setCenter(Point3D);
 
-    Object *setColor(Color color);
+    Object* setColor(Color color);
 
-    Object *setTransparency(double transparency);
+    Object* setTransparency(double transparency);
 
-    Object *setRefractiveIndex(double index);
+    Object* setRefractiveIndex(double index);
 
-    Object *setReflexivity(double reflexivity);
+    Object* setReflexivity(double reflexivity);
 
-    Object *setDiffusivity(double diffusivity);
+    Object* setDiffusivity(double diffusivity);
 
-    Object *setLightIntensity(double intensity);
+    Object* setLightIntensity(double intensity);
 
-    friend std::ostream& operator<< (std::ostream &, const Object &);
+    friend std::ostream& operator<<(std::ostream&, const Object&);
 
     virtual ~Object();
 };

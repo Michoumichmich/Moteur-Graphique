@@ -4,12 +4,10 @@
 #include <utils.h>
 #include "RT_Commons.h"
 
-
 class RT_OutputManager {
 
-
 private:
-    struct RT_RayOutput **allRaysOutput;
+    struct RT_RayOutput** allRaysOutput;
     RT_RayConfig config;
     unsigned int height;
     unsigned int width;
@@ -27,6 +25,5 @@ public:
 
     void export_picture(std::string out_name);
 };
-
 
 #endif //GRAPHICSENGINE_RT_OUTPUTMANAGER_H

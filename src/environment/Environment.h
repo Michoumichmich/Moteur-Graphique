@@ -13,16 +13,16 @@
 class Environment : public Serializable {
 private:
     std::list<std::shared_ptr<Camera>> cameras;
-    std::list<Tessel *> allTessels;
+    std::list<Tessel*> allTessels;
     std::list<std::shared_ptr<Object>> allObjects;
     std::list<std::shared_ptr<MappedTexture>> allTMapped;
-    std::shared_ptr<Camera>currentCam;
+    std::shared_ptr<Camera> currentCam;
     int tesselResolution = 30;
 public:
     std::string envName;
     Color backgroundColor = Color(150, 150, 150);
     Vector ambientIntensity;
-    std::list<Light *> allLights;
+    std::list<Light*> allLights;
 
     explicit Environment(std::string name);
 
@@ -32,13 +32,13 @@ public:
 
     void addCamera(const std::shared_ptr<Camera>& camera);
 
-    void addLight(Light *);
+    void addLight(Light*);
 
     std::list<std::string> listCameras();
 
-    bool switchCamera(const std::string &camName);
+    bool switchCamera(const std::string& camName);
 
-    std::list<Tessel *> *getTessels();
+    std::list<Tessel*>* getTessels();
 
     std::list<std::shared_ptr<Object>> getObjects();
 
@@ -50,9 +50,9 @@ public:
 
     ~Environment() override;
 
-    void serialize(std::stringstream &stream) override;
+    void serialize(std::stringstream& stream) override;
 
-    void deserialize(std::istream &stream) override;
+    void deserialize(std::istream& stream) override;
 
     [[nodiscard]] int getResolution() const;
 

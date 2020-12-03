@@ -7,14 +7,14 @@
  * Method used to convert a double to a color
  */
 enum colorMappingMethods {
-    /** The closer the lighter, the further the darker. Param1 min distance, Param2 maxdistance */
-    LINEAR,
-    /** Random stuff  */
-    NONSENSE,
-    /** Black and white strips with Param1 thickness */
-    STRIPS,
-    /** Black lines with param1 spacing, param2 line thickness */
-    TOPO_LINES,
+  /** The closer the lighter, the further the darker. Param1 min distance, Param2 maxdistance */
+  LINEAR,
+  /** Random stuff  */
+  NONSENSE,
+  /** Black and white strips with Param1 thickness */
+  STRIPS,
+  /** Black lines with param1 spacing, param2 line thickness */
+  TOPO_LINES,
 };
 
 /**

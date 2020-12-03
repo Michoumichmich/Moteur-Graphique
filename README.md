@@ -13,7 +13,7 @@
 | RIOS | Timothé | ** |
 | VENOT | Nicolas | ** |
 
-### Sujet : 
+### Sujet :
 
 ### Adresse du backlog :
 

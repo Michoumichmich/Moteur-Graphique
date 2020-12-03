@@ -1,6 +1,7 @@
 #include "Vector.h"
 
-void *malloc_simd(const size_t size) {
+void* malloc_simd(const size_t size)
+{
 #if defined WIN32
     return _aligned_malloc(size, 16);
 #elif defined __linux__
@@ -12,7 +13,8 @@ void *malloc_simd(const size_t size) {
 #endif
 }
 
-void free_simd(void *v) {
+void free_simd(void* v)
+{
 #if defined WIN32
     return _aligned_free(v);
 #else
@@ -20,7 +22,8 @@ void free_simd(void *v) {
 #endif
 }
 
-std::ostream &operator<<(std::ostream &os, const Vector &v) {
+std::ostream& operator<<(std::ostream& os, const Vector& v)
+{
     os << "Vector(" << v.x << ", "
        << v.y << ", "
        << v.z << ")";

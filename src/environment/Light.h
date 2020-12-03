@@ -10,8 +10,7 @@ public:
     Vector position;
     double intensity;
 
-    friend std::ostream& operator<< (std::ostream &, const Light &);
+    friend std::ostream& operator<<(std::ostream&, const Light&);
 };
-
 
 #endif //G_RAPHIC_ENGINE_LIGHT_H

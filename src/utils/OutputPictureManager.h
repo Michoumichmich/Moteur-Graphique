@@ -12,11 +12,11 @@ private:
     std::string outFile;
     unsigned int width;
     unsigned int height;
-    ColorMapper *mapper = nullptr;
+    ColorMapper* mapper = nullptr;
     /**
      * allColors[height ie y][width ie x]
      */
-    Color **allColors;
+    Color** allColors;
 public :
     OutputPictureManager(std::string name, unsigned int width, unsigned int height);
 
@@ -24,13 +24,13 @@ public :
 
     void writePixel(double d, unsigned int x, unsigned int y);
 
-    void setColorMapper(ColorMapper *color_mapper);
+    void setColorMapper(ColorMapper* color_mapper);
 
     void savePicture();
 
     ~OutputPictureManager();
 
-    void setOutFile(const std::string &basicString);
+    void setOutFile(const std::string& basicString);
 
     void writePixel(Color color, double d, unsigned int x, unsigned int y);
 };

@@ -5,8 +5,8 @@
 #include <string>
 
 enum camMode {
-    PERSPECTIVE,
-    ORTHOGRAPHIC
+  PERSPECTIVE,
+  ORTHOGRAPHIC
 };
 
 class Camera {
@@ -33,7 +33,6 @@ private:
     Point3D bottom_left{};
 
     void UpdateBasicVectors();
-
 
 public:
     explicit Camera(std::string name);
@@ -74,7 +73,7 @@ public:
 
     void setPixelHeightCount(int pixelHeightCount);
 
-    friend std::ostream& operator<< (std::ostream &, const Camera &);
+    friend std::ostream& operator<<(std::ostream&, const Camera&);
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

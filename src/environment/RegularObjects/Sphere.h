@@ -11,11 +11,11 @@ public:
 
     void Tesselate(int resolution) override;
 
-    void deserialize(std::istream &stream) override;
+    void deserialize(std::istream& stream) override;
 
-    void serialize(std::stringstream &stream) override;
+    void serialize(std::stringstream& stream) override;
 
-    friend std::ostream& operator<< (std::ostream &, const Sphere &);
+    friend std::ostream& operator<<(std::ostream&, const Sphere&);
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H

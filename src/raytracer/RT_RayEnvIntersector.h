@@ -16,14 +16,14 @@ enum class RT_RayIntersectionType {
 };
 
 struct RT_IntersectorResult {
-    bool intersectsSometing = false;
-    double distance = -1;
+  bool intersectsSometing = false;
+  double distance = -1;
   double ortho_dist = -1;
   Vector intersectionPoint = Vector();
-    Tessel tessel{};
-    MappedTexture texture{};
-    RT_RayIntersectionType type = RT_RayIntersectionType::INF;
-    //TODO Add an Object to the result, so that surface characteristics are accessible
+  Tessel tessel{};
+  MappedTexture texture{};
+  RT_RayIntersectionType type = RT_RayIntersectionType::INF;
+  //TODO Add an Object to the result, so that surface characteristics are accessible
 };
 
 /**
@@ -32,9 +32,9 @@ struct RT_IntersectorResult {
  */
 class RT_RayEnvIntersector {
 public:
-    Environment *environment;
+    Environment* environment;
 
-    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel *tessel, Vector *intersectionPoint, double *distance);
+    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel* tessel, Vector* intersectionPoint, double* distance);
 
 public:
     /**
@@ -43,7 +43,7 @@ public:
      * We could split the environment in small zones thus reducing the number of tesssels we're checking.
      * Or something like that...
      */
-    explicit RT_RayEnvIntersector(Environment *);
+    explicit RT_RayEnvIntersector(Environment*);
 
     /**
      * Its easy. This functions takes an origin and a direction and returns the struct

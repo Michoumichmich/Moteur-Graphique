@@ -21,31 +21,31 @@
  */
 class GraphicsEngine : public Serializable {
 private:
-    std::list<Environment *> environments{};
-    Abstract_Renderer *renderer{};
-    Environment *currentEnv{};
+    std::list<Environment*> environments{};
+    Abstract_Renderer* renderer{};
+    Environment* currentEnv{};
 public:
-    void launchRender(const std::string &outName);
+    void launchRender(const std::string& outName);
 
     GraphicsEngine();
 
     void createEnvironment(std::string name);
 
-    bool switchEnvironment(const std::string &name);
+    bool switchEnvironment(const std::string& name);
 
-    void addObjInEnv(const std::shared_ptr<Object>&obj);
+    void addObjInEnv(const std::shared_ptr<Object>& obj);
 
-    Environment *currEnv();
+    Environment* currEnv();
 
-    void setRenderer(Abstract_Renderer *);
+    void setRenderer(Abstract_Renderer*);
 
-    std::list<Environment *> getEnvironments();
+    std::list<Environment*> getEnvironments();
 
     std::vector<std::string> environmentsName();
 
-    void deserialize(std::istream &stream) override;
+    void deserialize(std::istream& stream) override;
 
-    void serialize(std::stringstream &stream) override;
+    void serialize(std::stringstream& stream) override;
 
     ~GraphicsEngine() override;
 

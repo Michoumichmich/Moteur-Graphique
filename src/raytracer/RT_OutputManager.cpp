@@ -78,10 +78,10 @@ void RT_OutputManager::apply_global_operations()
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
             if (rayOutput.distance>=0) {
                 double corrector = 0.85;
-                double dist_coef = corrector + (1-corrector)*(distance_max-rayOutput.ortho_distance)/(distance_max-distance_min);
+                double dist_coef = corrector+(1-corrector)*(distance_max-rayOutput.ortho_distance)/(distance_max-distance_min);
 
                 if (config.rtMode==RT_RayRenderMode::RT_STANDARD) {
-                    rayOutput.resultColor = rayOutput.resultColor * dist_coef + config.env->backgroundColor * (1-dist_coef);
+                    rayOutput.resultColor = rayOutput.resultColor*dist_coef+config.env->backgroundColor*(1-dist_coef);
                 }
             }
             allRaysOutput[y][x] = rayOutput;

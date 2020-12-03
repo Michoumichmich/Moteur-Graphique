@@ -10,9 +10,9 @@ enum class colorMode {
 };
 
 struct rgbPixel {
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
+  unsigned int red;
+  unsigned int green;
+  unsigned int blue;
 };
 
 class Color {
@@ -25,8 +25,7 @@ public:
     double green;
     double blue;
 
-
-    Color operator+(const Color &c1) const;
+    Color operator+(const Color& c1) const;
 
     explicit Color();
 
@@ -40,11 +39,13 @@ public:
 
     double getIntensity() const;
 
-    inline Color operator*(const Color &b) const {
-        return Color(red * b.red, green * b.green, blue * b.blue);
+    inline Color operator*(const Color& b) const
+    {
+        return Color(red*b.red, green*b.green, blue*b.blue);
     };
 
-    inline Color operator*(const double &b) const {
+    inline Color operator*(const double& b) const
+    {
         return Color(b*red, b*green, b*blue);
     }
 

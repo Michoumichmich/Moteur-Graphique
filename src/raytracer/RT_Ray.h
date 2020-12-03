@@ -11,7 +11,6 @@
 #include "RT_OutputManager.h"
 #include "RT_Commons.h"
 
-
 /**
  * @class RT_Ray
  * Contains everything to create and compute a ray.
@@ -25,7 +24,7 @@ private:
 
     std::list<std::shared_ptr<RT_Ray>> RT_PrepareRays(RT_IntersectorResult result);
 
-    static Color RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& rays, RT_RayEnvIntersector *intersector);
+    static Color RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& rays, RT_RayEnvIntersector* intersector);
 
 public :
     /**
@@ -50,10 +49,9 @@ public :
      * When a ray goes through an tessel, we must not forget to take in account the object's color
      * La fonction est une procédure ce qui permettra de la lancer en parallèle sans s'embêter avec la valeur de retour. Elle enverra son résultat au PictureManager.
      */
-    void RT_ComputePrimaryRay(RT_RayEnvIntersector *, RT_OutputManager *);
+    void RT_ComputePrimaryRay(RT_RayEnvIntersector*, RT_OutputManager*);
 
-
-    struct RT_RayOutput RT_ComputeRay(RT_RayEnvIntersector *intersector);
+    struct RT_RayOutput RT_ComputeRay(RT_RayEnvIntersector* intersector);
 
 /**
      * When the ray is casted we can find where the color goes in the picture
