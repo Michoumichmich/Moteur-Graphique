@@ -171,6 +171,11 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                                   << std::endl;
                         break;
                     }
+                    case str2int("light") : {
+                        Light *light = new Light(Vector(x, y, z), stod(tokens[5]));
+                        this->graphicEngine->currEnv()->addLight(light);
+                        std::cout << "Added light in position (" << x << ", " << y << ", " << z << ") and intensity " << tokens[5] << " to current environment" << std::endl;
+                    }
                     default:
                         std::cout << "The object " << tokens[1] << " doesn't exist" << std::endl;
                         status = FAIL;
