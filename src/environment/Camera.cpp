@@ -92,3 +92,8 @@ int Camera::pxHeightCount() const {
 void Camera::setPixelHeightCount(int pixelHeightCount) {
     pixel_height_count = pixelHeightCount;
 }
+
+std::ostream& operator<< (std::ostream &out, const Camera &cam) {
+    out << "Camera(" << cam.cameraName << ", " << cam.origin << ", " << cam.target << ")";
+    return out;
+}
