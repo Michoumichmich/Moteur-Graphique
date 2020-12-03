@@ -1,5 +1,5 @@
 #include "CommandLineInterface.h"
-#include<string>
+#include <string>
 
 void CommandLineInterface::main_loop() {
     enum command_exec_status status = SUCCESS;
@@ -42,7 +42,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
 
         case str2int("help"):
             std::cout
-                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> \n render <filename.bmp> \n";
+                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
             status = SUCCESS;
             break;
 
@@ -150,6 +150,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     case str2int("sphere"): {
                         Sphere *sphere = new Sphere(stod(tokens[5]));
                         sphere->setCenter(Point3D(x, y, z));
+                        if (tokens.size() >= 9) {
+                            Color color(stod(tokens[6]), stod(tokens[7]), stod(tokens[8]));
+                            sphere->setColor(color);
+                        }
                         this->graphicEngine->currEnv()->addObject(sphere);
                         std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius " << tokens[5] << " to current environment"
                                   << std::endl;
@@ -158,6 +162,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                     case str2int("cube"): {
                         Cube *cube = new Cube(stod(tokens[5]));
                         cube->setCenter(Point3D(x, y, z));
+                        if (tokens.size() >= 9) {
+                            Color color(stod(tokens[6]), stod(tokens[7]), stod(tokens[8]));
+                            cube->setColor(color);
+                        }
                         this->graphicEngine->currEnv()->addObject(cube);
                         std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment"
                                   << std::endl;
@@ -170,6 +178,28 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 }
             } else
                 status = MISSING_ARGS;
+            break;
+
+        case str2int("reset"):
+            if (tokens.size() >= 2) {
+                bool found = false;
+                for (Environment *env : graphicEngine->getEnvironments()) {
+                    if (env->envName == tokens[1]) {
+                        std::string envName = env->envName;
+                        env->reset();
+                        env->envName = envName;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    status = FAIL;
+                    std::cout << "No environment with given name \n";
+                }
+            }
+            else {
+                status = MISSING_ARGS;
+            }
             break;
 
         case str2int("render"):

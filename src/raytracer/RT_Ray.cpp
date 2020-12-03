@@ -1,4 +1,4 @@
-#include "RT_Ray.h"
+#include <raytracer.h>
 #include <utils.h>
 
 RT_Ray::RT_Ray(Vector dir, Point3D orig, struct RT_RayConfig config)
@@ -31,9 +31,11 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector* intersector, RT_OutputMa
 struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
 {
     struct RT_IntersectorResult res = intersector->RT_RayFindIntersection(origin, dir);
+
     /* No reflexions or whatever, we return directly the result */
     if (ray_conf.rtMode==RT_RayRenderMode::RT_BITMAP || ray_conf.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
         /* Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc */
+        double ortho_dist = std::sqrt(ray_conf.cam_view_center.dot(res.intersectionPoint - origin));
         if (res.intersectsSometing) {
             return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
@@ -41,6 +43,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
             return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
     }
+
 
     if (ray_conf.rtMode==RT_RayRenderMode::RT_STANDARD) {
         if (!res.intersectsSometing || res.type==RT_RayIntersectionType::INF) {
@@ -55,6 +58,10 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
 
         if (res.type==RT_RayIntersectionType::TESSEL) {
             Color result_color = res.tessel.properties.color;
+            if (!res.tessel.properties.sendRay()) {
+                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin - res.intersectionPoint).normalize(), environment, *intersector, res.tessel.properties);
+                return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
+            }
             Color child_rays_color;
             if (this->ray_conf.bouncesLeft>0) {
                 std::list<RT_Ray> rays = RT_PrepareRays(res);

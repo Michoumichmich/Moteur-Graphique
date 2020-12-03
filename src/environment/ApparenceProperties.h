@@ -16,6 +16,10 @@ public:
     double diffusivity = 0;
     double lightIntensity = 0; /**< Objects can also emit light */
 
+    inline bool sendRay() {
+        return transparency == 0 && reflexivity == 0 && diffusivity == 0;
+    };
+
 
     /**
      * Phong illumination parameters
