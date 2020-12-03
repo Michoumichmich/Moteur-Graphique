@@ -22,9 +22,9 @@ public:
 
     virtual void renderScene(std::string string, Environment* env) = 0;
 
-    virtual void enableReflexions(); // TODO remove that
+    virtual void enableReflexions() = 0; // TODO remove that
 
-    virtual void disableReflexions();
+    virtual void disableReflexions() = 0;
 };
 
 #endif //GRAPHIC_ENGINE_RENDERER_H
