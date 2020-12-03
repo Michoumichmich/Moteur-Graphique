@@ -41,6 +41,8 @@ public:
 
     std::list<Object *> *getObjects();
 
+    std::list<Camera *> *getCameras();
+
     void tesselate();
 
     void addObject(Object *);

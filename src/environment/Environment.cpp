@@ -22,6 +22,10 @@ std::list<Object *> *Environment::getObjects() {
     return &this->allObjects;
 }
 
+std::list<Camera *> *Environment::getCameras() {
+    return &this->cameras;
+}
+
 void Environment::addObject(Object *obj) {
     this->allObjects.push_back(obj);
 }
