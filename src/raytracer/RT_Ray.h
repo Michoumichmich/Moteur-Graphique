@@ -20,7 +20,6 @@ private:
     Vector dir;
     Vector origin;
     RT_RayConfig ray_conf;
-    Environment environment;
 
     std::list<std::shared_ptr<RT_Ray>> RT_PrepareRays(RT_IntersectorResult result);
 

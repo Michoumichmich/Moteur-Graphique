@@ -59,7 +59,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
         if (res.type==RT_RayIntersectionType::TESSEL) {
             Color result_color = res.tessel.properties.color;
             if (!res.tessel.properties.sendRay()) {
-                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin-res.intersectionPoint).normalize(), &environment, *intersector,
+                Vector color = RT_Physics::computePhongIllumination(res.intersectionPoint, res.tessel.getNormalVector(), (origin-res.intersectionPoint).normalize(), (ray_conf.env), *intersector,
                         res.tessel.properties);
                 //TODO ?     return RT_RayOutput{Color(color.x, color.y, color.z), res.intersectionPoint, (origin - res.intersectionPoint).length(), 1};
             }
