@@ -42,7 +42,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
 
         case str2int("help"):
             std::cout
-                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n set resolution <resolution> \n set env <environment> \n set camera \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
+                    << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n list objects \n list cameras \n list lights \n set resolution <resolution> \n set env <environment> \n set camera \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
             status = SUCCESS;
             break;
 
@@ -105,6 +105,26 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string> &tokens, 
                 std::vector<std::string> names = this->graphicEngine->environmentsName();
                 for (const auto& name : names) {
                     std::cout << name << std::endl;
+                }
+                status = SUCCESS;
+            } else if (tokens[1]=="objects") {
+                std::list<std::shared_ptr<Object>> objects = this->graphicEngine->currEnv()->getObjects();
+                int i = 0;
+                for (auto object : objects) {
+                    std::cout << i << ": " << *object << std::endl;
+                    i++;
+                }
+                status = SUCCESS;
+            } else if (tokens[1]=="cameras") {
+                std::list<std::shared_ptr<Camera>> cameras = this->graphicEngine->currEnv()->getCameras();
+                for (auto camera : cameras) {
+                    std::cout << *camera << std::endl;
+                }
+                status = SUCCESS;
+            } else if (tokens[1]=="lights") {
+                std::list<Light *> lights = this->graphicEngine->currEnv()->allLights;
+                for (auto light : lights) {
+                    std::cout << *light << std::endl;
                 }
                 status = SUCCESS;
             }

@@ -42,6 +42,8 @@ public:
 
     std::list<std::shared_ptr<Object>> getObjects();
 
+    std::list<std::shared_ptr<Camera>> getCameras();
+
     void tesselate();
 
     void addObject(const std::shared_ptr<Object>& obj);

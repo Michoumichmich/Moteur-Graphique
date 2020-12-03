@@ -73,6 +73,8 @@ public:
     void setPixelWidthCount(int pixelWidthCount);
 
     void setPixelHeightCount(int pixelHeightCount);
+
+    friend std::ostream& operator<< (std::ostream &, const Camera &);
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

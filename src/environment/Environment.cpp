@@ -17,8 +17,13 @@ std::shared_ptr<Camera> Environment::currCam() {
 std::list<Tessel *> *Environment::getTessels() {
     return &this->allTessels;
 }
+
 std::list<std::shared_ptr<Object>> Environment::getObjects() {
     return this->allObjects;
+}
+
+std::list<std::shared_ptr<Camera>> Environment::getCameras() {
+    return this->cameras;
 }
 
 void Environment::addObject(const std::shared_ptr<Object>& obj) {

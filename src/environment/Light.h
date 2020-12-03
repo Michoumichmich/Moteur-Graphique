@@ -9,6 +9,8 @@ public:
 
     Vector position;
     double intensity;
+
+    friend std::ostream& operator<< (std::ostream &, const Light &);
 };
 
 
