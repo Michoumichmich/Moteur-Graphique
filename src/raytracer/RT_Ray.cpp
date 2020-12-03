@@ -64,9 +64,8 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
             }
             Color child_rays_color;
             if (this->ray_conf.bouncesLeft>0) {
-                std::list<RT_Ray*> rays = RT_PrepareRays(res);
+                auto rays = RT_PrepareRays(res);
                 child_rays_color = RT_ComputePreparedRays(rays, intersector);
-                free_ptr_list(rays);
             }
 
             //result_color = result_color*res.tessel.properties.lightIntensity*this->ray_conf.intensity ;
@@ -86,7 +85,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
     return RT_RayOutput();
 }
 
-Color RT_Ray::RT_ComputePreparedRays(const std::list<RT_Ray*>& rays, RT_RayEnvIntersector* intersector)
+Color RT_Ray::RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& rays, RT_RayEnvIntersector* intersector)
 {
     struct RT_RayOutput tmp;
     Color color(0);
@@ -97,9 +96,9 @@ Color RT_Ray::RT_ComputePreparedRays(const std::list<RT_Ray*>& rays, RT_RayEnvIn
     return color;
 }
 
-std::list<RT_Ray*> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
+std::list<std::shared_ptr<RT_Ray>> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
 {
-    std::list<RT_Ray*> rays;
+    std::list<std::shared_ptr<RT_Ray>> rays;
     ApparenceProperties tessel_prop = result.tessel.properties;
     /*  if (this->ray_conf.transparency) {
           this->ray_conf.intensity *= (1-tessel_prop.transparency);
@@ -116,7 +115,7 @@ std::list<RT_Ray*> RT_Ray::RT_PrepareRays(RT_IntersectorResult result)
         new_config.intensity *= tessel_prop.reflexivity;
         this->ray_conf.intensity *= (1-tessel_prop.reflexivity);
         //  std::cout << "intensity" << this->ray_conf.intensity << " child intenisty" << new_config.intensity<< std::endl;
-        auto* reflected = new RT_Ray(result.tessel.getReflexionVector(this->dir), result.intersectionPoint, new_config);
+        auto reflected = std::make_shared<RT_Ray>(result.tessel.getReflexionVector(this->dir), result.intersectionPoint, new_config);
         rays.push_back(reflected);
     }
     return rays;

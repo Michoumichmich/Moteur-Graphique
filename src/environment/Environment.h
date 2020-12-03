@@ -36,9 +36,11 @@ public:
 
     std::list<std::string> listCameras();
 
-    void switchCamera(const std::string &camName);
+    bool switchCamera(const std::string &camName);
 
     std::list<Tessel *> *getTessels();
+
+    std::list<std::shared_ptr<Object>> getObjects();
 
     void tesselate();
 

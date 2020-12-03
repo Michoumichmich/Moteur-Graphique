@@ -17,10 +17,14 @@ std::shared_ptr<Camera> Environment::currCam() {
 std::list<Tessel *> *Environment::getTessels() {
     return &this->allTessels;
 }
+std::list<std::shared_ptr<Object>> Environment::getObjects() {
+    return this->allObjects;
+}
 
 void Environment::addObject(const std::shared_ptr<Object>& obj) {
     this->allObjects.push_back(obj);
 }
+
 
 std::list<std::string> Environment::listCameras() {
     std::list<std::string> out;
@@ -71,12 +75,14 @@ void Environment::addLight(Light *light) {
     allLights.push_back(light);
 }
 
-void Environment::switchCamera(const std::string &camName) {
+bool Environment::switchCamera(const std::string &camName) {
     for (auto const &it : cameras) {
         if (it->getName() == camName) {
             this->currentCam = it;
+            return true;
         }
     }
+    return false;
 }
 
 void Environment::reset() {
