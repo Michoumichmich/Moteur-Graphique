@@ -63,12 +63,12 @@ int main(int argc, char** argv)
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(10);
+    raytracer->setMaxBounces(5);
     gr->setRenderer(raytracer);
 
     auto cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(1001, 501);
+    cam->setResolution(4001, 2001);
     cam->setViewDimensions(4, 2);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
