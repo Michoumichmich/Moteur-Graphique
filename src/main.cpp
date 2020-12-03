@@ -24,8 +24,8 @@ int main(int argc, char** argv)
     /**
      * Example using the CLI
      */
-    std::unique_ptr<CommandLineInterface> cli = std::make_unique<CommandLineInterface>();
-    cli->main_loop();
+    CommandLineInterface cli;
+    cli.main_loop();
 
 
     // default_test();
