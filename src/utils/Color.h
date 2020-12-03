@@ -24,6 +24,9 @@ public:
     double green;
     double blue;
 
+
+    Color operator+(const Color &c1) const;
+
     explicit Color();
 
     Color(int, int, int, int = 256);
@@ -33,6 +36,8 @@ public:
     Color(double, double, double);
 
     explicit Color(double);
+
+    double getIntensity() const;
 
     inline Color operator*(const Color &b) const {
         return Color(red * b.red, green * b.green, blue * b.blue);
