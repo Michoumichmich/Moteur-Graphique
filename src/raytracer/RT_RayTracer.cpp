@@ -92,7 +92,7 @@ void RT_RayTracer::enableDepthOfField()
     default_ray.depthOfField = true;
 }
 
-void RT_RayTracer::disableDisffusivity()
+void RT_RayTracer::disableDiffusivity()
 {
     default_ray.diffusivity = false;
 }
