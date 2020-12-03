@@ -49,7 +49,9 @@ public:
 
     Object* setLightIntensity(double intensity);
 
-    friend std::ostream& operator<<(std::ostream&, const Object&);
+    std::stringstream print();
+
+    friend std::ostream& operator<<(std::ostream&, Object&);
 
     virtual ~Object();
 };

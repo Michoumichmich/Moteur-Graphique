@@ -15,6 +15,8 @@ public:
 
     void serialize(std::stringstream& stream) override;
 
+    std::stringstream print();
+
     friend std::ostream& operator<<(std::ostream&, const Sphere&);
 };
 
