@@ -13,7 +13,7 @@
 class Environment : public Serializable {
 private:
     std::list<std::shared_ptr<Camera>> cameras;
-    std::list<Tessel*> allTessels;
+    std::shared_ptr<std::list<Tessel>> allTessels;
     std::list<std::shared_ptr<Object>> allObjects;
     std::list<std::shared_ptr<MappedTexture>> allTMapped;
     std::shared_ptr<Camera> currentCam;
@@ -38,7 +38,7 @@ public:
 
     bool switchCamera(const std::string& camName);
 
-    std::list<Tessel*>* getTessels();
+    std::shared_ptr<std::list<Tessel>> getTessels();
 
     std::list<std::shared_ptr<Object>> getObjects();
 
@@ -47,8 +47,6 @@ public:
     void tesselate();
 
     void addObject(const std::shared_ptr<Object>& obj);
-
-    ~Environment() override;
 
     void serialize(std::stringstream& stream) override;
 
@@ -59,9 +57,6 @@ public:
     void setResolution(int n);
 
     std::ostream& print_objects(std::ostream& str);
-
-
-
 
     void reset();
 };

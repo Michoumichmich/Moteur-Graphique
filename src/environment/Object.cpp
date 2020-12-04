@@ -1,14 +1,14 @@
+#include <memory>
 #include "Object.h"
 
-std::list<Tessel*> Object::getTessels(int resolution)
+std::shared_ptr<std::list<Tessel>> Object::getTessels(int resolution)
 {
     if (needComputeTessels) {
-        tessels.clear();
+        tessels->clear();
         Tesselate(resolution);
-        std::list<Tessel*>::iterator aTessel;
-        for (aTessel = tessels.begin(); aTessel!=tessels.end(); aTessel++) {
-            **aTessel = CoordinatesHandler::fromLocalToGlobal(**aTessel, transformations);
-            (*aTessel)->properties = properties;
+        for (Tessel aTessel : *tessels) {
+            aTessel = CoordinatesHandler::fromLocalToGlobal(aTessel, transformations);
+            aTessel.properties = properties;
         }
         needComputeTessels = false;
     }
@@ -63,7 +63,6 @@ Object* Object::setTransparency(double transparency)
     properties.transparency = transparency;
     return this;
 }
-
 
 std::ostream& operator<<(std::ostream& out, Object& object) {
     return object.print(out);

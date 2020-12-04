@@ -13,18 +13,18 @@ Cube::Cube(double size)
 
 void Cube::Tesselate(int resolution)
 {
-    tessels.push_back(new Tessel(Point3D(size/2, -size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(-size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, -size/2, size/2), Point3D(size/2, -size/2, -size/2), Point3D(-size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, size/2, size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, size/2, size/2), Point3D(size/2, size/2, -size/2), Point3D(-size/2, size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, -size/2, size/2), Point3D(size/2, size/2, size/2), Point3D(size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, size/2, -size/2), Point3D(size/2, size/2, size/2), Point3D(size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(-size/2, -size/2, size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(-size/2, size/2, -size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, -size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(size/2, size/2, size/2)));
-    tessels.push_back(new Tessel(Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(size/2, size/2, size/2)));
-    tessels.push_back(new Tessel(Point3D(size/2, -size/2, -size/2), Point3D(-size/2, -size/2, -size/2), Point3D(size/2, size/2, -size/2)));
-    tessels.push_back(new Tessel(Point3D(-size/2, size/2, -size/2), Point3D(-size/2, -size/2, -size/2), Point3D(size/2, size/2, -size/2)));
+    tessels->emplace_back(Point3D(size/2, -size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(-size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, -size/2, size/2), Point3D(size/2, -size/2, -size/2), Point3D(-size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, size/2, size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, size/2, size/2), Point3D(size/2, size/2, -size/2), Point3D(-size/2, size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, -size/2, size/2), Point3D(size/2, size/2, size/2), Point3D(size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, size/2, -size/2), Point3D(size/2, size/2, size/2), Point3D(size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(-size/2, -size/2, size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(-size/2, size/2, -size/2), Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, -size/2));
+    tessels->emplace_back(Point3D(size/2, -size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(size/2, size/2, size/2));
+    tessels->emplace_back(Point3D(-size/2, size/2, size/2), Point3D(-size/2, -size/2, size/2), Point3D(size/2, size/2, size/2));
+    tessels->emplace_back(Point3D(size/2, -size/2, -size/2), Point3D(-size/2, -size/2, -size/2), Point3D(size/2, size/2, -size/2));
+    tessels->emplace_back(Point3D(-size/2, size/2, -size/2), Point3D(-size/2, -size/2, -size/2), Point3D(size/2, size/2, -size/2));
 }
 
 void Cube::serialize(std::stringstream& stream)

@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 
-set(ARCH_FLAGS "-Wall -Wextra -march=native -mtune=native")
+set(ARCH_FLAGS "-Wall -Wextra -Winit-self -Wuninitialized -Wmissing-declarations -ansi -Woverloaded-virtual -march=native -mtune=native")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -O2 -flto -s -DBENCHMARK")
+set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -Ofast -flto -s -DBENCHMARK")
 set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -DDEBUG")
 set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -Ofast -DBENCHMARK")
 

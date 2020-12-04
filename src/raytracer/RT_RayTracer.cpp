@@ -32,17 +32,15 @@ void RT_RayTracer::renderScene(std::string out_file, Environment* environment)
     envIntersector = new RT_RayEnvIntersector(env);
     default_ray.cam_view_center = env->currCam()->getCamViewCenter();
     std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(default_ray, env->currCam());
-    std::list<RT_Ray>::iterator aRay;
-
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
 #warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
 #pragma omp parallel default(none) private(aRay) shared(envIntersector, ray_out_manager, primaryRays, std::cout)
 #else
-#pragma omp parallel default(none) private(aRay) shared(envIntersector, ray_out_manager, primaryRays)
+#pragma omp parallel default(none) shared(envIntersector, ray_out_manager, primaryRays)
 #endif
 #endif
-    for (aRay = primaryRays.begin(); aRay!=primaryRays.end(); aRay++) {
+    for (auto aRay = primaryRays.begin(); aRay!=primaryRays.end(); aRay++) {
 #ifdef DEBUG // Regardless of openmp we print the coordinates
         std::cout << aRay->x << ' ' << aRay->y << std::endl;
 #endif

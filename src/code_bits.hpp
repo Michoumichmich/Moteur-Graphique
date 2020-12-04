@@ -3,7 +3,6 @@
 
 #include <graphicsEngine.h>
 #include <memory>
-#include <stdlib.h>
 
 static inline std::shared_ptr<Cube> cube_generator()
 {

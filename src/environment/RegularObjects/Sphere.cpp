@@ -29,11 +29,10 @@ void Sphere::Tesselate(int resolution)
 
     for (int i = 0; i<n; ++i) {
         for (int j = 0; j<n; ++j) {
-            this->tessels.push_back(new Tessel(globe[i][j], globe[i+1][j], globe[i][j+1], this->properties));
-            this->tessels.push_back(new Tessel(globe[i+1][j+1], globe[i+1][j], globe[i][j+1], this->properties));
+            this->tessels->push_back(Tessel(globe[i][j], globe[i+1][j], globe[i][j+1], this->properties));
+            this->tessels->push_back(Tessel(globe[i+1][j+1], globe[i+1][j], globe[i][j+1], this->properties));
         }
     }
-
 }
 
 Sphere::Sphere(double radius)
@@ -48,7 +47,6 @@ void Sphere::serialize(std::stringstream& stream)
 
 void Sphere::deserialize(std::istream& stream)
 {
-
 }
 
 std::ostream& Sphere::print(std::ostream& str)

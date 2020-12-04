@@ -34,7 +34,7 @@ class RT_RayEnvIntersector {
 public:
     Environment* environment;
 
-    static bool checkForSingleIntersection(Point3D origin, Vector dir, Tessel* tessel, Vector* intersectionPoint, double* distance);
+    static bool checkForSingleIntersection(const Point3D &origin, const Vector & dir, const Tessel* tessel, Vector* intersectionPoint, double* distance) ;
 
 public:
     /**
@@ -52,7 +52,7 @@ public:
      * @param direction
      * @return
      */
-    [[nodiscard]] struct RT_IntersectorResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
+    [[nodiscard]] struct RT_IntersectorResult RT_RayFindIntersection(Point3D origin,Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_

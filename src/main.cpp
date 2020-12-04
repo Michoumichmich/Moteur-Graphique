@@ -10,15 +10,7 @@
 #include <graphicsEngine.h>
 #include <ui.h>
 #include <iostream>
-#include <memory>
 #include "code_bits.hpp"
-
-#ifdef BENCHMARK
-
-#include <chrono>
-#include "code_bits.hpp"
-
-#endif
 
 int main(int argc, char** argv)
 {
