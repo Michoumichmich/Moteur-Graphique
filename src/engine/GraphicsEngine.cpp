@@ -1,12 +1,15 @@
 #include "GraphicsEngine.h"
 
-#include <utility>
+#include <utils.h>
 #include <iostream>
 #include <algorithm>
 #include <sstream>
 
+
+
 void GraphicsEngine::launchRender(const std::string& outName)
 {
+    Chrono local("Rendering " + outName);
     this->currentEnv->tesselate();
     this->renderer->renderScene(outName, this->currentEnv);
 }
