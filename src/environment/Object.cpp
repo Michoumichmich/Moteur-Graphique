@@ -71,8 +71,7 @@ std::stringstream Object::print() {
 }
 
 std::ostream& operator<<(std::ostream& out, Object& object) {
-    out << object.print().str();
-    return out;
+    return out << object.print().str();
 }
 
 Object::~Object() = default;
