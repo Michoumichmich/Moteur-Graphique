@@ -39,6 +39,7 @@ static void inline default_test()
     cube_center->setColor(Color(200, 200, 200));
     cube_center->setLightIntensity(0.99);
     cube_center->setReflexivity(0);
+  //  cube_center->setTransformation({0.5, 0, 20, 45, Vector(-1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
     gr->addObjInEnv(cube_center);
 
     std::shared_ptr<Cube> cube_left = std::make_shared<Cube>(1);
@@ -59,7 +60,7 @@ static void inline default_test()
     sphere->setReflexivity(0.40);
     gr->addObjInEnv(sphere);
 
-    for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
+   for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_DEPTHMAP);

@@ -6,7 +6,8 @@ std::shared_ptr<std::list<Tessel>> Object::getTessels(int resolution)
     if (needComputeTessels) {
         tessels->clear();
         Tesselate(resolution);
-        for (Tessel aTessel : *tessels) {
+
+        for (Tessel& aTessel : *tessels) {
             aTessel = CoordinatesHandler::fromLocalToGlobal(aTessel, transformations);
             aTessel.properties = properties;
         }
