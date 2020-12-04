@@ -2,12 +2,13 @@
 #define GRAPHICSENGINE_RT_OUTPUTMANAGER_H
 
 #include <utils.h>
+#include <vector>
 #include "RT_Commons.h"
 
 class RT_OutputManager {
 
 private:
-    struct RT_RayOutput** allRaysOutput;
+    std::vector<std::vector<RT_RayOutput>> allRaysOutput;
     RT_RayConfig config;
     unsigned int height;
     unsigned int width;
@@ -16,8 +17,6 @@ private:
 
 public:
     explicit RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height);
-
-    ~RT_OutputManager();
 
     void RT_SaveRay(struct RT_RayOutput, unsigned int x, unsigned int y);
 

@@ -34,7 +34,6 @@ void Cube::serialize(std::stringstream& stream)
 
 void Cube::deserialize(std::istream& stream)
 {
-
 }
 
 std::stringstream Cube::print() {

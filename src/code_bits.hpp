@@ -63,18 +63,18 @@ static void inline default_test()
     for (int i = 0; i<250; i++) gr->addObjInEnv(std::dynamic_pointer_cast<Object>(cube_generator()));
 
     auto raytracer = new RT_RayTracer();
-    raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
+    raytracer->setMode(RT_RayRenderMode::RT_DEPTHMAP);
     raytracer->setMaxBounces(5);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(4001, 2001);
+    cam->setResolution(1001, 501);
     cam->setViewDimensions(4, 2);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
 
-    gr->currEnv()->setResolution(10);
+    gr->currEnv()->setResolution(20);
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
     gr->launchRender("test_face.bmp");

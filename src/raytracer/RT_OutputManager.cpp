@@ -1,21 +1,12 @@
 #include "RT_OutputManager.h"
 
-#include <utility>
+#include <vector>
+#include <utils.h>
 
 RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height)
         :config(config), height(height), width(width)
 {
-    allRaysOutput = static_cast<struct RT_RayOutput**>( calloc(sizeof(struct RT_RayOutput*), height));
-    if (allRaysOutput!=nullptr) {
-        for (unsigned i = 0; i<height; i++) {
-            allRaysOutput[i] = (struct RT_RayOutput*) calloc(sizeof(struct RT_RayOutput), width);
-            if (allRaysOutput[i]!=nullptr) {
-                for (unsigned j = 0; j<width; j++) {
-                    allRaysOutput[i][j] = RT_RayOutput();
-                }
-            }
-        }
-    }
+    allRaysOutput = std::vector(height, std::vector<RT_RayOutput>(width));
 }
 
 /**
@@ -42,8 +33,8 @@ void RT_OutputManager::export_picture(std::string name)
 {
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
-        pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
-        //   pic->setColorMapper(new ColorMapper(TOPO_LINES, 0.02, 0.04));
+        //pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
+        pic.setColorMapper(new ColorMapper(TOPO_LINES,config.env->backgroundColor, 0.02, 0.03));
     }
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
@@ -88,14 +79,6 @@ void RT_OutputManager::apply_global_operations()
         }
     }
 }
-
-RT_OutputManager::~RT_OutputManager()
-{
-    for (unsigned int y = 0; y<height; y++)
-        free(allRaysOutput[y]);
-    free(allRaysOutput);
-}
-
 
 
 

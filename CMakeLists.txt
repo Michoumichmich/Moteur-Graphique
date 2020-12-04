@@ -23,7 +23,9 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/raytracer/RT_RayEnvIntersector.cpp src/raytracer/RT_RayEnvIntersector.h src/environment/MappedTexture.cpp src/environment/MappedTexture.h
         src/environment/CoordinatesHandler.cpp src/environment/CoordinatesHandler.h src/environment/RegularObjects/Cube.cpp src/environment/RegularObjects/Cube.h
         src/utils/ColorMapper.cpp src/utils/ColorMapper.h src/raytracer/RT_OutputManager.cpp src/raytracer/RT_OutputManager.h src/raytracer/RT_Commons.h
-        src/raytracer/RT_Physics.cpp src/raytracer/RT_Physics.h src/environment/Light.cpp src/environment/Light.h src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp)
+        src/raytracer/RT_Physics.cpp src/raytracer/RT_Physics.h src/environment/Light.cpp src/environment/Light.h
+        src/utils/Chrono.cpp src/utils/Chrono.h
+        src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp)
 
 
 if (CMAKE_CONFIGURATION_TYPES)

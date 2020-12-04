@@ -5,19 +5,17 @@
 #include "Sphere.h"
 #include <cmath>
 #include <sstream>
+#include <vector>
 
 void Sphere::Tesselate(int resolution)
 {
     int n = resolution;
-
-    Point3D** globe = (Point3D**) calloc(n+1, sizeof(Point3D*));
-    for (int i = 0; i<n+1; ++i) {
-        globe[i] = (Point3D*) calloc(n+1, sizeof(Point3D));
-    }
+    std::vector<std::vector<Point3D>> globe(n+1,  std::vector<Point3D>(n+1));
 
     auto map = [](double value, double start1, double stop1, double start2, double stop2) {
       return start2+(stop2-start2)*((value-start1)/(stop1-start1));
     };
+
     for (int i = 0; i<=n; ++i) {
         double theta = map(i, 0, n, 0, PI);
         for (int j = 0; j<=n; ++j) {
@@ -36,10 +34,6 @@ void Sphere::Tesselate(int resolution)
         }
     }
 
-    for (int i = 0; i<n+1; ++i) {
-        free(globe[i]);
-    }
-    free(globe);
 }
 
 Sphere::Sphere(double radius)

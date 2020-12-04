@@ -5,6 +5,7 @@
 #include "Color.h"
 #include <config.h>
 #include <list>
+#include <vector>
 #include "ColorMapper.h"
 
 class OutputPictureManager {
@@ -16,7 +17,7 @@ private:
     /**
      * allColors[height ie y][width ie x]
      */
-    Color** allColors;
+    std::vector<std::vector<Color>> allColors;
 public :
     OutputPictureManager(std::string name, unsigned int width, unsigned int height);
 
