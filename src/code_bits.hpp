@@ -69,12 +69,12 @@ static void inline default_test()
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(4001, 2001);
+    cam->setResolution(2001, 1001);
     cam->setViewDimensions(4, 2);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
 
-    gr->currEnv()->setResolution(20);
+    gr->currEnv()->setResolution(40);
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
     gr->launchRender("test_face.bmp");

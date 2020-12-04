@@ -34,7 +34,7 @@ void RT_OutputManager::export_picture(std::string name)
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
         //pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
-        pic.setColorMapper(new ColorMapper(TOPO_LINES,config.env->backgroundColor, 0.02, 0.03));
+        pic.setColorMapper(new ColorMapper(TOPO_LINES,config.env->backgroundColor, 0.01, 0.04));
     }
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
@@ -44,16 +44,13 @@ void RT_OutputManager::export_picture(std::string name)
                     pic.writePixel(rayOutput.resultColor, x, y);
                 }
                 else if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
-                    //pic->RT_SaveRay(rayOutput, x, y);
                     pic.writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
                 }
                 else if (config.rtMode==RT_RayRenderMode::RT_STANDARD) {
-                    //pic->RT_SaveRay(rayOutput, x, y);
                     pic.writePixel(rayOutput.resultColor, x, y);
                 }
             }
             else {
-                //pic->RT_SaveRay(rayOutput, x, y);
                 pic.writePixel(Color(0.0), x, y);
             }
         }

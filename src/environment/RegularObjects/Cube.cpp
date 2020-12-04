@@ -36,8 +36,7 @@ void Cube::deserialize(std::istream& stream)
 {
 }
 
-std::stringstream Cube::print() {
-    std::stringstream out;
-    out << "Cube(" << transformations.pt << ", " << size << ")";
-    return out;
+std::ostream& Cube::print(std::ostream& str)
+{
+    return str <<  "Cube(" << transformations.pt << ", " << size << ")";
 }

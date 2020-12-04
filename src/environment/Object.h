@@ -49,11 +49,11 @@ public:
 
     Object* setLightIntensity(double intensity);
 
-    virtual std::stringstream print();
+    virtual std::ostream& print(std::ostream& str) = 0;
 
     friend std::ostream& operator<<(std::ostream&, Object&);
 
-    virtual ~Object();
+    ~Object() override;
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

@@ -16,9 +16,7 @@ public:
 
     void serialize(std::stringstream& stream) override;
 
-    std::stringstream print();
-
-    friend std::ostream& operator<<(std::ostream&, const Sphere&);
+    std::ostream& print(std::ostream& str) override;
 };
 
 #endif //GRAPHICSENGINE_SPHERE_H

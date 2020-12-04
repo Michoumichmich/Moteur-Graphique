@@ -64,14 +64,9 @@ Object* Object::setTransparency(double transparency)
     return this;
 }
 
-std::stringstream Object::print() {
-    std::stringstream out;
-    out << "Object(" << this->transformations.pt << ", " << this->transformations.scale << ")";
-    return out;
-}
 
 std::ostream& operator<<(std::ostream& out, Object& object) {
-    return out << object.print().str();
+    return object.print(out);
 }
 
 Object::~Object() = default;
