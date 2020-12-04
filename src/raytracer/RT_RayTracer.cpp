@@ -31,7 +31,7 @@ void RT_RayTracer::renderScene(std::string out_file, Environment* environment)
     ray_out_manager = new RT_OutputManager(default_ray, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
     envIntersector = new RT_RayEnvIntersector(env);
     default_ray.cam_view_center = env->currCam()->getCamViewCenter();
-    std::list<RT_Ray> primaryRays = RT_RayCaster::generateFirstRays(default_ray, env->currCam());
+    auto primaryRays = RT_RayCaster::generateFirstRays(default_ray, env->currCam(), 128);
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
 #warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
@@ -40,14 +40,16 @@ void RT_RayTracer::renderScene(std::string out_file, Environment* environment)
 #pragma omp parallel default(none) shared(envIntersector, ray_out_manager, primaryRays)
 #endif
 #endif
-    for (auto & primaryRay : primaryRays) {
-#ifdef DEBUG // Regardless of openmp we print the coordinates
-        std::cout << aRay->x << ' ' << aRay->y << std::endl;
-#endif
+    for (auto& pool : primaryRays) {
 #ifdef _OPENMP
 #pragma omp single nowait
 #endif
-        primaryRay.RT_ComputePrimaryRay(envIntersector, ray_out_manager);
+        for (auto& aRay : pool) {
+#ifdef DEBUG // Regardless of openmp we print the coordinates
+            std::cout << aRay->x << ' ' << aRay->y << std::endl;
+#endif
+            aRay.RT_ComputePrimaryRay(envIntersector, ray_out_manager);
+        }
     }
     ray_out_manager->apply_global_operations();
     ray_out_manager->export_picture(out_file);

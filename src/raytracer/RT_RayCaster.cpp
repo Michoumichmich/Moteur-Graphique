@@ -1,8 +1,9 @@
 #include "RT_RayCaster.h"
+#include <time.h>
 
-std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, std::shared_ptr<Camera> cam)
+std::vector<std::list<RT_Ray>> RT_RayCaster::generateFirstRays(RT_RayConfig config, const std::shared_ptr<Camera>& cam, unsigned int pool_count)
 {
-    std::list<RT_Ray> Rays;
+    std::vector<std::list<RT_Ray>> Rays(pool_count);
 
     if (cam->getMode()==ORTHOGRAPHIC) {
         /**
@@ -16,7 +17,7 @@ std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, std::shar
 #ifdef DEBUG
                 //std::cout << "[RT_RayCaster] dir: " << direction << " origin from inf: " << originFromInfinite << std::endl;
 #endif
-                Rays.emplace_back(direction, originFromInfinite, config, x, y);
+                Rays[rand()%pool_count].emplace_back(direction, originFromInfinite, config, x, y);
             }
         }
     }
@@ -27,7 +28,7 @@ std::list<RT_Ray> RT_RayCaster::generateFirstRays(RT_RayConfig config, std::shar
 #ifdef DEBUG
                 //std::cout << "[RT_RayCaster] dir: " << direction << " origin: " << cam->origin << std::endl;
 #endif
-                Rays.emplace_back(direction, cam->getOrigin(), config, x, y);
+                Rays[rand()%pool_count].emplace_back(direction, cam->getOrigin(), config, x, y);
             }
         }
     }
