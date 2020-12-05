@@ -13,7 +13,7 @@ struct rgbPixel {
   unsigned int red;
   unsigned int green;
   unsigned int blue;
-};
+} __attribute__((aligned(16)));
 
 class Color {
 private:
@@ -21,9 +21,9 @@ private:
     double greyScale{};
     unsigned char bit{};
 public:
-    double red;
-    double green;
-    double blue;
+    double red = 0;
+    double green = 0;
+    double blue = 0;
 
     Color operator+(const Color& c1) const;
 
@@ -37,7 +37,7 @@ public:
 
     explicit Color(double);
 
-    double getIntensity() const;
+    [[nodiscard]] double getIntensity() const;
 
     inline Color operator*(const Color& b) const
     {

@@ -18,7 +18,7 @@ void Serializable::jsonify_serializable_list(std::ostream& out, const std::strin
     out << "]";
 }
 
-std::string Serializable::export_entry(const std::string& entry_name, std::list<json_entry> list)
+std::string Serializable::export_entry(const std::string& entry_name, const std::list<json_entry>& list)
 {
     std::stringstream string;
     bool isFirst = true;

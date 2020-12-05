@@ -24,7 +24,7 @@ struct RT_IntersectorResult {
   MappedTexture texture{};
   RT_RayIntersectionType type = RT_RayIntersectionType::INF;
   //TODO Add an Object to the result, so that surface characteristics are accessible
-};
+} __attribute__((aligned(128)));
 
 /**
  * @class RT_RayEnvIntersector

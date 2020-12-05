@@ -4,11 +4,11 @@
 #include <sstream>
 
 Environment::Environment(std::string name)
+        :envName(std::move(name))
 {
     allTessels = std::make_shared<std::list<Tessel>>();
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
-    this->envName = std::move(name);
 }
 
 std::shared_ptr<Camera> Environment::currCam()
@@ -112,7 +112,7 @@ void Environment::reset()
     allTMapped.clear();
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
-    int tesselResolution = 30;
+    tesselResolution = 30;
     envName = std::string{};
     backgroundColor = Color(24, 179, 220);
     allLights = std::list<Light*>{};

@@ -36,9 +36,9 @@ Abstract_Renderer* GraphicsEngine::getRenderer() {
     return this->renderer;
 }
 
-void GraphicsEngine::setRenderer(Abstract_Renderer* renderer)
+void GraphicsEngine::setRenderer(Abstract_Renderer* abstract_renderer)
 {
-    this->renderer = renderer;
+    this->renderer = abstract_renderer;
 }
 
 Environment* GraphicsEngine::currEnv()

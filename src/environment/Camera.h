@@ -49,7 +49,7 @@ public:
 
     void setViewDimensions(double width, double height);
 
-    void setDirection(Point3D origin, Point3D target);
+    void setDirection(Point3D ori, Point3D trgt);
 
     void setMode(enum camMode);
 
