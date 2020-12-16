@@ -73,7 +73,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                 this->graphicEngine->createEnvironment("default");
                 std::cout << "Initialization successful \n";
             }
-            if (tokens.size()>=2) {
+            else if (tokens.size()>=2) {
                 switch (str2int(tokens[1].c_str())) {
                 case str2int("ge"):
                     this->graphicEngine = new GraphicsEngine();
@@ -238,6 +238,28 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                         else
                             status = UNKNOWN_COMMAND;
                     }
+                    else if (tokens[1] == "background") {
+                        if (tokens[2] == "on") {
+                            graphicEngine->currEnv()->setBackgroundAppearence(true);
+                            std::cout << "Background is now on\n";
+                        }
+                        else if (tokens[2] == "off") {
+                            graphicEngine->currEnv()->setBackgroundAppearence(false);
+                            std::cout << "Background is now off\n";
+                        }
+                        else
+                            status = UNKNOWN_COMMAND;
+                    }
+                    else if (tokens[1] == "haze") {
+                        double intensity = stod(tokens[2]);
+                        if (0 <= intensity && intensity <= 1) {
+                            graphicEngine->currEnv()->setHazeIntensity(stod(tokens[2]));
+                            std::cout << "Haze intensity set to " << tokens[2] << std::endl;
+                            status = SUCCESS;
+                        }
+                        else
+                            status = FAIL;
+                    }
                 }
             }
             else {
@@ -286,7 +308,6 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                             }
                         }
                         if (!found) {
-                            //TODO Fix that shit
                             auto camera = std::make_shared<Camera>(tokens[5]);
                             camera->setDirection(Point3D(x, y, z), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
                             graphicEngine->currEnv()->addCamera(camera);

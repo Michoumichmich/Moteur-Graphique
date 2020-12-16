@@ -12,6 +12,8 @@ Supported commands :
   set
       env <environment name>
       camera
+      haze <intensity : between 0 and 1>
+      background <on/off>
       render_mode <standard/depthmap/bitmap>
       resolution <resolution>
       reflexion <on/off>
