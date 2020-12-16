@@ -119,6 +119,8 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     std::cout << i << ": " << *object << std::endl;
                     i++;
                 }
+                if (i == 0)
+                    std::cout << "No object in current environment" << std::endl;
                 status = SUCCESS;
             }
             else if (tokens[1]=="cameras") {
