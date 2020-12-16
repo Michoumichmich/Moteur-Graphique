@@ -30,14 +30,14 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
     }
 
     if (counter%200==0) {
-        printf("\rProgress : %5f %%", 100.*counter/(width*height));
+        printf("\rProgress: %3.2f %%", 100.*counter/(width*height));
         fflush(stdout);
     }
 }
 
 void RT_OutputManager::export_picture(std::string name)
 {
-    printf("\nRendering of %s done!\n", name.c_str());
+    printf("\rRendering of %s done!\n", name.c_str());
 
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
