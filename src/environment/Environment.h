@@ -21,7 +21,7 @@ private:
 public:
     std::string envName;
     Color backgroundColor = Color(135, 206, 250);
-    bool show_background_color = true;
+    bool show_background_color = false;
     Vector ambientIntensity;
     std::list<Light *> allLights;
     double haze_intensity = 0;
@@ -30,6 +30,8 @@ public:
     explicit Environment(std::string name);
 
     Environment();
+
+    void setBackgroundAppearence(bool val);
 
     std::shared_ptr<Camera> currCam();
 

@@ -127,3 +127,7 @@ std::ostream &Environment::print_objects(std::ostream &str) {
 void Environment::setHazeIntensity(double d) {
     haze_intensity = d;
 }
+
+void Environment::setBackgroundAppearence(bool val) {
+    this->show_background_color = val;
+}
