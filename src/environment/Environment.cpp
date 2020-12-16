@@ -114,13 +114,16 @@ void Environment::reset()
     cameras.push_back(currentCam);
     tesselResolution = 30;
     envName = std::string{};
-    backgroundColor = Color(24, 179, 220);
-    allLights = std::list<Light*>{};
+    allLights = std::list<Light *>{};
 }
-std::ostream& Environment::print_objects(std::ostream& str)
-{
-    for (const auto& obj : allObjects) {
+
+std::ostream &Environment::print_objects(std::ostream &str) {
+    for (const auto &obj : allObjects) {
         str << *obj << std::endl;
     }
     return str;
+}
+
+void Environment::setHazeIntensity(double d) {
+    haze_intensity = d;
 }
