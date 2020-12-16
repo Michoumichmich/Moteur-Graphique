@@ -3,11 +3,8 @@
 #include <iostream>
 
 Color::Color()
+        :colormode(colorMode::RGB), red(0), green(0), blue(0)
 {
-    red = 0;
-    blue = 0;
-    green = 0;
-    colormode = colorMode::RGB;
 }
 
 Color::Color(double r, double g, double b)

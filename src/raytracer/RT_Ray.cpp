@@ -78,7 +78,7 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
         return RT_RayOutput{ray_conf.env->backgroundColor};
     }
     //No intersection found.
-    return RT_RayOutput{Color(ray_conf.env->backgroundColor)};
+    return RT_RayOutput{ray_conf.env->backgroundColor};
 }
 
 Color RT_Ray::RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& rays, RT_RayEnvIntersector* intersector)

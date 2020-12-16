@@ -1,13 +1,13 @@
 #include "RT_RayEnvIntersector.h"
 #include <config.h>
-#include <math.h>
+#include <cmath>
 
 RT_RayEnvIntersector::RT_RayEnvIntersector(Environment* env)
 {
     this->environment = env;
 }
 
-struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D origin, Vector direction) const
+struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const Point3D origin,const Vector direction) const
 {
     Tessel closest;
     double distanceMinTessel = -1;
@@ -15,11 +15,10 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D
     double distance;
     Vector intersection = Vector();
     struct RT_IntersectorResult result;
-    std::list<Tessel*>* tessels = this->environment->getTessels();
-    std::list<Tessel*>::iterator aTessel;
-    for (aTessel = tessels->begin(); aTessel!=tessels->end(); aTessel++) {
-        if (checkForSingleIntersection(origin, direction, *aTessel, &intersection, &distance) && (distance<distanceMinTessel || distanceMinTessel<0)) {
-            closest = **aTessel;
+    std::shared_ptr<std::list<Tessel>> tessels = this->environment->getTessels();
+    for (const Tessel & aTessel : *tessels) {
+        if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance<distanceMinTessel || distanceMinTessel<0)) {
+            closest = aTessel;
             result.ortho_dist = std::sqrt(this->environment->currCam()->getCamViewCenter().dot(intersection-origin));
             distanceMinTessel = distance;
             result.tessel = closest;
@@ -43,7 +42,7 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(Point3D
  * @param distance
  * @return
  */
-bool RT_RayEnvIntersector::checkForSingleIntersection(Point3D origin, Vector dir, Tessel* tessel, Vector* intersectionPoint, double* distance)
+bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, const Vector& dir, const Tessel* tessel, Vector* intersectionPoint, double* distance)
 {
     Vector x0_orig = tessel->summmits[0]-origin;
     Vector x1_orig = tessel->summmits[1]-origin;

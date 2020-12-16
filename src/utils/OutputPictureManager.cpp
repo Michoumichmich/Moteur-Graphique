@@ -1,20 +1,10 @@
+#include <vector>
 #include "OutputPictureManager.h"
 
 OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height)
         :outFile(std::move(name)), width(width), height(height)
 {
-    allColors = (Color**) calloc(sizeof(Color*), height);
-    if (allColors!=nullptr) {
-        for (unsigned i = 0; i<height; i++) {
-            allColors[i] = (Color*) calloc(sizeof(Color), width);
-            if (allColors[i]!=nullptr) {
-                for (unsigned j = 0; j<width; j++) {
-                    allColors[i][j] = Color(0.0);
-                }
-            }
-        }
-    }
-
+    allColors = std::vector(height, std::vector<Color>(width, Color(0.0)));
 }
 
 void OutputPictureManager::writePixel(Color c, unsigned int x, unsigned int y)
@@ -49,17 +39,13 @@ void OutputPictureManager::writePixel(double d, unsigned int x, unsigned int y)
 
 OutputPictureManager::~OutputPictureManager()
 {
-    for (unsigned i = 0; i<height; i++) {
-        free(allColors[i]);
-    }
-    free(allColors);
     delete mapper;
 }
 
 void OutputPictureManager::savePicture()
 {
     FILE* f;
-    auto* img = (unsigned char*) calloc(3*width*height, sizeof(unsigned char));
+    auto img = (unsigned char*) calloc(3*width*height, sizeof(unsigned char));
     unsigned int filesize = 54+3*width*height;  //w is your image width, h is image height, both int
     unsigned int x, y;
     for (unsigned i = 0; i<width; i++) {

@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 
-set(ARCH_FLAGS "-Wall -Wextra -march=native -mtune=native  -msse -msse2 -msse4")
+set(ARCH_FLAGS "-Wall -Wextra -Winit-self -Wuninitialized -Wmissing-declarations -ansi -Woverloaded-virtual -march=native -mtune=native")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -O3 -ffast-math -DBENCHMARK")
-set(CMAKE_CXX_FLAGS_DEBUG "${ARCH_FLAGS} -DDEBUG")
-set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -O3 -ffast-math -DBENCHMARK")
+set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -O2 -flto -s -DBENCHMARK")
+set(CMAKE_CXX_FLAGS "${ARCH_FLAGS}")
+set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -Ofast -DBENCHMARK")
 
 
 include_directories(src/include)
@@ -23,7 +23,8 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/raytracer/RT_RayEnvIntersector.cpp src/raytracer/RT_RayEnvIntersector.h src/environment/MappedTexture.cpp src/environment/MappedTexture.h
         src/environment/CoordinatesHandler.cpp src/environment/CoordinatesHandler.h src/environment/RegularObjects/Cube.cpp src/environment/RegularObjects/Cube.h
         src/utils/ColorMapper.cpp src/utils/ColorMapper.h src/raytracer/RT_OutputManager.cpp src/raytracer/RT_OutputManager.h src/raytracer/RT_Commons.h
-        src/raytracer/RT_Physics.cpp src/raytracer/RT_Physics.h src/environment/Light.cpp src/environment/Light.h src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp)
+        src/raytracer/RT_Physics.cpp src/raytracer/RT_Physics.h src/environment/Light.cpp src/environment/Light.h src/utils/Chrono.hpp
+        src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp)
 
 
 if (CMAKE_CONFIGURATION_TYPES)

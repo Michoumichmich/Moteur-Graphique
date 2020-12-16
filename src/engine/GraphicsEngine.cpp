@@ -1,12 +1,15 @@
 #include "GraphicsEngine.h"
 
-#include <utility>
+#include <utils.h>
 #include <iostream>
 #include <algorithm>
 #include <sstream>
 
+
+
 void GraphicsEngine::launchRender(const std::string& outName)
 {
+    Chrono local("Rendering " + outName);
     this->currentEnv->tesselate();
     this->renderer->renderScene(outName, this->currentEnv);
 }
@@ -33,9 +36,9 @@ Abstract_Renderer* GraphicsEngine::getRenderer() {
     return this->renderer;
 }
 
-void GraphicsEngine::setRenderer(Abstract_Renderer* renderer)
+void GraphicsEngine::setRenderer(Abstract_Renderer* abstract_renderer)
 {
-    this->renderer = renderer;
+    this->renderer = abstract_renderer;
 }
 
 Environment* GraphicsEngine::currEnv()

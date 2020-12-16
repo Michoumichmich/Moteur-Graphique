@@ -9,12 +9,12 @@
  * The angle is defined in degrees (easier to work with for an end used I think).
  */
 struct transformations {
-  double scale = 1;
-  int rotX = 0;
-  int rotY = 0;
-  int rotZ = 0;
-  Point3D pt = Point3D();
-};
+  float scale = 1;
+  float rotX = 0;
+  float rotY = 0;
+  float rotZ = 0;
+  Point3D pt{};
+} __attribute__((aligned(32)));
 
 class CoordinatesHandler {
 public:

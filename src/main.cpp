@@ -10,14 +10,7 @@
 #include <graphicsEngine.h>
 #include <ui.h>
 #include <iostream>
-#include <memory>
-
-#ifdef BENCHMARK
-
-#include <chrono>
 #include "code_bits.hpp"
-
-#endif
 
 int main(int argc, char** argv)
 {
@@ -25,10 +18,18 @@ int main(int argc, char** argv)
      * Example using the CLI
      */
     CommandLineInterface cli;
-    cli.main_loop();
+   // cli.main_loop();
 
 
-    // default_test();
+ /*   std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
+    sphere->setLightIntensity(1);
+    sphere->setColor(Color(0.2, 0.0, 0.5));
+    sphere->setReflexivity(0.40);
+    auto obj = std::shared_ptr<Object>(dynamic_cast<Object*>(sphere.get()));
+    std::cout << *obj << std::endl;*/
+
+
+    default_test();
 
     exit(0);
 }

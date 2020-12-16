@@ -28,7 +28,7 @@ public:
 
     void setMaxBounces(int max);
 
-    void enableReflexions();
+    void enableReflexions() override;
 
     void enableRefractions();
 
@@ -38,7 +38,7 @@ public:
 
     void enableDepthOfField();
 
-    void disableReflexions();
+    void disableReflexions() override;
 
     void disableRefractions();
 

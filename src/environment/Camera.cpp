@@ -54,16 +54,16 @@ void Camera::setViewDimensions(double width, double height)
     UpdateBasicVectors();
 }
 
-void Camera::setDirection(Point3D origin, Point3D target)
+void Camera::setDirection(Point3D ori, Point3D trgt)
 {
-    this->origin = origin;
-    this->target = target;
+    this->origin = ori;
+    this->target = trgt;
     UpdateBasicVectors();
 }
 
-void Camera::setMode(enum camMode mode)
+void Camera::setMode(enum camMode cam_mode)
 {
-    this->mode = mode;
+    this->mode = cam_mode;
 }
 
 void Camera::setName(std::string name)

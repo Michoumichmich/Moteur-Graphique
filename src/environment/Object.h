@@ -7,6 +7,7 @@
 #include "Tessel.h"
 #include "ApparenceProperties.h"
 #include "CoordinatesHandler.h"
+#include <memory>
 
 /**
  * @class L'objet doit être crée autour ce son centre géométrique. Ie une sphère aura son centre en (0;0;0).
@@ -17,7 +18,7 @@
 class Object : public Serializable {
 protected:
     struct transformations transformations{};
-    std::list<Tessel*> tessels;
+    std::shared_ptr<std::list<Tessel>> tessels = std::make_shared<std::list<Tessel>>();
     ApparenceProperties properties;
     bool needComputeTessels = true;
 
@@ -31,7 +32,7 @@ public:
      * Also passes a copt of ApparenceProperties to child tessels
      * @return
      */
-    std::list<Tessel*> getTessels(int resolution);
+    std::shared_ptr<std::list<Tessel>> getTessels(int resolution);
 
     Object* setTransformation(struct transformations);
 
@@ -49,11 +50,11 @@ public:
 
     Object* setLightIntensity(double intensity);
 
-    std::stringstream print();
+    virtual std::ostream& print(std::ostream& str) = 0;
 
     friend std::ostream& operator<<(std::ostream&, Object&);
 
-    virtual ~Object();
+    ~Object() override;
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H
