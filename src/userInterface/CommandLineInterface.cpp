@@ -42,7 +42,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
     // TODO Replace if/else cascade by a switch
 
     switch (str2int(tokens[0].c_str())) {
-    case str2int("stop"):status = STOP_EXEC;
+    case str2int("quit"):
+    case str2int("exit"):
+    case str2int("stop"):
+        status = STOP_EXEC;
         break;
 
     case str2int("help"): {
