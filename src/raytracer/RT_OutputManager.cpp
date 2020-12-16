@@ -39,19 +39,21 @@ void RT_OutputManager::export_picture(std::string name)
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
-            if (rayOutput.distance>=0) {
-                if (config.rtMode==RT_RayRenderMode::RT_BITMAP) {
+            if (rayOutput.distance >= 0) { // If the ray hits an object
+                if (config.rtMode == RT_RayRenderMode::RT_BITMAP) {
                     pic.writePixel(rayOutput.resultColor, x, y);
-                }
-                else if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
+                } else if (config.rtMode == RT_RayRenderMode::RT_DEPTHMAP) {
                     pic.writePixel(rayOutput.resultColor, rayOutput.ortho_distance, x, y);
-                }
-                else if (config.rtMode==RT_RayRenderMode::RT_STANDARD) {
+                } else if (config.rtMode == RT_RayRenderMode::RT_STANDARD) {
                     pic.writePixel(rayOutput.resultColor, x, y);
                 }
             }
             else {
-                pic.writePixel(Color(0.0), x, y);
+                if (config.env->show_background_color) {
+                    pic.writePixel(config.env->backgroundColor, x, y);
+                } else {
+                    pic.writePixel(Color(0.0), x, y);
+                }
             }
         }
     }
@@ -61,13 +63,12 @@ void RT_OutputManager::export_picture(std::string name)
 void RT_OutputManager::apply_global_operations()
 {
     //Haze effect;
+    double haze_int = config.env->haze_intensity;
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
             if (rayOutput.distance>=0) {
-                double corrector = 0.85;
-                double dist_coef = corrector+(1-corrector)*(distance_max-rayOutput.ortho_distance)/(distance_max-distance_min);
-
+                double dist_coef = (1 - haze_int) + (haze_int) * (distance_max - rayOutput.ortho_distance) / (distance_max - distance_min);
                 if (config.rtMode==RT_RayRenderMode::RT_STANDARD) {
                     rayOutput.resultColor = rayOutput.resultColor*dist_coef+config.env->backgroundColor*(1-dist_coef);
                 }

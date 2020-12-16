@@ -54,27 +54,28 @@ static void inline default_test()
     cube_right->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)});
     gr->addObjInEnv(cube_right);
 
-    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
+    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1 / 1.42);
     sphere->setLightIntensity(1);
     sphere->setColor(Color(0.2, 0.0, 0.5));
     sphere->setReflexivity(0.40);
     gr->addObjInEnv(sphere);
 
-   for (int i = 0; i<250; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 250; i++) gr->addObjInEnv(cube_generator());
 
     auto raytracer = new RT_RayTracer();
-    raytracer->setMode(RT_RayRenderMode::RT_DEPTHMAP);
-    raytracer->setMaxBounces(5);
+    raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
+    raytracer->setMaxBounces(2);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(1001, 501);
-    cam->setViewDimensions(4, 2);
+    cam->setResolution(2001, 1001);
+    cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
     gr->currEnv()->addCamera(cam);
 
-    gr->currEnv()->setResolution(50);
+    gr->currEnv()->setResolution(40);
+    gr->currEnv()->setHazeIntensity(1);
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
     gr->launchRender("test_face.bmp");
