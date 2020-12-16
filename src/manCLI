@@ -1,0 +1,22 @@
+Supported commands :
+  help
+  stop
+  init
+      ge
+      env <environment name>
+  list
+      env
+      objects
+      cameras
+      lights
+  set
+      resolution <resolution>
+      env <environment name>
+      camera
+      reflexion <on/off>
+  add
+      <object> <x> <y> <z> <size> [<r> <g> <b>]
+      light <x> <y> <z> <intensity>
+      camera <x> <y> <z> <camera name> <x_target> <y_target> <z_target>
+  reset <environment name>
+  render <filename.bmp>

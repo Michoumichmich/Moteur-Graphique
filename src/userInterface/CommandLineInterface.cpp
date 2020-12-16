@@ -1,5 +1,6 @@
 #include "CommandLineInterface.h"
 #include <string>
+#include <fstream>
 
 void CommandLineInterface::main_loop()
 {
@@ -44,11 +45,23 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
     case str2int("stop"):status = STOP_EXEC;
         break;
 
-    case str2int("help"):
-        std::cout
-                << "Supported commands : \n help \n stop \n init ge \n init env <environment name> \n list env \n list objects \n list cameras \n list lights \n set resolution <resolution> \n set env <environment> \n set camera \n set reflexion <on/off> \n add <object> <x> <y> <z> <size> (optional :) <r> <g> <b> \n reset <environment> \n render <filename.bmp> \n";
-        status = SUCCESS;
+    case str2int("help"): {
+        std::ifstream manCLI;
+        manCLI.open("../src/manCLI");
+        std::string line;
+        if (manCLI.is_open()) {
+            while (getline(manCLI, line)) {
+                std::cout << line << "\n";
+            }
+            status = SUCCESS;
+        }
+        else {
+            std::cout << "Unable to find man";
+            status = FAIL;
+        }
+        manCLI.close();
         break;
+    }
 
     case str2int("init"):
         if (tokens.size()>=2) {
@@ -136,7 +149,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                 status = SUCCESS;
             }
             else {
-                status = MISSING_ARGS;
+                status = UNKNOWN_COMMAND;
             }
         }
         else {
@@ -235,7 +248,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                 if (tokens.size()>=9) {
                     bool found = false;
                     for (const std::string& camName : graphicEngine->currEnv()->listCameras()) {
-                        if (camName==tokens[2]) {
+                        if (camName==tokens[5]) {
                             std::cout << "Camera already exists \n";
                             found = true;
                             status = FAIL;
@@ -243,10 +256,10 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     }
                     if (!found) {
                         //TODO Fix that shit
-                        auto camera = std::make_shared<Camera>(tokens[2]);
-                        camera->setDirection(Point3D(stod(tokens[3]), stod(tokens[4]), stod(tokens[5])), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
+                        auto camera = std::make_shared<Camera>(tokens[5]);
+                        camera->setDirection(Point3D(x, y, z), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
                         graphicEngine->currEnv()->addCamera(camera);
-                        std::cout << tokens[2] << " camera added \n";
+                        std::cout << tokens[5] << " camera added \n";
                         status = SUCCESS;
                     }
                 }
