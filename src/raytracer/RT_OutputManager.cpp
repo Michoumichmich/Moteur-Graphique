@@ -18,6 +18,8 @@ RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsi
 void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsigned int y)
 {
     this->allRaysOutput[y][x] = ray;
+    static int counter = 0;
+    counter++;
 
     if ((ray.ortho_distance<distance_min || distance_min<0) && ray.ortho_distance>0) {
         distance_min = ray.ortho_distance;
@@ -27,19 +29,25 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
         distance_max = ray.ortho_distance;
     }
 
+    if (counter%200==0) {
+        printf("\rProgress : %5f %%", 100.*counter/(width*height));
+        fflush(stdout);
+    }
 }
 
 void RT_OutputManager::export_picture(std::string name)
 {
+    printf("\nRendering of %s done!\n", name.c_str());
+
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
         //pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
-        pic.setColorMapper(new ColorMapper(TOPO_LINES,config.env->backgroundColor, 0.02, 0.04));
+        pic.setColorMapper(new ColorMapper(TOPO_LINES, config.env->backgroundColor, 0.02, 0.04));
     }
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
-            if (rayOutput.distance >= 0) { // If the ray hits an object
+            if (rayOutput.distance>=0) { // If the ray hits an object
                 if (config.rtMode == RT_RayRenderMode::RT_BITMAP) {
                     pic.writePixel(rayOutput.resultColor, x, y);
                 } else if (config.rtMode == RT_RayRenderMode::RT_DEPTHMAP) {
