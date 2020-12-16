@@ -207,6 +207,25 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                         status = MISSING_ARGS;
                     }
                 }
+                else if (tokens[1] == "render_mode") {
+                    if (tokens[2] == "bitmap") {
+                        ((RT_RayTracer*)graphicEngine->getRenderer())->setMode(RT_RayRenderMode::RT_BITMAP);
+                        std::cout << "Render mode set to bitmap \n";
+                        status = SUCCESS;
+                    }
+                    else if (tokens[2] == "depthmap") {
+                        ((RT_RayTracer*)graphicEngine->getRenderer())->setMode(RT_RayRenderMode::RT_DEPTHMAP);
+                        std::cout << "Render mode set to depth map\n";
+                        status = SUCCESS;
+                    }
+                    else if (tokens[2] == "standard") {
+                        ((RT_RayTracer*)graphicEngine->getRenderer())->setMode(RT_RayRenderMode::RT_STANDARD);
+                        std::cout << "Render mode set to standard \n";
+                        status = SUCCESS;
+                    }
+                    else
+                        status = UNKNOWN_COMMAND;
+                }
             }
         }
         else {
