@@ -67,9 +67,16 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
         }
 
         case str2int("init"):
+            if (tokens.size() == 1) {;
+                this->graphicEngine = new GraphicsEngine();
+                this->graphicEngine->setRenderer(new RT_RayTracer());
+                this->graphicEngine->createEnvironment("default");
+                std::cout << "Initialization successful \n";
+            }
             if (tokens.size()>=2) {
                 switch (str2int(tokens[1].c_str())) {
-                case str2int("ge"):this->graphicEngine = new GraphicsEngine();
+                case str2int("ge"):
+                    this->graphicEngine = new GraphicsEngine();
                     this->graphicEngine->setRenderer(new RT_RayTracer());
                     std::cout << "Initialization of the graphic engine \n";
                     status = SUCCESS;

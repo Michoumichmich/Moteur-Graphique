@@ -1,6 +1,6 @@
 Supported commands :
   help
-  stop
+  stop, exit, quit
   init
       ge
       env <environment name>
@@ -10,9 +10,10 @@ Supported commands :
       cameras
       lights
   set
-      resolution <resolution>
       env <environment name>
       camera
+      render_mode <standard/depthmap/bitmap>
+      resolution <resolution>
       reflexion <on/off>
   add
       <object> <x> <y> <z> <size> [<r> <g> <b>]
