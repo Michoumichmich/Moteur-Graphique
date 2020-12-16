@@ -1,4 +1,5 @@
 #include "CommandLineInterface.h"
+#include "../code_bits.hpp"
 #include <string>
 #include <fstream>
 
@@ -407,6 +408,11 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
             }
             else
                 status = MISSING_ARGS;
+            break;
+
+        case str2int("demo"):
+            default_test();
+            status = SUCCESS;
             break;
 
         default :
