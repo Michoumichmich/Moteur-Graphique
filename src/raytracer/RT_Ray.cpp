@@ -67,13 +67,17 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
             if (this->ray_conf.bouncesLeft>0) {
                 auto rays = RT_PrepareRays(res);
                 Color child_rays_color = RT_ComputePreparedRays(rays, intersector);
-                result_color = child_rays_color*(1-this->ray_conf.intensity)+result_color*this->ray_conf.intensity*res.tessel.properties.lightIntensity;
+                result_color = result_color * (1 - res.tessel.properties.reflexivity) + child_rays_color * res.tessel.properties.reflexivity;
+
+                result_color = res.tessel.properties.color * res.tessel.properties.lightIntensity + result_color * (1 - res.tessel.properties.lightIntensity);
+
             }
+
 
             //if (result_color.green>1 || result_color.blue>1 || result_color.red>1) {std::cout << result_color;}
 
             //TODO stuff with the color, take in account phong illumin ? etc
-            return RT_RayOutput{result_color, res.intersectionPoint, res.distance, res.ortho_dist, 0.99};
+            return RT_RayOutput{result_color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
         return RT_RayOutput{ray_conf.env->backgroundColor};
     }
@@ -87,7 +91,7 @@ Color RT_Ray::RT_ComputePreparedRays(const std::list<std::shared_ptr<RT_Ray>>& r
     Color color(0);
     for (const auto& ray: rays) {
         tmp = ray->RT_ComputeRay(intersector);
-        color = color+tmp.resultColor*ray->ray_conf.intensity*tmp.intensity;
+        color = color + tmp.resultColor * ray->ray_conf.intensity * tmp.intensity;
     }
     return color;
 }
@@ -108,8 +112,8 @@ std::list<std::shared_ptr<RT_Ray>> RT_Ray::RT_PrepareRays(RT_IntersectorResult r
     if (this->ray_conf.reflexions) {
         RT_RayConfig new_config = this->ray_conf;
         new_config.bouncesLeft--;
-        new_config.intensity *= tessel_prop.reflexivity;
-        this->ray_conf.intensity *= (1-tessel_prop.reflexivity);
+        //    new_config.intensity *= tessel_prop.reflexivity;
+        //   this->ray_conf.intensity *= (1 - tessel_prop.reflexivity);
         //  std::cout << "intensity" << this->ray_conf.intensity << " child intenisty" << new_config.intensity<< std::endl;
         auto reflected = std::make_shared<RT_Ray>(result.tessel.getReflexionVector(this->dir), result.intersectionPoint, new_config);
         rays.push_back(reflected);
