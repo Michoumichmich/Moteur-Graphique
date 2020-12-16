@@ -24,3 +24,4 @@ Supported commands :
       camera <x> <y> <z> <camera name> <x_target> <y_target> <z_target>
   reset <environment name>
   render <filename.bmp>
+  demo
