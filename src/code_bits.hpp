@@ -19,11 +19,11 @@ static inline std::shared_ptr<Cube> cube_generator()
     double rand1 = (double) rand() / (double) RAND_MAX;
     double rand2 = (double) rand() / (double) RAND_MAX;
     double rand3 = (double) rand() / (double) RAND_MAX;
-    transfo.pt = Vector(-4 + rand1 * 8, -2 + rand2 * 4, -2 + rand3 * 4);
+    transfo.pt = Vector(-4 + rand1 * 4, -4 + rand2 * 8, -4 + rand3 * 8);
     cube->setTransformation(transfo);
     cube->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    cube->setLightIntensity(.1);
-    cube->setReflexivity(0.5);
+    cube->setLightIntensity(.01);
+    cube->setReflexivity(0.8);
     return cube;
 }
 
@@ -60,23 +60,23 @@ static void inline default_test()
     sphere->setReflexivity(0.8);
     gr->addObjInEnv(sphere);
 
-    for (int i = 0; i < 250; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 450; i++) gr->addObjInEnv(cube_generator());
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(4);
+    raytracer->setMaxBounces(2);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(4001, 2001);
+    cam->setResolution(5001, 2501);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
     gr->currEnv()->setResolution(20);
 
-    gr->currEnv()->setHazeIntensity(0.2);
+    gr->currEnv()->setHazeIntensity(0.3);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
     gr->currEnv()->switchCamera("Face");
