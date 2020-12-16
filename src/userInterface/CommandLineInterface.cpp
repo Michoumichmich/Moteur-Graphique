@@ -296,66 +296,80 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
 
         case str2int("add"):
             if (tokens.size()>=6) {
-                double x = stod(tokens[2]);
-                double y = stod(tokens[3]);
-                double z = stod(tokens[4]);
-                switch (str2int(tokens[1].c_str())) {
-                case str2int("sphere"): {
-                    auto sphere = std::make_shared<Sphere>(stod(tokens[5]));
-                    sphere->setCenter(Point3D(x, y, z));
-                    if (tokens.size()>=9) {
-                        Color color((int) stod(tokens[6]), (int) stod(tokens[7]), (int) stod(tokens[8]));
-                        sphere->setColor(color);
-                    }
-                    this->graphicEngine->currEnv()->addObject(sphere);
-                    std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius " << tokens[5] << " to current environment"
-                              << std::endl;
-                    break;
-                }
-                case str2int("cube"): {
-                    auto cube = std::make_shared<Cube>(stod(tokens[5]));
-                    cube->setCenter(Point3D(x, y, z));
-                    if (tokens.size()>=9) {
-                        Color color((int) stol(tokens[6]), (int) stol(tokens[7]), (int) stol(tokens[8]));
-                        cube->setColor(color);
-                    }
-                    this->graphicEngine->currEnv()->addObject(cube);
-                    std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size " << tokens[5] << " to current environment"
-                              << std::endl;
-                    break;
-                }
-                case str2int("camera") : {
-                    if (tokens.size()>=9) {
-                        bool found = false;
-                        for (const std::string& camName : graphicEngine->currEnv()->listCameras()) {
-                            if (camName==tokens[5]) {
-                                std::cout << "Camera already exists \n";
-                                found = true;
-                                status = FAIL;
-                            }
-                        }
-                        if (!found) {
-                            auto camera = std::make_shared<Camera>(tokens[5]);
-                            camera->setDirection(Point3D(x, y, z), Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
-                            graphicEngine->currEnv()->addCamera(camera);
-                            std::cout << tokens[5] << " camera added \n";
-                            status = SUCCESS;
-                        }
-                    }
-                    else
-                        status = MISSING_ARGS;
-                    break;
-                }
-                case str2int("light") : {
-                    Light* light = new Light(Vector(x, y, z), stod(tokens[5]));
-                    this->graphicEngine->currEnv()->addLight(light);
-                    std::cout << "Added light in position (" << x << ", " << y << ", " << z << ") and intensity "
-                              << tokens[5] << " to current environment" << std::endl;
-                    break;
-                }
-                default:std::cout << "The object " << tokens[1] << " doesn't exist" << std::endl;
+                if (this->graphicEngine == nullptr) {
+                    std::cout << "No graphic engine set. Initialize with init ge\n";
                     status = FAIL;
-                    break;
+                }
+                else if (this->graphicEngine->getEnvironments().empty()) {
+                    std::cout << "No environment set. Initialize with init env <environment name>\n";
+                    status = FAIL;
+                }
+                else {
+                    double x = stod(tokens[2]);
+                    double y = stod(tokens[3]);
+                    double z = stod(tokens[4]);
+                    switch (str2int(tokens[1].c_str())) {
+                        case str2int("sphere"): {
+                            auto sphere = std::make_shared<Sphere>(stod(tokens[5]));
+                            sphere->setCenter(Point3D(x, y, z));
+                            if (tokens.size() >= 9) {
+                                Color color((int) stod(tokens[6]), (int) stod(tokens[7]), (int) stod(tokens[8]));
+                                sphere->setColor(color);
+                            }
+                            this->graphicEngine->currEnv()->addObject(sphere);
+                            std::cout << "Added sphere of center (" << x << ", " << y << ", " << z << ") and radius "
+                                      << tokens[5] << " to current environment"
+                                      << std::endl;
+                            break;
+                        }
+                        case str2int("cube"): {
+                            auto cube = std::make_shared<Cube>(stod(tokens[5]));
+                            cube->setCenter(Point3D(x, y, z));
+                            if (tokens.size() >= 9) {
+                                Color color((int) stol(tokens[6]), (int) stol(tokens[7]), (int) stol(tokens[8]));
+                                cube->setColor(color);
+                            }
+                            this->graphicEngine->currEnv()->addObject(cube);
+                            std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size "
+                                      << tokens[5] << " to current environment"
+                                      << std::endl;
+                            break;
+                        }
+                        case str2int("camera") : {
+                            if (tokens.size() >= 9) {
+                                bool found = false;
+                                for (const std::string &camName : graphicEngine->currEnv()->listCameras()) {
+                                    if (camName == tokens[5]) {
+                                        std::cout << "Camera already exists \n";
+                                        found = true;
+                                        status = FAIL;
+                                    }
+                                }
+                                if (!found) {
+                                    auto camera = std::make_shared<Camera>(tokens[5]);
+                                    camera->setDirection(Point3D(x, y, z),
+                                                         Point3D(stod(tokens[6]), stod(tokens[7]), stod(tokens[8])));
+                                    graphicEngine->currEnv()->addCamera(camera);
+                                    std::cout << tokens[5] << " camera added \n";
+                                    status = SUCCESS;
+                                }
+                            } else
+                                status = MISSING_ARGS;
+                            break;
+                        }
+                        case str2int("light") : {
+                            Light *light = new Light(Vector(x, y, z), stod(tokens[5]));
+                            this->graphicEngine->currEnv()->addLight(light);
+                            std::cout << "Added light in position (" << x << ", " << y << ", " << z
+                                      << ") and intensity "
+                                      << tokens[5] << " to current environment" << std::endl;
+                            break;
+                        }
+                        default:
+                            std::cout << "The object " << tokens[1] << " doesn't exist" << std::endl;
+                            status = FAIL;
+                            break;
+                    }
                 }
             }
             else
