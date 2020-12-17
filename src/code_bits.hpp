@@ -9,6 +9,7 @@ static inline std::shared_ptr<Cube> cube_generator()
 
     double size = ((double) rand()/(double) RAND_MAX)*0.05+0.09;
 
+    double cube_light = (double) rand() / (double) RAND_MAX;
     auto cube = std::make_shared<Cube>(size);
     struct transformations transfo;
     transfo.rotX = rand() % 90;
@@ -20,15 +21,16 @@ static inline std::shared_ptr<Cube> cube_generator()
     transfo.pt = Vector(-4 + rand1 * 8, -4 + rand2 * 8, -4 + rand3 * 8);
     cube->setTransformation(transfo);
     cube->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    cube->setLightIntensity(.5);
-    cube->setReflexivity(0.8);
+    cube->setLightIntensity(cube_light);
+    cube->setReflexivity(1);
     return cube;
 }
 
-static inline std::shared_ptr<Pyramid> pyramid_generator()
-{
+static inline std::shared_ptr<Pyramid> pyramid_generator() {
 
-    double size = ((double) rand()/(double) RAND_MAX)*0.05+0.09;
+    double size = ((double) rand() / (double) RAND_MAX) * 0.05 + 0.09;
+
+    double light = (double) rand() / (double) RAND_MAX;
 
     auto pyramid = std::make_shared<Pyramid>(size);
     struct transformations transfo;
@@ -41,8 +43,8 @@ static inline std::shared_ptr<Pyramid> pyramid_generator()
     transfo.pt = Vector(-4 + rand1 * 8, -4 + rand2 * 8, -4 + rand3 * 8);
     pyramid->setTransformation(transfo);
     pyramid->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    pyramid->setLightIntensity(.5);
-    pyramid->setReflexivity(0.8);
+    pyramid->setLightIntensity(light);
+    pyramid->setReflexivity(1);
     return pyramid;
 }
 
@@ -96,11 +98,14 @@ static void inline default_test()
 
     auto planeLeft = std::make_shared<Plane>(5, 5);
     planeLeft->setColor(Color(1));
+    planeLeft->setReflexivity(0.15);
     planeLeft->setTransformation({1, 0, 90, 0, Vector(-2.5, 0, 0)});
     gr->addObjInEnv(planeLeft);
 
     auto planeRight = std::make_shared<Plane>(5, 5);
-    planeRight->setColor(Color(0));
+    planeRight->setColor(Color(0.1));
+    planeRight->setLightIntensity(0.8);
+    planeRight->setReflexivity(1);
     planeRight->setTransformation({1, 0, 90, 0, Vector(2.5, 0, 0)});
     gr->addObjInEnv(planeRight);
 
