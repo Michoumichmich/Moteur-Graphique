@@ -9,12 +9,12 @@ class RT_OutputManager {
 
 private:
     std::vector<std::vector<RT_RayOutput>> allRaysOutput;
-    RT_RayConfig config;
-    unsigned int height;
-    unsigned int width;
-    double distance_min = -1;
-    double distance_max = -1;
-
+    RT_RayConfig                           config;
+    unsigned int                           height;
+    unsigned int                           width;
+    double                                 distance_min = -1;
+    double                                 distance_max = -1;
+    int                                    counter      = 0;
 public:
     explicit RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height);
 

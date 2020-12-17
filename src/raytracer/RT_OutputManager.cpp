@@ -18,7 +18,6 @@ RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsi
 void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsigned int y)
 {
     this->allRaysOutput[y][x] = ray;
-    static int counter = 0;
     counter++;
 
     if ((ray.ortho_distance<distance_min || distance_min<0) && ray.ortho_distance>0) {
@@ -29,7 +28,7 @@ void RT_OutputManager::RT_SaveRay(struct RT_RayOutput ray, unsigned int x, unsig
         distance_max = ray.ortho_distance;
     }
 
-    if (counter%200==0) {
+    if (counter%500==0) {
         printf("\rProgress: %3.2f %%", 100.*counter/(width*height));
         fflush(stdout);
     }
