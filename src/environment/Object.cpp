@@ -25,42 +25,49 @@ Object* Object::setTransformation(struct transformations transfo)
 
 Object* Object::setCenter(Point3D center)
 {
+    needComputeTessels = true;
     transformations.pt = center;
     return this;
 }
 
 Object* Object::setColor(Color color)
 {
+    needComputeTessels = true;
     properties.color = color;
     return this;
 }
 
 Object* Object::setLightIntensity(double intensity)
 {
+    needComputeTessels = true;
     properties.lightIntensity = intensity;
     return this;
 }
 
 Object* Object::setDiffusivity(double diffusivity)
 {
+    needComputeTessels = true;
     properties.diffusivity = diffusivity;
     return this;
 }
 
 Object* Object::setReflexivity(double reflexivity)
 {
+    needComputeTessels = true;
     properties.reflexivity = reflexivity;
     return this;
 }
 
 Object* Object::setRefractiveIndex(double index)
 {
+    needComputeTessels = true;
     properties.refractiveIndex = index;
     return this;
 }
 
 Object* Object::setTransparency(double transparency)
 {
+    needComputeTessels = true;
     properties.transparency = transparency;
     return this;
 }
