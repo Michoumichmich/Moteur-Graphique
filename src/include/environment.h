@@ -11,5 +11,6 @@
 #include "../environment/RegularObjects/Sphere.h"
 #include "../environment/RegularObjects/Cube.h"
 #include "../environment/RegularObjects/Plane.h"
+#include "../environment/RegularObjects/Pyramid.h"
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H
