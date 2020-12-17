@@ -9,8 +9,6 @@ static inline std::shared_ptr<Cube> cube_generator()
 
     double size = ((double) rand()/(double) RAND_MAX)*0.05+0.09;
 
-    double cube_light = (double) rand()/(double) RAND_MAX;
-
     auto cube = std::make_shared<Cube>(size);
     struct transformations transfo;
     transfo.rotX = rand() % 90;
@@ -31,8 +29,6 @@ static inline std::shared_ptr<Pyramid> pyramid_generator()
 {
 
     double size = ((double) rand()/(double) RAND_MAX)*0.05+0.09;
-
-    double pyramid_light = (double) rand() / (double) RAND_MAX;
 
     auto pyramid = std::make_shared<Pyramid>(size);
     struct transformations transfo;
@@ -92,7 +88,7 @@ static void inline default_test()
 
     for (int i = 0; i < 300; i++) gr->addObjInEnv(cube_generator());
     for (int i = 0; i < 300; ++i) gr->addObjInEnv(pyramid_generator());
-
+c
 //    auto plane = std::make_shared<Plane>(30, 30);
 //    plane->setColor(Color(0));
 //    plane->setTransformation({1, 0, 0, 0, Vector(0, 0, -1)});

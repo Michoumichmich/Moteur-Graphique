@@ -263,9 +263,9 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     }
                     else if (tokens[1] == "object") {
                         if (tokens.size() >= 5) {
-                            if (0 <= stoi(tokens[2]) && stoi(tokens[2]) <= graphicEngine->currEnv()->getObjects().size()) {
+                            if (0 <= stoi(tokens[2]) && stoi(tokens[2]) <= (int)graphicEngine->currEnv()->getObjects().size()) {
                                 if (tokens[3] == "reflexivity") {
-                                    if (0 <= stod(tokens[4]) <= 1) {
+                                    if (0 <= stod(tokens[4])  && stod(tokens[4]) <= 1) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
                                         (*obj)->setReflexivity(stod(tokens[4]));
@@ -278,7 +278,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                                     }
                                 }
                                 else if (tokens[3] == "light_intensity") {
-                                    if (0 <= stod(tokens[4]) <= 1) {
+                                    if (0 <= stod(tokens[4]) && stod(tokens[4]) <= 1) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
                                         (*obj)->setLightIntensity(stod(tokens[4]));
@@ -294,7 +294,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                                     if (tokens.size() >= 7) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
-                                        (*obj)->setColor(Color(stod(tokens[4]), stod(tokens[5]), stod(tokens[6])));
+                                        obj->get()->setColor(Color(stod(tokens[4]), stod(tokens[5]), stod(tokens[6])));
                                         std::cout << "Object " << (*obj)->ObjectName << " color set to Color(r: " << stod(tokens[4]) << ", g: " << stod(tokens[5]) << ", b: " << stod(tokens[6]) <<")\n";
                                         status = SUCCESS;
                                     }
