@@ -20,8 +20,8 @@ static inline std::shared_ptr<Cube> cube_generator()
     double rand3 = (double) rand() / (double) RAND_MAX;
     transfo.pt = Vector(-4 + rand1 * 8, -4 + rand2 * 8, -4 + rand3 * 8);
     cube->setTransformation(transfo);
-    cube->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    cube->setLightIntensity(cube_light);
+    cube->setColor(Color(rand()%256, rand()%256, rand()%256));
+    cube->setLightIntensity(cube_light/2.+0.25);
     cube->setReflexivity(1);
     return cube;
 }
@@ -200,9 +200,12 @@ static void inline default_test2()
     gr->addObjInEnv(sphere);
 
     for (int i = 0; i<450; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i<400; ++i) gr->addObjInEnv(pyramid_generator());
 
-    auto plane = std::make_shared<Plane>(30, 30);
-    plane->setColor(Color(0));
+    auto plane = std::make_shared<Plane>(50, 50);
+    plane->setColor(Color(0.03));
+    plane->setLightIntensity(0.9);
+    plane->setReflexivity(1);
     plane->setTransformation({1, -25, 0, 0, Vector(0, 0, -1)});
     gr->addObjInEnv(plane);
 
@@ -213,20 +216,21 @@ static void inline default_test2()
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(6);
+    raytracer->setMaxBounces(4);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(2000, 1000);
+    cam->setResolution(500, 250);
     cam->setDownSamplingFactor(1);
     cam->setViewDimensions(10, 5);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
-    gr->currEnv()->setResolution(100);
-
-    gr->currEnv()->setHazeIntensity(0.4);
+    gr->currEnv()->setResolution(20);
+    gr->currEnv()->backgroundColor = Color(25, 25, 112); //Midnight
+    //gr->currEnv()->backgroundColor = Color(197, 169, 119); //GoldenHour
+    gr->currEnv()->setHazeIntensity(1);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
     gr->currEnv()->switchCamera("Face");

@@ -12,20 +12,22 @@
 
 class Environment : public Serializable {
 private:
-    std::list<std::shared_ptr<Camera>> cameras;
-    std::shared_ptr<std::list<Tessel>> allTessels;
-    std::list<std::shared_ptr<Object>> allObjects;
+    std::list<std::shared_ptr<Camera>>        cameras;
+    std::shared_ptr<std::list<Tessel>>        allTessels;
+    std::list<std::shared_ptr<Object>>        allObjects;
     std::list<std::shared_ptr<MappedTexture>> allTMapped;
-    std::shared_ptr<Camera> currentCam;
-    int tesselResolution = 30;
+    std::shared_ptr<Camera>                   currentCam;
+    int                                       tesselResolution = 30;
 public:
-    std::string envName;
-    Color backgroundColor = Color(135, 206, 250);
-    bool show_background_color = false;
-    Vector ambientIntensity;
-    std::list<Light *> allLights;
-    double haze_intensity = 0;
-
+    std::string       envName;
+    Color             backgroundColor                          = Color(135, 206, 250);
+    // Color(135, 206, 250); //Day sky
+    // Color(25, 25, 112); //Midnight
+    // Color(197, 169, 119); //GoldenHour
+    bool              show_background_color                    = false;
+    Vector            ambientIntensity;
+    std::list<Light*> allLights;
+    double            haze_intensity                           = 0;
 
     explicit Environment(std::string name);
 
