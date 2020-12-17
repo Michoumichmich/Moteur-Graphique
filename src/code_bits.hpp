@@ -20,7 +20,7 @@ static inline std::shared_ptr<Cube> cube_generator()
     transfo.pt = Vector(-4 + rand1 * 8, -4 + rand2 * 8, -4 + rand3 * 8);
     cube->setTransformation(transfo);
     cube->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    cube->setLightIntensity(.01);
+    cube->setLightIntensity(.5);
     cube->setReflexivity(0.8);
     return cube;
 }
@@ -41,7 +41,7 @@ static inline std::shared_ptr<Pyramid> pyramid_generator()
     transfo.pt = Vector(-4 + rand1 * 8, -4 + rand2 * 8, -4 + rand3 * 8);
     pyramid->setTransformation(transfo);
     pyramid->setColor(Color(rand() % 256, rand() % 256, rand() % 256));
-    pyramid->setLightIntensity(.01);
+    pyramid->setLightIntensity(.5);
     pyramid->setReflexivity(0.8);
     return pyramid;
 }
@@ -63,13 +63,13 @@ static void inline default_test()
 
     std::shared_ptr<Cube> cube_left = std::make_shared<Cube>(1);
     cube_left->setReflexivity(0.51);
-    cube_left->setLightIntensity(0);
+    cube_left->setLightIntensity(0.5);
     cube_left->setTransformation({0.5, 0, 20, 45, Vector(-1.2, 0.25, -0.25)})->setColor(Color(138, 26, 70));
     gr->addObjInEnv((cube_left));
 
     std::shared_ptr<Cube> cube_right = std::make_shared<Cube>(1);
     cube_right->setReflexivity(0.8)->setColor(Color(0, 85, 108));
-    cube_right->setLightIntensity(0);
+    cube_right->setLightIntensity(0.5);
     cube_right->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)});
     gr->addObjInEnv(cube_right);
 
@@ -128,8 +128,8 @@ static void inline default_test()
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
-    gr->currEnv()->setResolution(30);
-    gr->currEnv()->backgroundColor = Color(235, 52, 152);
+    gr->currEnv()->setResolution(80);
+    // gr->currEnv()->backgroundColor = Color(235, 52, 152);
     gr->currEnv()->setHazeIntensity(0.4);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
