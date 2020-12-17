@@ -10,7 +10,10 @@ Supported commands :
       cameras
       lights
   set
-      object <object number> reflexivity <reflexivity : between 0 and 1>
+      object <object number>
+            reflexivity <reflexivity : between 0 and 1>
+            light_intensity <light_intensity : between 0 and 1>
+            color <r> <g> <b>
       env <environment name>
       camera
       haze <intensity : between 0 and 1>
@@ -23,5 +26,5 @@ Supported commands :
       light <x> <y> <z> <intensity>
       camera <x> <y> <z> <camera name> <x_target> <y_target> <z_target>
   reset <environment name>
-  render <filename.bmp>
+  render [filename.bmp]
   demo
