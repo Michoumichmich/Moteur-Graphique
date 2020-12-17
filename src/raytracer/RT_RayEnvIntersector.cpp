@@ -17,15 +17,15 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const P
     struct RT_IntersectorResult result;
     std::shared_ptr<std::list<Tessel>> tessels = this->environment->getTessels();
     for (const Tessel & aTessel : *tessels) {
-        if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance<distanceMinTessel || distanceMinTessel<0)) {
+        if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance<distanceMinTessel || distanceMinTessel<0) && distance>MIN_RAY_LENGTH) {
             closest = aTessel;
             result.ortho_dist = std::sqrt(this->environment->currCam()->getCamViewCenter().dot(intersection-origin));
             distanceMinTessel = distance;
-            result.tessel = closest;
-            result.intersectionPoint = intersection;
-            result.distance = distance;
+            result.tessel             = closest;
+            result.intersectionPoint  = intersection;
+            result.distance           = distance;
             result.intersectsSometing = true;
-            result.type = RT_RayIntersectionType::TESSEL;
+            result.type               = RT_RayIntersectionType::TESSEL;
         }
     }
 

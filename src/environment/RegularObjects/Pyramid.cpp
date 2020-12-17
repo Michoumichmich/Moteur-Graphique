@@ -9,7 +9,7 @@ Pyramid::Pyramid(double edge) : edge(edge) {
 }
 
 void Pyramid::Tesselate(int resolution) {
-    double center_dist = (edge/2) * tan(M_PIl/6);
+    double  center_dist = (edge/2)*tan(M_PI/6);
     Point3D pt1(center_dist, -edge/2, -center_dist);
     Point3D pt2(center_dist, edge/2, -center_dist);
     Point3D pt3(-(edge*sqrt(5)/2 - center_dist), 0, -center_dist);
