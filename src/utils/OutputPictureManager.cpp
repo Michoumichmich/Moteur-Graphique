@@ -1,15 +1,15 @@
 #include <vector>
 #include "OutputPictureManager.h"
 
-OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height)
-        :outFile(std::move(name)), width(width), height(height)
+OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height, int down_sample_factor)
+        : outFile(std::move(name)), down_sample(down_sample_factor), width(width / down_sample_factor), height(height / down_sample_factor)
 {
     allColors = std::vector(height, std::vector<Color>(width, Color(0.0)));
 }
 
 void OutputPictureManager::writePixel(Color c, unsigned int x, unsigned int y)
 {
-    this->allColors[y][x] = c;
+    this->allColors[y / down_sample][x / down_sample] = this->allColors[y / down_sample][x / down_sample] + c * (1. / (down_sample * down_sample));
 }
 
 void OutputPictureManager::setColorMapper(ColorMapper* color_mapper)

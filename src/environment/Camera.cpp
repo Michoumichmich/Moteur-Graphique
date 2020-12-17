@@ -112,13 +112,15 @@ int Camera::pxHeightCount() const
     return pixel_height_count;
 }
 
-void Camera::setPixelHeightCount(int pixelHeightCount)
-{
+void Camera::setPixelHeightCount(int pixelHeightCount) {
     pixel_height_count = pixelHeightCount;
 }
 
-std::ostream& operator<<(std::ostream& out, const Camera& cam)
-{
+std::ostream &operator<<(std::ostream &out, const Camera &cam) {
     out << "Camera(" << cam.cameraName << ", " << cam.origin << ", " << cam.target << ")";
     return out;
+}
+
+void Camera::setDownSamplingFactor(int down) {
+    down_sampling = down;
 }

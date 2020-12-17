@@ -10,16 +10,18 @@
 
 class OutputPictureManager {
 private:
+
+    int down_sample = 1;
     std::string outFile;
     unsigned int width;
     unsigned int height;
-    ColorMapper* mapper = nullptr;
+    ColorMapper *mapper = nullptr;
     /**
      * allColors[height ie y][width ie x]
      */
     std::vector<std::vector<Color>> allColors;
 public :
-    OutputPictureManager(std::string name, unsigned int width, unsigned int height);
+    OutputPictureManager(std::string name, unsigned int width, unsigned int height, int down_sample_factor = 1);
 
     void writePixel(Color c, unsigned int x, unsigned int y);
 

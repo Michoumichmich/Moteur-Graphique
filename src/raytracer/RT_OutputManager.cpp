@@ -39,7 +39,7 @@ void RT_OutputManager::export_picture(std::string name)
 {
     printf("\rRendering of %s done!\n", name.c_str());
 
-    OutputPictureManager pic = OutputPictureManager(std::move(name), width, height);
+    OutputPictureManager pic = OutputPictureManager(std::move(name), width, height, config.env->currCam()->down_sampling);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
         //pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
         pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, 0.02, 0.04));
