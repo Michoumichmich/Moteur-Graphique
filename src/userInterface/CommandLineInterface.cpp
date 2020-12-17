@@ -1,6 +1,5 @@
 #include "CommandLineInterface.h"
 #include "../code_bits.hpp"
-#include "../environment/RegularObjects/Pyramid.h"
 #include <string>
 #include <fstream>
 
