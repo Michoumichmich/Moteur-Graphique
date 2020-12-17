@@ -27,6 +27,8 @@ protected:
 public:
     std::string ObjectName;
 
+    int current_frame_numer = 0;
+
     /**
      * Computes if needed the tessels and if needed moves them in the environment
      * Also passes a copt of ApparenceProperties to child tessels
@@ -34,7 +36,7 @@ public:
      */
     std::shared_ptr<std::list<Tessel>> getTessels(int resolution);
 
-    Object* setTransformation(struct transformations);
+    Object *setTransformation(struct transformations);
 
     Object* setCenter(Point3D);
 
