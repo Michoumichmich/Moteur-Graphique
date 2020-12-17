@@ -83,8 +83,8 @@ static void inline default_test()
 
     std::shared_ptr<Pyramid> pyramid_center = std::make_shared<Pyramid>(1);
     pyramid_center->setColor(Color(125, 0, 200));
-    pyramid_center->setLightIntensity(.1);
-    pyramid_center->setReflexivity(1);
+    pyramid_center->setLightIntensity(.4);
+    pyramid_center->setReflexivity(0.8);
     pyramid_center->setTransformation({2, 15, -5, 30, Vector(0, 0, 0)});
     gr->addObjInEnv(pyramid_center);
 
@@ -166,8 +166,7 @@ static void inline default_test()
 //    std::cout << ss.str() << std::endl;
 }
 
-static void inline default_test2()
-{
+static void inline default_test2() {
     /**
      * hardcoded example without the CLI
      */
@@ -193,14 +192,14 @@ static void inline default_test2()
     cube_right->setTransformation({0.5, 0, 20, 45, Vector(1.2, 0.25, -0.25)});
     gr->addObjInEnv(cube_right);
 
-    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
+    std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1 / 1.42);
     sphere->setLightIntensity(0);
     sphere->setColor(Color(0.2, 0.0, 0.5));
     sphere->setReflexivity(0.8);
     gr->addObjInEnv(sphere);
 
-    for (int i = 0; i<450; i++) gr->addObjInEnv(cube_generator());
-    for (int i = 0; i<400; ++i) gr->addObjInEnv(pyramid_generator());
+    for (int i = 0; i < 450; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 400; ++i) gr->addObjInEnv(pyramid_generator());
 
     auto plane = std::make_shared<Plane>(50, 50);
     plane->setColor(Color(0.03));
