@@ -263,7 +263,6 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     }
                     else if (tokens[1] == "object") {
                         if (tokens.size() >= 5) {
-                            std::cout << stoi(tokens[2]);
                             if (0 <= stoi(tokens[2]) && stoi(tokens[2]) <= graphicEngine->currEnv()->getObjects().size()) {
                                 if (tokens[3] == "reflexivity") {
                                     if (0 <= stod(tokens[4]) <= 1) {
