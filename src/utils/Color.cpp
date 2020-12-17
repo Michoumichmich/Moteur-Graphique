@@ -70,6 +70,7 @@ Color Color::get_color(enum builtin_colors name) {
         case builtin_colors::C_GOLDEN_HOUR:
             return Color(197, 169, 119);
     }
+    return Color();
 }
 
 
