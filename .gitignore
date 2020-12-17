@@ -17,3 +17,4 @@ main
 /cmake-build-debug-coverage/
 /cmake-build-release/
 /CMakeFiles/
+/cmake-build-benchmark/
