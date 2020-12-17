@@ -263,19 +263,54 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                     }
                     else if (tokens[1] == "object") {
                         if (tokens.size() >= 5) {
-                            std::cout << stoi(tokens[2]);
-                            if (0 <= stoi(tokens[2]) && stoi(tokens[2]) <= graphicEngine->currEnv()->getObjects().size()) {
+                            if (0 <= stoi(tokens[2]) && stoi(tokens[2]) <= (int)graphicEngine->currEnv()->getObjects().size()) {
                                 if (tokens[3] == "reflexivity") {
-                                    if (0 <= stod(tokens[4]) <= 1) {
+                                    if (0 <= stod(tokens[4])  && stod(tokens[4]) <= 1) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
-                                        (*obj)->setReflexivity(stod(tokens[4]));
+                                        obj->get()->setReflexivity(stod(tokens[4]));
+                                        std::cout << "Object " << (*obj)->ObjectName << " reflexivity set to " << stod(tokens[4]) << std::endl;
                                         status = SUCCESS;
                                     }
                                     else {
                                         std::cout << "Object reflexivity must be between 0 and 1\n";
                                         status = FAIL;
                                     }
+                                }
+                                else if (tokens[3] == "light_intensity") {
+                                    if (0 <= stod(tokens[4]) && stod(tokens[4]) <= 1) {
+                                        auto obj = graphicEngine->currEnv()->getObjects().begin();
+                                        std::advance(obj, stod(tokens[2]));
+                                        obj->get()->setLightIntensity(stod(tokens[4]));
+                                        std::cout << "Object " << (*obj)->ObjectName << " light intensity set to " << stod(tokens[4]) << std::endl;
+                                        status = SUCCESS;
+                                    }
+                                    else {
+                                        std::cout << "Object reflexivity must be between 0 and 1\n";
+                                        status = FAIL;
+                                    }
+                                }
+                                else if (tokens[3] == "color") {
+                                    if (tokens.size() >= 7) {
+                                        auto obj = graphicEngine->currEnv()->getObjects().begin();
+                                        std::advance(obj, stod(tokens[2]));
+                                        obj->get()->setColor(Color(stod(tokens[4]), stod(tokens[5]), stod(tokens[6])));
+                                        std::cout << "Object " << (*obj)->ObjectName << " color set to Color(r: " << stod(tokens[4]) << ", g: " << stod(tokens[5]) << ", b: " << stod(tokens[6]) <<")\n";
+                                        status = SUCCESS;
+                                    }
+                                    else
+                                        status = MISSING_ARGS;
+                                }
+                                else if (tokens[3] == "transform") {
+                                    if (tokens.size() >= 11) {
+                                        auto obj = graphicEngine->currEnv()->getObjects().begin();
+                                        std::advance(obj, stod(tokens[2]));
+                                        obj->get()->setTransformation({stof(tokens[4]), stof(tokens[5]), stof(tokens[6]), stof(tokens[7]), Vector(stod(tokens[8]), stod(tokens[9]), stod(tokens[10]))});
+                                        std::cout << "Object " << (*obj)->ObjectName << " transform set\n";
+                                        status = SUCCESS;
+                                    }
+                                    else
+                                        status = MISSING_ARGS;
                                 }
                                 else
                                     status = UNKNOWN_COMMAND;
@@ -415,9 +450,16 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
             break;
 
         case str2int("render"):
-            if (tokens.size()>=2) {
+            if (tokens.size() == 1) {
+                std::string name = this->graphicEngine->currEnv()->envName + ".bmp";
+                this->graphicEngine->launchRender(name);
+                std::cout << "Rendered file " << name << std::endl;
+                status = SUCCESS;
+            }
+            else if (tokens.size()>=2) {
                 this->graphicEngine->launchRender(tokens[1]);
                 std::cout << "Rendered file " << tokens[1] << std::endl;
+                status = SUCCESS;
             }
             else
                 status = MISSING_ARGS;
