@@ -41,7 +41,7 @@ void RT_OutputManager::export_picture(std::string name)
     OutputPictureManager pic = OutputPictureManager(std::move(name), width, height, config.env->currCam()->down_sampling);
     if (config.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
         //pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, distance_min, distance_max));
-        pic.setColorMapper(new ColorMapper(LINEAR, config.env->backgroundColor, 0.02, 0.04));
+        pic.setColorMapper(new ColorMapper(TOPO_LINES, config.env->backgroundColor, 0.02, 0.04));
     }
     for (unsigned int x = 0; x<width; x++) {
         for (unsigned y = 0; y<height; y++) {
@@ -75,8 +75,8 @@ void RT_OutputManager::apply_global_operations()
         for (unsigned y = 0; y<height; y++) {
             struct RT_RayOutput rayOutput = allRaysOutput[y][x];
             if (rayOutput.distance>=0) {
-                double dist_coef = (1 - haze_int) + (haze_int) * (distance_max - rayOutput.ortho_distance) / (distance_max - distance_min);
                 if (config.rtMode==RT_RayRenderMode::RT_STANDARD) {
+                    double dist_coef = (1 - haze_int) + (haze_int) * (distance_max - rayOutput.ortho_distance) / (distance_max - distance_min);
                     rayOutput.resultColor = rayOutput.resultColor*dist_coef+config.env->backgroundColor*(1-dist_coef);
                 }
             }
