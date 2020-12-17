@@ -42,7 +42,7 @@ Color::Color(double d)
 
 Color Color::invert() const
 {
-    return Color(256-red, 256-green, 256-blue);
+    return Color(1 - red, 1 - green, 1 - blue);
 }
 
 Color Color::operator+(const Color& c1) const

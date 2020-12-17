@@ -9,6 +9,7 @@
 enum class RT_RayRenderMode {
     RT_BITMAP,
     RT_DEPTHMAP,
+    RT_DEPTHMAP_BW,
     RT_STANDARD,
 };
 

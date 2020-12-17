@@ -35,12 +35,12 @@ struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector* intersector)
     struct RT_IntersectorResult res = intersector->RT_RayFindIntersection(origin, dir);
 
     /* No reflexions or whatever, we return directly the result */
-    if (ray_conf.rtMode==RT_RayRenderMode::RT_BITMAP || ray_conf.rtMode==RT_RayRenderMode::RT_DEPTHMAP) {
+    if (ray_conf.rtMode == RT_RayRenderMode::RT_BITMAP || ray_conf.rtMode == RT_RayRenderMode::RT_DEPTHMAP ||
+        ray_conf.rtMode == RT_RayRenderMode::RT_DEPTHMAP_BW) {
         /* Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc */
         if (res.intersectsSometing) {
             return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
-        }
-        else {
+        } else {
             return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
     }
