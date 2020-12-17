@@ -122,14 +122,14 @@ static void inline default_test()
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(8000, 4000);
+    cam->setResolution(2000, 1000);
     cam->setDownSamplingFactor(1);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
     gr->currEnv()->setResolution(30);
-
+    gr->currEnv()->backgroundColor = Color(235, 52, 152);
     gr->currEnv()->setHazeIntensity(0.4);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
