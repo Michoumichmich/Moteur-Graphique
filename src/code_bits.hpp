@@ -122,7 +122,7 @@ static void inline default_test()
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(5000, 2500);
+    cam->setResolution(8000, 4000);
     cam->setDownSamplingFactor(1);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
