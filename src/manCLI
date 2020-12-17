@@ -11,9 +11,10 @@ Supported commands :
       lights
   set
       object <object number>
+            transform <scale> <x_rot> <y_rot> <z_rot> <x_pos> <y_pos> <z_pos>
+            color <r> <g> <b>
             reflexivity <reflexivity : between 0 and 1>
             light_intensity <light_intensity : between 0 and 1>
-            color <r> <g> <b>
       env <environment name>
       camera
       haze <intensity : between 0 and 1>

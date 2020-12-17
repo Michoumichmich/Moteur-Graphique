@@ -268,7 +268,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                                     if (0 <= stod(tokens[4])  && stod(tokens[4]) <= 1) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
-                                        (*obj)->setReflexivity(stod(tokens[4]));
+                                        obj->get()->setReflexivity(stod(tokens[4]));
                                         std::cout << "Object " << (*obj)->ObjectName << " reflexivity set to " << stod(tokens[4]) << std::endl;
                                         status = SUCCESS;
                                     }
@@ -281,7 +281,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                                     if (0 <= stod(tokens[4]) && stod(tokens[4]) <= 1) {
                                         auto obj = graphicEngine->currEnv()->getObjects().begin();
                                         std::advance(obj, stod(tokens[2]));
-                                        (*obj)->setLightIntensity(stod(tokens[4]));
+                                        obj->get()->setLightIntensity(stod(tokens[4]));
                                         std::cout << "Object " << (*obj)->ObjectName << " light intensity set to " << stod(tokens[4]) << std::endl;
                                         status = SUCCESS;
                                     }
@@ -296,6 +296,17 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                                         std::advance(obj, stod(tokens[2]));
                                         obj->get()->setColor(Color(stod(tokens[4]), stod(tokens[5]), stod(tokens[6])));
                                         std::cout << "Object " << (*obj)->ObjectName << " color set to Color(r: " << stod(tokens[4]) << ", g: " << stod(tokens[5]) << ", b: " << stod(tokens[6]) <<")\n";
+                                        status = SUCCESS;
+                                    }
+                                    else
+                                        status = MISSING_ARGS;
+                                }
+                                else if (tokens[3] == "transform") {
+                                    if (tokens.size() >= 11) {
+                                        auto obj = graphicEngine->currEnv()->getObjects().begin();
+                                        std::advance(obj, stod(tokens[2]));
+                                        obj->get()->setTransformation({stof(tokens[4]), stof(tokens[5]), stof(tokens[6]), stof(tokens[7]), Vector(stod(tokens[8]), stod(tokens[9]), stod(tokens[10]))});
+                                        std::cout << "Object " << (*obj)->ObjectName << " transform set\n";
                                         status = SUCCESS;
                                     }
                                     else
