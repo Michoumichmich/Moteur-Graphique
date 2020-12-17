@@ -50,8 +50,8 @@ public:
     inline Vector()
             :mmvalue(_mm_setzero_ps()) { }
 
-    inline Vector(double x, double y, double z)
-            :mmvalue(_mm_set_ps(0, z, y, x)) { }
+    inline Vector(float x, float y, float z)
+            : mmvalue(_mm_set_ps(0, z, y, x)) {}
 
     inline Vector(__m128 m)
             :mmvalue(m) { }
@@ -106,47 +106,39 @@ public:
     }
 
     /// Arithmetic operators with doubles
-    inline Vector operator+(double b) const
-    {
+    inline Vector operator+(float b) const {
         return _mm_add_ps(mmvalue, _mm_set1_ps(b));
     }
 
-    inline Vector operator-(double b) const
-    {
+    inline Vector operator-(float b) const {
         return _mm_sub_ps(mmvalue, _mm_set1_ps(b));
     }
 
-    inline Vector operator*(double b) const
-    {
+    inline Vector operator*(float b) const {
         return _mm_mul_ps(mmvalue, _mm_set1_ps(b));
     }
 
-    inline Vector operator/(double b) const
-    {
+    inline Vector operator/(float b) const {
         return _mm_div_ps(mmvalue, _mm_set1_ps(b));
     }
 
-    /// Assignation and arithmetic operators with double
-    inline Vector& operator+=(double b)
-    {
+    /// Assignation and arithmetic operators with float
+    inline Vector &operator+=(float b) {
         mmvalue = _mm_add_ps(mmvalue, _mm_set1_ps(b));
         return *this;
     }
 
-    inline Vector& operator-=(double b)
-    {
+    inline Vector &operator-=(float b) {
         mmvalue = _mm_sub_ps(mmvalue, _mm_set1_ps(b));
         return *this;
     }
 
-    inline Vector& operator*=(double b)
-    {
+    inline Vector &operator*=(float b) {
         mmvalue = _mm_mul_ps(mmvalue, _mm_set1_ps(b));
         return *this;
     }
 
-    inline Vector& operator/=(double b)
-    {
+    inline Vector &operator/=(float b) {
         mmvalue = _mm_div_ps(mmvalue, _mm_set1_ps(b));
         return *this;
     }
@@ -187,14 +179,12 @@ public:
     }
 
     /// Dot product
-    [[nodiscard]] inline double dot(const Vector& b) const
-    {
+    [[nodiscard]] inline float dot(const Vector &b) const {
         return _mm_cvtss_f32(_mm_dp_ps(mmvalue, b.mmvalue, 0x71));
     }
 
     /// Length of the vector
-    [[nodiscard]] inline double length() const
-    {
+    [[nodiscard]] inline float length() const {
         return _mm_cvtss_f32(_mm_sqrt_ss(_mm_dp_ps(mmvalue, mmvalue, 0x71)));
     }
 
@@ -232,24 +222,20 @@ public:
 /**
 ** External operators that maps to the actual Vector3 method.
 */
-inline Vector operator+(double a, const Vector& b)
-{
-    return b+a;
+inline Vector operator+(float a, const Vector &b) {
+    return b + a;
 }
 
-inline Vector operator-(double a, const Vector& b)
-{
-    return Vector(_mm_set1_ps(a))-b;
+inline Vector operator-(float a, const Vector &b) {
+    return Vector(_mm_set1_ps(a)) - b;
 }
 
-inline Vector operator*(double a, const Vector& b)
-{
-    return b*a;
+inline Vector operator*(float a, const Vector &b) {
+    return b * a;
 }
 
-inline Vector operator/(double a, const Vector& b)
-{
-    return Vector(_mm_set1_ps(a))/b;
+inline Vector operator/(float a, const Vector &b) {
+    return Vector(_mm_set1_ps(a)) / b;
 }
 
 typedef Vector Point3D;

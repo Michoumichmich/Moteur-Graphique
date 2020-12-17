@@ -1,5 +1,6 @@
 #include "CommandLineInterface.h"
 #include "../code_bits.hpp"
+#include "../environment/RegularObjects/Pyramid.h"
 #include <string>
 #include <fstream>
 
@@ -331,6 +332,19 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                             }
                             this->graphicEngine->currEnv()->addObject(cube);
                             std::cout << "Added cube of center (" << x << ", " << y << ", " << z << ") and size "
+                                      << tokens[5] << " to current environment"
+                                      << std::endl;
+                            break;
+                        }
+                        case str2int("pyramid"): {
+                            auto pyramid = std::make_shared<Pyramid>(stod(tokens[5]));
+                            pyramid->setCenter(Point3D(x, y, z));
+                            if (tokens.size() >= 9) {
+                                Color color((int) stol(tokens[6]), (int) stol(tokens[7]), (int) stol(tokens[8]));
+                                pyramid->setColor(color);
+                            }
+                            this->graphicEngine->currEnv()->addObject(pyramid);
+                            std::cout << "Added pyramid of center (" << x << ", " << y << ", " << z << ") and size "
                                       << tokens[5] << " to current environment"
                                       << std::endl;
                             break;

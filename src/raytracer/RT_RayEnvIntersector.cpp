@@ -44,19 +44,19 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const P
  */
 bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, const Vector& dir, const Tessel* tessel, Vector* intersectionPoint, double* distance)
 {
-    Vector x0_orig = tessel->summmits[0]-origin;
-    Vector x1_orig = tessel->summmits[1]-origin;
-    Vector x2_orig = tessel->summmits[2]-origin;
-    double a0 = (x1_orig).cross(x2_orig).dot(dir);
-    double a1 = (x2_orig).cross(x0_orig).dot(dir);
+    Vector x0_orig = tessel->summmits[0] - origin;
+    Vector x1_orig = tessel->summmits[1] - origin;
+    Vector x2_orig = tessel->summmits[2] - origin;
+    float a0 = (x1_orig).cross(x2_orig).dot(dir);
+    float a1 = (x2_orig).cross(x0_orig).dot(dir);
 
-    if (unlikely(a0<0 && a1<0) || (a0>0 && a1>0)) {
-        double a2 = (x0_orig).cross(x1_orig).dot(dir);
+    if (unlikely(a0 < 0 && a1 < 0) || (a0 > 0 && a1 > 0)) {
+        float a2 = (x0_orig).cross(x1_orig).dot(dir);
         /**
          * There's an intersection if all ai non positive or all ai non negativs while not all null
          * We already know that a0 and a1 are of the same sign
          */
-        if ((a1>=0 && a2>=0) || (a1<=0 && a2<=0))//&& !(a0 == 0 && a1 == 0 && a2 == 0)))
+        if ((a1 >= 0 && a2 >= 0) || (a1 <= 0 && a2 <= 0))//&& !(a0 == 0 && a1 == 0 && a2 == 0)))
         {
             /**
              * Now we compute the intersection point.
