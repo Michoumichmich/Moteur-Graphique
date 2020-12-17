@@ -83,7 +83,7 @@ static void inline default_test()
 
     std::shared_ptr<Pyramid> pyramid_center = std::make_shared<Pyramid>(1);
     pyramid_center->setColor(Color(125, 0, 200));
-    pyramid_center->setLightIntensity(.4);
+    pyramid_center->setLightIntensity(.3);
     pyramid_center->setReflexivity(0.8);
     pyramid_center->setTransformation({2, 15, -5, 30, Vector(0, 0, 0)});
     gr->addObjInEnv(pyramid_center);
@@ -122,20 +122,20 @@ static void inline default_test()
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(6);
+    raytracer->setMaxBounces(10);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(2001, 1001);
-    cam->setDownSamplingFactor(1);
+    cam->setResolution(4001, 2001);
+    cam->setDownSamplingFactor(2);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
-    gr->currEnv()->setResolution(30);
+    gr->currEnv()->setResolution(50);
     gr->currEnv()->backgroundColor = Color::get_color(builtin_colors::C_MAYO_PINK);
-    gr->currEnv()->setHazeIntensity(0.4);
+    gr->currEnv()->setHazeIntensity(0.5);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
     gr->currEnv()->switchCamera("Face");
