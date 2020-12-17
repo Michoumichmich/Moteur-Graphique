@@ -32,6 +32,8 @@ La totalité. 16/13 = 123% !
 Toutes celles prévues initialement, plus :
 - Ajout de nouveaux objets
 - Barre de progression lors des rendus
+- Réduction du bruit dans les images
+- Intégration du super-sampling
 
 ## Rétrospective de l'itération précédente
 
@@ -39,7 +41,7 @@ Toutes celles prévues initialement, plus :
 
 *Quels sont les retours faits par l'équipe pendant la rétrospective? Quelles sont les actions qui ont apporté quelque chose ou non?*
 
-Malgré la charge de travail, les résultats obtenus nous ont inspiré, et nous avons ajouté 2 user stories à notre liste, qui était pourtant initialement bien dosée.
+Malgré la charge de travail, les résultats obtenus nous ont inspiré, et nous avons ajouté 4 user stories à notre liste, qui était pourtant initialement bien dosée.
 
 
 ## Confiance
