@@ -35,6 +35,11 @@ private:
     void UpdateBasicVectors();
 
 public:
+    int down_sampling = 1;
+
+    /* Scales down the final image by that factor */
+    void setDownSamplingFactor(int down);
+
     explicit Camera(std::string name);
 
     Camera(std::string name, Point3D origin, Point3D target);
