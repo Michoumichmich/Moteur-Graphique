@@ -10,6 +10,7 @@ Supported commands :
       cameras
       lights
   set
+      object <object number> reflexivity <reflexivity : between 0 and 1>
       env <environment name>
       camera
       haze <intensity : between 0 and 1>
