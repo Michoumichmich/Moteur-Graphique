@@ -15,5 +15,10 @@
 
 ### Sujet :
 
+Réalisation d'un moteur graphique
+
 ### Adresse du backlog :
 
+### Nota Bene :
+
+Un document présentant l'implémentation son utilisation est situé dans le dossier `docs`. 
