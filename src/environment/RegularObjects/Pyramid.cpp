@@ -1,7 +1,3 @@
-//
-// Created by lilian on 17/12/2020.
-//
-
 #include "Pyramid.h"
 
 Pyramid::Pyramid(double edge) : edge(edge) {

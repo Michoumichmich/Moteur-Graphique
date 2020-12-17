@@ -1,7 +1,3 @@
-//
-// Created by lilian on 15/10/2020.
-//
-
 #ifndef GRAPHICSENGINE_CUBE_H
 #define GRAPHICSENGINE_CUBE_H
 

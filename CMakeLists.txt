@@ -24,7 +24,7 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/environment/CoordinatesHandler.cpp src/environment/CoordinatesHandler.h src/environment/RegularObjects/Cube.cpp src/environment/RegularObjects/Cube.h
         src/utils/ColorMapper.cpp src/utils/ColorMapper.h src/raytracer/RT_OutputManager.cpp src/raytracer/RT_OutputManager.h src/raytracer/RT_Commons.h
         src/raytracer/RT_Physics.cpp src/raytracer/RT_Physics.h src/environment/Light.cpp src/environment/Light.h src/utils/Chrono.hpp
-        src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp src/environment/RegularObjects/Plane.cpp src/environment/RegularObjects/Plane.h src/environment/RegularObjects/Pyramid.cpp src/environment/RegularObjects/Pyramid.h)
+        src/utils/Serializable.cpp src/utils/Serializable.h src/code_bits.hpp src/environment/RegularObjects/Plane.cpp src/environment/RegularObjects/Plane.h src/environment/RegularObjects/Pyramid.cpp src/environment/RegularObjects/Pyramid.h src/environment/RegularObjects/UglySphere.cpp src/environment/RegularObjects/UglySphere.h)
 
 
 if (CMAKE_CONFIGURATION_TYPES)
