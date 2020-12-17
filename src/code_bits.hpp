@@ -88,7 +88,7 @@ static void inline default_test()
 
     for (int i = 0; i < 300; i++) gr->addObjInEnv(cube_generator());
     for (int i = 0; i < 300; ++i) gr->addObjInEnv(pyramid_generator());
-c
+
 //    auto plane = std::make_shared<Plane>(30, 30);
 //    plane->setColor(Color(0));
 //    plane->setTransformation({1, 0, 0, 0, Vector(0, 0, -1)});
