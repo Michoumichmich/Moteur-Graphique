@@ -49,14 +49,28 @@ Color Color::operator+(const Color& c1) const
 {
     return Color(this->red+c1.red, this->green+c1.green, this->blue+c1.blue);
 }
-double Color::getIntensity() const
-{
-    return sqrt(red*red+green*green+blue*blue)/sqrt(3);
+
+double Color::getIntensity() const {
+    return sqrt(red * red + green * green + blue * blue) / sqrt(3);
     //return (red+green+blue)/3;
 }
-std::ostream& operator<<(std::ostream& stream, const Color& color)
-{
+
+std::ostream &operator<<(std::ostream &stream, const Color &color) {
     return stream << "Color R: " << color.red << " G: " << color.green << " B: " << color.blue << std::endl;
 }
+
+Color Color::get_color(enum builtin_colors name) {
+    switch (name) {
+        case builtin_colors::C_MIDNIGHT:
+            return Color(25, 25, 112);
+        case builtin_colors::C_DAY_SKY:
+            return Color(135, 206, 250);
+        case builtin_colors::C_MAYO_PINK:
+            return Color(235, 52, 152);;
+        case builtin_colors::C_GOLDEN_HOUR:
+            return Color(197, 169, 119);
+    }
+}
+
 
 

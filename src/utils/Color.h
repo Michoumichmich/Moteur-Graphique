@@ -2,6 +2,7 @@
 #define GRAPHIC_ENGINE_COLOR_H
 
 #include <ostream>
+
 enum class colorMode {
     RGB,
     BLACK_AND_WHITE,
@@ -9,10 +10,19 @@ enum class colorMode {
     ALPHA_MASK
 };
 
+
+enum class builtin_colors {
+    C_MIDNIGHT,
+    C_DAY_SKY,
+    C_MAYO_PINK,
+    C_GOLDEN_HOUR
+};
+
+
 struct rgbPixel {
-  unsigned int red;
-  unsigned int green;
-  unsigned int blue;
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
 } __attribute__((aligned(16)));
 
 class Color {
@@ -25,7 +35,7 @@ public:
     double green = 0;
     double blue = 0;
 
-    Color operator+(const Color& c1) const;
+    Color operator+(const Color &c1) const;
 
     explicit Color();
 
@@ -35,13 +45,14 @@ public:
 
     Color(double, double, double);
 
+    static Color get_color(enum builtin_colors name);
+
     explicit Color(double);
 
     [[nodiscard]] double getIntensity() const;
 
-    inline Color operator*(const Color& b) const
-    {
-        return Color(red*b.red, green*b.green, blue*b.blue);
+    inline Color operator*(const Color &b) const {
+        return Color(red * b.red, green * b.green, blue * b.blue);
     };
 
     inline Color operator*(const double& b) const

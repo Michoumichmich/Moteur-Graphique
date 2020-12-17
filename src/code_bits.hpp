@@ -134,7 +134,7 @@ static void inline default_test()
 
     gr->currEnv()->addCamera(cam);
     gr->currEnv()->setResolution(30);
-    gr->currEnv()->backgroundColor = Color(235, 52, 152);
+    gr->currEnv()->backgroundColor = Color::get_color(builtin_colors::C_MAYO_PINK);
     gr->currEnv()->setHazeIntensity(0.4);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 
@@ -216,20 +216,19 @@ static void inline default_test2()
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
-    raytracer->setMaxBounces(4);
+    raytracer->setMaxBounces(5);
     gr->setRenderer(raytracer);
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(500, 250);
+    cam->setResolution(3001, 1501);
     cam->setDownSamplingFactor(1);
     cam->setViewDimensions(10, 5);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 
     gr->currEnv()->addCamera(cam);
-    gr->currEnv()->setResolution(20);
-    gr->currEnv()->backgroundColor = Color(25, 25, 112); //Midnight
-    //gr->currEnv()->backgroundColor = Color(197, 169, 119); //GoldenHour
+    gr->currEnv()->setResolution(40);
+    gr->currEnv()->backgroundColor = Color::get_color(builtin_colors::C_MIDNIGHT);
     gr->currEnv()->setHazeIntensity(1);
     gr->currEnv()->setBackgroundAppearence(true); // HERE
 

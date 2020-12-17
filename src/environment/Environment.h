@@ -12,22 +12,19 @@
 
 class Environment : public Serializable {
 private:
-    std::list<std::shared_ptr<Camera>>        cameras;
-    std::shared_ptr<std::list<Tessel>>        allTessels;
-    std::list<std::shared_ptr<Object>>        allObjects;
+    std::list<std::shared_ptr<Camera>> cameras;
+    std::shared_ptr<std::list<Tessel>> allTessels;
+    std::list<std::shared_ptr<Object>> allObjects;
     std::list<std::shared_ptr<MappedTexture>> allTMapped;
-    std::shared_ptr<Camera>                   currentCam;
-    int                                       tesselResolution = 30;
+    std::shared_ptr<Camera> currentCam;
+    int tesselResolution = 30;
 public:
-    std::string       envName;
-    Color             backgroundColor                          = Color(135, 206, 250);
-    // Color(135, 206, 250); //Day sky
-    // Color(25, 25, 112); //Midnight
-    // Color(197, 169, 119); //GoldenHour
-    bool              show_background_color                    = false;
-    Vector            ambientIntensity;
-    std::list<Light*> allLights;
-    double            haze_intensity                           = 0;
+    std::string envName;
+    Color backgroundColor = Color::get_color(builtin_colors::C_DAY_SKY);
+    bool show_background_color = false;
+    Vector ambientIntensity;
+    std::list<Light *> allLights;
+    double haze_intensity = 0;
 
     explicit Environment(std::string name);
 
@@ -56,17 +53,17 @@ public:
 
     void tesselate();
 
-    void addObject(const std::shared_ptr<Object>& obj);
+    void addObject(const std::shared_ptr<Object> &obj);
 
-    void serialize(std::stringstream& stream) override;
+    void serialize(std::stringstream &stream) override;
 
-    void deserialize(std::istream& stream) override;
+    void deserialize(std::istream &stream) override;
 
     [[nodiscard]] int getResolution() const;
 
     void setResolution(int n);
 
-    std::ostream& print_objects(std::ostream& str);
+    std::ostream &print_objects(std::ostream &str);
 
     void reset();
 };
