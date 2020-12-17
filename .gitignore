@@ -12,3 +12,8 @@ main
 /src/Moteur-Graphique.vcxproj.filters
 /src/Moteur-Graphique.vcxproj.user
 
+/CMakeFiles/
+/cmake-build-debug/
+/cmake-build-debug-coverage/
+/cmake-build-release/
+/CMakeFiles/
