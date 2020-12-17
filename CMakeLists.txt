@@ -3,7 +3,7 @@ project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 
-set(ARCH_FLAGS "-Wall -Wextra -Winit-self -Wuninitialized -Wmissing-declarations -ansi -Woverloaded-virtual -march=native -mtune=native")
+set(ARCH_FLAGS "-Wall -Wextra -Winit-self -Wuninitialized -Wmissing-declarations -ansi -Woverloaded-virtual -march=native -mtune=native -msse4.1")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -Ofast -flto -s -DBENCHMARK")
 set(CMAKE_CXX_FLAGS "${ARCH_FLAGS}")
