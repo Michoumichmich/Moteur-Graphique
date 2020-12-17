@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 /cmake-build-debug/
+/cmake-build-release/
 /misc/business_card/test.ppm
 /misc/business_card/card
 misc/business_card/cmake-build-debug/
@@ -10,4 +11,4 @@ main
 /src/Moteur-Graphique.vcxproj
 /src/Moteur-Graphique.vcxproj.filters
 /src/Moteur-Graphique.vcxproj.user
-/src/test.bmp
+
