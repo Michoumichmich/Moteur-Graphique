@@ -60,18 +60,23 @@ static void inline default_test()
     sphere->setReflexivity(0.8);
     gr->addObjInEnv(sphere);
 
-    for (int i = 0; i<450; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 450; i++) gr->addObjInEnv(cube_generator());
 
     auto plane = std::make_shared<Plane>(30, 30);
     plane->setColor(Color(0));
     plane->setTransformation({1, -25, 0, 0, Vector(0, 0, -1)});
     gr->addObjInEnv(plane);
 
-    auto plane_left = std::make_shared<Plane>(30, 30);
-    plane_left->setColor(Color(1));
-    //  plane_left->setReflexivity(1);
-    plane_left->setTransformation({1, -25, 0, 0, Vector(0, 5, 5)});
-    gr->addObjInEnv(plane_left);
+    auto plane_top = std::make_shared<Plane>(30, 30);
+    plane_top->setColor(Color(1));
+    plane_top->setTransformation({1, -25, 0, 0, Vector(0, 10, 10)});
+    gr->addObjInEnv(plane_top);
+
+    auto plane_right = std::make_shared<Plane>(30, 30);
+    plane_right->setColor(Color(0.9));
+    plane_right->setReflexivity(0.5);
+    plane_right->setTransformation({1, 0, 90, 0, Vector(10, 5, 5)});
+    gr->addObjInEnv(plane_right);
 
     auto raytracer = new RT_RayTracer();
     raytracer->setMode(RT_RayRenderMode::RT_STANDARD);
@@ -80,7 +85,7 @@ static void inline default_test()
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(5001, 2501);
+    cam->setResolution(501, 251);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
 

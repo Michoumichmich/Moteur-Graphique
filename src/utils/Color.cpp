@@ -21,16 +21,16 @@ struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const
 {
     int factor = (int) pow(2, bitDepth)-1;
     int r = (int) (red*factor);
-    r = r>factor ? factor : r;
-    r = r<0 ? 0 : r;
+    r = r >= factor ? factor : r;
+    r = r < 0 ? 0 : r;
 
     int g = (int) (green*factor);
-    g = g>factor ? factor : g;
-    g = g<0 ? 0 : g;
+    g = g >= factor ? factor : g;
+    g = g < 0 ? 0 : g;
 
     int b = (int) (blue*factor);
-    b = b>factor ? factor : b;
-    b = b<0 ? 0 : b;
+    b = b >= factor ? factor : b;
+    b = b < 0 ? 0 : b;
 
     return rgbPixel{(unsigned int) (r), (unsigned int) (g), (unsigned int) (b)};
 }
