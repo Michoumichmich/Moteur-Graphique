@@ -48,25 +48,24 @@ class __attribute__((aligned (16))) Vector
 public:
     /// Constructors
     inline Vector()
-            :mmvalue(_mm_setzero_ps()) { }
+            : mmvalue(_mm_setzero_ps()) {}
 
-    inline Vector(float x, float y, float z)
-            : mmvalue(_mm_set_ps(0, z, y, x)) {}
+
+    inline Vector(double x, double y, double z)
+            : mmvalue(_mm_set_ps(0, static_cast<float>(z), static_cast<float>(y), static_cast<float>(x))) {}
 
     inline Vector(__m128 m)
-            :mmvalue(m) { }
+            : mmvalue(m) {}
 
     inline Vector(Vector vector1, Vector vector2)
-            :Vector(vector2-vector1) { };
+            : Vector(vector2 - vector1) {};
 
 /// Arithmetic operators with Vector3
-    inline Vector operator+(const Vector& b) const
-    {
+    inline Vector operator+(const Vector &b) const {
         return _mm_add_ps(mmvalue, b.mmvalue);
     }
 
-    inline Vector operator-(const Vector& b) const
-    {
+    inline Vector operator-(const Vector &b) const {
         return _mm_sub_ps(mmvalue, b.mmvalue);
     }
 

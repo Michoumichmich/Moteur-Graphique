@@ -1,7 +1,3 @@
-//
-// Created by lilian on 17/12/2020.
-//
-
 #ifndef GRAPHICSENGINE_PYRAMID_H
 #define GRAPHICSENGINE_PYRAMID_H
 

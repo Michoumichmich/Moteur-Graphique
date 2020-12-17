@@ -1,7 +1,3 @@
-//
-// Created by lilian on 15/10/2020.
-//
-
 #include "Cube.h"
 #include <sstream>
 

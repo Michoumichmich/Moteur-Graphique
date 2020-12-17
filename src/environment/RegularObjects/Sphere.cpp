@@ -1,7 +1,3 @@
-//
-// Created by michel on 11/10/2020.
-//
-
 #include "Sphere.h"
 #include <cmath>
 #include <sstream>

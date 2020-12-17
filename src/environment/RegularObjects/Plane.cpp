@@ -1,7 +1,3 @@
-//
-// Created by michel on 17/12/2020.
-//
-
 #include "Plane.h"
 
 Plane::Plane(double x, double y)
