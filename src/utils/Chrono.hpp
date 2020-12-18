@@ -3,14 +3,16 @@
 
 #include <string>
 #include <chrono>
+#include <iostream>
+
 
 class Chrono {
 public:
     inline Chrono();
 
-    inline explicit Chrono(const std::string&& caller_name);
+    inline explicit Chrono(const std::string &&caller_name);
 
-    inline Chrono(const Chrono&) = delete;
+    inline Chrono(const Chrono &) = delete;
 
     Chrono& operator=(const Chrono&) = delete;
 
