@@ -51,7 +51,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
 
         case str2int("help"): {
             std::ifstream manCLI;
-            manCLI.open("../src/manCLI");
+            manCLI.open("../src/userInterface/manCLI");
             std::string line;
             if (manCLI.is_open()) {
                 while (getline(manCLI, line)) {
@@ -407,7 +407,7 @@ void CommandLineInterface::ExecuteArray(const std::vector<std::string>& tokens, 
                             break;
                         }
                         case str2int("light") : {
-                            Light *light = new Light(Vector(x, y, z), stod(tokens[5]));
+                            auto *light = new Light(Vector(x, y, z), stod(tokens[5]));
                             this->graphicEngine->currEnv()->addLight(light);
                             std::cout << "Added light in position (" << x << ", " << y << ", " << z
                                       << ") and intensity "

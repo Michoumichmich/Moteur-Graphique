@@ -31,7 +31,7 @@ enum command_exec_status {
  */
 class CommandLineInterface {
 private:
-    GraphicsEngine* graphicEngine;
+    GraphicsEngine *graphicEngine{};
 
     static std::vector<std::string> ParseToArray(const std::string& input, enum command_exec_status& status);
 
