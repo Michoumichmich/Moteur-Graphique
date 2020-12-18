@@ -10,9 +10,8 @@
 
 class OutputPictureManager {
 private:
-
-    int down_sample = 1;
     std::string outFile;
+    int down_sample = 1;
     unsigned int width;
     unsigned int height;
     ColorMapper *mapper = nullptr;
