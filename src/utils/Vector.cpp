@@ -24,9 +24,9 @@ void free_simd(void* v)
 
 std::ostream& operator<<(std::ostream& os, const Vector& v)
 {
-    os << "Vector(" << v.x << ", "
-       << v.y << ", "
-       << v.z << ")";
+    os << "Vector(" << v.x() << ", "
+       << v.y() << ", "
+       << v.z() << ")";
     return os;
 }
 

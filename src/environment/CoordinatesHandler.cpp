@@ -6,14 +6,14 @@ Point3D CoordinatesHandler::fromLocalToGlobal(Point3D local, struct transformati
     /**
      * Scaling of the point. Makes sense given that the figure's center is in 0.0.0
      */
-    Vector vec = local*transformations.scale;
+    Vector vec = local * transformations.scale;
 
     /**
      * Now the rotations : their order is important
      */
-    rotate(&vec.y, &vec.z, transformations.rotX);
-    rotate(&vec.x, &vec.z, transformations.rotY);
-    rotate(&vec.x, &vec.y, transformations.rotZ);
+    rotate(&vec.y(), &vec.z(), transformations.rotX);
+    rotate(&vec.x(), &vec.z(), transformations.rotY);
+    rotate(&vec.x(), &vec.y(), transformations.rotZ);
 
     /**
      * Translation in the world

@@ -5,9 +5,7 @@
 #include <memory>
 
 static inline std::shared_ptr<Cube> cube_generator() {
-
     double size = ((double) rand() / (double) RAND_MAX) * 0.05 + 0.09;
-
     double cube_light = (double) rand() / (double) RAND_MAX;
     auto cube = std::make_shared<Cube>(size);
     struct transformations transfo;
@@ -26,11 +24,8 @@ static inline std::shared_ptr<Cube> cube_generator() {
 }
 
 static inline std::shared_ptr<Pyramid> pyramid_generator() {
-
     double size = ((double) rand() / (double) RAND_MAX) * 0.05 + 0.09;
-
     double light = (double) rand() / (double) RAND_MAX;
-
     auto pyramid = std::make_shared<Pyramid>(size);
     struct transformations transfo;
     transfo.rotX = rand() % 90;

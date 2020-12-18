@@ -25,7 +25,7 @@ static const __m128 SIGNMASK = _mm_castsi128_ps(_mm_set1_epi32(0x80000000));
 ** \param size Size of the memory chunk to allocate in bytes.
 ** \return A pointer to the newly aligned memory, or nullptr.
 */
-void* malloc_simd(const size_t size);
+void *malloc_simd(size_t size);
 
 /**
 ** 16-bytes aligned memory free function.
@@ -160,12 +160,11 @@ public:
     // Note: there is not bound checking here.
     inline const float& operator[](const int i) const
     {
-        return i==0 ? this->x : (i==1 ? this->y : this->z);
+        return i == 0 ? this->p.x : (i == 1 ? this->p.y : this->p.z);
     }
 
-    inline float& operator[](const int i)
-    {
-        return i==0 ? this->x : (i==1 ? this->y : this->z);
+    inline float operator[](const int i) {
+        return i == 0 ? this->p.x : (i == 1 ? this->p.y : this->p.z);
     }
 
     /// Cross product
@@ -201,20 +200,36 @@ public:
         return malloc_simd(x);
     }
 
-    inline void operator delete[](void* x)
-    {
+    inline void operator delete[](void *x) {
         if (x) free_simd(x);
     }
 
     /// Textual representation
-    friend std::ostream& operator<<(std::ostream& os, const Vector& t);
+    friend std::ostream &operator<<(std::ostream &os, const Vector &t);
 
     /// Direct access member variables.
-    union {
-      struct {
+
+    struct pts {
         float x, y, z;
-      };
-      __m128 mmvalue;
+    };
+
+
+    [[nodiscard]] inline float &x() { return p.x; }
+
+    [[nodiscard]] inline float &y() { return p.y; }
+
+    [[nodiscard]] inline float &z() { return p.z; }
+
+    [[nodiscard]] inline float x() const { return p.x; }
+
+    [[nodiscard]] inline float y() const { return p.y; }
+
+    [[nodiscard]] inline float z() const { return p.z; }
+
+
+    union {
+        struct pts p;
+        __m128 mmvalue;
     };
 };
 
