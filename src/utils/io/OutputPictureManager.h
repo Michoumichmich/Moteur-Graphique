@@ -2,11 +2,11 @@
 #define GRAPHIC_ENGINE_OUTPUTPICTUREMANAGER_H
 
 #include <string>
-#include "Color.h"
+#include "../Color.h"
 #include <config.h>
 #include <list>
 #include <vector>
-#include "ColorMapper.h"
+#include "../ColorMapper.h"
 
 class OutputPictureManager {
 private:

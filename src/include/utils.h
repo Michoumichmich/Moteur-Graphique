@@ -3,7 +3,7 @@
 
 #include "../utils/Vector.h"
 #include "../utils/Color.h"
-#include "../utils/OutputPictureManager.h"
+#include "../utils/io/OutputPictureManager.h"
 #include "../utils/ColorMapper.h"
 #include "../utils/Serializable.h"
 #include "../utils/Chrono.hpp"

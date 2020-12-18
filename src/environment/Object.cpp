@@ -1,6 +1,7 @@
 #include <memory>
 #include "Object.h"
 
+
 std::shared_ptr<std::list<Tessel>> Object::getTessels(int resolution)
 {
     if (needComputeTessels) {
