@@ -14,7 +14,7 @@ public:
 
     inline Chrono(const Chrono &) = delete;
 
-    Chrono& operator=(const Chrono&) = delete;
+    Chrono &operator=(const Chrono &) = delete;
 
     inline double stop();
 
@@ -31,30 +31,26 @@ private:
 };
 
 inline Chrono::Chrono()
-        :start(std::chrono::high_resolution_clock::now()) { }
+        : start(std::chrono::high_resolution_clock::now()) {}
 
-inline Chrono::~Chrono()
-{
+inline Chrono::~Chrono() {
     double elapsed_seconds = Chrono::stop();
     if (!caller.empty()) {
         std::cerr << "time in " << caller << " : " << elapsed_seconds << "s" << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "time " << elapsed_seconds << "s" << std::endl;
     }
 }
 
-inline Chrono::Chrono(const std::string&& caller_name)
-        :Chrono()
-{
+inline Chrono::Chrono(const std::string &&caller_name)
+        : Chrono() {
     caller = std::move(caller_name);
 }
 
-inline double Chrono::stop()
-{
-    auto end      = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
-    return static_cast<double>(duration.count())/1000000.0;
+inline double Chrono::stop() {
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    return static_cast<double>(duration.count()) / 1000000.0;
 }
 
 #endif

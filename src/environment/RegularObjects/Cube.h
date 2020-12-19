@@ -11,11 +11,11 @@ public:
 
     void Tesselate(int resolution) override;
 
-    void serialize(std::stringstream& stream) override;
+    void serialize(std::stringstream &stream) override;
 
-    void deserialize(std::istream& stream) override;
+    void deserialize(std::istream &stream) override;
 
-    std::ostream& print(std::ostream& str) override;
+    std::ostream &print(std::ostream &str) override;
 };
 
 #endif //GRAPHICSENGINE_CUBE_H

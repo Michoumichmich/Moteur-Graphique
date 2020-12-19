@@ -13,6 +13,9 @@
 #include "../environment/RegularObjects/Plane.h"
 #include "../environment/RegularObjects/Pyramid.h"
 #include "../environment/RegularObjects/UglySphere.h"
+#include "../environment/RegularObjects/PlyObject.h"
+#include "../environment/Animated.h"
+#include "../environment/Meshes/MeshObject.h"
 
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H

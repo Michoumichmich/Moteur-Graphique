@@ -38,23 +38,23 @@ public:
 
     Object *setTransformation(struct transformations);
 
-    Object* setCenter(Point3D);
+    Object *setCenter(Point3D);
 
-    Object* setColor(Color color);
+    Object *setColor(Color color);
 
-    Object* setTransparency(double transparency);
+    Object *setTransparency(double transparency);
 
-    Object* setRefractiveIndex(double index);
+    Object *setRefractiveIndex(double index);
 
-    Object* setReflexivity(double reflexivity);
+    Object *setReflexivity(double reflexivity);
 
-    Object* setDiffusivity(double diffusivity);
+    Object *setDiffusivity(double diffusivity);
 
-    Object* setLightIntensity(double intensity);
+    Object *setLightIntensity(double intensity);
 
-    virtual std::ostream& print(std::ostream& str) = 0;
+    virtual std::ostream &print(std::ostream &str) = 0;
 
-    friend std::ostream& operator<<(std::ostream&, Object&);
+    friend std::ostream &operator<<(std::ostream &, Object &);
 
     ~Object() override;
 };

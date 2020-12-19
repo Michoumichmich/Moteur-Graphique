@@ -5,8 +5,8 @@
 #include <string>
 
 enum camMode {
-  PERSPECTIVE,
-  ORTHOGRAPHIC
+    PERSPECTIVE,
+    ORTHOGRAPHIC
 };
 
 class Camera {
@@ -78,7 +78,7 @@ public:
 
     void setPixelHeightCount(int pixelHeightCount);
 
-    friend std::ostream& operator<<(std::ostream&, const Camera&);
+    friend std::ostream &operator<<(std::ostream &, const Camera &);
 };
 
 #endif //GRAPHIC_ENGINE_CAMERA_H

@@ -4,99 +4,83 @@
 #include <sstream>
 
 Environment::Environment(std::string name)
-        :envName(std::move(name))
-{
+        : envName(std::move(name)) {
     allTessels = std::make_shared<std::list<Tessel>>();
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
 }
 
-std::shared_ptr<Camera> Environment::currCam()
-{
+std::shared_ptr<Camera> Environment::currCam() {
     return currentCam;
 }
 
-std::shared_ptr<std::list<Tessel>> Environment::getTessels()
-{
+std::shared_ptr<std::list<Tessel>> Environment::getTessels() {
     return this->allTessels;
 }
 
-std::list<std::shared_ptr<Object>> Environment::getObjects()
-{
+std::list<std::shared_ptr<Object>> Environment::getObjects() {
     return this->allObjects;
 }
 
-std::list<std::shared_ptr<Camera>> Environment::getCameras()
-{
+std::list<std::shared_ptr<Camera>> Environment::getCameras() {
     return this->cameras;
 }
 
-void Environment::addObject(const std::shared_ptr<Object>& obj)
-{
+void Environment::addObject(const std::shared_ptr<Object> &obj) {
     this->allObjects.push_back(obj);
 }
 
-std::list<std::string> Environment::listCameras()
-{
+std::list<std::string> Environment::listCameras() {
     std::list<std::string> out;
-    for (auto const& it : cameras) {
+    for (auto const &it : cameras) {
         out.push_back(it->getName());
     }
     return out;
 }
 
-void Environment::tesselate()
-{
-  allTessels->clear();
-  for (const std::shared_ptr<Object>& object : allObjects) {
+void Environment::tesselate() {
+    allTessels->clear();
+    for (const std::shared_ptr<Object> &object : allObjects) {
         std::shared_ptr<std::list<Tessel>> tmp = object->getTessels(tesselResolution);
-        for(const Tessel &tessel: *tmp){
-           allTessels->push_back(tessel);
+        for (const Tessel &tessel: *tmp) {
+            allTessels->push_back(tessel);
         }
     }
 }
 
-Environment::Environment()
-{
+Environment::Environment() {
     allTessels = std::make_shared<std::list<Tessel>>(0);
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
 }
 
-void Environment::setResolution(int n)
-{
-    tesselResolution = n>=20 ? n : 20;
+void Environment::setResolution(int n) {
+    tesselResolution = n >= 20 ? n : 20;
 }
 
-int Environment::getResolution() const
-{
+int Environment::getResolution() const {
     return tesselResolution;
 }
 
-void Environment::serialize(std::stringstream& stream)
-{
+void Environment::serialize(std::stringstream &stream) {
     Serialize_Serializable_List(stream, "Environment", allObjects);
 }
 
-void Environment::deserialize(std::istream& stream)
-{
+void Environment::deserialize(std::istream &stream) {
 
 }
 
-void Environment::addCamera(const std::shared_ptr<Camera>& cam)
-{
+void Environment::addCamera(const std::shared_ptr<Camera> &cam) {
     cameras.push_back(cam);
 }
 
-void Environment::addLight(Light* light)
-{
+void Environment::addLight(Light *light) {
     allLights.push_back(light);
 }
 
-bool Environment::switchCamera(const std::string& camName)
-{
-    for (auto const& it : cameras) {
-        if (it->getName()==camName) {
+bool Environment::switchCamera(const std::string &camName) {
+    for (auto const &it : cameras) {
+        if (it->getName() == camName) {
             this->currentCam = it;
             return true;
         }
@@ -104,8 +88,7 @@ bool Environment::switchCamera(const std::string& camName)
     return false;
 }
 
-void Environment::reset()
-{
+void Environment::reset() {
     cameras.clear();
     allTessels->clear();
     allObjects.clear();

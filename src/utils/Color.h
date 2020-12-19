@@ -47,6 +47,8 @@ public:
 
     static Color get_color(enum builtin_colors name);
 
+    Color(enum builtin_colors);
+
     explicit Color(double);
 
     [[nodiscard]] double getIntensity() const;
@@ -55,9 +57,8 @@ public:
         return Color(red * b.red, green * b.green, blue * b.blue);
     };
 
-    inline Color operator*(const double& b) const
-    {
-        return Color(b*red, b*green, b*blue);
+    inline Color operator*(const double &b) const {
+        return Color(b * red, b * green, b * blue);
     }
 
     /**
@@ -67,7 +68,7 @@ public:
      */
     [[nodiscard]] struct rgbPixel getPixelValues(unsigned int bitDepth) const;
 
-    friend std::ostream& operator<<(std::ostream& stream, const Color& color);
+    friend std::ostream &operator<<(std::ostream &stream, const Color &color);
 
 };
 

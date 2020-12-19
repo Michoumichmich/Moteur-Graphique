@@ -2,13 +2,11 @@
 #include <config.h>
 #include <cmath>
 
-RT_RayEnvIntersector::RT_RayEnvIntersector(Environment* env)
-{
+RT_RayEnvIntersector::RT_RayEnvIntersector(Environment *env) {
     this->environment = env;
 }
 
-struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const Point3D origin,const Vector direction) const
-{
+struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const Point3D origin, const Vector direction) const {
     Tessel closest;
     double distanceMinTessel = -1;
     double distanceMinTexture = -1;
@@ -16,16 +14,16 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const P
     Vector intersection = Vector();
     struct RT_IntersectorResult result;
     std::shared_ptr<std::list<Tessel>> tessels = this->environment->getTessels();
-    for (const Tessel & aTessel : *tessels) {
-        if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance<distanceMinTessel || distanceMinTessel<0) && distance>MIN_RAY_LENGTH) {
+    for (const Tessel &aTessel : *tessels) {
+        if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0) && distance > MIN_RAY_LENGTH) {
             closest = aTessel;
-            result.ortho_dist = std::sqrt(this->environment->currCam()->getCamViewCenter().dot(intersection-origin));
+            result.ortho_dist = std::sqrt(this->environment->currCam()->getCamViewCenter().dot(intersection - origin));
             distanceMinTessel = distance;
-            result.tessel             = closest;
-            result.intersectionPoint  = intersection;
-            result.distance           = distance;
+            result.tessel = closest;
+            result.intersectionPoint = intersection;
+            result.distance = distance;
             result.intersectsSometing = true;
-            result.type               = RT_RayIntersectionType::TESSEL;
+            result.type = RT_RayIntersectionType::TESSEL;
         }
     }
 
@@ -42,8 +40,7 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const P
  * @param distance
  * @return
  */
-bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, const Vector& dir, const Tessel* tessel, Vector* intersectionPoint, double* distance)
-{
+bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, const Vector &dir, const Tessel *tessel, Vector *intersectionPoint, double *distance) {
     Vector x0_orig = tessel->summmits[0] - origin;
     Vector x1_orig = tessel->summmits[1] - origin;
     Vector x2_orig = tessel->summmits[2] - origin;
@@ -61,13 +58,13 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, con
             /**
              * Now we compute the intersection point.
              */
-            Vector intersection = (tessel->summmits[0]*a0+tessel->summmits[1]*a1+tessel->summmits[2]*a2)/(a0+a1+a2);
+            Vector intersection = (tessel->summmits[0] * a0 + tessel->summmits[1] * a1 + tessel->summmits[2] * a2) / (a0 + a1 + a2);
             /**
              * To check wether the vectors are in the right direction
              */
-            if (likely((intersection-origin).dot(dir)>=0)) {
+            if (likely((intersection - origin).dot(dir) >= 0)) {
                 *intersectionPoint = intersection;
-                *distance = (origin-intersection).length();
+                *distance = (origin - intersection).length();
                 return true;
             }
         }

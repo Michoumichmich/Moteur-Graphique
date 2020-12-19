@@ -16,13 +16,13 @@
  * Various exec status that could appear during execution
  */
 enum command_exec_status {
-  STOP_EXEC = 0,
-  SUCCESS = 1,
-  FAIL = 2,
-  UNRECOVERABLE_ERROR = 3,
-  UNKNOWN_COMMAND = 4,
-  NO_COMMAND = 5,
-  MISSING_ARGS = 6
+    STOP_EXEC = 0,
+    SUCCESS = 1,
+    FAIL = 2,
+    UNRECOVERABLE_ERROR = 3,
+    UNKNOWN_COMMAND = 4,
+    NO_COMMAND = 5,
+    MISSING_ARGS = 6
 };
 
 /**
@@ -33,11 +33,11 @@ class CommandLineInterface {
 private:
     GraphicsEngine *graphicEngine{};
 
-    static std::vector<std::string> ParseToArray(const std::string& input, enum command_exec_status& status);
+    static std::vector<std::string> ParseToArray(const std::string &input, enum command_exec_status &status);
 
-    void ExecuteArray(const std::vector<std::string>& tokens, enum command_exec_status& status);
+    void ExecuteArray(const std::vector<std::string> &tokens, enum command_exec_status &status);
 
-    static void ErrorHandler(enum command_exec_status&);
+    static void ErrorHandler(enum command_exec_status &);
 
 public:
     CommandLineInterface();

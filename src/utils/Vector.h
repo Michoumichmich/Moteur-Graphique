@@ -10,6 +10,7 @@
 #if __APPLE__
 
 # include <cstdlib>
+#include <array>
 
 #else
 
@@ -32,7 +33,7 @@ void *malloc_simd(size_t size);
 ** \param v Memory pointer to free, which must have been allocated using
 ** malloc_simd.
 */
-void free_simd(void* v);
+void free_simd(void *v);
 
 
 /**
@@ -57,8 +58,10 @@ public:
     inline Vector(__m128 m)
             : mmvalue(m) {}
 
-    inline Vector(Vector vector1, Vector vector2)
-            : Vector(vector2 - vector1) {};
+    inline Vector(Vector vector1, Vector vector2) : Vector(vector2 - vector1) {};
+
+    inline Vector(std::array<double, 3> v) : Vector(v[0], v[1], v[2]) {}
+
 
 /// Arithmetic operators with Vector3
     inline Vector operator+(const Vector &b) const {
@@ -69,37 +72,31 @@ public:
         return _mm_sub_ps(mmvalue, b.mmvalue);
     }
 
-    inline Vector operator*(const Vector& b) const
-    {
+    inline Vector operator*(const Vector &b) const {
         return _mm_mul_ps(mmvalue, b.mmvalue);
     }
 
-    inline Vector operator/(const Vector& b) const
-    {
+    inline Vector operator/(const Vector &b) const {
         return _mm_div_ps(mmvalue, b.mmvalue);
     }
 
     /// Assignation and arithmetic operators with Vector3
-    inline Vector& operator+=(const Vector& b)
-    {
+    inline Vector &operator+=(const Vector &b) {
         mmvalue = _mm_add_ps(mmvalue, b.mmvalue);
         return *this;
     }
 
-    inline Vector& operator-=(const Vector& b)
-    {
+    inline Vector &operator-=(const Vector &b) {
         mmvalue = _mm_sub_ps(mmvalue, b.mmvalue);
         return *this;
     }
 
-    inline Vector& operator*=(const Vector& b)
-    {
+    inline Vector &operator*=(const Vector &b) {
         mmvalue = _mm_mul_ps(mmvalue, b.mmvalue);
         return *this;
     }
 
-    inline Vector& operator/=(const Vector& b)
-    {
+    inline Vector &operator/=(const Vector &b) {
         mmvalue = _mm_div_ps(mmvalue, b.mmvalue);
         return *this;
     }
@@ -143,14 +140,16 @@ public:
     }
 
     /// Equality operators
-    inline bool operator==(const Vector& b) const
-    {
-        return (((_mm_movemask_ps(_mm_cmpeq_ps(mmvalue, b.mmvalue))) & 0x7)==0x7);
+    inline bool operator==(const Vector &b) const {
+        return (((_mm_movemask_ps(_mm_cmpeq_ps(mmvalue, b.mmvalue))) & 0x7) == 0x7);
     }
 
-    inline bool operator!=(const Vector& b) const
-    {
-        return !(*this==b);
+    inline bool operator<(const Vector &a) {
+        return this->length() < a.length();
+    }
+
+    inline bool operator!=(const Vector &b) const {
+        return !(*this == b);
     }
 
     /// Unary minus operator
@@ -158,8 +157,7 @@ public:
 
     /// Subscript operator
     // Note: there is not bound checking here.
-    inline const float& operator[](const int i) const
-    {
+    inline const float &operator[](const int i) const {
         return i == 0 ? this->p.x : (i == 1 ? this->p.y : this->p.z);
     }
 
@@ -168,11 +166,12 @@ public:
     }
 
     /// Cross product
-    [[nodiscard]] inline Vector cross(const Vector& b) const
-    {
+    [[nodiscard]] inline Vector cross(const Vector &b) const {
         return _mm_sub_ps(
-                _mm_mul_ps(_mm_shuffle_ps(mmvalue, mmvalue, _MM_SHUFFLE(3, 0, 2, 1)), _mm_shuffle_ps(b.mmvalue, b.mmvalue, _MM_SHUFFLE(3, 1, 0, 2))),
-                _mm_mul_ps(_mm_shuffle_ps(mmvalue, mmvalue, _MM_SHUFFLE(3, 1, 0, 2)), _mm_shuffle_ps(b.mmvalue, b.mmvalue, _MM_SHUFFLE(3, 0, 2, 1)))
+                _mm_mul_ps(_mm_shuffle_ps(mmvalue, mmvalue, _MM_SHUFFLE(3, 0, 2, 1)),
+                           _mm_shuffle_ps(b.mmvalue, b.mmvalue, _MM_SHUFFLE(3, 1, 0, 2))),
+                _mm_mul_ps(_mm_shuffle_ps(mmvalue, mmvalue, _MM_SHUFFLE(3, 1, 0, 2)),
+                           _mm_shuffle_ps(b.mmvalue, b.mmvalue, _MM_SHUFFLE(3, 0, 2, 1)))
         );
     }
 
@@ -187,16 +186,14 @@ public:
     }
 
     /// Returns the normalized vector
-    [[nodiscard]] inline Vector normalize() const
-    {
+    [[nodiscard]] inline Vector normalize() const {
         // multiplying by rsqrt does not yield an accurate enough result, so we
         // divide by sqrt instead.
         return _mm_div_ps(mmvalue, _mm_sqrt_ps(_mm_dp_ps(mmvalue, mmvalue, 0xFF)));
     }
 
     /// Overloaded operators that ensure alignment
-    inline void* operator new[](size_t x)
-    {
+    inline void *operator new[](size_t x) {
         return malloc_simd(x);
     }
 

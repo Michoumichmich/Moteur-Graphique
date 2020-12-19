@@ -18,16 +18,16 @@ enum class RT_RayRenderMode {
  * //TODO split the global renderer config and the ray's one to avoid duplicating data
  */
 struct RT_RayConfig {
-  bool reflexions = false;
-  bool refractions = false;
-  bool transparency = false;
-  bool diffusivity = false;
-  bool depthOfField = false;
-  RT_RayRenderMode rtMode = RT_RayRenderMode::RT_DEPTHMAP;
-  int bouncesLeft = MAX_BOUNCES;
-  double intensity = 1;
-  Vector cam_view_center = Vector();
-  Environment* env = nullptr;
+    bool reflexions = false;
+    bool refractions = false;
+    bool transparency = false;
+    bool diffusivity = false;
+    bool depthOfField = false;
+    RT_RayRenderMode rtMode = RT_RayRenderMode::RT_DEPTHMAP;
+    int bouncesLeft = MAX_BOUNCES;
+    double intensity = 1;
+    Vector cam_view_center = Vector();
+    Environment *env = nullptr;
 };
 
 /**
@@ -38,11 +38,11 @@ struct RT_RayConfig {
  * For the others, we can still apply some kind of ray extinction
  */
 struct RT_RayOutput {
-  Color resultColor = Color(0);
-  Point3D rayTesselIntersection;
-  double distance{};
-  double ortho_distance{};
-  double intensity = 1;
+    Color resultColor = Color(0);
+    Point3D rayTesselIntersection;
+    double distance{};
+    double ortho_distance{};
+    double intensity = 1;
 };
 
 #endif //GRAPHICSENGINE_RT_COMMONS_H

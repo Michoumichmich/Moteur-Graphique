@@ -7,6 +7,7 @@ class PlyObject : public Object {
 
 private:
     std::string source_file;
+    std::vector<Tessel> constructed_tessels;
 public:
     explicit PlyObject(std::string ply_file);
 

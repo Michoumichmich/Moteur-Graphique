@@ -11,7 +11,7 @@
  */
 class RT_RayCaster {
 public:
-    static std::vector<std::list<RT_Ray>> generateFirstRays(struct RT_RayConfig config, const std::shared_ptr<Camera>& cam, unsigned int pool_count = 32);
+    static std::vector<std::list<RT_Ray>> generateFirstRays(struct RT_RayConfig config, const std::shared_ptr<Camera> &cam, unsigned int pool_count = 32);
 };
 
 #endif //GRAPHIC_ENGINE_RAYCASTER_H

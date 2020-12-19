@@ -7,29 +7,26 @@
  */
 
 
+#include "samples.hpp"
 #include <graphicsEngine.h>
 #include <ui.h>
 #include <iostream>
-#include "code_bits.hpp"
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
+    /**
+     * Uncomment one of the next items to render a scene
+     */
+
+//    teapot_scene("../misc/teapot.ply");
+//    illuminati_scene();
+//    night_scene();
+
+
     /**
      * Example using the CLI
      */
     CommandLineInterface cli;
     cli.main_loop();
-
-
- /*   std::shared_ptr<Sphere> sphere = std::make_shared<Sphere>(1/1.42);
-    sphere->setLightIntensity(1);
-    sphere->setColor(Color(0.2, 0.0, 0.5));
-    sphere->setReflexivity(0.40);
-    auto obj = std::shared_ptr<Object>(dynamic_cast<Object*>(sphere.get()));
-    std::cout << *obj << std::endl;*/
-
-
-//    default_test();
 
     exit(0);
 }

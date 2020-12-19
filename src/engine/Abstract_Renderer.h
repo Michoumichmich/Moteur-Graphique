@@ -5,7 +5,7 @@
 #include <environment.h>
 
 enum renderer_type {
-  RAYTRACER,
+    RAYTRACER,
 };
 
 class Abstract_Renderer {
@@ -13,14 +13,14 @@ protected:
     explicit Abstract_Renderer(renderer_type);
 
     enum renderer_type type;
-    Environment* environment{};
-    OutputPictureManager* picManager{};
+    Environment *environment{};
+    OutputPictureManager *picManager{};
 public:
     Abstract_Renderer();
 
     virtual ~Abstract_Renderer();
 
-    virtual void renderScene(std::string string, Environment* env) = 0;
+    virtual void renderScene(std::string string, Environment *env) = 0;
 
     virtual void enableReflexions() = 0; // TODO remove that
 

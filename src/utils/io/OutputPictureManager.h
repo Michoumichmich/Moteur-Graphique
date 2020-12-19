@@ -26,13 +26,13 @@ public :
 
     void writePixel(double d, unsigned int x, unsigned int y);
 
-    void setColorMapper(ColorMapper* color_mapper);
+    void setColorMapper(ColorMapper *color_mapper);
 
     void savePicture();
 
     ~OutputPictureManager();
 
-    void setOutFile(const std::string& basicString);
+    void setOutFile(const std::string &basicString);
 
     void writePixel(Color color, double d, unsigned int x, unsigned int y);
 };

@@ -6,8 +6,8 @@
 #include <sstream>
 
 struct json_entry {
-  std::string name;
-  std::string data;
+    std::string name;
+    std::string data;
 };
 
 #define Serialize_Serializable_List(out, entry_name, string) \
@@ -28,13 +28,13 @@ public:
 
     virtual ~Serializable() = default;
 
-    static void jsonify_serializable_list(std::ostream& out, const std::string& entry_name, std::list<std::string>& string);
+    static void jsonify_serializable_list(std::ostream &out, const std::string &entry_name, std::list<std::string> &string);
 
-    static std::string export_entry(const std::string& entry_name, const std::list<json_entry>& list);
+    static std::string export_entry(const std::string &entry_name, const std::list<json_entry> &list);
 
-    virtual void serialize(std::stringstream& stream) = 0;
+    virtual void serialize(std::stringstream &stream) = 0;
 
-    virtual void deserialize(std::istream& stream) = 0;
+    virtual void deserialize(std::istream &stream) = 0;
 };
 
 #endif //GRAPHICSENGINE_SERIALIZABLE_H

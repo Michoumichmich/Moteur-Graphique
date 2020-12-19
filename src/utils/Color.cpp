@@ -3,32 +3,28 @@
 #include <iostream>
 
 Color::Color()
-        :colormode(colorMode::RGB), red(0), green(0), blue(0)
-{
+        : colormode(colorMode::RGB), red(0), green(0), blue(0) {
 }
 
 Color::Color(double r, double g, double b)
-        :colormode(colorMode::RGB), red(r), green(g), blue(b)
-{
+        : colormode(colorMode::RGB), red(r), green(g), blue(b) {
 }
 
 Color::Color(int r, int g, int b, int d)
-        :colormode(colorMode::RGB), red((double) r/d), green((double) g/d), blue((double) b/d)
-{
+        : colormode(colorMode::RGB), red((double) r / d), green((double) g / d), blue((double) b / d) {
 }
 
-struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const
-{
-    int factor = (int) pow(2, bitDepth)-1;
-    int r = (int) (red*factor);
+struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const {
+    int factor = (int) pow(2, bitDepth) - 1;
+    int r = (int) (red * factor);
     r = r >= factor ? factor : r;
     r = r < 0 ? 0 : r;
 
-    int g = (int) (green*factor);
+    int g = (int) (green * factor);
     g = g >= factor ? factor : g;
     g = g < 0 ? 0 : g;
 
-    int b = (int) (blue*factor);
+    int b = (int) (blue * factor);
     b = b >= factor ? factor : b;
     b = b < 0 ? 0 : b;
 
@@ -36,18 +32,15 @@ struct rgbPixel Color::getPixelValues(unsigned int bitDepth) const
 }
 
 Color::Color(double d)
-        :Color(d, d, d)
-{
+        : Color(d, d, d) {
 }
 
-Color Color::invert() const
-{
+Color Color::invert() const {
     return Color(1 - red, 1 - green, 1 - blue);
 }
 
-Color Color::operator+(const Color& c1) const
-{
-    return Color(this->red+c1.red, this->green+c1.green, this->blue+c1.blue);
+Color Color::operator+(const Color &c1) const {
+    return Color(this->red + c1.red, this->green + c1.green, this->blue + c1.blue);
 }
 
 double Color::getIntensity() const {
@@ -72,6 +65,8 @@ Color Color::get_color(enum builtin_colors name) {
     }
     return Color();
 }
+
+Color::Color(enum builtin_colors c) : Color(get_color(c)) {}
 
 
 
