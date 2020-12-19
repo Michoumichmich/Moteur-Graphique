@@ -27,6 +27,8 @@ private:
 public:
     void launchRender(const std::string &outName);
 
+    void launchRender(const std::string &outName, int frame_start, int frame_end);
+
     GraphicsEngine();
 
     void createEnvironment(std::string name);

@@ -16,27 +16,40 @@ class MeshNode : public Animated {
 public:
     Point3D original_position;
     Point3D current_position;
+
+    MeshNode(Point3D pt) : original_position(pt) {}
 };
 
 /**
  * Tessel composed of mesh nodes
  */
 struct MeshTessel {
-    std::unordered_set<std::shared_ptr<MeshNode>> mesh_nodes{};
+    std::array<MeshNode, 3> nodes;
 };
 
 class MeshObject : public Object {
-private:
-    std::unordered_set<std::shared_ptr<struct MeshTessel>> meshed_tessels{};
-    std::unordered_set<std::shared_ptr<MeshNode>> all_mesh_nodes{};
+protected:
+    std::vector<std::array<size_t, 3>> all_mesh_tessels;
+    std::vector<MeshNode> all_nodes;
 
 public:
-    void add_mesh_tessel(std::shared_ptr<struct MeshTessel> m_tessel);
+    /**
+     * Adds a mesh tessel in the environment. Checks wether the nodes are already presend in all_mesh_nodes
+     * @param m_tessel
+     */
+    void add_mesh_tessel(std::array<size_t, 3> m_tessel);
 
-
-    void update_meshes_position(int frame);
+    void update_nodes_position();
 
     void Tesselate(int resolution) override;
+
+    void serialize(std::stringstream &stream) override;
+
+    void deserialize(std::istream &stream) override;
+
+    void setFrame(int frame) override;
+
+    std::ostream &print(std::ostream &str) override;
 };
 
 

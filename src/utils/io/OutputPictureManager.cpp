@@ -68,6 +68,7 @@ void OutputPictureManager::savePicture() {
     bmpinfoheader[10] = (unsigned char) (height >> 16u);
     bmpinfoheader[11] = (unsigned char) (height >> 24u);
 
+    this->outFile.append(".bmp");
     f = fopen(this->outFile.c_str(), "wb");
     if (f != nullptr) {
         fwrite(bmpfileheader, 1, 14, f);

@@ -16,20 +16,23 @@ struct keyframe {
  */
 class Animated {
 private:
+    void update_current_transformation(int frame);
+
     std::list<struct keyframe> keyframes;
     bool use_interpolation = false;
     bool use_keyframes = true;
+protected:
+    int current_frame_number = 0;
+    bool anim_object_moved = true;
+
 public:
-    struct transformations animator_current_transformation;
+    struct transformations anim_curr_transformation;
+
+    void anim_set_frame_number(int num);
 
     void add_keyframe(struct keyframe frame);
 
-    /**
-     *
-     * @param frame
-     * @return bool that tells if the transformation is different from the previous one;
-     */
-    bool update_current_transformation(int frame);
+    bool test_shrink = false;
 };
 
 

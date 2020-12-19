@@ -30,13 +30,13 @@ static void inline teapot_scene(std::string ply_path) {
     gr->currEnv()->addCamera(cam);
     gr->currEnv()->switchCamera("Face");
 
-    std::shared_ptr<PlyObject> teapot = std::make_shared<PlyObject>(ply_path);
+    std::shared_ptr<PlyObjectMesh> teapot = std::make_shared<PlyObjectMesh>(ply_path);
     teapot->setColor(Color(builtin_colors::C_MIDNIGHT))->setTransformation({2, -40, 0, 0, Vector(0, -0.5, -0.5)});
-    teapot->setLightIntensity(0.5)->setReflexivity(0.7);
+    teapot->setLightIntensity(0.5)->setReflexivity(0.7)->disableAnimations();
     gr->addObjInEnv(teapot);
 
-    for (int i = 0; i < 400; i++) gr->addObjInEnv(cube_generator());
-    for (int i = 0; i < 400; ++i) gr->addObjInEnv(pyramid_generator());
+    for (int i = 0; i < 4; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 4; ++i) gr->addObjInEnv(pyramid_generator());
 
     auto planeLeft = std::make_shared<Plane>(5, 5);
     planeLeft->setColor(Color(1));
@@ -63,7 +63,7 @@ static void inline teapot_scene(std::string ply_path) {
     gr->addObjInEnv(plane_right);
 
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("test_face.bmp");
+    gr->launchRender("teapot", 2, 10);
 }
 
 
@@ -131,7 +131,7 @@ static void inline illuminati_scene() {
 
 
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("test_face.bmp");
+    gr->launchRender("illuminati");
 }
 
 static void inline night_scene() {
@@ -203,7 +203,7 @@ static void inline night_scene() {
 
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("test_face.bmp");
+    gr->launchRender("test_face");
     gr->currEnv()->switchCamera("Default");
 }
 

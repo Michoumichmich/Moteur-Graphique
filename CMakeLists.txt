@@ -17,6 +17,7 @@ add_executable(main src/main.cpp src/include/config.h src/utils/Vector.cpp
         src/environment/Object.h src/include/environment.h src/include/raytracer.h src/raytracer/RT_RayCaster.cpp src/raytracer/RT_RayCaster.h
         src/userInterface/CommandLineInterface.cpp src/userInterface/CommandLineInterface.h src/userInterface/GraphicalUserInterface.cpp
         src/userInterface/GraphicalUserInterface.h src/include/utils.h src/utils/Color.cpp
+        src/environment/Meshes/PlyObjectMesh.cpp src/environment/Meshes/PlyObject.h
         src/utils/Color.h src/environment/ApparenceProperties.cpp src/environment/ApparenceProperties.h src/include/ui.h src/engine/GraphicsEngine.cpp
         src/engine/GraphicsEngine.h src/engine/Abstract_Renderer.h src/utils/io/OutputPictureManager.cpp src/utils/io/OutputPictureManager.h src/include/graphicsEngine.h src/engine/Abstract_Renderer.cpp
         src/environment/RegularObjects/Sphere.cpp src/environment/RegularObjects/Sphere.h src/raytracer/RT_Ray.cpp src/raytracer/RT_Ray.h

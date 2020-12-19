@@ -28,6 +28,8 @@ public:
 
     explicit Environment(std::string name);
 
+    void set_time_frame(int frame);
+
     Environment();
 
     void setBackgroundAppearence(bool val);

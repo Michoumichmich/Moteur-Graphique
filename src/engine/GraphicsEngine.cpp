@@ -5,12 +5,23 @@
 #include <algorithm>
 #include <sstream>
 
-
 void GraphicsEngine::launchRender(const std::string &outName) {
     Chrono local("Rendering " + outName);
     this->currentEnv->tesselate();
     this->renderer->renderScene(outName, this->currentEnv);
 }
+
+void GraphicsEngine::launchRender(const std::string &outName, int frame_start, int frame_end) {
+    for (int frame = frame_start; frame < frame_end; frame++) {
+        char suffix[14];
+        std::snprintf(suffix, 14, "_%04d", frame);
+        std::string curr_name = outName;
+        curr_name.append(suffix);
+        this->currEnv()->set_time_frame(frame);
+        launchRender(curr_name);
+    }
+}
+
 
 void GraphicsEngine::createEnvironment(std::string name) {
     auto *env = new Environment(std::move(name));
@@ -69,5 +80,6 @@ void GraphicsEngine::serialize(std::stringstream &stream) {
     //  Serialize_Atrubutes_List(stream, "GraphicsEngine", environments)
     Serialize_Serializable_List(stream, "Environments", environments)
 }
+
 
 GraphicsEngine::GraphicsEngine() = default;

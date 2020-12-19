@@ -114,3 +114,9 @@ void Environment::setHazeIntensity(double d) {
 void Environment::setBackgroundAppearence(bool val) {
     this->show_background_color = val;
 }
+
+void Environment::set_time_frame(int frame) {
+    for (auto &object : allObjects) {
+        object->setFrame(frame);
+    }
+}

@@ -2,12 +2,14 @@
 #define GRAPHIC_ENGINE_OBJECT_H
 
 #include <list>
-#include <utils.h>
 #include <string>
+#include <memory>
+
+#include <utils.h>
 #include "Tessel.h"
 #include "ApparenceProperties.h"
 #include "CoordinatesHandler.h"
-#include <memory>
+#include "Animated.h"
 
 /**
  * @class L'objet doit être crée autour ce son centre géométrique. Ie une sphère aura son centre en (0;0;0).
@@ -15,19 +17,22 @@
  * D'abord l'homothétie "transfo.scale", puis les rotations et finalement ma translation.
  * C'est effectué par CoordinatesHandler::fromLocalToGlobal
  */
-class Object : public Serializable {
+class Object : public Serializable, public Animated {
 protected:
     struct transformations transformations{};
     std::shared_ptr<std::list<Tessel>> tessels = std::make_shared<std::list<Tessel>>();
     ApparenceProperties properties;
-    bool needComputeTessels = true;
+    bool state_changed_since_last_tessel = true;
 
     virtual void Tesselate(int resolution) = 0;
+
+    bool all_anim_disabled = false;
+
+    bool needToRecompute();
 
 public:
     std::string ObjectName;
 
-    int current_frame_numer = 0;
 
     /**
      * Computes if needed the tessels and if needed moves them in the environment
@@ -36,11 +41,15 @@ public:
      */
     std::shared_ptr<std::list<Tessel>> getTessels(int resolution);
 
+    virtual void setFrame(int frame);
+
     Object *setTransformation(struct transformations);
 
     Object *setCenter(Point3D);
 
     Object *setColor(Color color);
+
+    Object *disableAnimations();
 
     Object *setTransparency(double transparency);
 
@@ -57,6 +66,8 @@ public:
     friend std::ostream &operator<<(std::ostream &, Object &);
 
     ~Object() override;
+
+    Object *enableAnimations();
 };
 
 #endif //GRAPHIC_ENGINE_OBJECT_H

@@ -16,6 +16,7 @@
 #include "../environment/RegularObjects/PlyObject.h"
 #include "../environment/Animated.h"
 #include "../environment/Meshes/MeshObject.h"
+#include "../environment/Meshes/PlyObjectMesh.h"
 
 
 #endif //GRAPHIC_ENGINE_ENVIRONMENT_H
