@@ -6,9 +6,7 @@
  * NB : the tesselation does not happen every time
  */
 
-
 #include "samples.hpp"
-#include <graphicsEngine.h>
 #include <ui.h>
 #include <iostream>
 
@@ -17,9 +15,9 @@ int main(int argc, char **argv) {
      * Uncomment one of the next items to render a scene
      */
 
-//    teapot_scene("../misc/teapot.ply");
-//    illuminati_scene();
-//    night_scene();
+    // teapot_scene("../misc/teapot.ply");
+    // illuminati_scene();
+    // night_scene();
 
 
     /**

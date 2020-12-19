@@ -9,19 +9,21 @@ static inline double get_rand_float() {
 
 
 UglySphere::UglySphere(double radius, int n_summit, int n_tessels)
-        : radius(radius), n_summit(n_summit), n_tessels(n_tessels) {}
+        : radius(radius), n_summit(n_summit), n_tessels(n_tessels) {
 
-void UglySphere::Tesselate(int resolution) {
-    std::vector<Point3D> summits(n_summit);
+    all_nodes.reserve(n_summit);
     /* First let's construct random points on a sphere */
     for (int i(0); i < n_summit; i++) {
         Point3D pt(get_rand_float(), get_rand_float(), get_rand_float());
-        summits[i] = pt.normalize() * radius;
+        all_nodes.emplace_back(pt.normalize() * radius);
     }
-
     /* Then we create random tessels with those points */
+    all_mesh_tessels.reserve(n_tessels);
     for (int i(0); i < n_tessels; i++) {
-        tessels->emplace_back(summits[rand() % n_summit], summits[rand() % n_summit], summits[rand() % n_summit]);
+        unsigned long int0 = rand() % n_summit;
+        unsigned long int1 = rand() % n_summit;
+        unsigned long int2 = rand() % n_summit;
+        this->add_mesh_tessel({int0, int1, int2});
     }
 }
 

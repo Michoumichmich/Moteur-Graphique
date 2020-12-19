@@ -12,7 +12,7 @@
 #include "../environment/RegularObjects/Cube.h"
 #include "../environment/RegularObjects/Plane.h"
 #include "../environment/RegularObjects/Pyramid.h"
-#include "../environment/RegularObjects/UglySphere.h"
+#include "../environment/Meshes/UglySphere.h"
 #include "../environment/RegularObjects/PlyObject.h"
 #include "../environment/Animated.h"
 #include "../environment/Meshes/MeshObject.h"

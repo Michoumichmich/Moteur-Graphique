@@ -22,7 +22,7 @@ static void inline teapot_scene(std::string ply_path) {
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>("Face");
     cam->setMode(PERSPECTIVE);
-    cam->setResolution(4001, 2001);
+    cam->setResolution(401, 201);
     cam->setDownSamplingFactor(1);
     cam->setViewDimensions(6, 3);
     cam->setDirection(Point3D(0.01, 5.01, -2.01), Point3D(0, 0, 0));
@@ -63,7 +63,7 @@ static void inline teapot_scene(std::string ply_path) {
     gr->addObjInEnv(plane_right);
 
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("teapot", 2, 10);
+    gr->launchRender("teapot");
 }
 
 
