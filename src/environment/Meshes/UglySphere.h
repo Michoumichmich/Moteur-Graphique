@@ -21,7 +21,6 @@ public:
     void serialize(std::stringstream &stream) override;
 
     std::ostream &print(std::ostream &str) override;
-
 };
 
 

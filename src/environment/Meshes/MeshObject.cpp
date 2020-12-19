@@ -28,6 +28,11 @@ void MeshObject::update_nodes_position() {
     if (!all_anim_disabled) {
         for (auto &one_node : all_nodes) {
             one_node.anim_set_frame_number(this->current_frame_number);
+            //    one_node.anim_curr_transformation.rotX = current_frame_number * one_node.parent->transformations.pt.x();
+            one_node.anim_curr_transformation.rotY = current_frame_number * one_node.current_position.x(); //TODO
+            one_node.anim_curr_transformation.rotZ = current_frame_number * one_node.current_position.y(); //TODO
+            one_node.anim_curr_transformation.rotX = current_frame_number * one_node.current_position.z(); //TODO
+
             one_node.current_position = CoordinatesHandler::fromLocalToGlobal(one_node.original_position, one_node.anim_curr_transformation);
         }
     } else {

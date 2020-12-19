@@ -32,7 +32,7 @@ public:
 
     void add_keyframe(struct keyframe frame);
 
-    bool test_shrink = false;
+    bool test_spin = false;
 };
 
 

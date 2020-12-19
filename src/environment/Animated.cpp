@@ -5,8 +5,8 @@ void Animated::add_keyframe(struct keyframe frame) {
 }
 
 void Animated::update_current_transformation(int frame) {
-    if (test_shrink) {
-        anim_curr_transformation.scale = frame;
+    if (test_spin) {
+        anim_curr_transformation.rotX = frame;
         anim_object_moved = true;
     } else if (keyframes.empty()) {
         anim_object_moved = false;

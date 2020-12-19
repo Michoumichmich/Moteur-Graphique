@@ -18,13 +18,6 @@ PlyObjectMesh::PlyObjectMesh(std::string ply_file) : source_file(ply_file) {
         }
     }
 
-    for (auto &node : all_nodes) {
-        if (rand() % 2 == 0) {
-            node.test_shrink = true;
-        }
-    }
-
-
     std::cout << this->all_nodes.size() << std::endl;
     std::cout << this->all_mesh_tessels.size() << std::endl;
 }

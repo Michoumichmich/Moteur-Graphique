@@ -17,7 +17,11 @@ public:
     Point3D original_position;
     Point3D current_position;
 
-    MeshNode(Point3D pt) : original_position(pt) {}
+    class MeshObject *parent = nullptr;
+
+    MeshNode(Point3D pt) : original_position(pt), current_position(pt) {}
+
+    MeshNode(Point3D pt, class MeshObject *par) : MeshNode(pt) { this->parent = par; }
 };
 
 /**

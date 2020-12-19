@@ -15,7 +15,7 @@ UglySphere::UglySphere(double radius, int n_summit, int n_tessels)
     /* First let's construct random points on a sphere */
     for (int i(0); i < n_summit; i++) {
         Point3D pt(get_rand_float(), get_rand_float(), get_rand_float());
-        all_nodes.emplace_back(pt.normalize() * radius);
+        all_nodes.emplace_back(pt.normalize() * radius, this);
     }
     /* Then we create random tessels with those points */
     all_mesh_tessels.reserve(n_tessels);
