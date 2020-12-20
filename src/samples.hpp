@@ -186,7 +186,7 @@ static void inline night_scene() {
 
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("test_face", 0, 100);
+    gr->launchRender("test_face", 2);
     gr->currEnv()->switchCamera("Default");
 }
 

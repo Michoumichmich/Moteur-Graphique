@@ -25,7 +25,7 @@ private:
     Abstract_Renderer *renderer{};
     Environment *currentEnv{};
 public:
-    void launchRender(const std::string &outName);
+    void launchRender(const std::string &outName, int frame_number = 0);
 
     void launchRender(const std::string &outName, int frame_start, int frame_end);
 

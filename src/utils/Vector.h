@@ -15,6 +15,7 @@
 #else
 
 # include <malloc.h>
+#include <array>
 
 #endif
 

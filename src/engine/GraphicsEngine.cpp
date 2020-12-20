@@ -5,9 +5,10 @@
 #include <algorithm>
 #include <sstream>
 
-void GraphicsEngine::launchRender(const std::string &outName) {
+void GraphicsEngine::launchRender(const std::string &outName, int frame_num) {
     Chrono local("Rendering " + outName);
     this->currentEnv->tesselate();
+    this->currEnv()->set_time_frame(frame_num);
     this->renderer->renderScene(outName, this->currentEnv);
 }
 
