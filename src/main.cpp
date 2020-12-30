@@ -17,14 +17,14 @@ int main(int argc, char **argv) {
 
     // teapot_scene("../misc/teapot.ply");
     // illuminati_scene();
-    // night_scene();
-
+    night_scene();
+    srand(time(0));
 
     /**
      * Example using the CLI
      */
     CommandLineInterface cli;
-    cli.main_loop();
+//    cli.main_loop();
 
     exit(0);
 }

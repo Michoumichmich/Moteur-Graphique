@@ -5,17 +5,17 @@
 #include "RT_RayCaster.h"
 
 RT_RayTracer::RT_RayTracer() {
-    default_ray.bouncesLeft = MAX_BOUNCES;
-    default_ray.rtMode = RT_RayRenderMode::RT_DEPTHMAP;
-    default_ray.reflexions = true;
-    default_ray.refractions = false;
-    default_ray.depthOfField = false;
-    default_ray.diffusivity = false;
-    default_ray.transparency = false;
+    def_ray_conf.bouncesLeft = MAX_BOUNCES;
+    def_ray_conf.rtMode = RT_RayRenderMode::RT_DEPTHMAP;
+    def_ray_conf.reflexions = true;
+    def_ray_conf.refractions = false;
+    def_ray_conf.depthOfField = false;
+    def_ray_conf.diffusivity = false;
+    def_ray_conf.transparency = false;
 }
 
 RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf)
-        : default_ray(conf) {
+        : def_ray_conf(conf) {
 }
 
 /**
@@ -24,11 +24,11 @@ RT_RayTracer::RT_RayTracer(struct RT_RayConfig conf)
  */
 void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
     this->env = environment;
-    default_ray.env = env;
-    ray_out_manager = new RT_OutputManager(default_ray, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
+    def_ray_conf.env = env;
+    ray_out_manager = new RT_OutputManager(def_ray_conf, env->currCam()->pxWidthCount(), env->currCam()->pxHeightCount());
     envIntersector = new RT_RayEnvIntersector(env);
-    default_ray.cam_view_center = env->currCam()->getCamViewCenter();
-    auto primaryRays = RT_RayCaster::generateFirstRays(default_ray, env->currCam(), 128);
+    def_ray_conf.cam_view_center = env->currCam()->getCamViewCenter();
+    auto primaryRays = RT_RayCaster::generateFirstRays(def_ray_conf, env->currCam(), 128);
 #ifdef _OPENMP
 #ifdef DEBUG // DEBUG AND OPENMP special case needed to share std::cout
 #warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
@@ -55,49 +55,49 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
 }
 
 void RT_RayTracer::setMode(RT_RayRenderMode mode) {
-    default_ray.rtMode = mode;
+    def_ray_conf.rtMode = mode;
 }
 
 void RT_RayTracer::setMaxBounces(int max) {
-    default_ray.bouncesLeft = max;
+    def_ray_conf.bouncesLeft = max;
 }
 
 void RT_RayTracer::enableReflexions() {
-    default_ray.reflexions = true;
+    def_ray_conf.reflexions = true;
 }
 
 void RT_RayTracer::enableDiffusivity() {
-    default_ray.diffusivity = true;
+    def_ray_conf.diffusivity = true;
 }
 
 void RT_RayTracer::enableRefractions() {
-    default_ray.refractions = true;
+    def_ray_conf.refractions = true;
 }
 
 void RT_RayTracer::enableTransparency() {
-    default_ray.transparency = true;
+    def_ray_conf.transparency = true;
 }
 
 void RT_RayTracer::enableDepthOfField() {
-    default_ray.depthOfField = true;
+    def_ray_conf.depthOfField = true;
 }
 
 void RT_RayTracer::disableDiffusivity() {
-    default_ray.diffusivity = false;
+    def_ray_conf.diffusivity = false;
 }
 
 void RT_RayTracer::disableReflexions() {
-    default_ray.reflexions = false;
+    def_ray_conf.reflexions = false;
 }
 
 void RT_RayTracer::disableTransparency() {
-    default_ray.transparency = false;
+    def_ray_conf.transparency = false;
 }
 
 void RT_RayTracer::disableRefractions() {
-    default_ray.refractions = false;
+    def_ray_conf.refractions = false;
 }
 
 void RT_RayTracer::disableDepthOfField() {
-    default_ray.depthOfField = false;
+    def_ray_conf.depthOfField = false;
 }

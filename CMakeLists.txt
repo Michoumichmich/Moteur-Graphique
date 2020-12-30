@@ -5,7 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(ARCH_FLAGS "-Wall -Wextra -Winit-self -std=c++20 -Wuninitialized -Wmissing-declarations -Wno-unused -pedantic -Woverloaded-virtual -march=native -mtune=native -msse4.1")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -Wno-unused -fopenmp -Ofast -flto -DBENCHMARK -fprofile-correction")
+set(PROF_USE "-fprofile-use -Wno-coverage-mismatch -Wno-missing-profile -Wno-error=coverage-mismatch -fprofile-correction -fprofile-partial-training")
+set(PROF_GEN "-fprofile-generate")
+
+set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -fopenmp -Ofast -flto -DBENCHMARK  ${PROF_USE}")
 set(CMAKE_CXX_FLAGS "${ARCH_FLAGS}")
 set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -Ofast -DBENCHMARK")
 

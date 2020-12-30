@@ -13,7 +13,7 @@ struct RT_IntersectorResult RT_RayEnvIntersector::RT_RayFindIntersection(const P
     double distance;
     Vector intersection = Vector();
     struct RT_IntersectorResult result;
-    std::shared_ptr<std::list<Tessel>> tessels = this->environment->getTessels();
+    auto tessels = this->environment->getTessels();
     for (const Tessel &aTessel : *tessels) {
         if (checkForSingleIntersection(origin, direction, &aTessel, &intersection, &distance) && (distance < distanceMinTessel || distanceMinTessel < 0) && distance > MIN_RAY_LENGTH) {
             closest = aTessel;

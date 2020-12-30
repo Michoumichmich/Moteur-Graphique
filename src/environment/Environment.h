@@ -13,7 +13,7 @@
 class Environment : public Serializable {
 private:
     std::list<std::shared_ptr<Camera>> cameras;
-    std::shared_ptr<std::list<Tessel>> allTessels;
+    std::shared_ptr<std::vector<Tessel>> allTessels;
     std::list<std::shared_ptr<Object>> allObjects;
     std::list<std::shared_ptr<MappedTexture>> allTMapped;
     std::shared_ptr<Camera> currentCam;
@@ -47,7 +47,7 @@ public:
 
     bool switchCamera(const std::string &camName);
 
-    std::shared_ptr<std::list<Tessel>> getTessels();
+    std::shared_ptr<std::vector<Tessel>> getTessels();
 
     std::list<std::shared_ptr<Object>> getObjects();
 

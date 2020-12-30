@@ -138,8 +138,8 @@ static void inline night_scene() {
     std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
 
-    for (int i = 0; i < 200; i++) gr->addObjInEnv(cube_generator());
-    for (int i = 0; i < 200; ++i) gr->addObjInEnv(pyramid_generator());
+    for (int i = 0; i < 400; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 400; ++i) gr->addObjInEnv(pyramid_generator());
 
     std::shared_ptr<Cube> cube_center = std::make_shared<Cube>(1);
     cube_center->setColor(Color(200, 200, 200));
@@ -186,7 +186,7 @@ static void inline night_scene() {
 
     gr->currEnv()->switchCamera("Face");
     gr->currEnv()->print_objects(std::cout);
-    gr->launchRender("test_face", 2);
+    gr->launchRender("test_face", 0, 10);
     gr->currEnv()->switchCamera("Default");
 }
 

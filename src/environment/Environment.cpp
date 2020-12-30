@@ -5,7 +5,7 @@
 
 Environment::Environment(std::string name)
         : envName(std::move(name)) {
-    allTessels = std::make_shared<std::list<Tessel>>();
+    allTessels = std::make_shared<std::vector<Tessel>>();
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
 }
@@ -14,7 +14,7 @@ std::shared_ptr<Camera> Environment::currCam() {
     return currentCam;
 }
 
-std::shared_ptr<std::list<Tessel>> Environment::getTessels() {
+std::shared_ptr<std::vector<Tessel>> Environment::getTessels() {
     return this->allTessels;
 }
 
@@ -49,7 +49,7 @@ void Environment::tesselate() {
 }
 
 Environment::Environment() {
-    allTessels = std::make_shared<std::list<Tessel>>(0);
+    allTessels = std::make_shared<std::vector<Tessel>>(0);
     currentCam = std::make_shared<Camera>("Default");
     cameras.push_back(currentCam);
 }
