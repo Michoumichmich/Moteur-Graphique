@@ -6,12 +6,12 @@
  * Tells the branch predictor that it is very likely that the condition is true
  * Wether it does something or not is implementation dependant.
  */
-#define likely(x)       __builtin_expect((x),1)
+//#define likely(x)       __builtin_expect((x),1)
 
 /**
  * Tells the branch predictor that the condition is very unlikely false.
  */
-#define unlikely(x)     __builtin_expect((x),0)
+//#define unlikely(x)     __builtin_expect((x),0)
 #else
 #define likely(x) (x)
 #define unlikely(x) (x)

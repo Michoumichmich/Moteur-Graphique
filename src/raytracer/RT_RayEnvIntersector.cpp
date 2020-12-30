@@ -47,8 +47,8 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, con
     float a0 = (x1_orig).cross(x2_orig).dot(dir);
     float a1 = (x2_orig).cross(x0_orig).dot(dir);
 
-    if (unlikely(a0 < 0 && a1 < 0) || (a0 > 0 && a1 > 0)) {
-        float a2 = (x0_orig).cross(x1_orig).dot(dir);
+    if ((a0 < 0 && a1 < 0) || (a0 > 0 && a1 > 0)) {
+    float a2 = (x0_orig).cross(x1_orig).dot(dir);
         /**
          * There's an intersection if all ai non positive or all ai non negativs while not all null
          * We already know that a0 and a1 are of the same sign
@@ -62,9 +62,9 @@ bool RT_RayEnvIntersector::checkForSingleIntersection(const Point3D &origin, con
             /**
              * To check wether the vectors are in the right direction
              */
-            if (likely((intersection - origin).dot(dir) >= 0)) {
-                *intersectionPoint = intersection;
-                *distance = (origin - intersection).length();
+    if (((intersection - origin).dot(dir) >= 0)) {
+    *intersectionPoint = intersection;
+    *distance = (origin - intersection).length();
                 return true;
             }
         }

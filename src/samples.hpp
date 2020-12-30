@@ -66,7 +66,6 @@ static void inline teapot_scene(std::string ply_path) {
     gr->launchRender("teapot");
 }
 
-
 static void inline illuminati_scene() {
     std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
@@ -135,20 +134,20 @@ static void inline illuminati_scene() {
 }
 
 static void inline night_scene() {
-    std::unique_ptr<GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
+    std::unique_ptr <GraphicsEngine> gr = std::make_unique<GraphicsEngine>();
     gr->createEnvironment("firstEnv");
 
-    for (int i = 0; i < 400; i++) gr->addObjInEnv(cube_generator());
-    for (int i = 0; i < 400; ++i) gr->addObjInEnv(pyramid_generator());
+    for (int i = 0; i < 200; i++) gr->addObjInEnv(cube_generator());
+    for (int i = 0; i < 200; ++i) gr->addObjInEnv(pyramid_generator());
 
-    std::shared_ptr<Cube> cube_center = std::make_shared<Cube>(1);
+    std::shared_ptr <Cube> cube_center = std::make_shared<Cube>(1);
     cube_center->setColor(Color(200, 200, 200));
     cube_center->setLightIntensity(0.99);
     cube_center->setReflexivity(0);
     gr->addObjInEnv(cube_center);
 
 
-    std::shared_ptr<UglySphere> ew = std::make_shared<UglySphere>(2, 100, 500);
+    std::shared_ptr <UglySphere> ew = std::make_shared<UglySphere>(2, 100, 500);
     ew->setLightIntensity(0.05);
     ew->setColor(Color(1));
     ew->setReflexivity(1);

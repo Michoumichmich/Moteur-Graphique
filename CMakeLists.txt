@@ -2,15 +2,18 @@ cmake_minimum_required(VERSION 3.13)
 project(GraphicsEngine CXX)
 set(CMAKE_CXX_STANDARD 20)
 
+set(DEF_FLAGS "-Wall -Wextra -Winit-self -std=c++20 -march=native -mtune=native -msse4.1 -Wno-unused")
+set(EXTRA_FLAGS "-Wuninitialized -Wmissing-declarations -Wno-unused -pedantic -Woverloaded-virtual")
 
-set(ARCH_FLAGS "-Wall -Wextra -Winit-self -std=c++20 -Wuninitialized -Wmissing-declarations -Wno-unused -pedantic -Woverloaded-virtual -march=native -mtune=native -msse4.1")
-
-set(PROF_USE "-fprofile-use -Wno-coverage-mismatch -Wno-missing-profile -Wno-error=coverage-mismatch -fprofile-correction -fprofile-partial-training")
+set(PROF_USE "-fprofile-use -Wno-coverage-mismatch -Wno-missing-profile -Wno-error=coverage-mismatch -fprofile-correction ")#-fprofile-partial-training")
 set(PROF_GEN "-fprofile-generate")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${ARCH_FLAGS} -fopenmp -Ofast -flto -DBENCHMARK  ${PROF_USE}")
-set(CMAKE_CXX_FLAGS "${ARCH_FLAGS}")
-set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -Ofast -DBENCHMARK")
+set(RUNTIME_CHECKS "-fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=address -D_GLIBCXX_ASSERTIONS -D_FORTIFY_SOURCE=2 -Werror ")
+
+
+set(CMAKE_CXX_FLAGS_RELEASE "${DEF_FLAGS} -Ofast -fopenmp ${PROF_USE} -DBENCHMARK ")
+set(CMAKE_CXX_FLAGS_DEBUG "${DEF_FLAGS} ${EXTRA_FLAGS} ${RUNTIME_CHECKS}")
+#set(CMAKE_CXX_FLAGS_BENCHMARK "${ARCH_FLAGS} -fopenmp -Ofast -DBENCHMARK")
 
 
 include_directories(src/include)
