@@ -21,11 +21,14 @@
 /**
  * Coloring mode NONSENSE or LINEAR
  */
-#define PI 3.1415926
-#define MAX_BOUNCES 2
-#define DEFAULT_WIDTH 2001
-#define DEFAULT_HEIGHT 1001
 
-#define MIN_RAY_LENGTH 0.0001
+#include <cmath>
+const double PI = std::atan(1.0) * 4;
+
+constexpr auto MAX_BOUNCES = 2;
+constexpr auto DEFAULT_WIDTH = 2001;
+constexpr auto DEFAULT_HEIGHT = 1001;
+
+constexpr auto MIN_RAY_LENGTH = 0.0001;
 
 #endif //INC_3D_RENDERER_CONFIG_H

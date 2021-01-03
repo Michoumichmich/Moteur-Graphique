@@ -14,7 +14,7 @@ struct transformations {
     float rotY = 0;
     float rotZ = 0;
     Point3D pt{};
-} __attribute__((aligned(32)));
+};
 
 class CoordinatesHandler {
 public:

@@ -23,7 +23,7 @@ struct rgbPixel {
     unsigned int red;
     unsigned int green;
     unsigned int blue;
-} __attribute__((aligned(16)));
+};
 
 class Color {
 private:

@@ -1,6 +1,8 @@
 #include "PlyObjectMesh.h"
 #include "../utils/io/PlyParser.hpp"
 
+#include <algorithm>
+
 PlyObjectMesh::PlyObjectMesh(std::string ply_file) : source_file(ply_file) {
     happly::PLYData plyIn(source_file);
 

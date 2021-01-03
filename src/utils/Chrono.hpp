@@ -44,7 +44,7 @@ inline Chrono::~Chrono() {
 
 inline Chrono::Chrono(const std::string &&caller_name)
         : Chrono() {
-    caller = std::move(caller_name);
+    caller = caller_name;
 }
 
 inline double Chrono::stop() {

@@ -1,6 +1,8 @@
 #include "PlyObject.h"
 #include "../utils/io/PlyParser.hpp"
 
+#include <algorithm> 
+
 PlyObject::PlyObject(std::string ply_file) : source_file(ply_file) {
     happly::PLYData plyIn(source_file);
 
