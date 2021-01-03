@@ -42,9 +42,6 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
 #pragma omp single nowait
 #endif
         for (auto &aRay : pool) {
-#ifdef DEBUG // Regardless of openmp we print the coordinates
-            std::cout << aRay->x << ' ' << aRay->y << std::endl;
-#endif
             aRay.RT_ComputePrimaryRay(envIntersector, ray_out_manager);
         }
     }
