@@ -8,7 +8,7 @@ void *malloc_simd(const size_t size) {
 #elif defined __MACH__
     return malloc(size);
 #else // use page-aligned memory for other systems
-    return valloc(size);
+    return _aligned_malloc(size, 16);
 #endif
 }
 

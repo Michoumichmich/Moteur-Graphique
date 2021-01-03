@@ -5,7 +5,7 @@
 
 RT_OutputManager::RT_OutputManager(RT_RayConfig config, unsigned int width, unsigned int height)
         : config(config), height(height), width(width) {
-    allRaysOutput = std::vector(height, std::vector<RT_RayOutput>(width));
+    allRaysOutput = std::vector<std::vector<RT_RayOutput>>(height, std::vector<RT_RayOutput>(width));
 }
 
 /**

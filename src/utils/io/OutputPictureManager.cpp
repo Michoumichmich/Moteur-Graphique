@@ -3,7 +3,7 @@
 
 OutputPictureManager::OutputPictureManager(std::string name, unsigned int width, unsigned int height, int down_sample_factor)
         : outFile(std::move(name)), down_sample(down_sample_factor), width(width / down_sample_factor), height(height / down_sample_factor) {
-    allColors = std::vector(height, std::vector<Color>(width, Color(0.0)));
+    allColors = std::vector<std::vector<Color>>(height, std::vector<Color>(width, Color(0.0)));
 }
 
 void OutputPictureManager::writePixel(Color c, unsigned int x, unsigned int y) {

@@ -34,7 +34,7 @@ void RT_RayTracer::renderScene(std::string out_file, Environment *environment) {
 #warning "THAT'S STUPID, DON'T MIX DEBUG PRINTFSs AND OPENMP!"
 #pragma omp parallel default(none) shared(envIntersector, ray_out_manager, primaryRays, std::cout)
 #else
-#pragma omp parallel default(none) shared(envIntersector, ray_out_manager, primaryRays)
+#pragma omp parallel default(shared)
 #endif
 #endif
     for (auto &pool : primaryRays) {
