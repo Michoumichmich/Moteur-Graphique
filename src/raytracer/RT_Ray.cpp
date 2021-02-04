@@ -28,21 +28,24 @@ void RT_Ray::RT_ComputePrimaryRay(RT_RayEnvIntersector *intersector, RT_OutputMa
  * @return the ray's color, distance to the first object and intensity.
  */
 struct RT_RayOutput RT_Ray::RT_ComputeRay(RT_RayEnvIntersector *intersector) {
-    struct RT_IntersectorResult res = intersector->RT_RayFindIntersection(origin, dir);
+    auto inter = intersector->RT_RayFindIntersection(origin, dir);
+    struct RT_IntersectorResult res;
+
+    if (inter) {
+        res = inter.value();
+    }
 
     /* No reflexions or whatever, we return directly the result */
     if (ray_conf.rtMode == RT_RayRenderMode::RT_BITMAP || ray_conf.rtMode == RT_RayRenderMode::RT_DEPTHMAP ||
         ray_conf.rtMode == RT_RayRenderMode::RT_DEPTHMAP_BW) {
         /* Distance TO THE PLANE where is the intersection point, for the DOF etc, depth mapping, etc */
-        if (res.intersectsSometing) {
+        if (inter) {
             return RT_RayOutput{res.tessel.properties.color, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         } else {
             return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, res.distance, res.ortho_dist, 1};
         }
-    }
-
-    if (ray_conf.rtMode == RT_RayRenderMode::RT_STANDARD) {
-        if (!res.intersectsSometing || res.type == RT_RayIntersectionType::INF) {
+    } else if (ray_conf.rtMode == RT_RayRenderMode::RT_STANDARD) {
+        if (!inter || res.type == RT_RayIntersectionType::INF) {
             return RT_RayOutput{ray_conf.env->backgroundColor, res.intersectionPoint, -1, 1};
         }
 

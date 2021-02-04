@@ -8,6 +8,7 @@
 
 #include <environment.h>
 #include <utils.h>
+#include <optional>
 
 enum class RT_RayIntersectionType {
     INF,
@@ -33,8 +34,8 @@ struct RT_IntersectorResult {
 class RT_RayEnvIntersector {
 public:
     Environment *environment;
-
-    static bool checkForSingleIntersection(const Point3D &origin, const Vector &dir, const Tessel *tessel, Vector *intersectionPoint, double *distance);
+private:
+    static std::optional<std::tuple<Vector, double>> checkForSingleIntersection(const Point3D &origin, const Vector &dir, const Tessel &tessel);
 
 public:
     /**
@@ -52,7 +53,7 @@ public:
      * @param direction
      * @return
      */
-    [[nodiscard]] struct RT_IntersectorResult RT_RayFindIntersection(Point3D origin, Vector direction) const;
+    [[nodiscard]] std::optional<struct RT_IntersectorResult> RT_RayFindIntersection(Point3D origin, Vector direction) const;
 };
 
 #endif //_RT_RAYENVINTERSECTOR_H_
